@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Use Slim as the view templating engine (similar to Jade)
+gem 'slim', '>= 3.0.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
-# Use Jade as the HTML templating engine instead of ERB files
-gem 'jade-rails', '~> 1.9.2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views

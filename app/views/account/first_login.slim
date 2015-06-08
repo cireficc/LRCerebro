@@ -1,0 +1,13 @@
+.page-header
+  h3 Set Your Password
+= form_tag(controller: "account", action: "create", method: "post")
+  = hidden_field_tag(:username, @username)
+  .col-sm-8.col-sm-offset-2
+    .form-group
+      label.control-label(for="password") New Password
+      input.form-control(type="password", name="password")
+      label.control-label(for="confirm_password") Confirm Password
+      input.form-control(type="password", name="confirm_password")
+    form-group
+        button.btn.btn-primary(type='submit')
+          | Set Password
