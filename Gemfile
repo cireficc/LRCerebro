@@ -6,7 +6,7 @@ gem 'rails', '4.1.6'
 # Use PostgreSQL as the database for ActiveRecord
 gem 'pg', '~> 0.18.2'
 # Use Bcrypt to encrypt passwords in the database
-gem 'bcrypt', :require => 'bcrypt' 
+gem 'bcrypt', '~> 3.1.10'
 # Use Slim as the view templating engine (similar to Jade)
 gem 'slim', '>= 3.0.3'
 # Use SCSS for stylesheets
