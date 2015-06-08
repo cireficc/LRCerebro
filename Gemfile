@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use PostgreSQL as the database for ActiveRecord
+gem 'pg', '~> 0.18.2'
 # Use Slim as the view templating engine (similar to Jade)
 gem 'slim', '>= 3.0.3'
 # Use SCSS for stylesheets
