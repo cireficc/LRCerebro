@@ -16,15 +16,25 @@ class AccountController < ApplicationController
         @password = params[:password]
         
         @user = User.find_by username: @username
-        puts "USER FOUND?: #{@user.username}"
         
+        # The BB username was not found; render the login form again with an error
+        if @user.nil?
+            flash.now[:error] = "Your Blackboard username [#{@username}] was not found"
+            render "home"
+            return
+        end
+        
+        # The BB username was found. Check to see if their password has been set before
         if @password.empty?
             # Store username in session, then clear it after the password has been set
+            # Redirect to set password page
             session[:username] = @username
             redirect_to "/account/create"
         else
             puts "Password: #{@password}"
+            # Attempt to log them in. Render error if authentication failed
         end
+        
     end
     
     # GET create, render form to set user's new password
@@ -37,10 +47,13 @@ class AccountController < ApplicationController
     # POST create, set the user's new password. Make sure they match
     def create
         @username = params[:username]
+        @g_number = params[:g_number]
         @password = params[:password]
-        @confirm_password = params[:password_confirmation]
+        @password_confirmation = params[:password_confirmation]
         
-        puts "[CREATE] Username: #{@username} --> #{@password} || #{@password_confirmation}"
+        puts "[CREATE] Username: #{@username} --> #{@g_number} || #{@password} || #{@password_confirmation}"
+        
+        #@user = User.find_by username: @username, g_number: @g_number
         
         if @password == @password_confirmation
             puts "Passwords matched"
