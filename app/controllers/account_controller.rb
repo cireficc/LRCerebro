@@ -15,6 +15,9 @@ class AccountController < ApplicationController
         @username = params[:username]
         @password = params[:password]
         
+        @user = User.find_by username: @username
+        puts "USER FOUND?: #{@user.username}"
+        
         if @password.empty?
             # Store username in session, then clear it after the password has been set
             session[:username] = @username
@@ -35,11 +38,11 @@ class AccountController < ApplicationController
     def create
         @username = params[:username]
         @password = params[:password]
-        @confirm_password = params[:confirm_password]
+        @confirm_password = params[:password_confirmation]
         
-        puts "[CREATE] Username: #{@username} --> #{@password} || #{@confirm_password}"
+        puts "[CREATE] Username: #{@username} --> #{@password} || #{@password_confirmation}"
         
-        if @password == @confirm_password
+        if @password == @password_confirmation
             puts "Passwords matched"
         else
             puts "Passwords did not match"
