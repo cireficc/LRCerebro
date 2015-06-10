@@ -25,14 +25,20 @@ class AccountController < ApplicationController
         end
         
         # The BB username was found. Check to see if their password has been set before
-        if @password.empty?
+        if @password.empty? && @user.password_digest.blank?
             # Store username in session, then clear it after the password has been set
             # Redirect to set password page
             session[:username] = @username
-            redirect_to "/account/create"
+            return redirect_to "/account/create"
+        end
+        
+        # Attempt to authenticate the user. On failure, error out
+        if @user.authenticate(@password)
+            flash[:success] = "Hello #{@username}, you have been logged in!"
+            return redirect_to "/"
         else
-            puts "Password: #{@password}"
-            # Attempt to log them in. Render error if authentication failed
+            flash[:error] = "Invalid login credentials"
+            return redirect_to "/"
         end
         
     end
@@ -58,15 +64,13 @@ class AccountController < ApplicationController
         # If the user could not be found by username and g number, error out
         if @user.nil?
             flash.now[:error] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
-            render "first_login"
-            return
+            return render "first_login"
         end
         
         # If the password was empty, error out
         if @password.empty?
             flash.now[:error] = "Your new password cannot be blank"
-            render "first_login"
-            return
+            return render "first_login"
         end
         
         @user.password = @password
@@ -75,7 +79,7 @@ class AccountController < ApplicationController
         # Try to save the user's new password. User.has_secure_password will validate as necessary
         if !@user.save
             flash.now[:error] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
-            render "first_login"
+            return render "first_login"
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
