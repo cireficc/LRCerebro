@@ -47,7 +47,7 @@ class AccountController < ApplicationController
     # POST create, set the user's new password. Make sure they match
     def create
         @username = params[:username]
-        @g_number = params[:g_number]
+        @g_number = params[:g_number].downcase
         @password = params[:password]
         @password_confirmation = params[:password_confirmation]
         
