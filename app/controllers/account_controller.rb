@@ -53,15 +53,34 @@ class AccountController < ApplicationController
         
         puts "[CREATE] Username: #{@username} --> #{@g_number} || #{@password} || #{@password_confirmation}"
         
-        #@user = User.find_by username: @username, g_number: @g_number
+        @user = User.find_by username: @username, g_number: @g_number
         
-        if @password == @password_confirmation
-            puts "Passwords matched"
-        else
-            puts "Passwords did not match"
+        # If the user could not be found by username and g number, error out
+        if @user.nil?
+            flash.now[:error] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
+            render "first_login"
+            return
         end
         
-        render "home"
+        # If the password was empty, error out
+        if @password.empty?
+            flash.now[:error] = "Your new password cannot be blank"
+            render "first_login"
+            return
+        end
+        
+        @user.password = @password
+        @user.password_confirmation = @password_confirmation
+        
+        # Try to save the user's new password. User.has_secure_password will validate as necessary
+        if !@user.save
+            flash.now[:error] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
+            render "first_login"
+        else
+            # Set up the user's session, strip out the temporary session variables and redirect home
+            flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
+            redirect_to "/"
+        end
     end
     
     private
