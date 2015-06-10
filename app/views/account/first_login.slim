@@ -4,6 +4,11 @@
   = hidden_field_tag(:username, @username)
   .col-sm-8.col-sm-offset-2
     .form-group
+      label.control-label(for="password") G Number
+      br
+      small Your G number is required to verify your identity
+      input.form-control(type="text", name="g_number")
+    .form-group
       label.control-label(for="password") New Password
       input.form-control(type="password", name="password")
       label.control-label(for="password_confirmation") Confirm Password
