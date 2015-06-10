@@ -1,18 +1,18 @@
 .page-header
   h3 Set Your Password
 = form_tag(controller: "account", action: "create", method: "post")
-  = hidden_field_tag(:username, @username)
+  = hidden_field_tag :username, @username
   .col-sm-8.col-sm-offset-2
     .form-group
-      label.control-label(for="password") G Number
+      = label_tag :g_number, 'G number'
       br
       small Your G number is required to verify your identity
-      input.form-control(type="text", name="g_number")
+      = text_field_tag :g_number, @g_number, class: "form-control", placeholder: "GVSU G number", maxlength: 15
     .form-group
-      label.control-label(for="password") New Password
-      input.form-control(type="password", name="password")
-      label.control-label(for="password_confirmation") Confirm Password
-      input.form-control(type="password", name="password_confirmation")
+      = label_tag :password, 'New password'
+      = password_field_tag :password, nil, class: "form-control", maxlength: 72
+      = label_tag :password_confirmation, 'Confirm password'
+      = password_field_tag :password_confirmation, nil, class: "form-control", maxlength: 72
     form-group
         button.btn.btn-primary(type='submit')
           | Set Password

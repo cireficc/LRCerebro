@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150608190724) do
 
   create_table "users", force: true do |t|
     t.string   "username"
+    t.string   "g_number"
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
