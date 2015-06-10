@@ -3,13 +3,11 @@
 = form_tag(controller: "account", action: "login", method: "post")
   .col-sm-8.col-sm-offset-2
     .form-group
-      label.control-label(for="username") Blackboard username
-      input.form-control(type="text", name="username" autofocus)
+      = label_tag :username, 'Blackboard username'
+      = text_field_tag :username, nil, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
     .form-group
-      label.control-label(for="password") Password
-      br
-      small If this is your first time logging in, leave this field blank
-      input.form-control(type="password", name="password")
+      = label_tag :password, 'Password'
+      = password_field_tag :password, nil, class: "form-control", maxlength: 72
     form-group
         button.btn.btn-primary(type='submit')
           | Login
