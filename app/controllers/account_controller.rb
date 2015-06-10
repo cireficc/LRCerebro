@@ -20,8 +20,7 @@ class AccountController < ApplicationController
         # The BB username was not found; render the login form again with an error
         if @user.nil?
             flash.now[:error] = "Your Blackboard username [#{@username}] was not found"
-            render "home"
-            return
+            return render "home"
         end
         
         # The BB username was found. Check to see if their password has been set before
@@ -35,10 +34,12 @@ class AccountController < ApplicationController
         # Attempt to authenticate the user. On failure, error out
         if @user.authenticate(@password)
             flash[:success] = "Hello #{@username}, you have been logged in!"
+            # Set the session data
+            
             return redirect_to "/"
         else
             flash[:error] = "Invalid login credentials"
-            return redirect_to "/"
+            return render "home"
         end
         
     end
@@ -47,7 +48,7 @@ class AccountController < ApplicationController
     def first_login
         @username = session[:username]
         
-        render "first_login"
+        return render "first_login"
     end
     
     # POST create, set the user's new password. Make sure they match
@@ -83,7 +84,7 @@ class AccountController < ApplicationController
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
-            redirect_to "/"
+            return redirect_to "/"
         end
     end
     
