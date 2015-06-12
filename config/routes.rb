@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   # The home page is a splash page with the login form
   root 'account#home'
   
-  post '/' => 'account#login'
-  get '/account/create' => 'account#first_login'
-  post '/account/create' => 'account#create'
+  post 'login' => 'account#login'
+  get 'register' => 'account#first_login'
+  post 'register' => 'account#create'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
