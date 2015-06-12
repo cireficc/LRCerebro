@@ -47,7 +47,6 @@ class AccountController < ApplicationController
     # GET create, render form to set user's new password
     def first_login
         @username = session[:username]
-        
         return render "first_login"
     end
     

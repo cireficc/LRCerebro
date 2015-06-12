@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+
+  # The home page is a splash page with a login/register link and various static page links
+  root 'static_pages#home'
   
-  # The home page is a splash page with the login form
-  root 'account#home'
+  # Static pages accessible when not logged in
+  get 'help' => 'static_pages#help'
+  get 'about' => 'static_pages#about'
   
+  # Login/register routes
+  get 'login' => 'account#home'
   post 'login' => 'account#login'
   get 'register' => 'account#first_login'
   post 'register' => 'account#create'
