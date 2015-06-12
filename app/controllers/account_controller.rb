@@ -67,6 +67,14 @@ class AccountController < ApplicationController
             return render "home"
         end
         
+        if !@user.password_digest.blank?
+            flash.now[:error] = "You have already registered. Please log in instead"
+            # Nullify sign-up variables
+            @signup = nil
+            @g_number = nil
+            return render "home"
+        end
+        
         # If the password was empty, error out
         if @password.blank?
             flash.now[:error] = "Your new password cannot be blank (or contain only whitespaces)"

@@ -1,8 +1,6 @@
 $( document ).ready(function() {
     
     var signup = $("#signup_true").val();
-    if (signup) {
-        //$("#signin").removeClass('active');
+    if (signup)
         $("#signup_tab").click();
-    }
 });
