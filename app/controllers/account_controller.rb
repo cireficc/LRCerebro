@@ -90,12 +90,8 @@ class AccountController < ApplicationController
     
     private
     
-    def login_params 
+    def login_params
         params.require(:username).permit(:password)
-    end
-    
-    def create_params 
-        params.require(:username).require(:password).require(:confirm_password)
     end
 
 end
