@@ -1,13 +1,55 @@
-.page-header
-  h3 Sign in
-= form_for(:account, url: login_path)
-  .col-sm-8.col-sm-offset-2
-    .form-group
-      = label_tag :username, 'Blackboard username'
-      = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
-    .form-group
-      = label_tag :password, 'Password'
-      = password_field_tag :password, nil, class: "form-control", maxlength: 72
-    form-group
-        button.btn.btn-primary(type='submit')
-          | Login
+.tabbable
+  /! Only required for left/right tabs
+  ul.nav.nav-tabs.nav-justified
+    li.active
+      a data-toggle="tab" href="#tab1"  Log In
+    li
+      a data-toggle="tab" href="#tab2"  Sign Up
+  .tab-content
+    #tab1.tab-pane.active
+      = form_for(:account, url: login_path)
+        .col-sm-12
+          .form-group
+            = label_tag :username, 'Blackboard username'
+            = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
+          .form-group
+            = label_tag :password, 'Password'
+            = password_field_tag :password, nil, class: "form-control", maxlength: 72
+          form-group
+              button.btn.btn-primary(type='submit')
+                | Login
+    #tab2.tab-pane
+      = form_for(:account, url: register_path)
+        = hidden_field_tag :username, @username
+        .col-sm-12
+          .form-group
+            = label_tag :g_number, 'G number'
+            br
+            small Your G number is required to verify your identity
+            = text_field_tag :g_number, @g_number, class: "form-control", placeholder: "GVSU G number", maxlength: 15
+          .form-group
+            = label_tag :password, 'New password'
+            = password_field_tag :password, nil, class: "form-control", maxlength: 72
+            = label_tag :password_confirmation, 'Confirm password'
+            = password_field_tag :password_confirmation, nil, class: "form-control", maxlength: 72
+          form-group
+              button.btn.btn-primary(type='submit')
+                | Set Password
+
+
+
+
+
+// .page-header
+//   h3 Sign in
+// = form_for(:account, url: login_path)
+//   .col-sm-8.col-sm-offset-2
+//     .form-group
+//       = label_tag :username, 'Blackboard username'
+//       = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
+//     .form-group
+//       = label_tag :password, 'Password'
+//       = password_field_tag :password, nil, class: "form-control", maxlength: 72
+//     form-group
+//         button.btn.btn-primary(type='submit')
+//           | Login
