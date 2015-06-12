@@ -49,12 +49,6 @@ class AccountController < ApplicationController
         
     end
     
-    # GET create, render form to set user's new password
-    def first_login
-        @username = session[:username]
-        return render "first_login"
-    end
-    
     # POST create, set the user's new password. Make sure they match and are not empty
     def create
         @username = params[:username]

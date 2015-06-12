@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   # Login/register routes
   get 'login' => 'account#home'
   post 'login' => 'account#login'
-  get 'register' => 'account#first_login'
   post 'register' => 'account#create'
   
   # The priority is based upon order of creation: first created -> highest priority.
