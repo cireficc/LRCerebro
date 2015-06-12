@@ -41,7 +41,7 @@ class AccountController < ApplicationController
             flash[:success] = "Hello #{@username}, you have been logged in!"
             # Set the session data
             
-            return redirect_to "/"
+            return redirect_to root_path
         else
             flash[:error] = "Invalid login credentials"
             return render "home"
@@ -61,6 +61,7 @@ class AccountController < ApplicationController
         @g_number = params[:g_number].downcase
         @password = params[:password]
         @password_confirmation = params[:password_confirmation]
+        @signup = true
         
         puts "[CREATE] Username: #{@username} --> #{@g_number} || #{@password} || #{@password_confirmation}"
         
@@ -69,13 +70,13 @@ class AccountController < ApplicationController
         # If the user could not be found by username and g number, error out
         if @user.nil?
             flash.now[:error] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
-            return render "first_login"
+            return render "home"
         end
         
         # If the password was empty, error out
         if @password.blank?
             flash.now[:error] = "Your new password cannot be blank (or contain only whitespaces)"
-            return render "first_login"
+            return render "home"
         end
         
         @user.password = @password
@@ -84,7 +85,7 @@ class AccountController < ApplicationController
         # Try to save the user's new password. User.has_secure_password will validate as necessary
         if !@user.save
             flash.now[:error] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
-            return render "first_login"
+            return render "home"
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"

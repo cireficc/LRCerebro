@@ -32,26 +32,9 @@
           .form-group
             = label_tag :password, 'New password'
             = password_field_tag :password, nil, class: "form-control", maxlength: 72
+          .form-group
             = label_tag :password_confirmation, 'Confirm password'
             = password_field_tag :password_confirmation, nil, class: "form-control", maxlength: 72
           form-group
               button.btn.btn-primary(type='submit')
                 | Sign Up
-
-
-
-
-
-// .page-header
-//   h3 Sign in
-// = form_for(:account, url: login_path)
-//   .col-sm-8.col-sm-offset-2
-//     .form-group
-//       = label_tag :username, 'Blackboard username'
-//       = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
-//     .form-group
-//       = label_tag :password, 'Password'
-//       = password_field_tag :password, nil, class: "form-control", maxlength: 72
-//     form-group
-//         button.btn.btn-primary(type='submit')
-//           | Login
