@@ -1,6 +1,6 @@
 .page-header
   h3 Set Your Password
-= form_tag(controller: "account", action: "create", method: "post")
+= form_for(:account, url: register_path)
   = hidden_field_tag :username, @username
   .col-sm-8.col-sm-offset-2
     .form-group

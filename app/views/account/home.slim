@@ -1,6 +1,6 @@
 .page-header
   h3 Sign in
-= form_tag(controller: "account", action: "login", method: "post")
+= form_for(:account, url: login_path)
   .col-sm-8.col-sm-offset-2
     .form-group
       = label_tag :username, 'Blackboard username'

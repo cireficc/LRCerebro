@@ -28,7 +28,7 @@ class AccountController < ApplicationController
             # Store username in session, then clear it after the password has been set
             # Redirect to set password page
             session[:username] = @username
-            return redirect_to "/account/create"
+            return redirect_to "/register"
         end
         
         # Attempt to authenticate the user. On failure, error out
@@ -51,7 +51,7 @@ class AccountController < ApplicationController
         return render "first_login"
     end
     
-    # POST create, set the user's new password. Make sure they match
+    # POST create, set the user's new password. Make sure they match and are not empty
     def create
         @username = params[:username]
         @g_number = params[:g_number].downcase
@@ -69,8 +69,8 @@ class AccountController < ApplicationController
         end
         
         # If the password was empty, error out
-        if @password.empty?
-            flash.now[:error] = "Your new password cannot be blank"
+        if @password.blank?
+            flash.now[:error] = "Your new password cannot be blank (or contain only whitespaces)"
             return render "first_login"
         end
         
