@@ -1,13 +1,13 @@
 .tabbable
-  /! Only required for left/right tabs
   ul.nav.nav-tabs.nav-justified
     li.active
-      a data-toggle="tab" href="#tab1"  Log In
+      a data-toggle="tab" href="#signin"  Log In
     li
-      a data-toggle="tab" href="#tab2"  Sign Up
+      a#signup_tab data-toggle="tab" href="#signup"  Sign Up
   .tab-content
-    #tab1.tab-pane.active
+    #signin.tab-pane.active
       = form_for(:account, url: login_path)
+        = hidden_field_tag :signup_true, @signup
         .col-sm-12
           .form-group
             = label_tag :username, 'Blackboard username'
@@ -17,11 +17,13 @@
             = password_field_tag :password, nil, class: "form-control", maxlength: 72
           form-group
               button.btn.btn-primary(type='submit')
-                | Login
-    #tab2.tab-pane
+                | Log In
+    #signup.tab-pane
       = form_for(:account, url: register_path)
-        = hidden_field_tag :username, @username
         .col-sm-12
+          form-group
+            = label_tag :username, 'Blackboard username'
+            = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
           .form-group
             = label_tag :g_number, 'G number'
             br
@@ -34,7 +36,7 @@
             = password_field_tag :password_confirmation, nil, class: "form-control", maxlength: 72
           form-group
               button.btn.btn-primary(type='submit')
-                | Set Password
+                | Sign Up
 
 
 
