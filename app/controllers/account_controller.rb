@@ -24,11 +24,16 @@ class AccountController < ApplicationController
         end
         
         # The BB username was found. Check to see if their password has been set before
-        if @password.empty? && @user.password_digest.blank?
+        if @user.password_digest.blank?
             # Store username in session, then clear it after the password has been set
             # Redirect to set password page
             session[:username] = @username
-            return redirect_to "/register"
+            flash.now[:warning] =
+            "This is the first time you are logging in; please register your account. Please not that
+             this system uses your Blackboard username and g number, but does not log into Blackboard
+             directly."
+            @signup = true
+            return render "home"
         end
         
         # Attempt to authenticate the user. On failure, error out
@@ -83,7 +88,7 @@ class AccountController < ApplicationController
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
-            return redirect_to "/"
+            redirect_to root_path
         end
     end
 end
