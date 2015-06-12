@@ -87,11 +87,4 @@ class AccountController < ApplicationController
             return redirect_to "/"
         end
     end
-    
-    private
-    
-    def login_params
-        params.require(:username).permit(:password)
-    end
-
 end
