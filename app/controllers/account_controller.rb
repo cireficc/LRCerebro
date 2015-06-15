@@ -28,7 +28,6 @@ class AccountController < ApplicationController
         if @user.password_digest.blank?
             # Store username in session, then clear it after the password has been set
             # Redirect to set password page
-            session[:username] = @username
             flash.now[:warning] =
             "This is the first time you are logging in; please register your account. Please note that
              this system uses your Blackboard username and g number, but does not log into Blackboard
@@ -58,8 +57,6 @@ class AccountController < ApplicationController
         @password_confirmation = params[:password_confirmation]
         # This variable tells the login view's JavaScript to switch to the Sign Up tab
         @signup = true
-        
-        puts "[CREATE] Username: #{@username} --> #{@g_number} || #{@password} || #{@password_confirmation}"
         
         @user = User.find_by username: @username, g_number: @g_number
         
