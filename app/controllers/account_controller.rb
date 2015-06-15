@@ -19,7 +19,7 @@ class AccountController < ApplicationController
         
         # The BB username was not found; render the login form again with an error
         if @user.nil?
-            flash.now[:error] = "Your Blackboard username [#{@username}] was not found"
+            flash.now[:danger] = "Your Blackboard username [#{@username}] was not found"
             return render "home"
         end
         
@@ -38,7 +38,7 @@ class AccountController < ApplicationController
         
         # Attempt to authenticate the user. On failure, error out
         if !@user.authenticate(@password)
-            flash[:error] = "Invalid login credentials"
+            flash[:danger] = "Invalid login credentials"
             return render "home"
         else
             flash[:success] = "Hello #{@username}, you have been logged in!"
@@ -64,12 +64,12 @@ class AccountController < ApplicationController
         
         # If the user could not be found by username and g number, error out
         if @user.nil?
-            flash.now[:error] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
+            flash.now[:danger] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
             return render "home"
         end
         
         if !@user.password_digest.blank?
-            flash.now[:error] = "You have already registered. Please log in instead"
+            flash.now[:danger] = "You have already registered. Please log in instead"
             # Nullify sign-up variables because the user has already registered
             @signup = nil
             @g_number = nil
@@ -78,7 +78,7 @@ class AccountController < ApplicationController
         
         # If the password was empty, error out
         if @password.blank?
-            flash.now[:error] = "Your new password cannot be blank (or contain only whitespaces)"
+            flash.now[:danger] = "Your new password cannot be blank (or contain only whitespaces)"
             return render "home"
         end
         
@@ -87,7 +87,7 @@ class AccountController < ApplicationController
         
         # Try to save the user's new password. User.has_secure_password will validate as necessary
         if !@user.save
-            flash.now[:error] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
+            flash.now[:danger] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
             return render "home"
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
