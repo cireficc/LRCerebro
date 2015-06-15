@@ -101,6 +101,6 @@ class AccountController < ApplicationController
     
     def logout
         log_out
-        redirect_to root_url
+        return redirect_to root_url
     end
 end
