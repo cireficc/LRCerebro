@@ -37,14 +37,14 @@ class AccountController < ApplicationController
         end
         
         # Attempt to authenticate the user. On failure, error out
-        if @user.authenticate(@password)
+        if !@user.authenticate(@password)
+            flash[:error] = "Invalid login credentials"
+            return render "home"
+        else
             flash[:success] = "Hello #{@username}, you have been logged in!"
             # Set the session data
             
             return redirect_to root_path
-        else
-            flash[:error] = "Invalid login credentials"
-            return render "home"
         end
         
     end
@@ -55,6 +55,7 @@ class AccountController < ApplicationController
         @g_number = params[:g_number].downcase
         @password = params[:password]
         @password_confirmation = params[:password_confirmation]
+        # This variable tells the login view's JavaScript to switch to the Sign Up tab
         @signup = true
         
         puts "[CREATE] Username: #{@username} --> #{@g_number} || #{@password} || #{@password_confirmation}"
@@ -69,7 +70,7 @@ class AccountController < ApplicationController
         
         if !@user.password_digest.blank?
             flash.now[:error] = "You have already registered. Please log in instead"
-            # Nullify sign-up variables
+            # Nullify sign-up variables because the user has already registered
             @signup = nil
             @g_number = nil
             return render "home"
@@ -91,6 +92,8 @@ class AccountController < ApplicationController
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
+            # Set the session data
+            
             redirect_to root_path
         end
     end
