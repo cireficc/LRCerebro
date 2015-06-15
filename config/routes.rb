@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'login' => 'account#home'
   post 'login' => 'account#login'
   post 'register' => 'account#create'
+  get 'logout' => 'account#logout'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

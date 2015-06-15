@@ -45,7 +45,7 @@ class AccountController < ApplicationController
             flash[:success] = "Hello #{@username}, you have been logged in!"
             # Set the session data via the AccountHelper method
             log_in @user
-            return redirect_to root_path
+            return redirect_to root_url
         end
         
     end
@@ -95,7 +95,12 @@ class AccountController < ApplicationController
             flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
             # Set the session data via the AccountHelper method
             log_in @user
-            redirect_to root_path
+            redirect_to root_url
         end
+    end
+    
+    def logout
+        log_out
+        redirect_to root_url
     end
 end
