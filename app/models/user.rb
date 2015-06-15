@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
     # :labasst - Lab assistants of the LRC. Elevated privileges
     # :faculty - Faculty in the MLL department who teach courses
     # :student - Students in the MLL department who enroll in courses
-    enum role [:director, :labasst, :faculty, :student]
+    enum role: [:director, :labasst, :faculty, :student]
     
     has_secure_password
 end
