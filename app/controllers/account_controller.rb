@@ -1,10 +1,5 @@
 class AccountController < ApplicationController
     
-    # Secure login:
-    # http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password
-    # https://github.com/leesmith/decent_authentication
-    # https://gist.github.com/thebucknerlife/10090014
-    
     # The login form page
     def home
         @title = "Login"

@@ -5,5 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-    User.create(username: 'cireficc', g_number: 'g00749804', password: 'chris', first_name: 'Chris', last_name: 'Cirefice', role: 'labasst')
-    User.create(username: 'timmerk', g_number: 'g00000000', password: 'kevin', first_name: 'Kevin', last_name: 'Timmer', role: 'director')
+    User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: 'director')
+    User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: 'labasst')
+    User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: 'faculty')
+    User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: 'student')
