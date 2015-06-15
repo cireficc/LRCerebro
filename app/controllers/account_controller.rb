@@ -29,7 +29,7 @@ class AccountController < ApplicationController
             # Redirect to set password page
             session[:username] = @username
             flash.now[:warning] =
-            "This is the first time you are logging in; please register your account. Please not that
+            "This is the first time you are logging in; please register your account. Please note that
              this system uses your Blackboard username and g number, but does not log into Blackboard
              directly."
             @signup = true
