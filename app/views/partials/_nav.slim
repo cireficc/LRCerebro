@@ -1,6 +1,6 @@
 nav.navbar.navbar-default
   .container-fluid
-    /! Brand and toggle get grouped for better mobile display
+    / Brand and toggle get grouped for better mobile display
     .navbar-header
       button.navbar-toggle.collapsed data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" 
         span.sr-only Toggle navigation
@@ -8,19 +8,28 @@ nav.navbar.navbar-default
         span.icon-bar
         span.icon-bar
       a.navbar-brand href="/"  LRCerebro
-    /! Collect the nav links, forms, and other content for toggling
+    / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       ul.nav.navbar-nav
+        / Only show extra links if the user is logged in, depending on the user's role
         - if logged_in?
-          li
-            a href="#" Faculty link
-        - else
-          li
-            a href="#" Student link
+          - if current_user.director?
+            li
+              a href="#" Director link
+          - elsif current_user.labasst?
+            li
+              a href="#" Labasst link
+          - elsif current_user.faculty?
+            li
+              a href="#" Faculty link
+          / If the user did not have any other role, assume that they are a student
+          - else
+            li
+              a href="#" Student link
       ul.nav.navbar-nav.navbar-right
         - if !logged_in?
           li
             a href="/login" Log In
         - else
           li
-            a href="/logout"  Log Out
+            a href="/logout" Log Out
