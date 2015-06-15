@@ -14,14 +14,41 @@ nav.navbar.navbar-default
         / Only show extra links if the user is logged in, depending on the user's role
         - if logged_in?
           - if current_user.director?
-            li
-              a href="#" Director link
+            li.dropdown
+              a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+                | Projects
+                span.caret
+              ul.dropdown-menu role="menu"
+                li
+                  a href="#" Project Manager
+                li.divider
+                li
+                  a href="#" Add a Project
           - elsif current_user.labasst?
-            li
-              a href="#" Labasst link
+              li
+                a href="#" Project Manager
           - elsif current_user.faculty?
             li
-              a href="#" Faculty link
+              a href="#" My Projects
+            li.dropdown
+              a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+                | Forms
+                span.caret
+              ul.dropdown-menu role="menu"
+                li
+                  a href="#" Class Project Proposal
+                li
+                  a href="#" Reserve the LRC
+                li.divider
+                li
+                  a href="#" eVideon Upload
+                li
+                  a href="#" Video Duplication
+                li.divider
+                li
+                  a href="#" Vidcam Shoot
+                li
+                  a href="#" Work Request
           / If the user did not have any other role, assume that they are a student
           - else
             li
@@ -31,5 +58,18 @@ nav.navbar.navbar-default
           li
             a href="/login" Log In
         - else
+          li
+            a href="#" Time Tracker
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+              | LRC Media
+              span.caret
+            ul.dropdown-menu role="menu"
+              li
+                a href="#" Films
+              li
+                a href="#" Music
+            li
+              a href="#" Equipment
           li
             a href="/logout" Log Out

@@ -36,7 +36,7 @@ class AccountController < ApplicationController
             flash[:danger] = "Invalid login credentials"
             return render "login"
         else
-            flash[:success] = "Hello #{@username}, you have been logged in!"
+            flash[:success] = "Hello #{@user.first_name}, you have been logged in!"
             # Set the session data via the AccountHelper method
             log_in @user
             return redirect_to root_url
@@ -84,7 +84,7 @@ class AccountController < ApplicationController
             return render "login"
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
-            flash[:success] = "Hello #{@username}, your password has been set and you have been logged in!"
+            flash[:success] = "Hello #{@user.first_name}, your password has been set and you have been logged in!"
             # Set the session data via the AccountHelper method
             log_in @user
             redirect_to root_url
