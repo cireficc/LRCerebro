@@ -1,0 +1,87 @@
+.row
+  .col-md-8
+    #image_carousel.carousel.slide data-ride="carousel"
+      ol.carousel-indicators
+        li.active data-slide-to="0" data-target="#image_carousel"
+        li data-slide-to="1" data-target="#image_carousel"
+        li data-slide-to="2" data-target="#image_carousel"
+      .carousel-inner role="listbox"
+        .item.active
+          img alt="..." src="http://placehold.it/750x300"
+          .carousel-caption
+              h3 First image
+              p A description
+        .item
+          img alt="..." src="http://placehold.it/750x300"
+          .carousel-caption
+              h3 Second image
+              p A description
+        .item
+          img alt="..." src="http://placehold.it/750x300"
+          .carousel-caption
+              h3 Third image
+              p A description
+      a.left.carousel-control data-slide="prev" href="#image_carousel" role="button"
+        span.glyphicon.glyphicon-chevron-left aria-hidden="true"
+        span.sr-only Previous
+      a.right.carousel-control data-slide="next" href="#image_carousel" role="button"
+        span.glyphicon.glyphicon-chevron-right aria-hidden="true" 
+        span.sr-only Next
+  .col-md-4
+    h1
+        em The LRC is the place to be!
+    p The Language Resource Center is a media-centric workplace for students taking foreign languages, where they can study in a comfortable, relaxing environment while enjoying our large media collection to better practice their language.
+    - if !logged_in?
+        a.btn.btn-primary.btn-lg href="/login" Log in now!
+hr
+.row.text-center
+    .col-lg-12
+        h1.page-header
+            | What can I do here?
+    .col-md-4
+        .panel.panel-primary
+            .panel-heading
+                h4 Everyone
+            .panel-body
+                .bs-callout.bs-callout-primary
+                    h4
+                        a href="#" Watch movies
+                    | Browse thousands of films and view them online if they're available.
+                .bs-callout.bs-callout-primary
+                    h4
+                        a href="#" Listen to music
+                    | Stream our Subsonic music colleciton while you do workbook exercises.
+    .col-md-4
+        .panel class = (is_student? ? "panel-warning" : "panel-default")
+            .panel-heading
+                h4 Students
+            .panel-body
+                .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" Access textbook audio
+                    | Listen to textbook audio without needing a CD!
+                .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" Access textbook answer keys
+                    | Check your workbook answers with the answer keys to several books.
+                .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" Check Time Tracker
+                    | Stay on track by viewing all of your sessions in the LRC as well as your total hours.
+    .col-md-4
+        .panel class = (is_faculty? ? "panel-warning" : "panel-default")
+            .panel-heading
+                h4 Faculty
+            .panel-body
+                .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" View your projects
+                    | View the status of your class projects and notes that David has made.
+                .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" Submit various forms
+                    | Submit a class project request, reserve the LRC, or request an eVideon upload, video duplication, or vidcam shoot.
+                .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
+                        a href="#" Manage Time Tracker
+                    | View each students' sessions in the LRC as well as their totals for the semester.
