@@ -36,7 +36,7 @@ nav.navbar.navbar-default
                 span.caret
               ul.dropdown-menu role="menu"
                 li
-                  a href="#" Class Project Proposal
+                  a href="/forms/project" Class Project Proposal
                 li
                   a href="#" Reserve the LRC
                 li.divider
@@ -49,10 +49,6 @@ nav.navbar.navbar-default
                   a href="#" Vidcam Shoot
                 li
                   a href="#" Work Request
-          / If the user did not have any other role, assume that they are a student
-          - else
-            li
-              a href="#" Student link
       ul.nav.navbar-nav.navbar-right
         - if !logged_in?
           li
@@ -61,13 +57,13 @@ nav.navbar.navbar-default
           / Different Time Tracker links depending on the user's role
           - if current_user.director? || current_user.labasst?
             li
-              a href="/time/admin" Time Admin
+              a href="#" Time Admin
           - elsif current_user.faculty?
             li
-              a href="/time/faculty" Time Tracker
+              a href="#" Time Tracker
           - else
             li
-              a href="/time/student" Time Tracker
+              a href="#" Time Tracker
           li.dropdown
             a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
               | LRC Media
