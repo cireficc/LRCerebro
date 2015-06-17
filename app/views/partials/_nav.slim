@@ -58,8 +58,16 @@ nav.navbar.navbar-default
           li
             a href="/login" Log In
         - else
-          li
-            a href="#" Time Tracker
+          / Different Time Tracker links depending on the user's role
+          - if current_user.director? || current_user.labasst?
+            li
+              a href="/time/admin" Time Admin
+          - elsif current_user.faculty?
+            li
+              a href="/time/faculty" Time Tracker
+          - else
+            li
+              a href="/time/student" Time Tracker
           li.dropdown
             a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
               | LRC Media
