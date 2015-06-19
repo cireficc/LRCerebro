@@ -1,5 +1,7 @@
 class Course < ActiveRecord::Base
     
+    has_and_belongs_to_many :users
+    
     # Enum to describe the semester in which a course takes place.
     # Although there are technically 3 summer semester types
     # (6-week 1, 6-week 2, 12-week), classify them all as summer
