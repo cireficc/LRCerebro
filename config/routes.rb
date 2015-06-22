@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   post 'register' => 'account#create'
   get 'logout' => 'account#logout'
   
+  # Project resources
+  # http://www.codecademy.com/articles/standard-controller-actions
+  resources :projects
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
