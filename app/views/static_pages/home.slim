@@ -1,5 +1,5 @@
 .row
-  .col-md-8
+  .col-md-7
     #image_carousel.carousel.slide data-ride="carousel"
       ol.carousel-indicators
         li.active data-slide-to="0" data-target="#image_carousel"
@@ -25,9 +25,9 @@
         span.glyphicon.glyphicon-chevron-left aria-hidden="true"
         span.sr-only Previous
       a.right.carousel-control data-slide="next" href="#image_carousel" role="button"
-        span.glyphicon.glyphicon-chevron-right aria-hidden="true" 
+        span.glyphicon.glyphicon-chevron-right aria-hidden="true"
         span.sr-only Next
-  .col-md-4
+  .col-md-5
     h1
         em The LRC is the place to be!
     p The Language Resource Center is a media-centric workplace for students taking foreign languages, where they can study in a comfortable, relaxing environment while enjoying our large media collection to better practice their language.
@@ -58,16 +58,16 @@ hr
             .panel-body
                 .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
                     h4
+                        a href="#" Check Time Tracker
+                    | Stay on track by viewing all of your LRC sessions as well as your total hours.
+                .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
+                    h4
                         a href="#" Access textbook audio
                     | Listen to textbook audio without needing a CD!
                 .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
                     h4
                         a href="#" Access textbook answer keys
                     | Check your workbook answers with the answer keys to several books.
-                .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
-                    h4
-                        a href="#" Check Time Tracker
-                    | Stay on track by viewing all of your sessions in the LRC as well as your total hours.
     .col-md-4
         .panel class = (is_faculty? ? "panel-warning" : "panel-default")
             .panel-heading
@@ -75,13 +75,13 @@ hr
             .panel-body
                 .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
                     h4
-                        a href="#" View your projects
-                    | View the status of your class projects and notes that David has made.
+                        a href="#" Manage Time Tracker
+                    | View each students' sessions in the LRC as well as their totals for the semester.
                 .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
                     h4
                         a href="#" Submit various forms
                     | Submit a class project request, reserve the LRC, or request an eVideon upload, video duplication, or vidcam shoot.
                 .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
                     h4
-                        a href="#" Manage Time Tracker
-                    | View each students' sessions in the LRC as well as their totals for the semester.
+                        a href="#" View your projects
+                    | View the status of your class projects and notes that David has made.
