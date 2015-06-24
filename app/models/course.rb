@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
     
     has_and_belongs_to_many :users
+    has_many :projects
     
     # Enum to describe the semester in which a course takes place.
     # Although there are technically 3 summer semester types
