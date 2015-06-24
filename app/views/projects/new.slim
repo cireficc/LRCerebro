@@ -9,12 +9,12 @@ form.form-horizontal
                         .col-md-4
                             h4 Course
                         .col-md-8
-                            = select_tag :course, options_for_select(current_user.courses.collect{ |c| [c.name, c.id] }), class: "form-control"
+                            = select_tag :course, options_for_select(current_user.courses.map{ |c| [c.name, c.id] }), class: "form-control"
                     .form-group
                         .col-md-4
                             h4 Project type
                         .col-md-8
-                            = select_tag :type, options_for_select(User.roles.each_with_index { |r, i| [r, i] }), class: "form-control"
+                            = select_tag :type, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c] }), class: "form-control"
                     .form-group
                         .col-md-4
                             h4 Project name
