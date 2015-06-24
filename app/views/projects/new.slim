@@ -14,7 +14,9 @@ form.form-horizontal
                         .col-md-4
                             h4 Project type
                         .col-md-8
-                            = select_tag :type, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c] }), class: "form-control"
+                            = select_tag :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c] }), class: "form-control"
+                            div#other_warning.small.text-warning.hidden
+                                | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
                     .form-group
                         .col-md-4
                             h4 Project name
