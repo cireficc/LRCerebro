@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619163951) do
+ActiveRecord::Schema.define(version: 20150624151247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,23 @@ ActiveRecord::Schema.define(version: 20150619163951) do
 
   add_index "courses_users", ["course_id", "user_id"], name: "index_courses_users_on_course_id_and_user_id", using: :btree
   add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id", using: :btree
+
+  create_table "projects", force: true do |t|
+    t.integer  "course_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category"
+    t.integer  "num_groups"
+    t.datetime "script_due"
+    t.datetime "due"
+    t.datetime "viewable_by"
+    t.boolean  "approved"
+    t.string   "publish_link"
+    t.boolean  "archived"
+    t.datetime "archived_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username"
