@@ -1,5 +1,5 @@
 form.form-horizontal
-    .panel.panel-success
+    .panel.panel-info
         .panel-heading
             h3.panel-title Project Information
         .panel-body
@@ -14,7 +14,9 @@ form.form-horizontal
                         .col-md-4
                             h4 Project type
                         .col-md-8
-                            = select_tag :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c] }), class: "form-control"
+                            select#category.form-control
+                                - Project.categories.to_a.map do |c, i|
+                                    option data-default-training=Project::CATEGORY_TRAINING_EVENTS[c.to_sym] data-default-editing=Project::CATEGORY_EDITING_EVENTS[c.to_sym] value=c #{c.camelize}
                             div#other_warning.small.text-warning.hidden
                                 | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
                     .form-group
@@ -54,76 +56,84 @@ form.form-horizontal
                                 = text_field_tag :viewable_by, @viewable_by, class: "form-control"
                                 small.text-warning LRC staff will make projects available to you and your students by this date
     hr
-    .panel.panel-warning
+    .bs-callout.bs-callout-warning
+        h4 Heads up: scheduling events
+        p Below you'll find the <u>recommended number of events</u> based on your project type.
+         If you want to add <em>more</em> events, you may click the 'plus' icon at the bottom of either section.
+         Please note that <b><u>you do not need to fill out all of the events</b></u>.
+         You may leave events empty if you do not want to use them.
+    .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
-        .panel-body.text-center
-            .form-group
-                .col-md-2
-                    h4.text-warning Reservation #
-                .col-md-5
-                    h4.text-warning Start date/time
-                .col-md-5
-                    h4.text-warning End date/time
-            .form-group
-                .col-md-2
-                    h4 Training 1
-                .col-md-5
-                    = text_field_tag :training_1_start, @training_1_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :training_1_end, @training_1_end, class: "form-control"
-            .form-group
-                .col-md-2
-                    h4 Training 2
-                .col-md-5
-                    = text_field_tag :training_2_start, @training_2_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :training_2_end, @training_2_end, class: "form-control"
-            .form-group
-                .col-md-2
-                    h4 Training 3
-                .col-md-5
-                    = text_field_tag :training_3_start, @training_3_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :training_3_end, @training_3_end, class: "form-control"
+        .panel-body
+            .text-center
+                .form-group
+                    .col-md-2
+                        h4 Reservation #
+                    .col-md-5
+                        h4 Start date/time
+                    .col-md-5
+                        h4 End date/time
+                .form-group
+                    .col-md-2
+                        h4 Training 1
+                    .col-md-5
+                        = text_field_tag :training_1_start, @training_1_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :training_1_end, @training_1_end, class: "form-control"
+                .form-group
+                    .col-md-2
+                        h4 Training 2
+                    .col-md-5
+                        = text_field_tag :training_2_start, @training_2_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :training_2_end, @training_2_end, class: "form-control"
+                .form-group
+                    .col-md-2
+                        h4 Training 3
+                    .col-md-5
+                        = text_field_tag :training_3_start, @training_3_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :training_3_end, @training_3_end, class: "form-control"
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
-        .panel-body.text-center
-            .form-group
-                .col-md-2
-                    h4.text-primary Reservation #
-                .col-md-5
-                    h4.text-primary Start date/time
-                .col-md-5
-                    h4.text-primary End date/time
-            .form-group
-                .col-md-2
-                    h4 Editing 1
-                .col-md-5
-                    = text_field_tag :editing_1_start, @editing_1_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :editing_1_end, @editing_1_end, class: "form-control"
-            .form-group
-                .col-md-2
-                    h4 Editing 2
-                .col-md-5
-                    = text_field_tag :editing_2_start, @editing_2_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :editing_2_end, @editing_2_end, class: "form-control"
-            .form-group
-                .col-md-2
-                    h4 Editing 3
-                .col-md-5
-                    = text_field_tag :editing_3_start, @editing_3_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :editing_3_end, @editing_3_end, class: "form-control"
-            .form-group
-                .col-md-2
-                    h4 Editing 4
-                .col-md-5
-                    = text_field_tag :editing_4_start, @editing_4_start, class: "form-control"
-                .col-md-5
-                    = text_field_tag :editing_4_end, @editing_4_end, class: "form-control"
+        .panel-body
+            .text-center
+                .form-group
+                    .col-md-2
+                        h4 Reservation #
+                    .col-md-5
+                        h4 Start date/time
+                    .col-md-5
+                        h4 End date/time
+                .form-group
+                    .col-md-2
+                        h4 Editing 1
+                    .col-md-5
+                        = text_field_tag :editing_1_start, @editing_1_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :editing_1_end, @editing_1_end, class: "form-control"
+                .form-group
+                    .col-md-2
+                        h4 Editing 2
+                    .col-md-5
+                        = text_field_tag :editing_2_start, @editing_2_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :editing_2_end, @editing_2_end, class: "form-control"
+                .form-group
+                    .col-md-2
+                        h4 Editing 3
+                    .col-md-5
+                        = text_field_tag :editing_3_start, @editing_3_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :editing_3_end, @editing_3_end, class: "form-control"
+                .form-group
+                    .col-md-2
+                        h4 Editing 4
+                    .col-md-5
+                        = text_field_tag :editing_4_start, @editing_4_start, class: "form-control"
+                    .col-md-5
+                        = text_field_tag :editing_4_end, @editing_4_end, class: "form-control"
     button.btn.btn-info(type='submit')
                 | Submit Project
