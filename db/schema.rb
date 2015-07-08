@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150708150853) do
   add_index "courses_users", ["user_id", "course_id"], name: "index_courses_users_on_user_id_and_course_id", using: :btree
 
   create_table "project_reservations", force: true do |t|
+    t.integer  "project_id"
     t.datetime "start"
     t.datetime "end"
     t.integer  "lab"

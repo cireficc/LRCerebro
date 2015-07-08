@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
     
     belongs_to :course
+    has_many :project_reservations
     
     # Project categories
     # :camtasia - A video project using Camtasia Studio
