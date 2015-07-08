@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20150708150853) do
 
   create_table "project_reservations", force: true do |t|
     t.integer  "project_id"
+    t.integer  "category"
     t.datetime "start"
     t.datetime "end"
     t.integer  "lab"
