@@ -1,8 +1,8 @@
 # Create a few users to log in with and view/manipulate content with
-User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: 'director')
-User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: 'labasst')
-faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: 'faculty')
-student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: 'student')
+User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director])
+User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst])
+faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty])
+student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student])
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
@@ -13,13 +13,13 @@ fre.id = 12775
 fre.save!
 
 # Create a few projects to assign to courses
-spa_project = Project.create(course_id: 12754, name: "SPA Project", description: "Camtasia description", category: 0, num_groups: 5,
+spa_project = Project.create(course_id: 12754, name: "SPA Project", description: "Camtasia description", category: Project.categories[:camtasia], num_groups: 5,
                             script_due: DateTime.new(2015,8,15,7,0,0,'-5'), due: DateTime.new(2015,8,25,16,0,0,'-5'),
                             viewable_by: DateTime.new(2015,8,27,13,0,0,'-5'), approved: false)
-fre_project_1 = Project.create(course_id: 12775, name: "FRE Project 1", description: "Garage Band description", category: 1, num_groups: 6,
+fre_project_1 = Project.create(course_id: 12775, name: "FRE Project 1", description: "Garage Band description", category: Project.categories[:garage_band], num_groups: 6,
                             script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                             viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: false)
-fre_project_2 = Project.create(course_id: 12775, name: "FRE Project 2", description: "Pixton description", category: 2, num_groups: 3,
+fre_project_2 = Project.create(course_id: 12775, name: "FRE Project 2", description: "Pixton description", category: Project.categories[:pixton], num_groups: 3,
                             script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                             viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: true)
                             
