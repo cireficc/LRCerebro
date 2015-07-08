@@ -23,6 +23,21 @@ fre_project_2 = Project.create(course_id: 12775, name: "FRE Project 2", descript
                             script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                             viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: true)
                             
+# Create some reservations for a project
+training_1 = ProjectReservation.create(project_id: 1, start: DateTime.new(2015,8,17,7,0,0,'-5'), end: DateTime.new(2015,8,17,7,50,0,'-5'),
+                                                    lab: Lab.locations[:a], category: ProjectReservation.categories[:training],
+                                                    subtype: ProjectReservation.subtypes[:project_introduction],
+                                                    staff_notes: "Set up Google Drive mini-presentation.", faculty_notes: "Help me with Google Drive please!")
+training_2 = ProjectReservation.create(project_id: 1, start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
+                                                    lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
+                                                    subtype: ProjectReservation.subtypes[:camera_training],
+                                                    staff_notes: "Reserve a camera and tripod 1 hour before reservation.", faculty_notes: "Camera training necessary.")
+editing_1 = ProjectReservation.create(project_id: 1, start: DateTime.new(2015,8,19,7,0,0,'-5'), end: DateTime.new(2015,8,19,7,50,0,'-5'),
+                                                    lab: Lab.locations[:a], category: ProjectReservation.categories[:editing])
+                                                    
+# Assign the reservations to the project
+spa_project.project_reservations << training_1 << training_2 << editing_1
+                            
 # Assign the projects to the courses
 spa.projects << spa_project
 fre.projects << fre_project_1 << fre_project_2
