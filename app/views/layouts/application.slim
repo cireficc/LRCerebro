@@ -17,8 +17,8 @@ html
       == render 'partials/flash'
       / Have a loding GIF for turbolinks while a page is still loading
       / Show and hide it with JavaScript
-      .text-center
-        = image_tag("loading.gif", id: "loading", alt: "Loading...", title: "Loading...")
+      div#loading.vertical-center
+          = image_tag("loading.gif", alt: "Loading...", title: "Loading...")
       javascript:
         $(document).on('page:fetch', function() {
           $("#content").hide();
