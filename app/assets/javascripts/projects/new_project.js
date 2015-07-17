@@ -12,7 +12,7 @@ $(document).on('click', '#present', function(event) {
 });
 
 
-$(document).on('change', '#category', function() {
+$(document).on('change', '#project_category', function() {
 	
 	if ($(this).val() == "other")
 	    $("#other_warning").removeClass("hidden");
