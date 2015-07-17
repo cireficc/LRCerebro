@@ -1,7 +1,14 @@
+// Page ready
+$( document ).ready(function() {
+    $('#script_due').datetimepicker();
+    $('#due').datetimepicker();
+    $('#viewable_by').datetimepicker();
+});
+
 // If the checkbox for presenting projects is clicked, toggle the ready by form field
 $(document).on('click', '#present', function(event) {
 	
-	$("#viewable_by").toggleClass("hidden");
+	$("#viewable_by_hidden").toggleClass("hidden");
 });
 
 
