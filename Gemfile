@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # Use Moment.js and Date-time picker for date/time selectors
 gem 'momentjs-rails', '>= 2.9.0'
+# https://github.com/TrevorS/bootstrap3-datetimepicker-rails
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 
 # Use jquery as the JavaScript library
