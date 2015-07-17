@@ -37,26 +37,35 @@
                         .col-md-4
                             h4 Script due
                         .col-md-8
-                            = f.text_field :script_due, {class: "form-control"}
+                            div#script_due.input-group
+                                = f.text_field :script_due, {class: "form-control"}
+                                span.input-group-addon
+                                    span.glyphicon.glyphicon-calendar
                             small.text-warning
                                 | Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training.
                     .form-group
                         .col-md-4
                             h4 Project due
                         .col-md-8
-                            = f.text_field :due, {class: "form-control"}
+                            div#due.input-group
+                                = f.text_field :due, {class: "form-control"}
+                                span.input-group-addon
+                                    span.glyphicon.glyphicon-calendar
                     .form-group
                         .col-md-12
                             .checkbox
                                 label
                                     = check_box_tag :present
                                     | Do the projects need to be viewed by students, or presented in class?
-                    div#viewable_by.hidden
+                    div#viewable_by_hidden.hidden
                         .form-group
                             .col-md-4
                                 h4 Projects ready by
                             .col-md-8
-                                = f.text_field :viewable_by, {class: "form-control"}
+                                div#viewable_by.input-group
+                                    = f.text_field :viewable_by, {class: "form-control"}
+                                    span.input-group-addon
+                                        span.glyphicon.glyphicon-calendar
                                 small.text-warning LRC staff will make projects available to you and your students by this date
     hr
     .bs-callout.bs-callout-warning
