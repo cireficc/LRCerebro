@@ -46,4 +46,10 @@ $(document).on('click', '.add_fields', function(event) {
     addFields.before($(this).data('fields').replace(regexp, time));
     
     return event.preventDefault();
-  });
+});
+
+// If a calendar glyphicon is clicked, initialize the DateTimePicker
+$(document).on('click', '.glyphicon-calendar', function() {
+
+	$(this).closest('.input-group').datetimepicker();
+});
