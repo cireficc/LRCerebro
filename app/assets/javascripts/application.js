@@ -35,15 +35,15 @@ $(document).on('click', '#remove_fields', function(event) {
 * (this acts as a unique identifier for the object), then append the HTML above the add
 * button.
 */
-$(document).on('click', '.add_fields', function(event) {
+$(document).on('click', '#add_fields', function(event) {
     
-    var addFields, regexp, time;
+    var addFieldsDataElement, regexp, time;
     
-    addFields = $(this).closest('#add_fields');
+    addFieldsDataElement = $(this).find('#add_fields_data');
     time = new Date().getTime();
-    regexp = new RegExp($(this).data('id'), 'g');
+    regexp = new RegExp(addFieldsDataElement.data('id'), 'g');
     
-    addFields.before($(this).data('fields').replace(regexp, time));
+    $(this).before(addFieldsDataElement.data('fields').replace(regexp, time));
     
     return event.preventDefault();
 });

@@ -14,6 +14,6 @@
         .col-md-2
             div#lab
                 = f.select :category, options_for_select(Lab.locations.to_a.map { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] }), {}, {:class => "form-control"}
-        .col-md-2
+        .col-md-1
             div#remove_fields.btn.btn-danger
-                span.glyphicon.glyphicon-remove  Remove
+                span.glyphicon.glyphicon-remove

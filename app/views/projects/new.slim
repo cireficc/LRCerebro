@@ -88,11 +88,12 @@
             div#training_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "training"
-                div#add_fields.form-group
+                div#add_fields.row
                     .col-md-1
                         .btn.btn-info
                             span.glyphicon.glyphicon-plus
-                            = link_to_add_fields " Add", f, :project_reservations
+                                |  Add
+                            = generate_hidden_add_fields_data f, :project_reservations
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
@@ -109,9 +110,10 @@
             div#editing_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "editing"
-                div#add_fields.form-group
+                div#add_fields.row
                     .col-md-1
                         .btn.btn-info
                             span.glyphicon.glyphicon-plus
-                            = link_to_add_fields " Add", f, :project_reservations
+                                |  Add
+                            = generate_hidden_add_fields_data f, :project_reservations
     = f.submit "Submit Project", :class => "btn btn-info"
