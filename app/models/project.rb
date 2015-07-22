@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
     
     belongs_to :course
     has_many :project_reservations
+    accepts_nested_attributes_for :project_reservations, :reject_if => lambda { |a| a[:start].blank? && a[:end].blank? }, :allow_destroy => true
     
     # Project categories
     # :camtasia - A video project using Camtasia Studio

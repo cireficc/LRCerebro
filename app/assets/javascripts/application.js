@@ -17,3 +17,33 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .
+
+/*
+* Helper method to destroy nested objects for a simple "remove this"-type functionality.
+* Find the closest "removable-fields" class, hide it, then find its "_destroy" input
+* using the "ends with" selector, and set it to true. The user will no longer see the
+* nested object, and when the form is submitted, Rails will destroy it.
+*/
+$(document).on('click', '#remove_fields', function(event) {
+    
+    $(this).closest('.removable-fields').hide().find('input[id$="_destroy"]').val(true);
+});
+
+/*
+* Helper method to create nested objects for a simple "add another"-type functionality.
+* The necessary HTML is already attached to the button, so replace the id with the time
+* (this acts as a unique identifier for the object), then append the HTML above the add
+* button.
+*/
+$(document).on('click', '.add_fields', function(event) {
+    
+    var addFields, regexp, time;
+    
+    addFields = $(this).closest('#add_fields');
+    time = new Date().getTime();
+    regexp = new RegExp($(this).data('id'), 'g');
+    
+    addFields.before($(this).data('fields').replace(regexp, time));
+    
+    return event.preventDefault();
+  });
