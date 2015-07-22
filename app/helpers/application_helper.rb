@@ -1,6 +1,6 @@
 module ApplicationHelper
     
-    def link_to_add_fields(name, f, association)
+    def generate_hidden_add_fields_data(f, association)
         puts "Add field: " + association.to_s
         new_object = f.object.send(association).klass.new
         id = new_object.object_id
@@ -9,6 +9,7 @@ module ApplicationHelper
           render(association.to_s.singularize + "_fields", f: builder)
         end
         
-        link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+        #link_to(name, '#', id: "add_fields_data", data: {id: id, fields: fields.gsub("\n", "")})
+        hidden_field_tag('add_fields_data', nil, data: {id: id, fields: fields.gsub("\n", "")})
   end
 end
