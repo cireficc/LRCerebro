@@ -1,12 +1,17 @@
 // Page ready
-$( document ).ready(function() {
+$(document).ready(function() {
     $('#script_due').datetimepicker();
     $('#due').datetimepicker();
     $('#viewable_by').datetimepicker();
+    
+    // Initialize the reservation start/end DateTimePickers
+    $("#start, #end").each(function(i, el) {
+		$(this).datetimepicker();
+	});
 });
 
 // If the checkbox for presenting projects is clicked, toggle the ready by form field
-$(document).on('click', '#present', function(event) {
+$(document).on('click', '#present', function() {
 	
 	$("#viewable_by_hidden").toggleClass("hidden");
 });
