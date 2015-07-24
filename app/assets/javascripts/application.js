@@ -24,7 +24,7 @@
 * using the "ends with" selector, and set it to true. The user will no longer see the
 * nested object, and when the form is submitted, Rails will destroy it.
 */
-$(document).on('click', '#remove_fields', function(event) {
+$(document).on('click', '.remove-fields', function(event) {
     
     $(this).closest('.removable-fields').hide().find('input[id$="_destroy"]').val(true);
 });
@@ -35,7 +35,7 @@ $(document).on('click', '#remove_fields', function(event) {
 * (this acts as a unique identifier for the object), then append the HTML above the add
 * button.
 */
-$(document).on('click', '#add_fields', function(event) {
+$(document).on('click', '.add-fields', function(event) {
     
     var addFieldsDataElement, regexp, time;
     

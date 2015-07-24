@@ -15,5 +15,6 @@
             div#lab
                 = f.select :category, options_for_select(Lab.locations.to_a.map { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] }), {}, {:class => "form-control"}
         .col-md-1
-            div#remove_fields.btn.btn-danger
+            / The remove-fields class doesn't do anything except allow easier click-handling than using an id
+            .remove-fields.btn.btn-danger
                 span.glyphicon.glyphicon-remove
