@@ -12,12 +12,16 @@ class ProjectsController < ApplicationController
     end
     
     def create
-        @project = Project.new(project_params)
+        @project = params[:project]
+        # Convert the DateTimePicker's text value to a DateTime so that it can be stored in the database
+        @project[:script_due] = DateTime.strptime(@project[:script_due], DATE_TIME_PICKER_FORMAT) unless @project[:script_due].blank?
+        @project[:due] = DateTime.strptime(@project[:due], DATE_TIME_PICKER_FORMAT) unless @project[:due].blank?
+        @project[:viewable_by] = DateTime.strptime(@project[:viewable_by], DATE_TIME_PICKER_FORMAT) unless @project[:viewable_by].blank?
+        puts "Project: #{@project}"
+        @project_save = Project.new(project_params)
         
-        puts "Project: " + @project.to_s
-        
-        if @project.save
-            flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
+        if @project_save.save
+            flash[:success] = "Your project, #{@project_save.name}, has been successfully submitted!"
             redirect_to root_path
         else
             render 'new'
