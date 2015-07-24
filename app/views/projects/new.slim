@@ -89,9 +89,9 @@
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "training"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                .add-fields.row
+                div#add_fields_row.row
                     .col-md-1
-                        .btn.btn-info
+                        .add-fields.btn.btn-info
                             span.glyphicon.glyphicon-plus
                                 |  Add
                             = generate_hidden_add_fields_data f, :project_reservations
@@ -112,9 +112,9 @@
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "editing"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                .add-fields.row
+                div#add_fields_row.row
                     .col-md-1
-                        .btn.btn-info
+                        .add-fields.btn.btn-info
                             span.glyphicon.glyphicon-plus
                                 |  Add
                             = generate_hidden_add_fields_data f, :project_reservations
