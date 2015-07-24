@@ -45,10 +45,8 @@ $(document).on('click', '.add-fields', function(event) {
     time = new Date().getTime();
     regexp = new RegExp(addFieldsDataElement.data('id'), 'g');
     
-    // Use the regex to update the id, then add the fields before the [+ Add] button (this)
-    $(this).before(addFieldsDataElement.data('fields').replace(regexp, time));
-    
-    return event.preventDefault();
+    // Use the regex to update the id, then add the fields before the [+ Add] button
+    $(this).closest("#add_fields_row").before(addFieldsDataElement.data('fields').replace(regexp, time));
 });
 
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
