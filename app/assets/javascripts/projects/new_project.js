@@ -8,43 +8,24 @@ $(document).on('click', '#present', function() {
 	$("#viewable_by_hidden").toggleClass("hidden");
 });
 
-
+/*
+* When the project category changes, update the training/editing reservation sections with the
+* default number of reservations for the selected type.
+*/
 $(document).on('change', '#project_category', function() {
 	
-	if ($(this).val() == "other")
-	    $("#other_warning").removeClass("hidden");
-	else
-	    $("#other_warning").addClass("hidden");
-	    
+	// If the category is "other", show the warning
+	if ($(this).val() == "other") $("#other_warning").removeClass("hidden");
+	else $("#other_warning").addClass("hidden");
+	
+	// Get the default number of training/editing from the selected element (in data)
 	var num_training = $(this).find(':selected').data('default-training');
 	var num_editing = $(this).find(':selected').data('default-editing');
 	
-	var training_html = generateEventHtml(num_training, "Training");
-	var editing_html = generateEventHtml(num_editing, "Editing");
+	// Remove all training/editing sessions by calling click() on each remove button
+	$(".remove-fields").each(function() { $(this).click(); })
 	
-	$("#training_reservations").empty().append(training_html);
-	$("#editing_reservations").empty().append(editing_html);
+	// Add the default number of reservations by clicking the add button N times for each type
+	for (var i = 0; i < num_training; i ++) { $("#training_reservations").find('.add-fields').click(); }
+	for (var i = 0; i < num_editing; i ++) { $("#editing_reservations").find('.add-fields').click(); }
 });
-
-function generateEventHtml(num, type) {
-	
-	var type_lower = type.toLowerCase();
-	
-	var html = "";
-	
-	for (var i = 1; i <= num; i ++) {
-		html += '<div class="form-group">\
-  					<div class="col-md-2">\
-    					<h4>' + type + ' ' + i + '</h4>\
-  					</div>\
-  					<div class="col-md-5">\
-    					<input class="form-control" name="' + type_lower + '_start_' + i + '" type="text" />\
-  					</div>\
-  					<div class="col-md-5">\
-    					<input class="form-control" name="' + type_lower + '_end_' + i + '" type="text" />\
-  					</div>\
-				</div>';
-	}
-	
-	return html;
-}

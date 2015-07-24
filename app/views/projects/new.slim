@@ -88,7 +88,8 @@
             div#training_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "training"
-                div#add_fields.row
+                / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                .add-fields.row
                     .col-md-1
                         .btn.btn-info
                             span.glyphicon.glyphicon-plus
@@ -110,7 +111,8 @@
             div#editing_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'project_reservation_fields', :f => builder if builder.object.category == "editing"
-                div#add_fields.row
+                / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                .add-fields.row
                     .col-md-1
                         .btn.btn-info
                             span.glyphicon.glyphicon-plus
