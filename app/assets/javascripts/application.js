@@ -39,10 +39,13 @@ $(document).on('click', '#add_fields', function(event) {
     
     var addFieldsDataElement, regexp, time;
     
+    // Get the hidden element that contains all of the fields/data for a new nested object
     addFieldsDataElement = $(this).find('#add_fields_data');
+    // Get the time (unique) and regex replace the id of the new nested object (for a truly unique id)
     time = new Date().getTime();
     regexp = new RegExp(addFieldsDataElement.data('id'), 'g');
     
+    // Use the regex to update the id, then add the fields before the [+ Add] button (this)
     $(this).before(addFieldsDataElement.data('fields').replace(regexp, time));
     
     return event.preventDefault();
