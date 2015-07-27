@@ -17,7 +17,18 @@ class ProjectsController < ApplicationController
         @project[:script_due] = DateTime.strptime(@project[:script_due], DATE_TIME_PICKER_FORMAT) unless @project[:script_due].blank?
         @project[:due] = DateTime.strptime(@project[:due], DATE_TIME_PICKER_FORMAT) unless @project[:due].blank?
         @project[:viewable_by] = DateTime.strptime(@project[:viewable_by], DATE_TIME_PICKER_FORMAT) unless @project[:viewable_by].blank?
-        puts "Project: #{@project}"
+        
+        
+        
+        @reservations = @project[:project_reservations_attributes].select { |index, res| res[:_destroy] == "false" && (!res[:start].blank? && !res[:end].blank?) }
+        
+        @reservations.each do |index, res|
+            puts "Index: #{index}, res: #{res}\n\n"
+            res[:start] = DateTime.strptime(res[:start], DATE_TIME_PICKER_FORMAT)
+            res[:end] = DateTime.strptime(res[:end], DATE_TIME_PICKER_FORMAT)
+            res[:lab] = Lab.locations[res[:lab]]
+        end
+        
         @project_save = Project.new(project_params)
         
         if @project_save.save
@@ -31,6 +42,6 @@ class ProjectsController < ApplicationController
     private
     
     def project_params
-        params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :viewable_by)
+        params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :viewable_by, project_reservations_attributes: [:start, :end, :lab, :_destroy])
     end
 end
