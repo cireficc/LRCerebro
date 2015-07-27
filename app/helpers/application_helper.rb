@@ -23,26 +23,4 @@ module ApplicationHelper
         object[param] = DateTime.strptime(object[param], DATE_TIME_PICKER_FORMAT) if object[param].present?
       end
     end
-    
-    def missing_parameters(association_object, required_params)
-      missing = Array.new
-        
-      # Generate an array of errors by checking each required parameter
-      for param in required_params
-          puts "Param check: #{param}; present?: #{association_object[param].present?}"
-          missing << param unless association_object[param].present?
-      end
-      
-      missing
-    end
-    
-    def generate_parameter_errors_message(association, missing_params)
-      @message = "There were errors in the #{association}. The following parameters are required, but were missing:"
-      @message += "<ol>"
-      
-      for param in missing_params
-        @message += "<li>#{param}</li>"
-      end
-      @message += "</ol>"
-    end
 end
