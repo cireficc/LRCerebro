@@ -12,29 +12,27 @@ class ProjectsController < ApplicationController
     end
     
     def create
-        @project = params[:project]
-        # Convert the DateTimePicker's text value to a DateTime so that it can be stored in the database
-        @project[:script_due] = DateTime.strptime(@project[:script_due], DATE_TIME_PICKER_FORMAT) unless @project[:script_due].blank?
-        @project[:due] = DateTime.strptime(@project[:due], DATE_TIME_PICKER_FORMAT) unless @project[:due].blank?
-        @project[:viewable_by] = DateTime.strptime(@project[:viewable_by], DATE_TIME_PICKER_FORMAT) unless @project[:viewable_by].blank?
         
+        proj = params[:project]
+        # Convert the DateTimePicker text values for Project to a DateTime object
+        date_time_params = %i(script_due due viewable_by)
+        convert_date_time_picker_values(proj, date_time_params)
         
-        
-        @reservations = @project[:project_reservations_attributes].select { |index, res| res[:_destroy] == "false" && (!res[:start].blank? && !res[:end].blank?) }
-        
-        @reservations.each do |index, res|
-            puts "Index: #{index}, res: #{res}\n\n"
-            res[:start] = DateTime.strptime(res[:start], DATE_TIME_PICKER_FORMAT)
-            res[:end] = DateTime.strptime(res[:end], DATE_TIME_PICKER_FORMAT)
+        # Convert the DateTimePicker text values for ProjectReservations to a DateTime object
+        date_time_params = %i(start end)
+        reservations = proj[:project_reservations_attributes].select { |index, res| res[:_destroy] == "false" && (!res[:start].blank? && !res[:end].blank?) }
+        reservations.each do |index, res|
+            convert_date_time_picker_values(res, date_time_params)
             res[:lab] = Lab.locations[res[:lab]]
         end
         
-        @project_save = Project.new(project_params)
+        @project = Project.new(project_params)
         
-        if @project_save.save
-            flash[:success] = "Your project, #{@project_save.name}, has been successfully submitted!"
+        if @project.save
+            flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
             redirect_to root_path
         else
+            puts "Errors: #{@project.errors.messages}"
             render 'new'
         end
     end
