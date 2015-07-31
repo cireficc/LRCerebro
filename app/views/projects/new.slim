@@ -37,7 +37,7 @@
                         .col-md-4
                             h4 Script due
                         .col-md-8
-                            div#script_due.input-group
+                            div#script_due.input-group.date
                                 = f.text_field :script_due, {class: "form-control"}
                                 span.input-group-addon
                                     span.glyphicon.glyphicon-calendar
@@ -47,7 +47,7 @@
                         .col-md-4
                             h4 Project due
                         .col-md-8
-                            div#due.input-group
+                            div#due.input-group.date
                                 = f.text_field :due, {class: "form-control"}
                                 span.input-group-addon
                                     span.glyphicon.glyphicon-calendar
@@ -62,7 +62,7 @@
                             .col-md-4
                                 h4 Projects ready by
                             .col-md-8
-                                div#viewable_by.input-group
+                                div#viewable_by.input-group.date
                                     = f.text_field :viewable_by, {class: "form-control"}
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar

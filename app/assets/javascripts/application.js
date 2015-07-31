@@ -51,6 +51,6 @@ $(document).on('click', '.add-fields', function(event) {
 
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
 $(document).on('click', '.glyphicon-calendar', function() {
-
-	$(this).closest('.input-group').datetimepicker();
+    
+    $(this).closest('.input-group').datetimepicker();
 });
