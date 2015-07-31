@@ -13,19 +13,6 @@ class ProjectsController < ApplicationController
     
     def create
         
-        proj = params[:project]
-        # Convert the DateTimePicker text values for Project to a DateTime object
-        date_time_params = %i(script_due due viewable_by)
-        convert_date_time_picker_values(proj, date_time_params)
-        
-        # Convert the DateTimePicker text values for ProjectReservations to a DateTime object
-        date_time_params = %i(start end)
-        reservations = proj[:project_reservations_attributes].select { |index, res| res[:_destroy] == "false" && (!res[:start].blank? && !res[:end].blank?) }
-        reservations.each do |index, res|
-            convert_date_time_picker_values(res, date_time_params)
-            res[:lab] = Lab.locations[res[:lab]]
-        end
-        
         @project = Project.new(project_params)
         
         if @project.save
@@ -33,6 +20,7 @@ class ProjectsController < ApplicationController
             redirect_to root_path
         else
             puts "Errors: #{@project.errors.messages}"
+            flash.now[:danger] = "Errors: #{@project.errors.messages}"
             render 'new'
         end
     end

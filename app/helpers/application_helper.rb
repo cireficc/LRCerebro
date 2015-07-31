@@ -11,16 +11,4 @@ module ApplicationHelper
         
         hidden_field_tag('add_fields_data', nil, data: {id: id, fields: fields.gsub("\n", "")})
   end
-  
-    # DateTimePicker is a utility that is used site-wide, and often, so this constant should go here
-    DATE_TIME_PICKER_FORMAT = "%m/%d/%Y %l:%M %p" # e.g. 07/24/2015 3:41 PM
-    
-    # Converts each parameter in the object from a string (DateTimePicker text value) to a DateTime object.
-    # This allows us to easily convert the text values in parameters for any object before saving to the database
-    def convert_date_time_picker_values(object, parameters)
-      for param in parameters
-        puts "Converting param #{param} with val #{object[param]} && present? #{object[param].present?}"
-        object[param] = DateTime.strptime(object[param], DATE_TIME_PICKER_FORMAT) if object[param].present?
-      end
-    end
 end
