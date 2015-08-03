@@ -55,9 +55,9 @@
                         .col-md-12
                             .checkbox
                                 label
-                                    = check_box_tag :present
+                                    = f.check_box :present, {checked: @project.present == "1" ? true : false}
                                     | Do the projects need to be viewed by students, or presented in class?
-                    div#viewable_by_hidden.hidden
+                    div#viewable_by_hidden
                         .form-group
                             .col-md-4
                                 h4 Projects ready by
