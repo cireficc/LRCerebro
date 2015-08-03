@@ -10,6 +10,9 @@ $(document).ready(function() {
 	    
 	    if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
 	});
+	
+	// Toggle the 'projects ready by' field if the 'present' checkbox is checked
+	$("#viewable_by_hidden").toggle($("#project_present").is(":checked"));
 });
 
 /*
@@ -32,9 +35,9 @@ $(document).on("click", "[name='commit']", function(e) {
 });
 
 // If the checkbox for presenting projects is clicked, toggle the ready by form field
-$(document).on('click', '#present', function() {
+$(document).on('click', '#project_present', function() {
 	
-	$("#viewable_by_hidden").toggleClass("hidden");
+	$("#viewable_by_hidden").toggle($(this).is(":checked"));
 });
 
 /*
