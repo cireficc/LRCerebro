@@ -36,7 +36,7 @@ nav.navbar.navbar-default
                 span.caret
               ul.dropdown-menu role="menu"
                 li
-                  a href="projects/new" Class Project Proposal
+                  = link_to "Class Project Proposal", new_project_path
                 li
                   a href="#" Reserve the LRC
                 li.divider
@@ -52,7 +52,7 @@ nav.navbar.navbar-default
       ul.nav.navbar-nav.navbar-right
         - if !logged_in?
           li
-            a href="/login" Log In
+            = link_to "Log In", login_path
         - else
           / Different Time Tracker links depending on the user's role
           - if current_user.director? || current_user.labasst?
@@ -76,4 +76,4 @@ nav.navbar.navbar-default
             li
               a href="#" Equipment
           li
-            a href="/logout" Log Out
+            = link_to "Log Out", logout_path

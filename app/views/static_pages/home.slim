@@ -32,7 +32,7 @@
         em The LRC is the place to be!
     p The Language Resource Center is a media-centric workplace for students taking foreign languages, where they can study in a comfortable, relaxing environment while enjoying our large media collection to better practice their language.
     - if !logged_in?
-        a.btn.btn-primary.btn-lg href="/login" Log in now!
+        = link_to "Log In", login_path, {class: 'btn btn-primary btn-lg'}
 hr
 .row.text-center
     .col-lg-12
