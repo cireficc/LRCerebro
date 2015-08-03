@@ -1,8 +1,8 @@
 module ApplicationHelper
     
-    def generate_hidden_add_fields_data(f, association)
-        puts "Add field: " + association.to_s
-        new_object = f.object.send(association).klass.new
+    def generate_hidden_add_fields_data(f, association, object_defaults)
+        
+        new_object = f.object.send(association).klass.new(object_defaults)
         id = new_object.object_id
         
         fields = f.fields_for(association, new_object, child_index: id) do |builder|
