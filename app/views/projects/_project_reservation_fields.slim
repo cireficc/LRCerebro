@@ -1,6 +1,7 @@
 .removable-fields
     .form-group
         = f.hidden_field :_destroy
+        = f.hidden_field :category
         .col-md-4
             div#start.input-group.date
                 = f.text_field :start, {class: "form-control"}
