@@ -13,4 +13,8 @@ class ProjectReservation < ActiveRecord::Base
     # :camera_training - Train the students how to operate the cameras
     # :camtasia_traning - Train the students how to use Camtasia Studio
     enum subtype: [:project_introduction, :camera_training, :camtasia_traning]
+    
+    # In order for form submissions to assign this property correctly, this enum has to be present
+    # in this class. To follow DRY, we use the application-wide enum Lab.locations
+    enum lab: Lab.locations
 end
