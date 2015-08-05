@@ -7,6 +7,7 @@
   .tab-content
     #signin.tab-pane.active
       = form_for(:account, url: login_path)
+        / @signup local variable is used to switch to the signup tab if the user needs to register
         = hidden_field_tag :signup_true, @signup
         .col-sm-12
           .form-group
