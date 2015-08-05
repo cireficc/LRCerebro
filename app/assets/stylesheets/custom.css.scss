@@ -104,3 +104,8 @@ $brand-danger:          #E74C3C !default;
     -webkit-justify-content : center;
     justify-content : center;
 }
+
+// Prevent links from being clicked: http://stackoverflow.com/a/4416239/1986871
+.not-active {
+   pointer-events: none;
+}
