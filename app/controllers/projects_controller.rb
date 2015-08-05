@@ -24,6 +24,12 @@ class ProjectsController < ApplicationController
         end
     end
     
+    def show
+        @project = Project.find(params[:id])
+        # Set the present check-box so that it is checked properly when the form is rendered
+        @project.present = "1" if !@project.viewable_by.nil?
+    end
+    
     private
     
     def project_params
