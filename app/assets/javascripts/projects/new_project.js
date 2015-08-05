@@ -1,16 +1,6 @@
 // Page ready
 $(document).ready(function() {
 	
-	// Initialize all of the DateTimePickers with their correctly-displayed value
-	$('.glyphicon-calendar').each(function (event) {
-		var input = $(this).closest('.input-group');
-	    var textField = input.find('input[type="text"]');
-	    var text = textField.val();
-	    input.datetimepicker();
-	    
-	    if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
-	});
-	
 	// Toggle the 'projects ready by' field if the 'present' checkbox is checked
 	$("#viewable_by_hidden").toggle($("#project_present").is(":checked"));
 });
