@@ -10,5 +10,24 @@ module ApplicationHelper
         end
         
         hidden_field_tag('add_fields_data', nil, data: {id: id, fields: fields.gsub("\n", "")})
-  end
+    end
+  
+    def generate_errors_html(association, errors)
+        puts "Errors: #{errors}"
+        html = "<h4>Sorry, but there were errors in your #{association.to_s.downcase}:</h4>"
+        html += "<ol>"
+        
+        for err in errors
+            puts "Err: #{err}"
+            html += "<li>#{err[0].to_s.humanize}:"
+            html += "<ul>"
+            for sub_err in 1...err.size
+                html += "<li>#{err[sub_err][0].humanize}</li>"
+            end
+            html += "</ul>"
+        end
+        
+        html += "</ol>"
+        html.html_safe
+    end
 end
