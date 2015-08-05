@@ -19,8 +19,8 @@ class AccountController < ApplicationController
             return render "login"
         end
         
-        # The BB username was found. Check to see if their password has been set before
-        if @user.password_digest.blank?
+        # The BB username was found. Redirect to the sign-in form if they are not registered
+        if !@user.registered?
             # Store username in session, then clear it after the password has been set
             # Redirect to set password page
             flash.now[:warning] =
@@ -61,7 +61,7 @@ class AccountController < ApplicationController
             return render "login"
         end
         
-        if !@user.password_digest.blank?
+        if @user.registered?
             flash.now[:danger] = "You have already registered. Please log in instead"
             # Nullify sign-up variables because the user has already registered
             @signup = nil
@@ -77,8 +77,9 @@ class AccountController < ApplicationController
         
         @user.password = @password
         @user.password_confirmation = @password_confirmation
+        @user.registered = true
         
-        # Try to save the user's new password. User.has_secure_password will validate as necessary
+        # Try to save the user's new password and registered status. User.has_secure_password will validate as necessary
         if !@user.save
             flash.now[:danger] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
             return render "login"
