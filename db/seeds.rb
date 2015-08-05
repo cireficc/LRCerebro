@@ -1,9 +1,9 @@
 # Create a few users to log in with and view/manipulate content with
-User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director])
-User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst])
-faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty])
-student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student])
-User.create(username: 'unregistered', g_number: 'g00000000', password: 'unregistered', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student])
+User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
+User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
+faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
+student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
+User.create(username: 'unregistered', g_number: 'g00000000', password: 'unregistered', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
