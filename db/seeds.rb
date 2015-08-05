@@ -3,6 +3,7 @@ User.create(username: 'director', g_number: 'g00000000', password: 'director', f
 User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst])
 faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty])
 student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student])
+User.create(username: 'unregistered', g_number: 'g00000000', password: 'unregistered', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student])
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
