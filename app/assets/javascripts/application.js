@@ -18,6 +18,20 @@
 //= require bootstrap-datetimepicker
 //= require_tree .
 
+// Page ready for all pages
+$(document).ready(function() {
+	
+	// Initialize all of the DateTimePickers with their correctly-displayed value
+	$('.glyphicon-calendar').each(function (event) {
+		var input = $(this).closest('.input-group');
+	    var textField = input.find('input[type="text"]');
+	    var text = textField.val();
+	    input.datetimepicker();
+	    
+	    if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
+	});
+});
+
 /*
 * Helper method to destroy nested objects for a simple "remove this"-type functionality.
 * Find the closest "removable-fields" class, hide it, then find its "_destroy" input
