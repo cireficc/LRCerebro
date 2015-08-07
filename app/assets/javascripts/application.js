@@ -33,6 +33,25 @@ $(document).ready(function() {
 });
 
 /*
+* Intercept all Rails form submissions. In this function, sanitize input such as:
+* - DateTimePicker: convert the mm/dd/yyyy hh:mm A/PM format to a JavaScript date
+*                   so that Rails can correctly create a DateTime object out of it.
+*/
+$(document).on("click", "[name='commit']", function(e) {
+	
+	// Prevent the form submission. Page-specific handlers will be called next and submit() the form
+	e.preventDefault();
+	
+	// See function documentation for DateTimePicker
+	$('.glyphicon-calendar').each(function (event) {
+		var textField = $(this).closest('.input-group').find('input[type="text"]');
+	    var text = textField.val();
+	    
+	    if (text.length != 0) textField.val(new Date(text));
+	});
+});
+
+/*
 * Helper method to destroy nested objects for a simple "remove this"-type functionality.
 * Find the closest "removable-fields" class, hide it, then find its "_destroy" input
 * using the "ends with" selector, and set it to true. The user will no longer see the

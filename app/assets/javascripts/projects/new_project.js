@@ -6,22 +6,13 @@ $(document).ready(function() {
 });
 
 /*
-* Handle value errors client-side before the project is submitted.
+* Continue the form submission with validation
 */
 $(document).on("click", "[name='commit']", function(e) {
 	
-	e.preventDefault();
+	// TODO: validation
 	
-	// Iterate through all DateTimePickers and convert the text value to a JS Date before submitting
-	// to the server so that Rails gets the time zone correctly.
-	$('.glyphicon-calendar').each(function (event) {
-		var textField = $(this).closest('.input-group').find('input[type="text"]');
-	    var text = textField.val();
-	    
-	    if (text.length != 0) textField.val(new Date(text));
-	});
-	
-	$("#new_project").submit();
+	$(this).closest("form").submit();
 });
 
 // If the checkbox for presenting projects is clicked, toggle the ready by form field
