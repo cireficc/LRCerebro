@@ -30,6 +30,10 @@ class ProjectsController < ApplicationController
         @project.present = "1" if !@project.viewable_by.nil?
     end
     
+    def edit
+        @project = Project.find(params[:id])
+    end
+    
     private
     
     def project_params
