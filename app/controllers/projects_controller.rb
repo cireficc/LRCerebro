@@ -32,11 +32,24 @@ class ProjectsController < ApplicationController
     
     def edit
         @project = Project.find(params[:id])
+        @project.present = "1" if !@project.viewable_by.nil?
+    end
+    
+    def update
+        @project = Project.find(params[:id])
+        
+        if @project.update_attributes(project_params)
+            flash[:success] = "#{@project.name} has been successfully updated!"
+            redirect_to project_path(@project)
+        else
+            flash.now[:danger] = generate_errors_html(Project, @project.errors.messages)
+            render 'edit'
+        end
     end
     
     private
     
     def project_params
-        params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, project_reservations_attributes: [:category, :start, :end, :lab, :_destroy])
+        params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, project_reservations_attributes: [:id, :category, :start, :end, :lab, :_destroy])
     end
 end
