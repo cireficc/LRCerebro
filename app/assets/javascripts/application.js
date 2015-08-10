@@ -18,6 +18,11 @@
 //= require bootstrap-datetimepicker
 //= require_tree .
 
+// Default options for the DateTimePicker
+var dtpDefaults = {
+	format: "YYYY-MM-DD  h:mm A" // 2015-08-10 5:30 PM; Rails-friendly DateTime format
+}
+
 // Page ready for all pages
 $(document).ready(function() {
 	
@@ -26,28 +31,9 @@ $(document).ready(function() {
 		var input = $(this).closest('.input-group');
 	    var textField = input.find('input[type="text"]');
 	    var text = textField.val();
-	    input.datetimepicker();
+	    input.datetimepicker(dtpDefaults);
 	    
 	    if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
-	});
-});
-
-/*
-* Intercept all Rails form submissions. In this function, sanitize input such as:
-* - DateTimePicker: convert the mm/dd/yyyy hh:mm A/PM format to a JavaScript date
-*                   so that Rails can correctly create a DateTime object out of it.
-*/
-$(document).on("click", "[name='commit']", function(e) {
-	
-	// Prevent the form submission. Page-specific handlers will be called next and submit() the form
-	e.preventDefault();
-	
-	// See function documentation for DateTimePicker
-	$('.glyphicon-calendar').each(function (event) {
-		var textField = $(this).closest('.input-group').find('input[type="text"]');
-	    var text = textField.val();
-	    
-	    if (text.length != 0) textField.val(new Date(text));
 	});
 });
 
@@ -85,5 +71,5 @@ $(document).on('click', '.add-fields', function(event) {
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
 $(document).on('click', '.glyphicon-calendar', function() {
     
-    $(this).closest('.input-group').datetimepicker();
+    $(this).closest('.input-group').datetimepicker(dtpDefaults);
 });
