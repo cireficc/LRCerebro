@@ -7,6 +7,8 @@ gem 'rails', '4.1.6'
 gem 'pg', '~> 0.18.2'
 # Use Bcrypt to encrypt passwords in the database
 gem 'bcrypt', '~> 3.1.10'
+# Use Pundit as a role-based resource restriction mechanism
+gem 'pundit', '~> 1.0.1'
 # Use Slim as the view templating engine (similar to Jade)
 gem 'slim', '>= 3.0.3'
 # Use SCSS for stylesheets
