@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+    pundit:
+        not_authorized_intro: 'You do not have permission to'
+        default: 'You do not have permission to perform that action.'
+        project_policy:
+            index?: 'view projects.'
+            new?: 'create new projects.'
+            create?: 'create new projects.'
+            show?: 'view that project.'
+            edit?: 'edit that project.'
+            update?: 'update that project.'
+            destroy?: 'delete that project.'
