@@ -30,4 +30,8 @@ module ApplicationHelper
         html += "</ol>"
         html.html_safe
     end
+    
+    def last_page
+       session[:last_page] 
+    end
 end
