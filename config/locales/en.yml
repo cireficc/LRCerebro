@@ -22,7 +22,7 @@
 en:
     pundit:
         not_authorized_intro: 'You do not have permission to'
-        default: 'You do not have permission to perform that action.'
+        default: 'You must be logged in to perform that action.'
         project_policy:
             index?: 'view projects.'
             new?: 'create new projects.'
