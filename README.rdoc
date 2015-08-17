@@ -1,7 +1,0 @@
-# Installation requires:
-
-* Rails 4.1.6
-* Ruby 2.1.5p273
-* PostgreSQL 9.3.6
-
-There may be other dependencies...
