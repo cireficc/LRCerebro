@@ -23,9 +23,11 @@ class ApplicationController < ActionController::Base
 
     # Load each part of the "No permission" message
     intro = t :not_authorized_intro, scope: "pundit" # You do not have permission to...
-    rest = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default # ... create/view/edit/update/delete _resource_
+    rest = t "#{policy_name}.#{exception.query}", scope: "pundit" # ... create/view/edit/update/delete _resource_
 
-    flash[:danger] = "#{intro} #{rest}"
+    # If the user is logged in, present a specific authorization message, otherwise present the default "must log in" message
+    flash[:danger] = (current_user) ? "#{intro} #{rest}" : (t :default, scope: "pundit")
+    
     redirect_to(last_page || root_path)
   end
 end

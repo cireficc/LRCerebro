@@ -4,6 +4,7 @@ class ProjectPolicy
     attr_reader :user, :project
 
     def initialize(user, project)
+        raise Pundit::NotAuthorizedError unless user
         @user = user
         @project = project
     end
