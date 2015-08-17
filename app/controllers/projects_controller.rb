@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
     
     def new
         @project = Project.new
+        authorize @project
         @num_training = Project::CATEGORY_TRAINING_EVENTS.values[0]
         @num_editing = Project::CATEGORY_EDITING_EVENTS.values[0]
         
@@ -14,6 +15,7 @@ class ProjectsController < ApplicationController
     def create
         
         @project = Project.new(project_params)
+        authorize @project
         
         if @project.save
             flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
@@ -26,17 +28,21 @@ class ProjectsController < ApplicationController
     
     def show
         @project = Project.find(params[:id])
+        authorize @project
+        
         # Set the present check-box so that it is checked properly when the form is rendered
         @project.present = "1" if !@project.viewable_by.nil?
     end
     
     def edit
         @project = Project.find(params[:id])
+        authorize @project
         @project.present = "1" if !@project.viewable_by.nil?
     end
     
     def update
         @project = Project.find(params[:id])
+        authorize @project
         
         if @project.update_attributes(project_params)
             flash[:success] = "#{@project.name} has been successfully updated!"
