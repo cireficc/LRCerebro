@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
     rest = t "#{policy_name}.#{exception.query}", scope: "pundit" # ... create/view/edit/update/delete _resource_
 
     # If the user is logged in, present a specific authorization message, otherwise present the default "must log in" message
-    flash[:danger] = (current_user) ? "#{intro} #{rest}" : (t :default, scope: "pundit")
+    flash.now[:danger] = (current_user) ? "#{intro} #{rest}" : (t :default, scope: "pundit")
     
-    redirect_to(last_page || root_path)
+    render 'static_pages/403'
   end
 end

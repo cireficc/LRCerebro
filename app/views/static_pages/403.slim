@@ -1,0 +1,7 @@
+h1
+    | 403: Forbidden
+h4
+    | If you believe this is an error, please email 
+    = mail_to "shultzd@gvsu.edu", "David Shultz", {subject: "LRCerebro - 403 Forbidden", cc: "cireficc@mail.gvsu.edu", body: generate_403_email_body}
+    | .
+input type= "button" onclick="history.back();" value="Back" class= "btn btn-primary"
