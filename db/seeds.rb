@@ -12,6 +12,7 @@ spa.save!
 fre = Course.create(year: 2015, semester: 0, department: 2, course: 101, section: 01, name: 'FRE 101 01 - Elementary French I')
 fre.id = 12775
 fre.save!
+Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
 
 # Create a few projects to assign to courses
 spa_project = Project.create(name: "SPA Project", description: "Camtasia description", category: Project.categories[:camtasia], num_groups: 5,
