@@ -6,6 +6,7 @@
       a#signup_tab data-toggle="tab" href="#signup"  Sign Up
   .tab-content
     #signin.tab-pane.active
+      br
       = form_for(:account, url: login_path)
         / @signup local variable is used to switch to the signup tab if the user needs to register
         = hidden_field_tag :signup_true, @signup
@@ -21,6 +22,7 @@
               button.btn.btn-primary(type='submit')
                 | Log In
     #signup.tab-pane
+      br
       = form_for(:account, url: register_path)
         .col-sm-12
           form-group
