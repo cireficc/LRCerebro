@@ -15,9 +15,6 @@
                         .col-md-4
                             h4 Project type
                         .col-md-8
-                            // select#category.form-control
-                            //     - Project.categories.to_a.map do |c, i|
-                            //         option data-default-training=Project::CATEGORY_TRAINING_EVENTS[c.to_sym] data-default-editing=Project::CATEGORY_EDITING_EVENTS[c.to_sym] value=c #{c.camelize}
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
                             = f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control", disabled: true}
