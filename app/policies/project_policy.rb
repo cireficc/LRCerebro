@@ -4,7 +4,9 @@ class ProjectPolicy
     attr_reader :user, :project
     
     class Scope < Struct.new(:user, :scope)
+        
         def resolve
+            raise Pundit::NotAuthorizedError unless user
             if (user.director? || user.labasst?)
                 scope.all
             else
