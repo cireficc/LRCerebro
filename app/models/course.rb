@@ -11,5 +11,5 @@ class Course < ActiveRecord::Base
     
     # Enum to describe the MLL department to which the course belongs.
     # Basically, each language has its own department.
-    enum department: [:arabic, :chinese, :french, :german, :italian, :japanese, :russian, :spanish]
+    enum department: [:arabic, :chinese, :french, :german, :italian, :japanese, :russian, :spanish, :lrc]
 end
