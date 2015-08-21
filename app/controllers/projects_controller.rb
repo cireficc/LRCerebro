@@ -1,5 +1,9 @@
 class ProjectsController < ApplicationController
     
+    def index
+        @projects = policy_scope(Project)
+    end
+    
     def new
         @project = Project.new
         authorize @project
