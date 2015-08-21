@@ -21,10 +21,6 @@ class ProjectPolicy
         @user = user
         @project = project
     end
-  
-    def index?
-        @user.director? || @user.labasst?
-    end
     
     def new?
         @user.director? || @user.labasst? || @user.faculty?
