@@ -9,7 +9,8 @@
                         .col-md-4
                             h4 Course
                         .col-md-8
-                            = f.select :course_id, options_for_select(current_user.courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control"}
+                            - @courses = (current_user.director? || current_user.labasst?) ? Course.all : current_user.courses
+                            = f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control"}
                     .form-group
                         .col-md-4
                             h4 Project type
