@@ -2,6 +2,17 @@ class ProjectPolicy
     include ProjectsHelper
     
     attr_reader :user, :project
+    
+    class Scope < Struct.new(:user, :scope)
+        def resolve
+            if (user.director? || user.labasst?)
+                scope.all
+            else
+                # Only allow the user to see projects in their courses
+                scope.where(course_id: user.courses.map {|c| c.id})
+            end
+        end
+    end
 
     def initialize(user, project)
         raise Pundit::NotAuthorizedError unless user
