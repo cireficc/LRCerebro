@@ -10,6 +10,7 @@
         / @signup local variable is used to switch to the signup tab if the user needs to register
         = hidden_field_tag :signup_true, @signup
         .col-sm-12
+          h4.text-warning If this is your first time logging in, please click the Sign Up tab.
           .form-group
             = label_tag :username, 'Blackboard username'
             = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
