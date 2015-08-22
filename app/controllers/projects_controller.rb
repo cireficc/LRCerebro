@@ -2,6 +2,16 @@ class ProjectsController < ApplicationController
     
     def index
         @projects = policy_scope(Project)
+        @approved = Array.new
+        @pending = Array.new
+        
+        @projects.each do |p|
+           if p.approved
+               @approved << p
+           else
+               @pending << p
+           end
+        end
     end
     
     def new
