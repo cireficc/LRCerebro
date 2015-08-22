@@ -1,4 +1,14 @@
-- @projects.each do |project|
-    p
-     = project.to_yaml
-    hr
+ul.nav.nav-tabs.nav-justified
+    li.active
+        a#signin_tab data-toggle="tab" href="#pending" Pending
+    li
+        a#signup_tab data-toggle="tab" href="#approved" Approved
+    .tab-content
+        #pending.tab-pane.active
+            br
+            - @pending.each do |project|
+                = render partial: "project_overview", locals: {p: project}
+        #approved.tab-pane
+            br
+            - @approved.each do |project|
+                = render partial: "project_overview", locals: {p: project}
