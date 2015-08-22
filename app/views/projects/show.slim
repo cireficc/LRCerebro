@@ -70,12 +70,16 @@
             h3.panel-title Training Reservations
         .panel-body.text-center
             .form-group
-                .col-md-4
+                .col-md-3
                     h4 Start date/time
-                .col-md-4
+                .col-md-3
                     h4 End date/time
+                .col-md-1
+                    h4 Lab
                 .col-md-2
-                    h4 Desired lab
+                    h4 Director notes
+                .col-md-2
+                    h4 Faculty notes
             div#training_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'show_project_reservation_fields', :f => builder if builder.object.category == "training"
@@ -85,14 +89,16 @@
             h3.panel-title Editing Reservations
         .panel-body.text-center
             .form-group
-                .col-md-2
-                    h4 Reservation #
                 .col-md-3
                     h4 Start date/time
                 .col-md-3
                     h4 End date/time
-                .col-md-2
+                .col-md-1
                     h4 Lab
+                .col-md-2
+                    h4 Director notes
+                .col-md-2
+                    h4 Faculty notes
             div#editing_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'show_project_reservation_fields', :f => builder if builder.object.category == "editing"

@@ -52,6 +52,7 @@ class ProjectPolicy
     # This means that if there are 2+ users with role 'faculty' in a course that has a project, they
     # will ALL have the same permissions on the project
     def owns_project
+        puts "Owns project?: #{@project.course.users.include? @user}"
         @user.faculty? && (@project.course.users.include? @user)
     end
 end
