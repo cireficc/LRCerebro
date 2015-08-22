@@ -103,4 +103,5 @@
                 = f.fields_for :project_reservations do |builder|
                     = render 'show_project_reservation_fields', :f => builder if builder.object.category == "editing"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
-    = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info'}
+    - if policy(@project).edit?
+        = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info'}
