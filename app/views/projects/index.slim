@@ -1,8 +1,12 @@
 ul.nav.nav-tabs.nav-justified
     li.active
-        a#signin_tab data-toggle="tab" href="#pending" Pending
+        a#pending_tab data-toggle="tab" href="#pending"
+            | Pending 
+            span.badge #{@pending.length}
     li
-        a#signup_tab data-toggle="tab" href="#approved" Approved
+        a#approved_tab data-toggle="tab" href="#approved"
+            | Approved 
+            span.badge #{@approved.length}
     .tab-content
         #pending.tab-pane.active
             br

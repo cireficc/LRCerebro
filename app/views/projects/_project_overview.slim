@@ -1,8 +1,16 @@
-.form-horizontal
-    .panel.panel-primary
-            .panel-heading
-                h3.panel-title Project Information
-            .panel-body
+.panel.panel-primary
+        .panel-heading
+            h4.panel-title
+                - if current_user.director?
+                    - project_owner = p.course.users.find { |u| u.faculty? }
+                    - if project_owner
+                        span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+                span.label.label-warning #{p.course.name}
+                span.label.label-danger #{p.category.humanize}
+                span.label.label-success #{p.name}
+                span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
+        .panel-body
+            .form-horizontal
                 .row
                     .col-md-6
                         .form-group
