@@ -11,55 +11,75 @@
                 span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
         .panel-body
             .form-horizontal
-                .row
-                    .col-md-6
-                        .form-group
-                            .col-md-4
-                                h4 Course
-                            .col-md-8
-                                - @courses = (current_user.director? || current_user.labasst?) ? Course.all : current_user.courses
-                                = select_tag :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, p.course_id), {:class => "form-control", disabled: true}
-                        .form-group
-                            .col-md-4
-                                h4 Project type
-                            .col-md-8
-                                - @train = Project::CATEGORY_TRAINING_EVENTS
-                                - @edit = Project::CATEGORY_EDITING_EVENTS
-                                = select_tag :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, p.category), {:class => "form-control", disabled: true}
-                                div#other_warning.small.text-warning.hidden
-                                    | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
-                        .form-group
-                            .col-md-4
-                                h4 Project name
-                            .col-md-8
-                                = text_field_tag :name, p.name, {class: "form-control", maxlength: 100, disabled: true}
-                        .form-group
-                            .col-md-4
-                                h4 Project description
-                            .col-md-8
-                                = text_area_tag :description, p.description, {class: "form-control", rows: 5, maxlength: 2500, disabled: true}
-                    .col-md-6
-                        .form-group
-                            .col-md-4
-                                h4 Script due
-                            .col-md-8
-                                div#script_due.input-group.date
-                                    = text_field_tag :script_due, p.script_due, {class: "form-control", disabled: true}
-                                    span.input-group-addon
-                                        span.glyphicon.glyphicon-calendar
-                        .form-group
-                            .col-md-4
-                                h4 Project due
-                            .col-md-8
-                                div#due.input-group.date
-                                    = text_field_tag :due, p.due, {class: "form-control", disabled: true}
-                                    span.input-group-addon
-                                        span.glyphicon.glyphicon-calendar
-                        .form-group
-                            .col-md-4
-                                h4 Projects ready by
-                            .col-md-8
-                                div#viewable_by.input-group.date
-                                    = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
-                                    span.input-group-addon
-                                        span.glyphicon.glyphicon-calendar
+                .col-md-4
+                    .panel.panel-info
+                        .panel-heading
+                            h4.panel-title Important Dates
+                        .panel-body
+                            .form-group
+                                .col-md-4
+                                    h4 Script due
+                                .col-md-8
+                                    div#script_due
+                                        = text_field_tag :script_due, p.script_due, {class: "form-control", disabled: true}
+                            .form-group
+                                .col-md-4
+                                    h4 First training
+                                .col-md-8
+                                    div#first_training
+                                        - first_training = p.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
+                                        - if first_training
+                                            = text_field_tag :first_training, first_training.start, {class: "form-control", disabled: true}
+                            .form-group
+                                .col-md-4
+                                    h4 Last editing
+                                .col-md-8
+                                    div#last_editing
+                                        - last_editing = p.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
+                                        - if last_editing
+                                            = text_field_tag :last_editing, last_editing.start, {class: "form-control", disabled: true}
+                            .form-group
+                                .col-md-4
+                                    h4 Project due
+                                .col-md-8
+                                    div#due
+                                        = text_field_tag :due, p.due, {class: "form-control", disabled: true}
+                            .form-group
+                                .col-md-4
+                                    h4 Projects ready by
+                                .col-md-8
+                                    div#viewable_by
+                                        - if p.viewable_by
+                                            = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
+                ruby:
+                    @training = Array.new
+                        @editing = Array.new
+                    p.project_reservations.each do |res|
+                        if res.training?
+                            @training << res
+                        elsif res.editing?
+                            @editing << res
+                        end
+                    end
+                .col-md-4
+                    .panel.panel-danger
+                        .panel-heading
+                            h4.panel-title Training Reservations
+                        .panel-body
+                            - @training.each_with_index do |res, i|
+                                .form-group
+                                    .col-md-4
+                                        h4 Training #{i}
+                                    .col-md-8
+                                        = text_field_tag :start, res.start, {class: "form-control", disabled: true}
+                .col-md-4
+                    .panel.panel-warning
+                        .panel-heading
+                            h4.panel-title Editing Reservations
+                        .panel-body
+                            - @editing.each_with_index do |res, i|
+                                .form-group
+                                    .col-md-4
+                                        h4 Editing #{i}
+                                    .col-md-8
+                                        = text_field_tag :start, res.start, {class: "form-control", disabled: true}
