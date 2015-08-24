@@ -2,21 +2,28 @@
     .panel-heading.cursor-pointer
         h4.panel-title data-toggle="collapse" data-target="##{p.id}"
             .row
-                .col-md-10
+                .col-md-2
                     - if current_user.director?
                         - project_owner = p.course.users.find { |u| u.faculty? }
                         - if project_owner
                             span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+                .col-md-2
                     span.label.label-warning #{p.course.name}
-                    span.label.label-danger #{p.category.humanize}
-                    span.label.label-success #{p.name}
-                    span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
                 .col-md-1
+                    span.label.label-danger #{p.category.camelize}
+                .col-md-2
+                    span.label.label-success #{p.name}
+                .col-md-1.col-md-offset-10
                     - if policy(p).edit?
                         = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info pull-right'}
                 .col-md-1
                     - if policy(p).show?
                         = link_to "View Project", project_path(p), {class: 'btn btn-xs btn-default pull-right'}
+            .row
+                .col-md-2
+                    span.label.label-default Submitted: #{p.created_at.to_s}
+                .col-md-2
+                    span.label.label-default Updated: #{p.updated_at.to_s}
     = content_tag :div, class: "panel-collapse collapse", id: p.id
         .panel-body
             .form-horizontal
