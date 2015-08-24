@@ -17,37 +17,37 @@
                             h4.panel-title Important Dates
                         .panel-body
                             .form-group
-                                .col-md-4
-                                    h4 Script due
-                                .col-md-8
+                                .col-md-5
+                                    .well.well-sm Script due
+                                .col-md-7
                                     div#script_due
                                         = text_field_tag :script_due, p.script_due, {class: "form-control", disabled: true}
                             .form-group
-                                .col-md-4
-                                    h4 First training
-                                .col-md-8
+                                .col-md-5
+                                    .well.well-sm First training
+                                .col-md-7
                                     div#first_training
                                         - first_training = p.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
                                         - if first_training
                                             = text_field_tag :first_training, first_training.start, {class: "form-control", disabled: true}
                             .form-group
-                                .col-md-4
-                                    h4 Last editing
-                                .col-md-8
+                                .col-md-5
+                                    .well.well-sm Last editing
+                                .col-md-7
                                     div#last_editing
                                         - last_editing = p.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
                                         - if last_editing
                                             = text_field_tag :last_editing, last_editing.start, {class: "form-control", disabled: true}
                             .form-group
-                                .col-md-4
-                                    h4 Project due
-                                .col-md-8
+                                .col-md-5
+                                    .well.well-sm Project due
+                                .col-md-7
                                     div#due
                                         = text_field_tag :due, p.due, {class: "form-control", disabled: true}
                             .form-group
-                                .col-md-4
-                                    h4 Projects ready by
-                                .col-md-8
+                                .col-md-5
+                                    .well.well-sm Projects ready by
+                                .col-md-7
                                     div#viewable_by
                                         - if p.viewable_by
                                             = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
@@ -69,7 +69,7 @@
                             - @training.each_with_index do |res, i|
                                 .form-group
                                     .col-md-4
-                                        h4 Training #{i}
+                                        .well.well-sm Training #{i}
                                     .col-md-8
                                         = text_field_tag :start, res.start, {class: "form-control", disabled: true}
                 .col-md-4
@@ -80,6 +80,6 @@
                             - @editing.each_with_index do |res, i|
                                 .form-group
                                     .col-md-4
-                                        h4 Editing #{i}
+                                        .well.well-sm Editing #{i}
                                     .col-md-8
                                         = text_field_tag :start, res.start, {class: "form-control", disabled: true}
