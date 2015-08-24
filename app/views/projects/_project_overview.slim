@@ -1,18 +1,22 @@
 .panel.panel-primary
     .panel-heading.cursor-pointer
         h4.panel-title data-toggle="collapse" data-target="##{p.id}"
-            - if current_user.director?
-                - project_owner = p.course.users.find { |u| u.faculty? }
-                - if project_owner
-                    span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
-            span.label.label-warning #{p.course.name}
-            span.label.label-danger #{p.category.humanize}
-            span.label.label-success #{p.name}
-            span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
-            - if policy(p).show?
-                = link_to "View Project", project_path(p), {class: 'btn btn-xs btn-default'}
-            - if policy(p).edit?
-                = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info'}
+            .row
+                .col-md-10
+                    - if current_user.director?
+                        - project_owner = p.course.users.find { |u| u.faculty? }
+                        - if project_owner
+                            span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+                    span.label.label-warning #{p.course.name}
+                    span.label.label-danger #{p.category.humanize}
+                    span.label.label-success #{p.name}
+                    span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
+                .col-md-1
+                    - if policy(p).edit?
+                        = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info pull-right'}
+                .col-md-1
+                    - if policy(p).show?
+                        = link_to "View Project", project_path(p), {class: 'btn btn-xs btn-default pull-right'}
     = content_tag :div, class: "panel-collapse collapse", id: p.id
         .panel-body
             .form-horizontal
