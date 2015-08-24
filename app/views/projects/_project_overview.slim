@@ -7,12 +7,14 @@
                         - project_owner = p.course.users.find { |u| u.faculty? }
                         - if project_owner
                             span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
-                .col-md-2
+                .col-md-3
                     span.label.label-warning #{p.course.name}
                 .col-md-1
                     span.label.label-danger #{p.category.camelize}
                 .col-md-2
                     span.label.label-success #{p.name}
+                .col-md-1
+                    span.label.label-default Students: #{p.course.users.length}
                 .col-md-1.col-md-offset-10
                     - if policy(p).edit?
                         = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info pull-right'}
