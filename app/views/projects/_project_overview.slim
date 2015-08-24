@@ -1,5 +1,5 @@
 .panel.panel-primary
-    .panel-heading
+    .panel-heading.cursor-pointer
         h4.panel-title data-toggle="collapse" data-target="##{p.id}"
             - if current_user.director?
                 - project_owner = p.course.users.find { |u| u.faculty? }
