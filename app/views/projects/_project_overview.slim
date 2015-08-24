@@ -1,14 +1,15 @@
 .panel.panel-primary
-        .panel-heading
-            h4.panel-title
-                - if current_user.director?
-                    - project_owner = p.course.users.find { |u| u.faculty? }
-                    - if project_owner
-                        span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
-                span.label.label-warning #{p.course.name}
-                span.label.label-danger #{p.category.humanize}
-                span.label.label-success #{p.name}
-                span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
+    .panel-heading
+        h4.panel-title data-toggle="collapse" data-target="##{p.id}"
+            - if current_user.director?
+                - project_owner = p.course.users.find { |u| u.faculty? }
+                - if project_owner
+                    span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+            span.label.label-warning #{p.course.name}
+            span.label.label-danger #{p.category.humanize}
+            span.label.label-success #{p.name}
+            span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
+    = content_tag :div, class: "panel-collapse collapse", id: p.id
         .panel-body
             .form-horizontal
                 .col-md-4
@@ -53,7 +54,7 @@
                                             = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
                 ruby:
                     @training = Array.new
-                        @editing = Array.new
+                    @editing = Array.new
                     p.project_reservations.each do |res|
                         if res.training?
                             @training << res

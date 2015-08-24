@@ -10,9 +10,11 @@ ul.nav.nav-tabs.nav-justified
     .tab-content
         #pending.tab-pane.active
             br
-            - @pending.each do |project|
-                = render partial: "project_overview", locals: {p: project}
+            .panel-group
+                - @pending.each do |project|
+                    = render partial: "project_overview", locals: {p: project}
         #approved.tab-pane
             br
-            - @approved.each do |project|
-                = render partial: "project_overview", locals: {p: project}
+            .panel-group
+                - @approved.each do |project|
+                    = render partial: "project_overview", locals: {p: project}
