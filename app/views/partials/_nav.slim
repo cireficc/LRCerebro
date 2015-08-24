@@ -13,23 +13,20 @@ nav.navbar.navbar-default
       ul.nav.navbar-nav
         / Only show extra links if the user is logged in, depending on the user's role
         - if logged_in?
-          - if current_user.director?
-            li.dropdown.disabled.not-active
+          - if current_user.director? || current_user.labasst?
+            li.dropdown
               a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-                | Projects
+                | Project Manager
                 span.caret
               ul.dropdown-menu role="menu"
-                li.disabled.not-active
-                  a href="#" Project Manager
+                li
+                  = link_to "Projects", projects_path
                 li.divider
-                li.disabled.not-active
-                  a href="#" Add a Project
-          - elsif current_user.labasst?
-              li.disabled.not-active
-                a href="#" Project Manager
+                li
+                  = link_to "Add a Project", new_project_path
           - elsif current_user.faculty?
-            li.disabled.not-active
-              a href="#" My Projects
+            li
+              = link_to "My Projects", projects_path
             li.dropdown
               a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
                 | Forms
