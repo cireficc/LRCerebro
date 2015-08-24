@@ -1,0 +1,43 @@
+  ul.nav.nav-tabs.nav-justified
+    li.active
+      a#signin_tab data-toggle="tab" href="#signin"  Log In
+    li
+      a#signup_tab data-toggle="tab" href="#signup"  Sign Up
+  .tab-content
+    #signin.tab-pane.active
+      br
+      = form_for(:account, url: login_path)
+        / @signup local variable is used to switch to the signup tab if the user needs to register
+        = hidden_field_tag :signup_true, @signup
+        .col-sm-12
+          h4.text-warning If this is your first time logging in, please click the Sign Up tab.
+          .form-group
+            = label_tag :username, 'Blackboard username'
+            = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
+          .form-group
+            = label_tag :password, 'Password'
+            = password_field_tag :password, nil, class: "form-control", maxlength: 72
+          form-group
+              button.btn.btn-primary(type='submit')
+                | Log In
+    #signup.tab-pane
+      br
+      = form_for(:account, url: register_path)
+        .col-sm-12
+          form-group
+            = label_tag :username, 'Blackboard username'
+            = text_field_tag :username, @username, class: "form-control", placeholder: "e.g. johnsond", maxlength: 15
+          .form-group
+            = label_tag :g_number, 'G number'
+            br
+            small Your G number is required to verify your identity
+            = text_field_tag :g_number, @g_number, class: "form-control", placeholder: "GVSU G number", maxlength: 15
+          .form-group
+            = label_tag :password, 'New password'
+            = password_field_tag :password, nil, class: "form-control", maxlength: 72
+          .form-group
+            = label_tag :password_confirmation, 'Confirm password'
+            = password_field_tag :password_confirmation, nil, class: "form-control", maxlength: 72
+          form-group
+              button.btn.btn-primary(type='submit')
+                | Sign Up
