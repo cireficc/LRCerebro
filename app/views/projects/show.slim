@@ -1,4 +1,9 @@
 = form_for @project, :html => {:class => "form-horizontal", disabled: true} do |f|
+    - if policy(@project).edit?
+        .row
+            .col-md-2.col-md-offset-10
+                = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
+        br
     .panel.panel-info
         .panel-heading
             h3.panel-title Project Information
@@ -103,5 +108,3 @@
                 = f.fields_for :project_reservations do |builder|
                     = render 'show_project_reservation_fields', :f => builder if builder.object.category == "editing"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
-    - if policy(@project).edit?
-        = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info'}
