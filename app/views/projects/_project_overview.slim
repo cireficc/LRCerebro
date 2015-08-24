@@ -88,7 +88,7 @@
                                 - @training.each_with_index do |res, i|
                                     .form-group
                                         .col-md-4
-                                            .well.well-sm Training #{i}
+                                            .well.well-sm Training #{i + 1}
                                         .col-md-8
                                             = text_field_tag :start, res.start, {class: "form-control", disabled: true}
                     .col-md-4
@@ -99,6 +99,6 @@
                                 - @editing.each_with_index do |res, i|
                                     .form-group
                                         .col-md-4
-                                            .well.well-sm Editing #{i}
+                                            .well.well-sm Editing #{i + 1}
                                         .col-md-8
                                             = text_field_tag :start, res.start, {class: "form-control", disabled: true}
