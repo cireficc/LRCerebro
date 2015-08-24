@@ -23,11 +23,11 @@
                             span.label.label-default #{p.created_at.to_s}
                         .col-md-2
                             span.label.label-default #{p.updated_at.to_s}
-                - if policy(p).edit?
-                    .col-md-1
+                .col-md-1
+                    - if policy(p).edit?
                         = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info pull-right'}
-                - if policy(p).show?
-                    .col-md-1
+                .col-md-1
+                    - if policy(p).show?
                         = link_to "View Project", project_path(p), {class: 'btn btn-xs btn-default pull-right'}
     = content_tag :div, class: "panel-collapse collapse", id: p.id
         .panel-body
