@@ -109,8 +109,3 @@ $brand-danger:          #E74C3C !default;
 .not-active {
    pointer-events: none;
 }
-
-// Override Bootstrap's class to have better control over the max width of all pages
-.container-fluid {
-    max-width: 80%;
-}
