@@ -4,6 +4,8 @@ User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', fir
 faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
 student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
 User.create(username: 'unregistered', g_number: 'g00000000', password: 'unregistered', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
+wardse = User.create(username: 'wardse', g_number: 'g00000000', password: 'unregistered', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
+cireficc = User.create(username: 'cireficc', g_number: 'g00749804', password: 'unregistered', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
@@ -12,6 +14,12 @@ spa.save!
 fre = Course.create(year: 2015, semester: 0, department: 2, course: 101, section: 01, name: 'FRE 101 01 - Elementary French I')
 fre.id = 12775
 fre.save!
+fre2 = Course.create(year: 2015, semester: 0, department: 2, course: 202, section: 02, name: 'FRE 202 02 - Intermediate French II')
+fre2.id = 12776
+fre2.save!
+fre3 = Course.create(year: 2015, semester: 0, department: 2, course: 307, section: 01, name: 'FRE 307 01 - Advanced French Grammar')
+fre3.id = 12777
+fre3.save!
 Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
 
 # Create a few projects to assign to courses
@@ -47,6 +55,8 @@ fre.projects << fre_project_1 << fre_project_2
 # Assigning the course to the faculty means that the faculty is also enrolled in the course
 faculty.courses << spa << fre
 student.courses << spa << fre
+wardse.courses << fre2 << fre3
+cireficc.courses << fre3
 # Adding the faculty as a user of the course also triggers this relationship
 #spa.users << faculty << student
 #fre.users << faculty << student
