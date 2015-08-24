@@ -10,11 +10,37 @@ ul.nav.nav-tabs.nav-justified
     .tab-content
         #pending.tab-pane.active
             br
+            .panel.panel-default
+                .panel-heading
+                    .row.text-center
+                        .col-md-10
+                            .row
+                                - if current_user.director?
+                                    .col-md-2 Project Owner
+                                .col-md-2 Course Name
+                                .col-md-1 Category
+                                .col-md-2 Project Name
+                                .col-md-1 # Students
+                                .col-md-2 Submitted
+                                .col-md-2 Updated
             .panel-group
                 - @pending.each do |project|
                     = render partial: "project_overview", locals: {p: project}
         #approved.tab-pane
             br
+            .panel.panel-default
+                .panel-heading
+                    .row.text-center
+                        .col-md-10
+                            .row
+                                - if current_user.director?
+                                    .col-md-2 Project Owner
+                                .col-md-2 Course Name
+                                .col-md-1 Category
+                                .col-md-2 Project Name
+                                .col-md-1 # Students
+                                .col-md-2 Submitted
+                                .col-md-2 Updated
             .panel-group
                 - @approved.each do |project|
                     = render partial: "project_overview", locals: {p: project}
