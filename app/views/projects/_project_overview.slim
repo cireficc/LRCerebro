@@ -9,6 +9,10 @@
             span.label.label-danger #{p.category.humanize}
             span.label.label-success #{p.name}
             span.label.label-default #{p.created_at.to_formatted_s(:long_ordinal)}
+            - if policy(p).show?
+                = link_to "View Project", project_path(p), {class: 'btn btn-xs btn-default'}
+            - if policy(p).edit?
+                = link_to "Edit Project", edit_project_path(p), {class: 'btn btn-xs btn-info'}
     = content_tag :div, class: "panel-collapse collapse", id: p.id
         .panel-body
             .form-horizontal
