@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
         authorize @project
         
-        if @project.update_attributes(project_params)
+        if @project.update_attributes(project_update_params)
             flash[:success] = "#{@project.name} has been successfully updated!"
             redirect_to project_path(@project)
         else
@@ -72,5 +72,9 @@ class ProjectsController < ApplicationController
     def project_params
         params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
             project_reservations_attributes: [:id, :category, :start, :end, :lab, :staff_notes, :faculty_notes, :_destroy])
+    end
+    
+    def project_update_params
+        params.require(:project).permit(policy(@project).permitted_attributes)
     end
 end
