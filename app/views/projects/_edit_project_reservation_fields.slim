@@ -6,11 +6,15 @@
         - disabled = current_user.faculty?
         .col-md-3
             div#start.input-group.date
+                - if current_user.faculty?
+                    = f.hidden_field :start
                 = f.text_field :start, {class: "form-control", disabled: disabled}
                 span.input-group-addon
                     span.glyphicon.glyphicon-calendar
         .col-md-3
             div#end.input-group.date
+                - if current_user.faculty?
+                    = f.hidden_field :end
                 = f.text_field :end, {class: "form-control", disabled: disabled}
                 span.input-group-addon
                     span.glyphicon.glyphicon-calendar
