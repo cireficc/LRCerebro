@@ -99,14 +99,14 @@
                         h4 Faculty notes
             div#training_reservations
                 = f.fields_for :project_reservations do |builder|
-                    = render 'project_reservation_fields', :f => builder if builder.object.category == "training"
+                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
                 div#add_fields_row.row
                     .col-md-1
                         .add-fields.btn.btn-info
                             span.glyphicon.glyphicon-plus
                                 |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}
+                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :new
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
@@ -126,12 +126,12 @@
                         h4 Faculty notes
             div#editing_reservations
                 = f.fields_for :project_reservations do |builder|
-                    = render 'project_reservation_fields', :f => builder if builder.object.category == "editing"
+                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
                 / The add-fields class doesn't do anything except allow easier click-handling than using an id
                 div#add_fields_row.row
                     .col-md-1
                         .add-fields.btn.btn-info
                             span.glyphicon.glyphicon-plus
                                 |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}
+                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
     = f.submit "Submit Project", :class => "btn btn-info"
