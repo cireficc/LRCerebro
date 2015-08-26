@@ -22,6 +22,16 @@ class ProjectPolicy
         @project = project
     end
     
+    def permitted_attributes
+        if @user.director?
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            project_reservations_attributes: [:id, :category, :start, :end, :lab, :staff_notes, :_destroy]]
+        else
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
+        end
+    end
+    
     def new?
         @user.director? || @user.labasst? || @user.faculty?
     end
@@ -35,11 +45,11 @@ class ProjectPolicy
     end
     
     def edit?
-        @user.director?
+        @user.director? || owns_project
     end
     
     def update?
-        @user.director?
+        @user.director? || owns_project
     end
     
     def destroy?
