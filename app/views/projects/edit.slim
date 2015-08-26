@@ -86,13 +86,14 @@
             div#training_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "training"
-                / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                div#add_fields_row.row
-                    .col-md-1
-                        .add-fields.btn.btn-info
-                            span.glyphicon.glyphicon-plus
-                                |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :edit
+                - if current_user.director?
+                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    div#add_fields_row.row
+                        .col-md-1
+                            .add-fields.btn.btn-info
+                                span.glyphicon.glyphicon-plus
+                                    |  Add
+                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :edit
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
@@ -114,13 +115,14 @@
             div#editing_reservations
                 = f.fields_for :project_reservations do |builder|
                     = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "editing"
-                / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                div#add_fields_row.row
-                    .col-md-1
-                        .add-fields.btn.btn-info
-                            span.glyphicon.glyphicon-plus
-                                |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
+                - if current_user.director?
+                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    div#add_fields_row.row
+                        .col-md-1
+                            .add-fields.btn.btn-info
+                                span.glyphicon.glyphicon-plus
+                                    |  Add
+                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
     - if policy(@project).update?
         .row
             .col-md-2.col-md-offset-10
