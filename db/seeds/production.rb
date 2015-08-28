@@ -39,9 +39,13 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	identifier = row[2]
 	name = row[3]
 	
+	year = semester_code[0..3].to_i # Year is the first 4 digits of the semester code
+	semester = semester_code[4..5].to_i # semester is the last 2 digits of the semester code
+	semester = Course::SEMESTER_CODE[semester] # Gives us the actual enum value
+	
 	@course = Course.find_by(id: course_id)
 	
-	@course = Course.create(year: 2015, semester: 0, department: 0, course: 0, section: 0, name: name) if @course.nil?
+	@course = Course.create(year: year, semester: semester, department: 0, course: 0, section: 0, name: name) if @course.nil?
 	# Overwrite the serially-set id for the course with the id from Blackboard
 	@course.id = course_id
 	@course.save!
