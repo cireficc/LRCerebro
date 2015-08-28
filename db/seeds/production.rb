@@ -35,7 +35,7 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	
 	@course = Course.find_by(id: course_id)
 	
-	@course = Course.create(year: 2015, semester: 0, department: 0 course: 0, section: 0, name: name) if @course.nil?
+	@course = Course.create(year: 2015, semester: 0, department: 0, course: 0, section: 0, name: name) if @course.nil?
 	# Overwrite the serially-set id for the course with the id from Blackboard
 	@course.id = course_id
 	@course.save!
