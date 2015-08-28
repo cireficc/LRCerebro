@@ -11,6 +11,9 @@ require 'csv'
 
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false) do |row|
+	
+	# Format: g_number|username|first_name|last_name|role
+	# e.g. G00000000|cireficc|Chris|Cirefice|STUDENT
   
 	g_number = row[0]
 	username = row[1]
@@ -28,7 +31,10 @@ end
 # Iterate through all of the MLL courses
 CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	
-	course_id = row[0]
+	# Format: course_id|semester_code|identifier|name
+	# e.g. 00000|201610|FRE100.01|FRE 100 01 - Imaginary French Course
+	
+	course_id = row[0]		
 	semester_code = row[1]
 	identifier = row[2]
 	name = row[3]
