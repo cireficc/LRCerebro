@@ -19,6 +19,10 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false) do |row|
 	role = row[4]
 	# Convert the string to our User.role's enum value
 	role = User.roles[role.downcase]
+	
+	@user = User.find_by(g_number: g_number)
+	
+	User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
 end
 
 # Iterate through all of the MLL courses
@@ -28,6 +32,13 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	semester_code = row[1]
 	identifier = row[2]
 	name = row[3]
+	
+	@course = Course.find_by(id: course_id)
+	
+	@course = Course.create(year: 2015, semester: 0, department: 0 course: 0, section: 0, name: name) if @course.nil?
+	# Overwrite the serially-set id for the course with the id from Blackboard
+	@course.id = course_id
+	@course.save!
 end
 
 # Iterate through all of the MLL enrollment data
