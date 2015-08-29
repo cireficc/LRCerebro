@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
     enum semester: [:fall, :winter, :summer]
     
     # The integer semester codes from Blackboard that correspond to the semester enum
-    SEMESTER_CODE = {
+    SEMESTER_CODES = {
         10 => semesters[:fall],
         20 => semesters[:winter],
         30 => semesters[:summer]
@@ -19,4 +19,22 @@ class Course < ActiveRecord::Base
     # Enum to describe the MLL department to which the course belongs.
     # Basically, each language has its own department.
     enum department: [:arabic, :chinese, :french, :german, :italian, :japanese, :russian, :spanish, :lrc]
+    
+    # The 3-character language codes that correspond to the department for the course (most of the time)
+    # Special cases include (but may not be limited to):
+    #   - EAS: East Asian Studies
+    #   - LAS: Latin American Studies
+    #   - MES: Middle Eastern Studies
+    #   - RST: Russian Studies
+    # The special cases have their department as nil.
+    DEPARTMENT_CODES = {
+        "ARA" => departments[:arabic],
+        "CHI" => departments[:chinese],
+        "FRE" => departments[:french],
+        "GER" => departments[:german],
+        "ITA" => departments[:italian],
+        "JPN" => departments[:japanese],
+        "RUS" => departments[:russian],
+        "SPA" => departments[:spanish]
+    }
 end

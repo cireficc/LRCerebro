@@ -40,12 +40,17 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	name = row[3]
 	
 	year = semester_code[0..3].to_i # Year is the first 4 digits of the semester code
-	semester = semester_code[4..5].to_i # semester is the last 2 digits of the semester code
-	semester = Course::SEMESTER_CODE[semester] # Gives us the actual enum value
+	semester = semester_code[4..5].to_i # Semester is the last 2 digits of the semester code
+	semester = Course::SEMESTER_CODES[semester] # Gives us the actual enum value
+	
+	language = identifier[0..2] # Language is the first 3 characters of the identifier
+	department = Course::DEPARTMENT_CODES[language] # Gives us the actual enum value
+	course_number = identifier[3..5].to_i # Course number is the next 3 digits of the identifier
+	section = identifier[7..8].to_i # Section number is the last 2 digits of the identifier
 	
 	@course = Course.find_by(id: course_id)
 	
-	@course = Course.create(year: year, semester: semester, department: 0, course: 0, section: 0, name: name) if @course.nil?
+	@course = Course.create(year: year, semester: semester, department: department, course: course_number, section: section, name: name) if @course.nil?
 	# Overwrite the serially-set id for the course with the id from Blackboard
 	@course.id = course_id
 	@course.save!
