@@ -9,8 +9,11 @@ puts "NOTE: the directory /db/MLL_data is not (and should not) be checked into G
 
 require 'csv'
 
+puts "\n"
+puts "Importing students and faculty from lrc_ppl.txt..."
+
 # Iterate through all of the MLL faculty/students
-CSV.foreach(lrc_ppl, col_sep: '|', headers: false) do |row|
+CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	# Format: g_number|username|first_name|last_name|role
 	# e.g. G00000000|cireficc|Chris|Cirefice|STUDENT
@@ -26,15 +29,21 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false) do |row|
 	@user = User.find_by(g_number: g_number)
 	
 	User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
+	
+	print "." if (i % 25 == 0)
+
 end
 
+puts "\n"
+puts "Importing courses from lrc_crs.txt..."
+
 # Iterate through all of the MLL courses
-CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
+CSV.foreach(lrc_crs, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	# Format: course_id|semester_code|identifier|name
 	# e.g. 00000|201610|FRE100.01|FRE 100 01 - Imaginary French Course
 	
-	course_id = row[0]		
+	course_id = row[0]
 	semester_code = row[1]
 	identifier = row[2]
 	name = row[3]
@@ -54,10 +63,15 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false) do |row|
 	# Overwrite the serially-set id for the course with the id from Blackboard
 	@course.id = course_id
 	@course.save!
+	
+	print "." if (i % 25 == 0)
 end
 
+puts "\n"
+puts "Importing enrollments from lrc_enr.txt..."
+
 # Iterate through all of the MLL enrollment data
-CSV.foreach(lrc_enr, col_sep: '|', headers: false) do |row|
+CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
 	g_number = row[1]
@@ -69,4 +83,7 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false) do |row|
 	@user = User.find_by(g_number: g_number)
 	
 	@course.users << @user if @user
+	
+	print "." if (i % 25 == 0)
 end
+puts "\n"
