@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+# Figaro handles configuration through environment variables.
+gem "figaro"
 
 group :development do
   # Capistrano is our deployment tool of choice
