@@ -15,7 +15,7 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false) do |row|
 	# Format: g_number|username|first_name|last_name|role
 	# e.g. G00000000|cireficc|Chris|Cirefice|STUDENT
   
-	g_number = row[0]
+	g_number = row[0].downcase
 	username = row[1]
 	first_name = row[2]
 	last_name = row[3]
@@ -59,6 +59,14 @@ end
 # Iterate through all of the MLL enrollment data
 CSV.foreach(lrc_enr, col_sep: '|', headers: false) do |row|
 	
-	course_id = row[0]
+	course_id = row[0].to_i
 	g_number = row[1]
+	
+	if @course.id != course_id
+		@course = Course.find(course_id)
+	end
+	
+	@user = User.find_by(g_number: g_number)
+	
+	@course.users << @user if @user
 end
