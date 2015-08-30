@@ -15,8 +15,7 @@ set :deploy_to, "/app/lrcerebro"
 
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push(
-  "config/database.yml",
-  "config/secrets.yml",
+  "config/application.yml",
 )
 
 # Default value for linked_dirs is []
