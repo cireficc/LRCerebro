@@ -1,7 +1,0 @@
-# Figaro config
-
-# The Rails secret key that is used for verifying signed cookies.
-SECRET_KEY_BASE:
-
-# Database connection settings url.
-DATABASE_URL:
