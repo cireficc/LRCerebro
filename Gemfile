@@ -35,3 +35,19 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
+
+group :development do
+  # Capistrano is our deployment tool of choice
+  gem "capistrano-rails",     require: false
+  gem "capistrano-chruby",    require: false
+  gem "capistrano-bundler",   require: false
+  gem "capistrano-passenger", require: false
+end
+
+group :staging, :production do
+  # Change the logging output to use a structured logging format.
+  gem "lograge"
+
+  # V8 JavaScript Runtime for the server
+  gem "therubyracer"
+end
