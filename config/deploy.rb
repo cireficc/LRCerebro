@@ -29,7 +29,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
 )
 
 namespace :deploy do
-
   # Set the ruby version in ~lrcerbro/.ruby-version so that when the user logs
   # in they are automatically using the correct version of Ruby for the app.
   after :restart, :set_ruby_version do
@@ -40,5 +39,4 @@ namespace :deploy do
       upload!(data, path)
     end
   end
-
 end
