@@ -38,10 +38,11 @@ gem "figaro"
 
 group :development do
   # Capistrano is our deployment tool of choice
-  gem "capistrano-rails",     require: false
-  gem "capistrano-chruby",    require: false
-  gem "capistrano-bundler",   require: false
-  gem "capistrano-passenger", require: false
+  gem "capistrano-rails",         require: false
+  gem "capistrano-chruby",        require: false
+  gem "capistrano-bundler",       require: false
+  gem "capistrano-passenger",     require: false
+  gem "capistrano-rails-console", require: false
 end
 
 group :staging, :production do
