@@ -46,6 +46,10 @@ puts "\n"
 puts "\n"
 puts "Importing courses from lrc_crs.txt..."
 
+# After import, we use these two arrays to remove courses that are no longer available (however unlikely that is)
+@imported_courses = Array.new # The list of courses being imported from the CSV file
+@existing_courses = Course.all # The current courses in the database
+
 # Iterate through all of the MLL courses
 CSV.foreach(lrc_crs, col_sep: '|', headers: false).each_with_index do |row, i|
 	
@@ -73,8 +77,15 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false).each_with_index do |row, i|
 	@course.id = course_id
 	@course.save!
 	
+	@imported_courses << @course
+	
 	print "." if (i % 25 == 0)
 end
+
+puts "\n"
+# Get a list of courses that were in the database before import, but were not in the CSV, and delete them
+@courses_to_delete = @existing_courses - @imported_courses
+@courses_to_delete.each { |c| c.delete }
 
 puts "\n"
 puts "Importing enrollments from lrc_enr.txt..."
@@ -85,13 +96,13 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	course_id = row[0].to_i
 	g_number = row[1]
 	
-	if @course.id != course_id
-		@course = Course.find(course_id)
+	if @course && @course.id != course_id
+		@course = Course.find_by_id(course_id)
 	end
 	
 	@user = User.find_by(g_number: g_number)
 	
-	@course.users << @user if @user
+	@course.users << @user if @user && @course
 	
 	print "." if (i % 25 == 0)
 end
