@@ -41,7 +41,10 @@ end
 puts "\n"
 # Get a list of users that were in the database before import, but were not in the CSV, and delete them
 @users_to_delete = @existing_users - @imported_users
-@users_to_delete.each { |u| u.delete }
+@users_to_delete.each do |u|
+	u.courses.delete_all # Remove all courses from the user before deleting to keep the join table clean
+	u.delete
+end
 
 puts "\n"
 puts "Importing courses from lrc_crs.txt..."
@@ -85,7 +88,10 @@ end
 puts "\n"
 # Get a list of courses that were in the database before import, but were not in the CSV, and delete them
 @courses_to_delete = @existing_courses - @imported_courses
-@courses_to_delete.each { |c| c.delete }
+@courses_to_delete.each do |c|
+	c.users.delete_all # Remove all users from the course before deleting to keep the join table clean
+	c.delete
+end
 
 puts "\n"
 puts "Importing enrollments from lrc_enr.txt..."
@@ -94,7 +100,7 @@ puts "Importing enrollments from lrc_enr.txt..."
 CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
-	g_number = row[1]
+	g_number = row[1].downcase
 	
 	if @course && @course.id != course_id
 		@course = Course.find_by_id(course_id)
