@@ -96,19 +96,39 @@ end
 puts "\n"
 puts "Importing enrollments from lrc_enr.txt..."
 
+# After import is finished for a course, we use these two arrays to remove enrolls that no longer exist
+@imported_enrolls = Array.new
+@existing_enrolls = Array.new
+
 # Iterate through all of the MLL enrollment data
 CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
 	g_number = row[1].downcase
 	
+	# If the course changed, delete the enrollments for the course where the user unenrolled
+	# then reset the lists of imported enrolls and existing enrolls for the new course
 	if @course && @course.id != course_id
+		@enrolls_to_delete = @existing_enrolls - @imported_enrolls
+		@enrolls_to_delete.each do |u|
+			@course.users.delete(u)
+		end
+		
+		# Find the new course
 		@course = Course.find_by_id(course_id)
+		@imported_enrolls = Array.new # The list of enrolls being imported from the CSV file for this course
+		@existing_enrolls = @course.users if @course # The current users enrolled in the course in the database
 	end
 	
+	# Get the user that is about to be enrolled
 	@user = User.find_by(g_number: g_number)
 	
-	@course.users << @user if @user && @course
+	# Only operate on the entry if the course exists and the user exists (they won't exist if deleted in the previous step(s))
+	if @course && @user
+		# If the user isn't already enrolled, actually add them to the course (we need to prevent duplicates)
+		@course.users << @user unless @existing_enrolls.include?(@user)
+		@imported_enrolls << @user
+	end
 	
 	print "." if (i % 25 == 0)
 end
