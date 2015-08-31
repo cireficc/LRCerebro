@@ -18,5 +18,6 @@ test:
   database: lrcerebro_test
 
 production:
-  <<: *default
-  database: lrcerebro_production
+  url: <%= Figaro.env.database_url! %>
+  pool: 5
+  encoding: unicode
