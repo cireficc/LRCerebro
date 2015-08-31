@@ -12,6 +12,10 @@ require 'csv'
 puts "\n"
 puts "Importing students and faculty from lrc_ppl.txt..."
 
+# After import, we use these two arrays to remove users that are no longer active in MLL courses
+@imported_users = Array.new # The list of users being imported from the CSV file
+@existing_users = User.all # The current users in the database
+
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	
@@ -22,17 +26,22 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	username = row[1]
 	first_name = row[2]
 	last_name = row[3]
-	role = row[4]
+	role = row[4].downcase
 	# Convert the string to our User.role's enum value
-	role = User.roles[role.downcase]
+	role = User.roles[role]
 	
 	@user = User.find_by(g_number: g_number)
+	@user = User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
 	
-	User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
+	@imported_users << @user
 	
 	print "." if (i % 25 == 0)
-
 end
+
+puts "\n"
+# Get a list of users that were in the database before import, but were not in the CSV, and delete them
+@users_to_delete = @existing_users - @imported_users
+@users_to_delete.each { |u| u.delete }
 
 puts "\n"
 puts "Importing courses from lrc_crs.txt..."
