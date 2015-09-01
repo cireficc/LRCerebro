@@ -1,1 +1,1 @@
-server "lrc-lacroix.local", user: "lrcerebro", roles: %w[app db web]
+server "lrc-perrier.local", user: "lrcerebro", roles: %w[app db web]
