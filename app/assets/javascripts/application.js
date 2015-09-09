@@ -48,7 +48,10 @@ $(document).ready(function() {
 */
 $(document).on('click', '.remove-fields', function(event) {
     
-    $(this).closest('.removable-fields').hide().find('input[id$="_destroy"]').val(true);
+    // Prompt for confirmation before actually removing the fields
+    if (confirm("Are you sure you want to delete this?")) {
+        $(this).closest('.removable-fields').hide().find('input[id$="_destroy"]').val(true);
+    }
 });
 
 /*
