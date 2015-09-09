@@ -31,9 +31,12 @@ $(document).ready(function() {
 		var input = $(this).closest('.input-group');
 	    var textField = input.find('input[type="text"]');
 	    var text = textField.val();
-	    input.datetimepicker(dtpDefaults);
 	    
-	    if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
+	    // Only initialize a DTP when the input is enabled
+	    if (!textField.prop('disabled')) {
+	        input.datetimepicker(dtpDefaults);
+	        if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
+	    }
 	});
 });
 
@@ -71,5 +74,11 @@ $(document).on('click', '.add-fields', function(event) {
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
 $(document).on('click', '.glyphicon-calendar', function() {
     
-    $(this).closest('.input-group').datetimepicker(dtpDefaults);
+    var input = $(this).closest('.input-group');
+	var textField = input.find('input[type="text"]');
+    
+    // Only initialize a DTP when the input is enabled
+	if (!textField.prop('disabled')) {
+	    input.datetimepicker(dtpDefaults);
+	}
 });
