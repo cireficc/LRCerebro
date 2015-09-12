@@ -45,7 +45,7 @@ log_file.puts
 
 # Get a list of users that were in the database before import, but were not in the CSV, and delete them
 @users_to_delete = @existing_users - @imported_users
-log_file.puts "Deleting users that have been removed from the MLL data\n along with all course enrollment data for the user" if @users_to_delete.any?
+log_file.puts "Deleting students that have been removed from the MLL data along with all course enrollment data for the user" if @users_to_delete.any?
 @users_to_delete.each do |u|
 	log_file.puts "Deleting user: #{u.username}"
 	u.courses.delete_all # Remove all courses from the user before deleting to keep the join table clean
@@ -94,7 +94,7 @@ log_file.puts
 
 # Get a list of courses that were in the database before import, but were not in the CSV, and delete them
 @courses_to_delete = @existing_courses - @imported_courses
-log_file.puts "Deleting courses that have been removed from the MLL data\n along with all user enrollment data for the course" if @courses_to_delete.any?
+log_file.puts "Deleting courses that have been removed from the MLL data along with all user enrollment data for the course" if @courses_to_delete.any?
 @courses_to_delete.each do |c|
 	log_file.puts "Deleting course: #{c.name}"
 	c.users.delete_all # Remove all users from the course before deleting to keep the join table clean
@@ -120,7 +120,7 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 		@enrolls_to_delete = @existing_enrolls - @imported_enrolls
 		log_file.puts "Deleting enrollment data that has been removed from the MLL data" if @enrolls_to_delete.any?
 		@enrolls_to_delete.each do |u|
-			log_file.puts "Deleting enrolled: user [#{c.name}] from course [#{@course.name}]"
+			log_file.puts "Deleting enrolled: user [#{u.name}] from course [#{@course.name}]"
 			@course.users.delete(u)
 		end
 		
