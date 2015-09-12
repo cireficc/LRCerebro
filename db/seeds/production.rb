@@ -47,9 +47,11 @@ log_file.puts
 @users_to_delete = @existing_users - @imported_users
 log_file.puts "Deleting students that have been removed from the MLL data along with all course enrollment data for the user" if @users_to_delete.any?
 @users_to_delete.each do |u|
-	log_file.puts "Deleting user: #{u.username}"
-	u.courses.delete_all # Remove all courses from the user before deleting to keep the join table clean
-	u.delete
+	if u.student? # Only delete students
+		log_file.puts "Deleting user: #{u.username}"
+		u.courses.delete_all # Remove all courses from the user before deleting to keep the join table clean
+		u.delete
+	end
 end
 
 log_file.puts "[IMPORTING] courses from lrc_crs.txt..."
