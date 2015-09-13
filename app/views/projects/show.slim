@@ -1,12 +1,18 @@
 = form_for @project, :html => {:class => "form-horizontal", disabled: true} do |f|
     - if policy(@project).edit?
         .row
-            .col-md-2.col-md-offset-10
+            .col-md-1.col-md-offset-11
                 = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
         br
     .panel.panel-info
         .panel-heading
-            h3.panel-title Project Information
+            h3.panel-title
+                div.pull-right
+                    - if @project.approved?
+                        span.label.label-success Approved
+                    - else
+                        span.label.label-danger Pending
+                | Project Information
         .panel-body
             .row
                 .col-md-6
