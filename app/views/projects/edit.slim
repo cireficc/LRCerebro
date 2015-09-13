@@ -125,10 +125,15 @@
                                 = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
     - if policy(@project).update?
         .row
-            .col-md-1.col-md-offset-9
-                h4 Status
-            .col-md-1
-                = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
-            .col-md-1
-                = f.submit "Save Project", class: "btn btn-info pull-right"
+            - submit_button = f.submit "Save Project", class: "btn btn-info pull-right"
+            - if current_user.director?
+                .col-md-1.col-md-offset-9
+                    h4 Status
+                .col-md-1
+                    = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
+                .col-md-1
+                    = submit_button
+            - else
+                .col-md-1.col-md-offset-11
+                    = submit_button
         br
