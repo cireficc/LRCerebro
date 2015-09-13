@@ -4,15 +4,15 @@
             .row.text-center
                 .col-md-10
                     .row
-                        - if current_user.director?
+                        - if current_user.director? || current_user.labasst?
                             - project_owner = p.course.users.find { |u| u.faculty? }
                             - if project_owner
                                 .col-md-2
                                     span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
                             - else
                                 .col-md-2
-                        .col-md-2
-                            span.label.label-warning #{p.course.name}
+                        .col-md-1
+                            span.label.label-warning #{p.course.get_short_course_name}
                         .col-md-1
                             span.label.label-danger #{p.category.camelize}
                         .col-md-2

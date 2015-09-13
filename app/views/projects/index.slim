@@ -15,9 +15,9 @@ ul.nav.nav-tabs.nav-justified
                     .row.text-center
                         .col-md-10
                             .row
-                                - if current_user.director?
+                                - if current_user.director? || current_user.labasst?
                                     .col-md-2 Project Owner
-                                .col-md-2 Course Name
+                                .col-md-1 Course Name
                                 .col-md-1 Category
                                 .col-md-2 Project Name
                                 .col-md-1 # Students
@@ -33,9 +33,9 @@ ul.nav.nav-tabs.nav-justified
                     .row.text-center
                         .col-md-10
                             .row
-                                - if current_user.director?
+                                - if current_user.director? || current_user.labasst?
                                     .col-md-2 Project Owner
-                                .col-md-2 Course Name
+                                .col-md-1 Course Name
                                 .col-md-1 Category
                                 .col-md-2 Project Name
                                 .col-md-1 # Students
