@@ -24,7 +24,7 @@ class ProjectPolicy
     
     def permitted_attributes
         if @user.director?
-            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :approved,
             project_reservations_attributes: [:id, :category, :start, :end, :lab, :staff_notes, :_destroy]]
         else
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
