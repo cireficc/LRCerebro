@@ -6,7 +6,7 @@
                     - project_owner = @project.course.users.find { |u| u.faculty? }
                     - if project_owner
                         span.label.label-warning #{project_owner.first_name} #{project_owner.last_name}
-                    span.label.label-default #{@project.course.users.length}
+                    span.label.label-default #{@project.course.users.length - 1}
                     - if @project.approved?
                         span.label.label-success Approved
                     - else
