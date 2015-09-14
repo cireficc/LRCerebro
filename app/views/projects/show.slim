@@ -8,6 +8,10 @@
         .panel-heading
             h3.panel-title
                 div.pull-right
+                    - project_owner = @project.course.users.find { |u| u.faculty? }
+                    - if project_owner
+                        span.label.label-warning #{project_owner.first_name} #{project_owner.last_name}
+                    span.label.label-default #{@project.course.users.length}
                     - if @project.approved?
                         span.label.label-success Approved
                     - else
