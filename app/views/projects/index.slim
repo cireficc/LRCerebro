@@ -1,10 +1,10 @@
-ul.nav.nav-tabs.nav-justified
-    li.active
-        a#pending_tab data-toggle="tab" href="#pending"
+ul#project_tabs.nav.nav-tabs.nav-justified
+    li#pending_tab.active
+        a data-toggle="tab" href="#pending"
             | Pending 
             span.badge #{@pending.length}
-    li
-        a#approved_tab data-toggle="tab" href="#approved"
+    li#approved_tab
+        a data-toggle="tab" href="#approved"
             | Approved 
             span.badge #{@approved.length}
     br
@@ -12,21 +12,39 @@ ul.nav.nav-tabs.nav-justified
         .panel-heading
             .row.text-center
                 .col-md-10
-                    .row
-                        - if current_user.director? || current_user.labasst?
-                            .col-md-2 Project Owner
-                        .col-md-1 Course Name
-                        .col-md-1 Category
-                        .col-md-2 Project Name
-                        .col-md-1 # Students
-                        .col-md-2 Submitted
-                        .col-md-2 Updated
-    .tab-content
-        #pending.tab-pane.active
-            .panel-group
+                    - if current_user.director? || current_user.labasst?
+                        .col-md-2 Project Owner
+                    .col-md-1 Course Name
+                    .col-md-1 Category
+                    .col-md-2 Project Name
+                    .col-md-1 # Students
+                    .col-md-2 Submitted
+                    .col-md-2 Updated
+                .col-md-2
+                    .col-md-6
+                        | Sort By
+                    .col-md-6
+                        select#project_sort
+                            optgroup label= "Project timestamps"
+                                option value="submitted_at" selected="" Date submitted
+                                option value="updated_at"  Last updated
+                            optgroup label= "Important dates"
+                                option value="script_due"  Script due
+                                option value="first_training"  First training
+                                option value="last_editing"  Last editing
+                                option value="project_due"  Project due
+                                option value="publish_due"  Publish date
+                            optgroup label= "Project information"
+                                option value="faculty_name"  Faculty name
+                                option value="course_name"  Course name
+                                option value="project_type"  Project category
+                                option value="project_name"  Project name
+    div#project_tabs_content.tab-content
+        div#pending.tab-pane.active
+            div#project_list.panel-group
                 - @pending.each do |project|
                     = render partial: "project_overview", locals: {p: project}
-        #approved.tab-pane
-            .panel-group
+        div#approved.tab-pane
+            div#project_list.panel-group
                 - @approved.each do |project|
                     = render partial: "project_overview", locals: {p: project}
