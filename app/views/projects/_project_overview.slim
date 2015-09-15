@@ -1,4 +1,4 @@
-.panel.panel-primary
+div name="project_panel" class= "panel panel-primary"
     .panel-heading.cursor-pointer
         h4.panel-title data-toggle="collapse" data-target="##{p.id}"
             .row.text-center
@@ -8,21 +8,21 @@
                             - project_owner = p.course.users.find { |u| u.faculty? }
                             - if project_owner
                                 .col-md-2
-                                    span.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+                                    span#project_owner.label.label-info #{project_owner.first_name} #{project_owner.last_name}
                             - else
                                 .col-md-2
                         .col-md-1
-                            span.label.label-warning #{p.course.get_short_course_name}
+                            span#course_name.label.label-warning #{p.course.get_short_course_name}
                         .col-md-1
-                            span.label.label-danger #{p.category.camelize}
+                            span#project_type.label.label-danger #{p.category.camelize}
                         .col-md-2
-                            span.label.label-success  #{p.name}
+                            span#project_name.label.label-success  #{p.name}
                         .col-md-1
-                            span.label.label-default #{p.course.users.length - 1}
+                            span#num_students.label.label-default #{p.course.users.length - 1}
                         .col-md-2
-                            span.label.label-default #{p.created_at.to_s}
+                            span#submitted_at.label.label-default #{p.created_at.to_s}
                         .col-md-2
-                            span.label.label-default #{p.updated_at.to_s}
+                            span#updated_at.label.label-default #{p.updated_at.to_s}
                 .col-md-1
                     - if policy(p).edit?
                         = link_to "Edit Project", edit_project_path(p), :target => '_blank', class: 'btn btn-xs btn-info pull-right'
@@ -42,13 +42,13 @@
                                     .col-md-5
                                         .well.well-sm Script due
                                     .col-md-7
-                                        div#script_due
+                                        div
                                             = text_field_tag :script_due, p.script_due, {class: "form-control", disabled: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm First training
                                     .col-md-7
-                                        div#first_training
+                                        div
                                             - first_training = p.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
                                             - if first_training
                                                 = text_field_tag :first_training, first_training.start, {class: "form-control", disabled: true}
@@ -56,7 +56,7 @@
                                     .col-md-5
                                         .well.well-sm Last editing
                                     .col-md-7
-                                        div#last_editing
+                                        div
                                             - last_editing = p.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
                                             - if last_editing
                                                 = text_field_tag :last_editing, last_editing.start, {class: "form-control", disabled: true}
@@ -64,13 +64,13 @@
                                     .col-md-5
                                         .well.well-sm Project due
                                     .col-md-7
-                                        div#due
+                                        div
                                             = text_field_tag :due, p.due, {class: "form-control", disabled: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm Projects ready by
                                     .col-md-7
-                                        div#viewable_by
+                                        div
                                             - if p.viewable_by
                                                 = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
                     ruby:
