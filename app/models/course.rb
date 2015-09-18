@@ -38,8 +38,12 @@ class Course < ActiveRecord::Base
         "SPA" => departments[:spanish]
     }
     
+    def get_instructor
+       self.users.find { |u| u.faculty? }
+    end
+    
     # Gets the shortened name for the course, e.g. FRE 101-01
-    def get_short_course_name
+    def get_short_name
         department_code = DEPARTMENT_CODES.key(Course.departments[self.department])
         section = "%02d" % self.section
         
