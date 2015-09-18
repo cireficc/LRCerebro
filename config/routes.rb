@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # Project resources
   # http://www.codecademy.com/articles/standard-controller-actions
   resources :projects
+  resources :courses
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
