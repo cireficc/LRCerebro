@@ -5,14 +5,14 @@ div name="project_panel" class= "panel panel-primary"
                 .col-md-10
                     .row
                         - if current_user.director? || current_user.labasst?
-                            - project_owner = p.course.users.find { |u| u.faculty? }
+                            - project_owner = p.course.get_instructor
                             - if project_owner
                                 .col-md-2
                                     span#project_owner.label.label-info #{project_owner.first_name} #{project_owner.last_name}
                             - else
                                 .col-md-2
                         .col-md-1
-                            span#course_name.label.label-warning #{p.course.get_short_course_name}
+                            span#course_name.label.label-warning #{p.course.get_short_name}
                         .col-md-1
                             span#project_type.label.label-danger #{p.category.camelize}
                         .col-md-2
