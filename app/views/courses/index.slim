@@ -17,8 +17,9 @@ br
         .col-md-1 #{course.semester.camelize}
         .col-md-1
             .dropdown
+                - @students = course.get_students
                 .btn.btn-sm.btn-default.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
-                    | #{course.users.length - 1} enrolled 
+                    | #{@students.length} enrolled
                     span.caret
                 ul.dropdown-menu
                     - instructor = course.get_instructor
@@ -26,7 +27,7 @@ br
                         li
                             label.label-warning #{instructor.last_name}, #{instructor.first_name}
                     li.divider
-                    - course.users.where(role: User.roles[:student]).order(:last_name).each do |u|
+                    - @students.order(:last_name).each do |u|
                         li
                             label.label-info #{u.last_name}, #{u.first_name}
         .col-md-1
