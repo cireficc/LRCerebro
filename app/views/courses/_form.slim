@@ -1,37 +1,49 @@
 = form_for @course, :html => {:class => "form-horizontal"} do |f|
-    .row
-        .col-md-6
-            .form-group
-                .col-md-5
-                    h4 Name
-                .col-md-7
-                    = f.text_field :name, {class: "form-control"}
-            .form-group
-                .col-md-5
-                    h4 Department
-                .col-md-7
-                    = f.select :department, options_for_select(Course.departments.to_a.map { |d, i| [d.camelize, d] }, @course.department), {}, {:class => "form-control"}
-            .form-group
-                .col-md-5
-                    h4 Course
-                .col-md-7
-                    = f.number_field :course, {class: "form-control"}
-        .col-md-6
-            .form-group
-                .col-md-5
-                    h4 Section
-                .col-md-7
-                    = f.number_field :section, {class: "form-control"}
-            .form-group
-                .col-md-5
-                    h4 Year
-                .col-md-7
-                    = f.number_field :year, {class: "form-control"}
-            .form-group
-                .col-md-5
-                    h4 Semester
-                .col-md-7
-                    = f.select :semester, options_for_select(Course.semesters.to_a.map { |s, i| [s.camelize, s] }, @course.semester), {}, {:class => "form-control"}
-    .row
-        /= f.collection_select(:course, :user_id, User.all, :id, "", {:selected => @course.users.map(&:id)})
+    .panel.panel-info
+        .panel-heading
+            h3.panel-title Course Information
+        .panel-body
+            .row
+                .col-md-6
+                    .form-group
+                        .col-md-5
+                            h4 Name
+                        .col-md-7
+                            = f.text_field :name, {class: "form-control"}
+                    .form-group
+                        .col-md-5
+                            h4 Department
+                        .col-md-7
+                            = f.select :department, options_for_select(Course.departments.to_a.map { |d, i| [d.camelize, d] }, @course.department), {}, {:class => "form-control"}
+                    .form-group
+                        .col-md-5
+                            h4 Course
+                        .col-md-7
+                            = f.number_field :course, {class: "form-control"}
+                .col-md-6
+                    .form-group
+                        .col-md-5
+                            h4 Section
+                        .col-md-7
+                            = f.number_field :section, {class: "form-control"}
+                    .form-group
+                        .col-md-5
+                            h4 Year
+                        .col-md-7
+                            = f.number_field :year, {class: "form-control"}
+                    .form-group
+                        .col-md-5
+                            h4 Semester
+                        .col-md-7
+                            = f.select :semester, options_for_select(Course.semesters.to_a.map { |s, i| [s.camelize, s] }, @course.semester), {}, {:class => "form-control"}
+    .panel.panel-warning
+        .panel-heading
+            h3.panel-title Enrollment Information
+        .panel-body
+            - if @course.users.any?
+                = f.fields_for :users do |builder|
+                    = render 'enrolled_fields', :f => builder if builder.object.faculty?
+                hr
+                = f.fields_for :users do |builder|
+                    = render 'enrolled_fields', :f => builder if builder.object.student?
     = f.submit "Save Course", class: "btn btn-info"
