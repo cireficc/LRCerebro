@@ -43,6 +43,10 @@ class Course < ActiveRecord::Base
        self.users.find { |u| u.faculty? }
     end
     
+    def get_students
+       self.users.where(role: User.roles[:student])
+    end
+    
     # Gets the shortened name for the course, e.g. FRE 101-01
     def get_short_name
         department_code = DEPARTMENT_CODES.key(Course.departments[self.department])
