@@ -46,4 +46,10 @@
                 hr
                 = f.fields_for :users do |builder|
                     = render 'enrolled_fields', :f => builder if builder.object.student?
+            br
+            .row
+                .col-md-2.col-md-offset-6
+                    h4 Enrolled users
+                .col-md-4
+                    = f.select :user_ids, User.all.order(:last_name).collect {|u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id]}, {}, {:class => "form-control", :multiple => true}
     = f.submit "Save Course", class: "btn btn-info"
