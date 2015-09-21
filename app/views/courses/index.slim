@@ -27,7 +27,7 @@ table.table.table-hover
                             - instructor = course.get_instructor
                             - if instructor
                                 li
-                                    label.label-warning #{instructor.last_name}, #{instructor.first_name}
+                                    label.label-danger #{instructor.last_name}, #{instructor.first_name}
                             li.divider
                             - @students.order(:last_name).each do |u|
                                 li
