@@ -40,16 +40,35 @@
         .panel-heading
             h3.panel-title Enrollment Information
         .panel-body
-            - if @course.users.any?
-                = f.fields_for :users do |builder|
-                    = render 'enrolled_fields', :f => builder if builder.object.faculty?
-                hr
-                = f.fields_for :users do |builder|
-                    = render 'enrolled_fields', :f => builder if builder.object.student?
+            table.table.table-hover
+                thead
+                    tr
+                        th
+                            h3 Last Name
+                        th
+                            h3 First Name
+                        th
+                            h3 Username
+                        th
+                            h3 G Number
+                tbody
+                    - instructor = @course.get_instructor
+                    - if instructor
+                        tr.danger
+                            td #{instructor.last_name}
+                            td #{instructor.first_name}
+                            td #{instructor.username}
+                            td #{instructor.g_number}
+                    - @course.users.order(:last_name).each do |user|
+                        tr
+                            td #{user.last_name}
+                            td #{user.first_name}
+                            td #{user.username}
+                            td #{user.g_number}
             br
             .row
-                .col-md-2.col-md-offset-6
+                .col-md-2
                     h4 Enrolled users
                 .col-md-4
-                    = f.select :user_ids, User.all.order(:last_name).collect {|u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id]}, {}, {:class => "form-control", :multiple => true}
+                    = f.select :user_ids, User.all.order(:last_name).collect {|u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id]}, {}, {:class => "form-control", :multiple => true, :size => 10}
     = f.submit "Save Course", class: "btn btn-info"
