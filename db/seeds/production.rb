@@ -77,7 +77,8 @@ CSV.foreach(lrc_crs, col_sep: '|', headers: false).each_with_index do |row, i|
 	semester = Course::SEMESTER_CODES[semester] # Gives us the actual enum value
 	
 	language = identifier[0..2] # Language is the first 3 characters of the identifier
-	department = Course::DEPARTMENT_CODES[language] # Gives us the actual enum value
+	department = Course::DEPARTMENT_CODES[language] # Gives us the actual enum value, or nil
+	department = Course.departments[:other] if department.nil? # if the code did not match a department, use 'other'
 	course_number = identifier[3..5].to_i # Course number is the next 3 digits of the identifier
 	section = identifier[7..8].to_i # Section number is the last 2 digits of the identifier
 	

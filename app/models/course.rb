@@ -27,7 +27,7 @@ class Course < ActiveRecord::Base
     #   - LAS: Latin American Studies
     #   - MES: Middle Eastern Studies
     #   - RST: Russian Studies
-    # The special cases have their department as nil.
+    # The special cases have their department as 'other', which is set during database seeding.
     DEPARTMENT_CODES = {
         "ARA" => departments[:arabic],
         "CHI" => departments[:chinese],
