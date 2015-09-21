@@ -1,34 +1,36 @@
-.row
-    .col-md-3 Name
-    .col-md-1 Department
-    .col-md-1 Course
-    .col-md-1 Section
-    .col-md-1 Year
-    .col-md-1 Semester
-    .col-md-1 # Students
-br
-- @courses.each do |course|
-    .row
-        .col-md-3 #{course.name}
-        .col-md-1 #{course.department.camelize}
-        .col-md-1 #{course.course}
-        .col-md-1 #{course.section}
-        .col-md-1 #{course.year}
-        .col-md-1 #{course.semester.camelize}
-        .col-md-1
-            .dropdown
-                - @students = course.get_students
-                .btn.btn-sm.btn-default.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
-                    | #{@students.length} enrolled
-                    span.caret
-                ul.dropdown-menu
-                    - instructor = course.get_instructor
-                    - if instructor
-                        li
-                            label.label-warning #{instructor.last_name}, #{instructor.first_name}
-                    li.divider
-                    - @students.order(:last_name).each do |u|
-                        li
-                            label.label-info #{u.last_name}, #{u.first_name}
-        .col-md-1
-            = link_to 'Edit', edit_course_path(course)
+table.table.table-hover
+    thead
+        tr
+            th Name
+            th Department
+            th Course
+            th Section
+            th Year
+            th Semester
+            th # Students
+    tbody
+        - @courses.each do |course|
+            tr
+                td #{course.name}
+                td #{course.department.camelize}
+                td #{course.course}
+                td #{course.section}
+                td #{course.year}
+                td #{course.semester.camelize}
+                td
+                    .dropdown
+                        - @students = course.get_students
+                        .btn.btn-sm.btn-info.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
+                            | #{@students.length} 
+                            span.caret
+                        ul.dropdown-menu
+                            - instructor = course.get_instructor
+                            - if instructor
+                                li
+                                    label.label-warning #{instructor.last_name}, #{instructor.first_name}
+                            li.divider
+                            - @students.order(:last_name).each do |u|
+                                li
+                                    label.label-info #{u.last_name}, #{u.first_name}
+                td
+                    = link_to 'Edit', edit_course_path(course)
