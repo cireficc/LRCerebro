@@ -2,6 +2,7 @@ class ProjectReservation < ActiveRecord::Base
     
     belongs_to :project
     validates :start, :end, presence: true
+    scope :ordered_start, -> { order(:start) }
     
     # Project reservation categories
     # :training - This is for training the students (project overview, teaching software, etc.)
