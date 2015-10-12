@@ -73,16 +73,8 @@ div name="project_panel" class= "panel panel-primary"
                                         div
                                             - if p.viewable_by
                                                 = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
-                    ruby:
-                        @training = Array.new
-                        @editing = Array.new
-                        p.project_reservations.each do |res|
-                            if res.training?
-                                @training << res
-                            elsif res.editing?
-                                @editing << res
-                            end
-                        end
+                    - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
+                    - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
                     .col-md-4
                         .panel.panel-danger
                             .panel-heading
