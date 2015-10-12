@@ -4,20 +4,20 @@
         = f.hidden_field :category
         .col-md-3
             div#start.input-group.date
-                = f.text_field :start, {class: "form-control", disabled: true}
+                = f.text_field :start, {class: "form-control", readonly: true}
                 span.input-group-addon
                     span.glyphicon.glyphicon-calendar
         .col-md-3
             div#end.input-group.date
-                = f.text_field :end, {class: "form-control", disabled: true}
+                = f.text_field :end, {class: "form-control", readonly: true}
                 span.input-group-addon
                     span.glyphicon.glyphicon-calendar
         .col-md-1
             div#lab
-                = f.select :lab, options_for_select(ProjectReservation.labs.to_a.map { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] }, f.object.lab), {}, {:class => "form-control", disabled: true}
+                = f.select :lab, options_for_select(ProjectReservation.labs.to_a.map { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] }, f.object.lab), {}, {:class => "form-control", readonly: true}
         .col-md-2
             div#staff_notes
-                = f.text_area :staff_notes, {class: "form-control", rows: 3, disabled: true}
+                = f.text_area :staff_notes, {class: "form-control", rows: 3, readonly: true}
         .col-md-2
             div#faculty_notes
-                = f.text_area :faculty_notes, {class: "form-control", rows: 3, disabled: true}
+                = f.text_area :faculty_notes, {class: "form-control", rows: 3, readonly: true}
