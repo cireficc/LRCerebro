@@ -94,7 +94,7 @@
                     .col-md-3
                         h4 Faculty notes
             div#training_reservations
-                = f.fields_for :project_reservations do |builder|
+                = f.fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
                     = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "training"
                 - if current_user.director?
                     / The add-fields class doesn't do anything except allow easier click-handling than using an id
@@ -123,7 +123,7 @@
                     .col-md-3
                         h4 Faculty notes
             div#editing_reservations
-                = f.fields_for :project_reservations do |builder|
+                = f.fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
                     = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "editing"
                 - if current_user.director?
                     / The add-fields class doesn't do anything except allow easier click-handling than using an id
