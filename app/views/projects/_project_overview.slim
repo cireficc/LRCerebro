@@ -43,7 +43,7 @@ div name="project_panel" class= "panel panel-primary"
                                         .well.well-sm Script due
                                     .col-md-7
                                         div
-                                            = text_field_tag :script_due, p.script_due, {class: "form-control", disabled: true}
+                                            = text_field_tag :script_due, p.script_due, {class: "form-control", readonly: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm First training
@@ -51,7 +51,7 @@ div name="project_panel" class= "panel panel-primary"
                                         div
                                             - first_training = p.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
                                             - if first_training
-                                                = text_field_tag :first_training, first_training.start, {class: "form-control", disabled: true}
+                                                = text_field_tag :first_training, first_training.start, {class: "form-control", readonly: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm Last editing
@@ -59,20 +59,20 @@ div name="project_panel" class= "panel panel-primary"
                                         div
                                             - last_editing = p.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
                                             - if last_editing
-                                                = text_field_tag :last_editing, last_editing.start, {class: "form-control", disabled: true}
+                                                = text_field_tag :last_editing, last_editing.start, {class: "form-control", readonly: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm Project due
                                     .col-md-7
                                         div
-                                            = text_field_tag :due, p.due, {class: "form-control", disabled: true}
+                                            = text_field_tag :due, p.due, {class: "form-control", readonly: true}
                                 .form-group
                                     .col-md-5
                                         .well.well-sm Projects ready by
                                     .col-md-7
                                         div
                                             - if p.viewable_by
-                                                = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", disabled: true}
+                                                = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", readonly: true}
                     - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
                     - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
                     .col-md-4
@@ -85,7 +85,7 @@ div name="project_panel" class= "panel panel-primary"
                                         .col-md-4
                                             .well.well-sm Training #{i + 1}
                                         .col-md-8
-                                            = text_field_tag :start, res.start, {class: "form-control", disabled: true}
+                                            = text_field_tag :start, res.start, {class: "form-control", readonly: true}
                     .col-md-4
                         .panel.panel-warning
                             .panel-heading
@@ -96,6 +96,6 @@ div name="project_panel" class= "panel panel-primary"
                                         .col-md-4
                                             .well.well-sm Editing #{i + 1}
                                         .col-md-8
-                                            = text_field_tag :start, res.start, {class: "form-control", disabled: true}
+                                            = text_field_tag :start, res.start, {class: "form-control", readonly: true}
                 .row
                     .well.well-lg #{p.description}

@@ -1,4 +1,4 @@
-= form_for @project, :html => {:class => "form-horizontal", disabled: true} do |f|
+= form_for @project, :html => {:class => "form-horizontal", readonly: true} do |f|
     - if policy(@project).edit?
         .row
             .col-md-1.col-md-offset-11
@@ -25,33 +25,33 @@
                             h4 Course
                         .col-md-8
                             - @courses = (current_user.director? || current_user.labasst?) ? Course.all : current_user.courses
-                            = f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control", disabled: true}
+                            = f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control", readonly: true}
                     .form-group
                         .col-md-4
                             h4 Project type
                         .col-md-8
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
-                            = f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control", disabled: true}
+                            = f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control", readonly: true}
                             div#other_warning.small.text-warning.hidden
                                 | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
                     .form-group
                         .col-md-4
                             h4 Project name
                         .col-md-8
-                            = f.text_field :name, {class: "form-control", placeholder: "e.g. Roman Photo", maxlength: 100, disabled: true}
+                            = f.text_field :name, {class: "form-control", placeholder: "e.g. Roman Photo", maxlength: 100, readonly: true}
                     .form-group
                         .col-md-4
                             h4 Project description
                         .col-md-8
-                            = f.text_area :description, {class: "form-control", placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500, disabled: true}
+                            = f.text_area :description, {class: "form-control", placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500, readonly: true}
                 .col-md-6
                     .form-group
                         .col-md-4
                             h4 Script due
                         .col-md-8
                             div#script_due.input-group.date
-                                = f.text_field :script_due, {class: "form-control", disabled: true}
+                                = f.text_field :script_due, {class: "form-control", readonly: true}
                                 span.input-group-addon
                                     span.glyphicon.glyphicon-calendar
                             small.text-warning
@@ -61,14 +61,14 @@
                             h4 Project due
                         .col-md-8
                             div#due.input-group.date
-                                = f.text_field :due, {class: "form-control", disabled: true}
+                                = f.text_field :due, {class: "form-control", readonly: true}
                                 span.input-group-addon
                                     span.glyphicon.glyphicon-calendar
                     .form-group
                         .col-md-12
                             .checkbox
                                 label
-                                    = f.check_box :present, {checked: @project.present == "1" ? true : false, disabled: true}
+                                    = f.check_box :present, {checked: @project.present == "1" ? true : false, readonly: true}
                                     | Do the projects need to be viewed by students, or presented in class?
                     div#viewable_by_hidden
                         .form-group
@@ -76,7 +76,7 @@
                                 h4 Projects ready by
                             .col-md-8
                                 div#viewable_by.input-group.date
-                                    = f.text_field :viewable_by, {class: "form-control", disabled: true}
+                                    = f.text_field :viewable_by, {class: "form-control", readonly: true}
                                     span.input-group-addon
                                         span.glyphicon.glyphicon-calendar
                                 small.text-warning LRC staff will make projects available to you and your students by this date
