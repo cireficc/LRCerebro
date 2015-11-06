@@ -136,14 +136,17 @@
     - if policy(@project).update?
         .row
             - submit_button = f.submit "Save Project", class: "btn btn-info pull-right"
+            - delete_button = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
             - if current_user.director?
-                .col-md-1.col-md-offset-7
+                .col-md-2
+                    = delete_button
+                .col-md-1.col-md-offset-5
                     h4 Status
                 .col-md-2
                     = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
-                .col-md-1.col-md-offset-1
+                .col-md-1.pull-right
                     = submit_button
             - else
-                .col-md-1.col-md-offset-11
+                .col-md-1.pull-right
                     = submit_button
         br
