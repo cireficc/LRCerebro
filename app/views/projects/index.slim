@@ -21,24 +21,21 @@ ul#project_tabs.nav.nav-tabs.nav-justified
                     .col-md-2 Submitted
                     .col-md-2 Updated
                 .col-md-2
-                    .col-md-6
-                        | Sort By
-                    .col-md-6
-                        select#project_sort
-                            optgroup label= "Project timestamps"
-                                option value="submitted_at" selected="" Date submitted
-                                option value="updated_at"  Last updated
-                            optgroup label= "Important dates"
-                                option value="script_due"  Script due
-                                option value="first_training"  First training
-                                option value="last_editing"  Last editing
-                                option value="project_due"  Project due
-                                option value="publish_due"  Publish date
-                            optgroup label= "Project information"
-                                option value="faculty_name"  Faculty name
-                                option value="course_name"  Course name
-                                option value="project_type"  Project category
-                                option value="project_name"  Project name
+                    select#project_sort.form-control
+                        optgroup label= "Project timestamps"
+                            option value="submitted_at"  Date submitted
+                            option value="updated_at"  Last updated
+                        optgroup label= "Important dates"
+                            option value="script_due"  Script due
+                            option value="first_training"  First training
+                            option value="last_editing"  Last editing
+                            option value="project_due"  Project due
+                            option value="publish_due"  Publish date
+                        optgroup label= "Project information"
+                            option value="faculty_name"  Faculty name
+                            option value="course_name"  Course name
+                            option value="project_type"  Project category
+                            option value="project_name"  Project name
     div#project_tabs_content.tab-content
         div#pending.tab-pane.active
             div#project_list.panel-group
