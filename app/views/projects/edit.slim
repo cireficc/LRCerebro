@@ -137,11 +137,11 @@
         .row
             - submit_button = f.submit "Save Project", class: "btn btn-info pull-right"
             - if current_user.director?
-                .col-md-1.col-md-offset-9
+                .col-md-1.col-md-offset-7
                     h4 Status
-                .col-md-1
+                .col-md-2
                     = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
-                .col-md-1
+                .col-md-1.col-md-offset-1
                     = submit_button
             - else
                 .col-md-1.col-md-offset-11
