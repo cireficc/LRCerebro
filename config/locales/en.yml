@@ -31,3 +31,11 @@ en:
             edit?: 'edit that project.'
             update?: 'update that project.'
             destroy?: 'delete that project.'
+        course_policy:
+            index?: 'view courses.'
+            new?: 'create new courses.'
+            create?: 'create new courses.'
+            show?: 'view that course.'
+            edit?: 'edit that course.'
+            update?: 'update that course.'
+            destroy?: 'delete that course.'
