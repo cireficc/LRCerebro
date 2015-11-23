@@ -144,9 +144,6 @@
                     h4 Status
                 .col-md-2
                     = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
-                .col-md-1.pull-right
-                    = submit_button
-            - else
-                .col-md-1.pull-right
-                    = submit_button
+            .col-md-1.pull-right
+                = submit_button
         br
