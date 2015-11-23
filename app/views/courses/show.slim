@@ -1,0 +1,80 @@
+h3 Viewing course
+
+= form_for @course, :html => {:class => "form-horizontal"} do |f|
+    - if policy(@course).edit?
+        .row
+            .col-md-1.pull-right
+                = link_to "Edit Course", edit_course_url(@course), {class: 'btn btn-info pull-right'}
+        br
+    .panel.panel-info
+        .panel-heading
+            h3.panel-title Course Information
+        .panel-body
+            .row
+                .col-md-6
+                    .form-group
+                        .col-md-5
+                            h4 Name
+                        .col-md-7
+                            = f.text_field :name, {class: "form-control", readonly: true}
+                    .form-group
+                        .col-md-5
+                            h4 Department
+                        .col-md-7
+                            = f.select :department, options_for_select(Course.departments.to_a.map { |d, i| [d.camelize, d] }, @course.department), {}, {:class => "form-control"}
+                    .form-group
+                        .col-md-5
+                            h4 Course
+                        .col-md-7
+                            = f.number_field :course, {class: "form-control", readonly: true}
+                .col-md-6
+                    .form-group
+                        .col-md-5
+                            h4 Section
+                        .col-md-7
+                            = f.number_field :section, {class: "form-control", readonly: true}
+                    .form-group
+                        .col-md-5
+                            h4 Year
+                        .col-md-7
+                            = f.number_field :year, {class: "form-control", readonly: true}
+                    .form-group
+                        .col-md-5
+                            h4 Semester
+                        .col-md-7
+                            = f.select :semester, options_for_select(Course.semesters.to_a.map { |s, i| [s.camelize, s] }, @course.semester), {}, {:class => "form-control"}
+    .panel.panel-warning
+        .panel-heading
+            h3.panel-title Enrollment Information
+        .panel-body
+            table.table.table-hover
+                thead
+                    tr
+                        th
+                            h3 Last Name
+                        th
+                            h3 First Name
+                        th
+                            h3 Username
+                        th
+                            h3 G Number
+                tbody
+                    - instructor = @course.get_instructor
+                    - if instructor
+                        tr.danger
+                            td #{instructor.last_name}
+                            td #{instructor.first_name}
+                            td #{instructor.username}
+                            td #{instructor.g_number}
+                    - @course.users.order(:last_name).each do |user|
+                        tr
+                            td #{user.last_name}
+                            td #{user.first_name}
+                            td #{user.username}
+                            td #{user.g_number}
+            br
+            .row
+                .col-md-2
+                    h4 Enrolled users
+                .col-md-4
+                    = f.select :user_ids, User.all.order(:last_name).collect {|u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id]}, {}, {:class => "form-control", :multiple => true, :size => 10}
