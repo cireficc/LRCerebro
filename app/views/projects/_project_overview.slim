@@ -8,7 +8,7 @@ div name="project_panel" class= "panel panel-primary"
                             - project_owner = p.course.get_instructor
                             - if project_owner
                                 .col-md-2
-                                    span#project_owner.label.label-info #{project_owner.first_name} #{project_owner.last_name}
+                                    span#project_owner.label.label-info #{project_owner.last_name}, #{project_owner.first_name}
                             - else
                                 .col-md-2
                         .col-md-1
