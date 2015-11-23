@@ -3,26 +3,31 @@ class CoursesController < ApplicationController
 
     # GET /courses
     def index
+        authorize Course
         @courses = Course.all
     end
 
     # GET /courses/1
     def show
+        authorize Course
     end
 
     # GET /courses/new
     def new
         @course = Course.new
+        authorize @course
     end
 
     # GET /courses/1/edit
     def edit
+        authorize Course
     end
 
     # POST /courses
     def create
     
         @course = Course.new(course_params)
+        authorize @course
     
         if @course.save
             flash[:success] = "#{@course.name} has been successfully created"
@@ -34,6 +39,8 @@ class CoursesController < ApplicationController
 
     # PATCH/PUT /courses/1
     def update
+        
+        authorize @course
     
         if @course.update(course_params)
             flash[:success] = "#{@course.name} has been successfully updated"
@@ -45,6 +52,8 @@ class CoursesController < ApplicationController
 
     # DELETE /courses/1
     def destroy
+        
+        authorize @course
       
         @course.destroy
         flash[:success] = "#{@course.name} has been successfully deleted"
