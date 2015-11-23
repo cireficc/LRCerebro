@@ -9,7 +9,8 @@ class CoursesController < ApplicationController
 
     # GET /courses/1
     def show
-        authorize Course
+        @course = Course.find(params[:id])
+        authorize @course
     end
 
     # GET /courses/new
