@@ -1,14 +1,5 @@
-# DO NOT MODIFY THIS FILE MANUALLY!
-#
-# This file holds configuration variables for the live site (Cerebro)
-# /settings loads these variables and overwrites them if they are changed
-# via the web interface. This file should *only* be modified via that
-# interface. If it is your desire to modify this file, log into Cerebro,
-# navigate to /settings and update the values there. Doing otherwise would
-# risk rendering the file syntactically invalid, causing Cerebro to figuratively
-# explode.
-
+---
 class_project:
-    online: false
-    offline_message: "Project proposals will be accepted beginning 1/11/2016."
-    deadline_message: "Project proposals will not be accepted after XX/XX/XXXX."
+  online: false
+  offline_message: Project proposals will be accepted beginning 1/11/2016.
+  deadline_message: Project proposals will not be accepted after XX/XX/XXXX.

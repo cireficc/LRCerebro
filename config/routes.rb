@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :projects
   resources :courses
   
+  # App live configuration
+  get 'configuration' => 'configuration#load'
+  post 'configuration' => 'configuration#save'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
