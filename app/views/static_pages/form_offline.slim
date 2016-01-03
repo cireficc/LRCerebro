@@ -1,0 +1,9 @@
+h1
+    | Form offline
+
+h4
+    p.text-warning #{@offline_message}
+    | If you believe this is an error, please email 
+    = mail_to "shultzd@gvsu.edu", "David Shultz", {subject: "LRCerebro - Form Offline", cc: "cireficc@mail.gvsu.edu"}
+    | .
+input type= "button" onclick="history.back();" value="Back" class= "btn btn-primary"
