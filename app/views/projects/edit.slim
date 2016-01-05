@@ -140,10 +140,14 @@
             - if current_user.director?
                 .col-md-2
                     = delete_button
-                .col-md-1.col-md-offset-5
-                    h4 Status
+                .col-md-1.col-md-offset-2
+                    h4 Approved?
                 .col-md-2
                     = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
+                .col-md-1
+                    h4 Archived?
+                .col-md-2
+                    = f.select :archived, [["Archived", true], ["Active", false]], {selected: @project.archived}, {:class => "form-control"}
             .col-md-1.pull-right
                 = submit_button
         br
