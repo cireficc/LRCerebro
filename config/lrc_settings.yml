@@ -4,7 +4,7 @@ class_project:
   offline_message: Project proposals will be accepted beginning 1/11/2016.
   deadline_message: Project proposals will not be accepted after XX/XX/XXXX.
 login:
-  data_warning: Users and courses are updated on the first day of each semester; the 
+  data_warning: Users and courses are updated on the first day of each semester; the
     information powering LRCerebro is pulled from Blackboard. Thus, it is not possible
     to see updated information (such as your enrollment in courses) until the first
     day of the semester. We are sorry for any inconvenience this may cause.
