@@ -14,6 +14,11 @@ class ProjectsController < ApplicationController
         end
     end
     
+    def archive_index
+        @projects = policy_scope(Project).where(archived: true)
+        render 'archive_index'
+    end
+    
     def new
         @project = Project.new
         authorize @project
