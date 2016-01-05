@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
     
     def index
-        @projects = policy_scope(Project)
+        @projects = policy_scope(Project).where(archived: false)
         @approved = Array.new
         @pending = Array.new
         
