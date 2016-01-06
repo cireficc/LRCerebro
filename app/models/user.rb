@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
     
-    has_and_belongs_to_many :courses
+    has_many :enrollment
+    has_many :courses, :through => :enrollment
     
     # User roles in the MLL department and the LRC:
     # :director - Director and assistant director of the LRC. Highest privileges
