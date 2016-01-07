@@ -2,12 +2,12 @@ puts "Seeding development..."
 
 # Create a few users to log in with and view/manipulate content with
 User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
-User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
-faculty = User.create(username: 'faculty', g_number: 'g00000000', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
-student = User.create(username: 'student', g_number: 'g00000000', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
-User.create(username: 'unregistered', g_number: 'g00000000', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
-wardse = User.create(username: 'wardse', g_number: 'g00000000', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
-fuchsk = User.create(username: 'fuchsk', g_number: 'g00000000', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
+User.create(username: 'labasst', g_number: 'g00000001', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
+faculty = User.create(username: 'faculty', g_number: 'g00000002', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
+student = User.create(username: 'student', g_number: 'g00000003', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
+User.create(username: 'unregistered', g_number: 'g00000004', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
+wardse = User.create(username: 'wardse', g_number: 'g00000005', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
+fuchsk = User.create(username: 'fuchsk', g_number: 'g00000006', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
 cireficc = User.create(username: 'cireficc', g_number: 'g00749804', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
 
 # Create a few courses for users to be enrolled in
