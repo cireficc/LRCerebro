@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
     
-    has_many :enrollment
+    has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
     
     # User roles in the MLL department and the LRC:
