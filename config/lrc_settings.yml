@@ -1,7 +1,8 @@
 ---
 class_project:
   online: false
-  offline_message: Project proposals will be accepted beginning 1/11/2016. If you have any questions or concerns, please email Veronica Clapp (clappve@gvsu.edu).
+  offline_message: Project proposals will be accepted beginning 1/11/2016. If you
+    have any questions or concerns, please email Veronica Clapp (clappve@gvsu.edu).
   deadline_message: Project proposals will not be accepted after XX/XX/XXXX.
 login:
   data_warning: Users and courses are updated on the first day of each semester; the
