@@ -18,7 +18,7 @@ log_file.puts
 
 # After import, we use these two arrays to remove users that are no longer active in MLL courses
 @imported_users = Array.new # The list of users being imported from the CSV file
-@existing_users = User.all # The current users in the database
+@existing_users = User.where(archived: false) # The current users in the database that are not archived
 
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
@@ -36,6 +36,8 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	@user = User.find_by(g_number: g_number)
 	@user = User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
+	
+	@user.update(archived: false) # Any user in the current set of MLL data should be un-archived
 	
 	@imported_users << @user
 end
@@ -59,7 +61,7 @@ log_file.puts
 
 # After import, we use these two arrays to remove courses that are no longer available (however unlikely that is)
 @imported_courses = Array.new # The list of courses being imported from the CSV file
-@existing_courses = Course.all # The current courses in the database
+@existing_courses = Course.where(archived: false) # The current courses in the database that are not archived
 
 # Iterate through all of the MLL courses
 CSV.foreach(lrc_crs, col_sep: '|', headers: false).each_with_index do |row, i|
@@ -123,7 +125,7 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 		@enrolls_to_delete = @existing_enrolls - @imported_enrolls
 		log_file.puts "Deleting enrollment data that has been removed from the MLL data" if @enrolls_to_delete.any?
 		@enrolls_to_delete.each do |u|
-			log_file.puts "Deleting enrolled: user [#{u.name}] from course [#{@course.name}]"
+			log_file.puts "Deleting enrolled: user [#{u.first_name}] from course [#{@course.name}]"
 			@course.users.delete(u)
 		end
 		
