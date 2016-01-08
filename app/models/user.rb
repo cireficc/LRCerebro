@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
     enum role: [:director, :labasst, :faculty, :student]
     
     has_secure_password
+    
+    def active_courses
+        self.courses.where(enrollments: {active: true})
+    end
 end
