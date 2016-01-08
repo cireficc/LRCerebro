@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20160107235847) do
   end
 
   create_table "enrollments", force: true do |t|
-    t.string  "user_id",                  null: false
-    t.integer "course_id",                null: false
-    t.boolean "active",    default: true
+    t.string  "user_id",                   null: false
+    t.integer "course_id",                 null: false
+    t.boolean "archived",  default: false
   end
 
   add_index "enrollments", ["course_id", "user_id"], name: "index_enrollments_on_course_id_and_user_id", using: :btree
