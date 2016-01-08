@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
     has_secure_password
     
     def active_courses
-        self.courses.where(enrollments: {active: true})
+        self.courses.where(enrollments: {archived: false})
     end
 end
