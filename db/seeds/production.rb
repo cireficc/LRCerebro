@@ -145,15 +145,5 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 end
 
 log_file.puts "DONE"
-log_file.puts
-
-log_file.puts "[ADDING] LRC staff accounts"
-log_file.puts
-
-User.create(username: 'shultzd', g_number: 'g00000000', password: 'director', first_name: 'David', last_name: 'Shultz', role: User.roles[:director], registered: false)
-User.create(username: 'clappve', g_number: 'g00000000', password: 'labasst', first_name: 'Veronica', last_name: 'Clapp', role: User.roles[:director], registered: false)
-User.create(username: 'labasst', g_number: 'g00000000', password: 'labasst', first_name: 'Labasst', last_name: '', role: User.roles[:labasst], registered: false)
-
-log_file.puts "DONE"
 
 log_file.close
