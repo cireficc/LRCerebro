@@ -22,14 +22,20 @@
             .col-md-1
                 div#lab
                     = f.select :lab, options_for_select(ProjectReservation.labs.to_a.map { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] }, f.object.lab), {}, {:class => "form-control"}
-            .col-md-3
+            .col-md-2
                 div#staff_notes
                     = f.text_area :staff_notes, {class: "form-control", placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000}
+            .col-md-2
+                div#faculty_notes
+                    = f.text_area :faculty_notes, {class: "form-control", rows: 3, disabled: true}
             .col-md-1
                 / The remove-fields class doesn't do anything except allow easier click-handling than using an id
                 .remove-fields.btn.btn-danger
                     span.glyphicon.glyphicon-remove
         - else
-            .col-md-3
+            .col-md-2
+                div#staff_notes
+                    = f.text_area :staff_notes, {class: "form-control", rows: 3, disabled: true}
+            .col-md-2
                 div#faculty_notes
                     = f.text_area :faculty_notes, {class: "form-control", placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000}
