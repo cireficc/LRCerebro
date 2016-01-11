@@ -35,8 +35,10 @@ $(document).on('change', '#project_category', function() {
 	var num_training = $(this).find(':selected').data('default-training');
 	var num_editing = $(this).find(':selected').data('default-editing');
 	
-	// Remove all training/editing sessions by calling click() on each remove button
-	$(".remove-fields").each(function() { $(this).click(); })
+	// Remove all training/editing sessions by hiding them and setting their _destroy attribute to true
+	$(".removable-fields").each(function() {
+	    $(this).hide().find('input[id$="_destroy"]').val(true);
+	});
 	
 	// Add the default number of reservations by clicking the add button N times for each type
 	for (var i = 0; i < num_training; i ++) { $("#training_reservations").find('.add-fields').click(); }
