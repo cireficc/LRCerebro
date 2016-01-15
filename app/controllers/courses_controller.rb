@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
     # GET /courses
     def index
         authorize Course
-        @courses = Course.all.order(:name)
+        @courses = Course.all.order(year: :desc, semester: :desc, name: :asc)
     end
 
     # GET /courses/1
