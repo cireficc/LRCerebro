@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'momentjs-rails', '>= 2.9.0'
 # https://github.com/TrevorS/bootstrap3-datetimepicker-rails
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+# Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
+gem 'google-api-client', '~> 0.9'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
