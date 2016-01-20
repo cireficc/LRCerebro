@@ -4,7 +4,7 @@ class AccountController < ApplicationController
     def home
         @title = "Login"
         @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
-        @data_warning = @config["login"]["data_warning"]
+        flash.now[:warning] = @config["login"]["data_warning"]
         render "login"
     end
     
