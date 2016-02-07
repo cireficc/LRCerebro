@@ -80,6 +80,10 @@ module GoogleCalendarHelper
     end
     
     def self.delete_project_event(project_reservation)
-        @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
+        begin
+            @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
+        rescue Google::Apis::ClientError
+            puts "Event no longer exists, ignore trying to delete it"
+        end
     end
 end
