@@ -8,8 +8,9 @@ class Project < ActiveRecord::Base
     attr_accessor :present
     
     # Create/update Google Calendar events here because (children) ProjectReservation are created before Project
-    after_create :create_calendar_events, :unless => :seeding_development_database
-    after_update :update_calendar_events
+    after_create :create_or_update_calendar_events, :unless => :seeding_development_database
+    # ProjectReservations can be created in a Project update action, so check both cases
+    after_update :create_or_update_calendar_events
     
     # Project categories
     # :camtasia - A video project using Camtasia Studio
@@ -43,13 +44,18 @@ class Project < ActiveRecord::Base
     
     def create_calendar_events
         self.project_reservations.each do |res|
-           res.create_calendar_event
+            res.create_calendar_event
         end
     end
     
-    def update_calendar_events
+    def create_or_update_calendar_events
         self.project_reservations.each do |res|
-           res.update_calendar_event
+            # If the ProjectReservation GC id is blank, it means the event hasn't been created yet
+            if res.google_calendar_event_id.blank?
+                res.create_calendar_event
+            else
+                res.update_calendar_event
+            end
         end
     end
     
