@@ -14,7 +14,7 @@ module GoogleCalendarHelper
     MINUTES_PER_DAY = 60 * 24
     SECONDS_PER_DAY = 60 * 60 * 24
     TIME_ZONE = "America/Detroit"
-    RESERVATION_CALENDAR_ID = ENV["google_calendar_reservation_cal_id"]
+    RESERVATION_CALENDAR_ID = Figaro.env.google_calendar_reservation_cal_id
    
     @calendar = Google::Apis::CalendarV3::CalendarService.new
     @calendar.authorization = Google::Auth.get_application_default(GoogleApiHelper::SCOPES)
