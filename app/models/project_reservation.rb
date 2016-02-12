@@ -1,7 +1,7 @@
 class ProjectReservation < ActiveRecord::Base
     
     belongs_to :project
-    validates :start, :end, presence: true
+    validates :start, :end, :lab, presence: true
     validate :start_time_before_end_time
     scope :ordered_start, -> { order(:start) }
     
