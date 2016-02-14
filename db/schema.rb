@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205190410) do
+ActiveRecord::Schema.define(version: 20160214211312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160205190410) do
     t.datetime "updated_at"
     t.string   "google_calendar_event_id"
     t.string   "google_calendar_html_link"
+    t.boolean  "mini_project"
   end
 
   create_table "projects", force: true do |t|
