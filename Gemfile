@@ -23,6 +23,8 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
 gem 'google-api-client', '~> 0.9'
+# Use Simple Form for forms instead of building complex forms by hand
+gem 'simple_form', '~> 3.2', '>= 3.2.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
