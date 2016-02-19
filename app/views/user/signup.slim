@@ -1,0 +1,6 @@
+= simple_form_for @user || User.new, url: signup_path, method: :post do |f|
+    = f.input :username, label: 'Your Blackboard username', input_html: { autofocus: true, placeholder: "e.g. johnsond", maxlength: 15 }
+    = f.input :g_number, label: 'Your MyBanner G number', input_html: { placeholder: "g00000000", maxlength: 15 }
+    = f.input :password, maxlength: 72
+    = f.input :password_confirmation, maxlength: 72
+    = f.button :submit, "Register", class: "btn-primary"
