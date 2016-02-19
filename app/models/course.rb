@@ -6,6 +6,8 @@ class Course < ActiveRecord::Base
     accepts_nested_attributes_for :users
     has_many :projects
     
+    validates :name, :department, :course, :section, :year, :semester, presence: true
+    
     # Enum to describe the semester in which a course takes place.
     # Although there are technically 3 summer semester types
     # (6-week 1, 6-week 2, 12-week), classify them all as summer
