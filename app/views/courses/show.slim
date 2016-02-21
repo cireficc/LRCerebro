@@ -16,7 +16,7 @@ h3 Viewing course
                         .col-md-5
                             h4 Name
                         .col-md-7
-                            = f.input :name, label: false, :input_html => { disabled: true }
+                            = f.input :name, disabled: true
                     .form-group
                         .col-md-5
                             h4 Department
@@ -24,24 +24,23 @@ h3 Viewing course
                             = f.input :department,
                                 collection: Course.departments.collect { |d, i| [d.camelize, d] },
                                 selected: @course.department,
-                                label: false,
-                                :input_html => { disabled: true}
+                                disabled: true
                     .form-group
                         .col-md-5
                             h4 Course
                         .col-md-7
-                            = f.input :course, label: false, :input_html => { disabled: true }
+                            = f.input :course, disabled: true
                 .col-md-6
                     .form-group
                         .col-md-5
                             h4 Section
                         .col-md-7
-                            = f.input :section, label: false, :input_html => { disabled: true }
+                            = f.input :section, disabled: true
                     .form-group
                         .col-md-5
                             h4 Year
                         .col-md-7
-                            = f.input :year, label: false, :input_html => { disabled: true }
+                            = f.input :year, disabled: true
                     .form-group
                         .col-md-5
                             h4 Semester
@@ -49,8 +48,7 @@ h3 Viewing course
                             = f.input :semester,
                                 collection: Course.semesters.collect { |s, i| [s.camelize, s] },
                                 selected: @course.semester,
-                                label: false,
-                                :input_html => { disabled: true}
+                                disabled: true
     .panel.panel-warning
         .panel-heading
             h3.panel-title Enrollment Information
@@ -88,5 +86,5 @@ h3 Viewing course
                     = f.association :users,
                         collection: User.all.order(:last_name).collect { |u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id] },
                         selected: @course.users.collect { |u| u.id },
-                        :input_html => { multiple: true, size: 20, disabled: true},
-                        label: false
+                        :input_html => { multiple: true, size: 20},
+                        disabled: true
