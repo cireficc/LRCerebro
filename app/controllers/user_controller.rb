@@ -47,7 +47,7 @@ class UserController < ApplicationController
     
     def signup
         @user = User.find_by(username: session[:username])
-        @user.g_number = nil
+        @user.g_number = nil if @user
         @title = "Sign Up"
         @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
         flash.now[:warning] = @config["login"]["data_warning"]
