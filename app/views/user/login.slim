@@ -2,6 +2,8 @@
     h4.text-info If this is your first time logging in, please 
         #{link_to "Sign Up", signup_path, class: 'btn btn-xs btn-danger'}
         to register your account. This will only be required one time.
-    = f.input :username, label: 'Your Blackboard username', input_html: { autofocus: true, placeholder: "e.g. johnsond", maxlength: 15 }
+    h4 Blackboard username
+    = f.input :username, input_html: { autofocus: true, placeholder: "e.g. johnsond", maxlength: 15 }
+    h4 Password
     = f.input :password, maxlength: 72
     = f.button :submit, "Log In", class: "btn-primary"
