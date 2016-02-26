@@ -10,7 +10,6 @@
                             h4 Course
                         .col-md-8
                             - @courses = current_user.active_courses
-                            //= f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control"}
                             = f.input :course_id,
                                 collection: @courses.collect { |c| [c.name, c.id] },
                                 prompt: "Select a course"
@@ -20,7 +19,6 @@
                         .col-md-8
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
-                            //= f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control"}
                             = f.input :category,
                                 collection: Project.categories.collect { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
                                 prompt: "Select a project type"
@@ -66,7 +64,7 @@
                     div#viewable_by_hidden
                         .row
                             .col-md-4
-                                h4 Projects ready by NEW
+                                h4 Projects ready by
                             .col-md-8
                                 = f.input :viewable_by, wrapper: :vertical_input_group_date
                                     = f.input_field :viewable_by,
@@ -108,7 +106,7 @@
             div#training_reservations
                 = f.simple_fields_for :project_reservations do |builder|
                     = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
-            / The add-fields class doesn't do anything except allow easier click-handling than using an id
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
                     .add-fields.btn.btn-info
@@ -135,7 +133,7 @@
             div#editing_reservations
                 = f.simple_fields_for :project_reservations do |builder|
                     = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
-            / The add-fields class doesn't do anything except allow easier click-handling than using an id
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
                     .add-fields.btn.btn-info
