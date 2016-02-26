@@ -118,3 +118,8 @@ $brand-danger:          #E74C3C !default;
     max-height: 400px;
     width: 100%;
 }
+
+input[disabled], .form-control[disabled], input[readonly], .form-control[readonly] {
+    pointer-events: none;
+    cursor: default !important;
+}
