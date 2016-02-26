@@ -1,7 +1,7 @@
 class ProjectReservation < ActiveRecord::Base
     
     belongs_to :project
-    validates :start, :end, :lab, presence: true
+    validates :start, :end, presence: true
     validate :start_time_before_end_time
     scope :ordered_start, -> { order(:start) }
     
@@ -26,6 +26,7 @@ class ProjectReservation < ActiveRecord::Base
     def start_time_before_end_time
         if self.start > self.end
             self.errors.add(:start, "reservation start time must be earlier than end time")
+            self.errors.add(:end, "reservation start time must be earlier than end time")
         end
     end
     
