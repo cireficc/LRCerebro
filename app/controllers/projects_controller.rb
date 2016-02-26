@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
             redirect_to root_path
         else
-            flash.now[:danger] = generate_errors_html(Project, @project.errors.messages)
+            flash.now[:danger] = "Sorry, but there were errors in your project."
             render 'new'
         end
     end
