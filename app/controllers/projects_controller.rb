@@ -2,16 +2,8 @@ class ProjectsController < ApplicationController
     
     def index
         @projects = policy_scope(Project).where(archived: false)
-        @approved = Array.new
-        @pending = Array.new
-        
-        @projects.each do |p|
-           if p.approved
-               @approved << p
-           else
-               @pending << p
-           end
-        end
+        @approved = @projects.where(approved: true)
+        @pending = @projects.where(approved: false)
     end
     
     def archive_index
