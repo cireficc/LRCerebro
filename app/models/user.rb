@@ -13,6 +13,12 @@ class User < ActiveRecord::Base
     has_secure_password
     
     def active_courses
-        self.courses.where(enrollments: {archived: false})
+        # Director and labasst will see all non-archived courses
+        if (self.director? || self.labasst?)
+            Course.where(archived: false)
+        # Faculty and student will see non-archived courses that they are enrolled in
+        else
+            self.courses.where(enrollments: {archived: false})
+        end
     end
 end
