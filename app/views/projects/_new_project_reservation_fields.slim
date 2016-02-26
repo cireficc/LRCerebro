@@ -14,19 +14,16 @@
                     class: "form-control"
         - if current_user.director?
             .col-md-2
-                div#lab
-                    = f.input :lab,
-                        collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
-                        prompt: "Select a lab"
+                = f.input :lab,
+                    collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                    prompt: "Select a lab"
             .col-md-3
-                div#staff_notes
-                    = f.input :staff_notes,
-                        :input_html => { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
+                = f.input :staff_notes,
+                    :input_html => { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
         - else
             .col-md-3
-                div#faculty_notes
-                    = f.input :faculty_notes,
-                        :input_html => { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
+                = f.input :faculty_notes,
+                    :input_html => { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
         .col-md-1
             / The remove-fields class doesn't do anything except allow easier click-handling than using an id
             .remove-fields.btn.btn-danger
