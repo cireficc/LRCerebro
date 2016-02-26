@@ -17,6 +17,38 @@ SimpleForm.setup do |config|
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
+  
+  config.wrappers :vertical_input_group, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    
+    b.wrapper tag: 'div', class: 'input-group' do |ba|
+      ba.use :input, class: 'form-control'
+    end
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+  
+  config.wrappers :vertical_input_group_date, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    
+    b.wrapper tag: 'div', class: 'input-group date' do |ba|
+      ba.use :input, class: 'form-control'
+      # Use a glyphicon-calendar add-on
+      ba.wrapper tag: 'span', class: 'input-group-addon' do |addon|
+        addon.wrapper tag: 'span', class: 'glyphicon glyphicon-calendar' do |cal|
+        end
+      end
+    end
+    
+    # b.wrapper tag: 'span', class: 'input-group-addon' do |addon|
+    #     addon.wrapper tag: 'span', class: 'glyphicon glyphicon-calendar' do |cal|
+    #     end
+    # end
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
   config.wrappers :vertical_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
