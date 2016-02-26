@@ -1,70 +1,78 @@
-= form_for @project, :html => {:class => "form-horizontal"} do |f|
+= simple_form_for @project do |f|
     .panel.panel-info
         .panel-heading
             h3.panel-title Project Information
         .panel-body
             .row
                 .col-md-6
-                    .form-group
+                    .row
                         .col-md-4
                             h4 Course
                         .col-md-8
-                            - @courses = (current_user.director? || current_user.labasst?) ? Course.all : current_user.active_courses
-                            = f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control"}
-                    .form-group
+                            - @courses = current_user.active_courses
+                            //= f.select :course_id, options_for_select(@courses.map { |c| [c.name, c.id] }, @project.course_id), {}, {:class => "form-control"}
+                            = f.input :course_id,
+                                collection: @courses.collect { |c| [c.name, c.id] },
+                                prompt: "Select a course"
+                    .row
                         .col-md-4
                             h4 Project type
                         .col-md-8
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
-                            = f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control"}
+                            //= f.select :category, options_for_select(Project.categories.to_a.map { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] }, @project.category), {}, {:class => "form-control"}
+                            = f.input :category,
+                                collection: Project.categories.collect { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
+                                prompt: "Select a project type"
                             div#other_warning.small.text-warning.hidden
                                 | You are not doing a typical project. Please describe your project in the <em><u>Project Description</em></u> field.
-                    .form-group
+                    .row
                         .col-md-4
                             h4 Project name
                         .col-md-8
-                            = f.text_field :name, {class: "form-control", placeholder: "e.g. Roman Photo", maxlength: 100}
-                    .form-group
+                            = f.input :name,
+                                :input_html => { placeholder: "e.g. Roman Photo", maxlength: 100 }
+                    .row
                         .col-md-4
                             h4 Project description
                         .col-md-8
-                            = f.text_area :description, {class: "form-control", placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500}
+                            = f.input :description,
+                                :input_html => { placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500 }
                 .col-md-6
-                    .form-group
+                    .row
                         .col-md-4
                             h4 Script due
                         .col-md-8
-                            div#script_due.input-group.date
-                                = f.text_field :script_due, {class: "form-control"}
-                                span.input-group-addon
-                                    span.glyphicon.glyphicon-calendar
-                            small.text-warning
-                                | Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training
-                    .form-group
+                            = f.input :script_due, wrapper: :vertical_input_group_date
+                                = f.input_field :script_due,
+                                    as: :string,
+                                    class: "form-control",
+                                    :input_html => { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
+                    .row
                         .col-md-4
                             h4 Project due
                         .col-md-8
-                            div#due.input-group.date
-                                = f.text_field :due, {class: "form-control"}
-                                span.input-group-addon
-                                    span.glyphicon.glyphicon-calendar
-                    .form-group
+                            = f.input :due, wrapper: :vertical_input_group_date
+                                = f.input_field :due,
+                                    as: :string,
+                                    class: "form-control"
+                    .row
                         .col-md-12
-                            .checkbox
-                                label
-                                    = f.check_box :present, {checked: @project.present == "1" ? true : false}
-                                    | Do your students’ finished projects need to be visible on the LRC’s web archive?
+                            = f.input :present,
+                                required: false,
+                                as: :boolean,
+                                label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
+                                :input_html => { checked: @project.present == "1" ? true : false }
                     div#viewable_by_hidden
-                        .form-group
+                        .row
                             .col-md-4
-                                h4 Projects ready by
+                                h4 Projects ready by NEW
                             .col-md-8
-                                div#viewable_by.input-group.date
-                                    = f.text_field :viewable_by, {class: "form-control"}
-                                    span.input-group-addon
-                                        span.glyphicon.glyphicon-calendar
-                                small.text-warning LRC staff will make projects available to you and your students by this date
+                                = f.input :viewable_by, wrapper: :vertical_input_group_date
+                                    = f.input_field :viewable_by,
+                                        as: :string,
+                                        class: "form-control",
+                                        :input_html => { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
     .bs-callout.bs-callout-warning
         h4 Heads up: scheduling events
         p
@@ -82,15 +90,15 @@
     .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
-        .panel-body.text-center
-            .form-group
+        .panel-body
+            .row.form-group.text-center
                 .col-md-3
                     h4 Start date/time
                 .col-md-3
                     h4 End date/time
                 / Show additional fields for the director
                 - if current_user.director?
-                    .col-md-1
+                    .col-md-2
                         h4 Lab
                     .col-md-3
                         h4 Director notes
@@ -98,41 +106,41 @@
                     .col-md-3
                         h4 Faculty notes
             div#training_reservations
-                = f.fields_for :project_reservations do |builder|
+                = f.simple_fields_for :project_reservations do |builder|
                     = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
-                / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                div#add_fields_row.row
-                    .col-md-1
-                        .add-fields.btn.btn-info
-                            span.glyphicon.glyphicon-plus
-                                |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :new
+            / The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
+                .col-md-1
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :new
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
-        .panel-body.text-center
-            .form-group
+        .panel-body
+            .row.form-group.text-center
                 .col-md-3
                     h4 Start date/time
                 .col-md-3
                     h4 End date/time
                 - if current_user.director?
-                    .col-md-1
-                        h4 Lab
                     .col-md-2
+                        h4 Lab
+                    .col-md-3
                         h4 Director notes
                 - else
-                    .col-md-2
+                    .col-md-3
                         h4 Faculty notes
             div#editing_reservations
-                = f.fields_for :project_reservations do |builder|
+                = f.simple_fields_for :project_reservations do |builder|
                     = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
-                / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                div#add_fields_row.row
-                    .col-md-1
-                        .add-fields.btn.btn-info
-                            span.glyphicon.glyphicon-plus
-                                |  Add
-                            = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
+            / The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
+                .col-md-1
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
     = f.submit "Submit Project", :class => "btn btn-info"
 br
