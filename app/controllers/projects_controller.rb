@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
     
     def project_params
         params.require(:project).permit(:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
-            project_reservations_attributes: [:id, :category, :start, :end, :lab, :staff_notes, :faculty_notes, :_destroy])
+            project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :faculty_notes, :_destroy])
     end
     
     def project_update_params
