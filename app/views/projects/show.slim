@@ -50,7 +50,7 @@
                         .col-md-4
                             h4 Project description
                         .col-md-8
-                            = f.input :description, readonly: true, :input_html => { rows: 5 }
+                            = f.input :description, readonly: true, input_html: { rows: 5 }
                 .col-md-6
                     .row
                         .col-md-4
@@ -61,7 +61,7 @@
                                     as: :string,
                                     readonly: true,
                                     class: "form-control",
-                                    :input_html => { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
+                                    input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
                     .row
                         .col-md-4
                             h4 Project due
@@ -78,7 +78,7 @@
                                 as: :boolean,
                                 disabled: true,
                                 label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
-                                :input_html => { checked: @project.present == "1" ? true : false }
+                                input_html: { checked: @project.present == "1" ? true : false }
                     div#viewable_by_hidden
                         .row
                             .col-md-4
@@ -89,7 +89,7 @@
                                         as: :string,
                                         readonly: true,
                                         class: "form-control",
-                                        :input_html => { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
+                                        input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
     .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
