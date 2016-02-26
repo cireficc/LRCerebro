@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
             redirect_to root_path
         else
-            flash.now[:danger] = "Sorry, but there were errors in your project."
+            flash.now[:danger] = "Sorry, but there were errors in your project. Please correct them before submitting again."
             render 'new'
         end
     end
