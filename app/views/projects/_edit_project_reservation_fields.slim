@@ -22,6 +22,10 @@
                     collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                     prompt: "Select a lab"
             .col-md-2
+                = f.input :subtype,
+                    collection: ProjectReservation.subtypes.collect { |s, i| [s.camelize, s] },
+                    prompt: "Select a subtype"
+            .col-md-2
                 = f.input :staff_notes,
                     input_html: { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
             .col-md-2

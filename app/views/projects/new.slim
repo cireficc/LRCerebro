@@ -90,14 +90,16 @@
             h3.panel-title Training Reservations
         .panel-body
             .row.form-group.text-center
-                .col-md-3
+                .col-md-2
                     h4 Start date/time
-                .col-md-3
+                .col-md-2
                     h4 End date/time
                 / Show additional fields for the director
                 - if current_user.director?
                     .col-md-2
                         h4 Lab
+                    .col-md-2
+                        h4 Reservation subtype
                     .col-md-3
                         h4 Director notes
                 - else
@@ -118,13 +120,15 @@
             h3.panel-title Editing Reservations
         .panel-body
             .row.form-group.text-center
-                .col-md-3
+                .col-md-2
                     h4 Start date/time
-                .col-md-3
+                .col-md-2
                     h4 End date/time
                 - if current_user.director?
                     .col-md-2
                         h4 Lab
+                    .col-md-2
+                        h4 Reservation subtype
                     .col-md-3
                         h4 Director notes
                 - else
