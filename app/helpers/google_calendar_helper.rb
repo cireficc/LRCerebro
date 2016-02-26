@@ -37,6 +37,7 @@ module GoogleCalendarHelper
         @instructor = @course.get_instructor
         @last_name = @instructor.last_name
         @num_students = @course.get_students.count
+        @lab = @res.lab.camelize if @res.lab
         @index = @res.training? ? @training.index(@res) : @editing.index(@res)
         @total = @res.training? ? @training.length : @editing.length
         
@@ -54,7 +55,7 @@ module GoogleCalendarHelper
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
-            location: @res.lab.camelize,
+            location: @lab,
             description: @project.description,
             start: {
                 date_time: @start_time.to_datetime,
