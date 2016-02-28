@@ -1,0 +1,34 @@
+.removable-fields
+    .row
+        = f.hidden_field :_destroy
+        = f.hidden_field :category
+        .col-md-2
+            = f.input :start, wrapper: :vertical_input_group_date
+                = f.input_field :start,
+                    as: :string,
+                    readonly: true,
+                    class: "form-control"
+        .col-md-2
+            = f.input :end, wrapper: :vertical_input_group_date
+                = f.input_field :end,
+                    as: :string,
+                    readonly: true,
+                    class: "form-control"
+        .col-md-1
+            = f.input :lab,
+                disabled: true,
+                collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                prompt: "Select a lab"
+        .col-md-2
+            = f.input :subtype,
+                disabled: true,
+                collection: ProjectReservation.subtypes.collect { |s, i| [s.camelize, s] },
+                prompt: "Select a subtype"
+        .col-md-2
+            = f.input :staff_notes,
+                disabled: true,
+                input_html: { placeholder: "Additional information specific to this reservation", rows: 3}
+        .col-md-2
+            = f.input :faculty_notes,
+                disabled: true,
+                input_html: { placeholder: "Additional information specific to this reservation", rows: 3 }

@@ -1,9 +1,4 @@
 = simple_form_for @project do |f|
-    - if policy(@project).edit?
-        .row
-            .col-md-1.col-md-offset-11
-                = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
-        br
     .panel.panel-info
         .panel-heading
             h3.panel-title
@@ -11,12 +6,12 @@
                     - project_owner = @project.course.get_instructor
                     - if project_owner
                         span.label.label-warning #{project_owner.first_name} #{project_owner.last_name}
-                    span.label.label-default #{@project.course.get_students.count}
+                    span.label.label-default #{@project.course.users.length - 1}
                     - if @project.approved?
                         span.label.label-success Approved
                     - else
                         span.label.label-danger Pending
-                | Project Information
+                | Project Information DIRECTOR
         .panel-body
             .row
                 .col-md-6
@@ -24,9 +19,8 @@
                         .col-md-4
                             h4 Course
                         .col-md-8
-                            - @courses = (current_user.director? || current_user.labasst?) ? Course.all : current_user.active_courses
+                            - @courses = current_user.active_courses
                             = f.input :course_id,
-                                readonly: true,
                                 collection: @courses.collect { |c| [c.name, c.id] },
                                 prompt: "Select a course"
                     .row
@@ -36,21 +30,22 @@
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
                             = f.input :category,
-                                readonly: true,
                                 collection: Project.categories.collect { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
                                 prompt: "Select a project type"
                             div#other_warning.small.text-warning.hidden
-                                | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
+                                | You are not doing a typical project. Please describe your project in the <em><u>Project Description</em></u> field.
                     .row
                         .col-md-4
                             h4 Project name
                         .col-md-8
-                            = f.input :name, readonly: true
+                            = f.input :name,
+                                input_html: { placeholder: "e.g. Roman Photo", maxlength: 100 }
                     .row
                         .col-md-4
                             h4 Project description
                         .col-md-8
-                            = f.input :description, readonly: true, input_html: { rows: 5 }
+                            = f.input :description,
+                                input_html: { placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500 }
                 .col-md-6
                     .row
                         .col-md-4
@@ -59,7 +54,6 @@
                             = f.input :script_due, wrapper: :vertical_input_group_date
                                 = f.input_field :script_due,
                                     as: :string,
-                                    readonly: true,
                                     class: "form-control",
                                     input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
                     .row
@@ -69,14 +63,12 @@
                             = f.input :due, wrapper: :vertical_input_group_date
                                 = f.input_field :due,
                                     as: :string,
-                                    readonly: true,
                                     class: "form-control"
                     .row
                         .col-md-12
                             = f.input :present,
                                 required: false,
                                 as: :boolean,
-                                disabled: true,
                                 label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
                                 input_html: { checked: @project.present == "1" ? true : false }
                     div#viewable_by_hidden
@@ -87,7 +79,6 @@
                                 = f.input :viewable_by, wrapper: :vertical_input_group_date
                                     = f.input_field :viewable_by,
                                         as: :string,
-                                        readonly: true,
                                         class: "form-control",
                                         input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
     .panel.panel-primary
@@ -109,8 +100,15 @@
                     h4 Faculty notes
             div#training_reservations
                 = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render 'show_project_reservation_fields', :f => builder if builder.object.category == "training"
-                // The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "training"
+                - if current_user.director?
+                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    div#add_fields_row.row
+                        .col-md-1
+                            .add-fields.btn.btn-info
+                                span.glyphicon.glyphicon-plus
+                                    |  Add
+                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :edit
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
@@ -123,12 +121,35 @@
                 .col-md-1
                     h4 Lab
                 .col-md-2
-                    h4 Reservation subtype
-                .col-md-2
                     h4 Director notes
                 .col-md-2
                     h4 Faculty notes
             div#editing_reservations
                 = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render 'show_project_reservation_fields', :f => builder if builder.object.category == "editing"
-                // The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "editing"
+                - if current_user.director?
+                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    div#add_fields_row.row
+                        .col-md-1
+                            .add-fields.btn.btn-info
+                                span.glyphicon.glyphicon-plus
+                                    |  Add
+                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
+    - if policy(@project).update?
+        .row
+            - submit_button = f.submit "Save Project", class: "btn btn-info pull-right"
+            - delete_button = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
+            - if current_user.director?
+                .col-md-2
+                    = delete_button
+                .col-md-1.col-md-offset-2
+                    h4 Approved?
+                .col-md-2
+                    = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
+                .col-md-1
+                    h4 Archived?
+                .col-md-2
+                    = f.select :archived, [["Archived", true], ["Active", false]], {selected: @project.archived}, {:class => "form-control"}
+            .col-md-1.pull-right
+                = submit_button
+        br
