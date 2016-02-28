@@ -1,7 +1,7 @@
 = simple_form_for @project do |f|
     .panel.panel-info
         .panel-heading
-            h3.panel-title Project Information
+            h3.panel-title DIRECTOR Project Information
         .panel-body
             .row
                 .col-md-6
@@ -89,25 +89,9 @@
         .panel-heading
             h3.panel-title Training Reservations
         .panel-body
-            .row.form-group.text-center
-                .col-md-2
-                    h4 Start date/time
-                .col-md-2
-                    h4 End date/time
-                / Show additional fields for the director
-                - if current_user.director?
-                    .col-md-2
-                        h4 Lab
-                    .col-md-2
-                        h4 Reservation subtype
-                    .col-md-3
-                        h4 Director notes
-                - else
-                    .col-md-3
-                        h4 Faculty notes
             div#training_reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
+                    = render "#{controller_name}/#{current_user.role}/new_project_reservation_fields", :f => builder if builder.object.category == "training"
             // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
@@ -119,21 +103,6 @@
         .panel-heading
             h3.panel-title Editing Reservations
         .panel-body
-            .row.form-group.text-center
-                .col-md-2
-                    h4 Start date/time
-                .col-md-2
-                    h4 End date/time
-                - if current_user.director?
-                    .col-md-2
-                        h4 Lab
-                    .col-md-2
-                        h4 Reservation subtype
-                    .col-md-3
-                        h4 Director notes
-                - else
-                    .col-md-3
-                        h4 Faculty notes
             div#editing_reservations
                 = f.simple_fields_for :project_reservations do |builder|
                     = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
