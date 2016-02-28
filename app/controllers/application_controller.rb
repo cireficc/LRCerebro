@@ -11,11 +11,23 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  before_action :set_view_path
   after_action :store_last_page
   
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+  
+  # Set the view directory path based on the controller and the user's role.
+  # This allows us to divide the view folders more explicitly and prevent forms
+  # from being cluttered with user.role calls to render particular form components.
+  def set_view_path
+    if current_user
+      @view_path = "#{controller_name}/#{current_user.role}"
+    else
+      @view_path = "#{controller_name}"
+    end
+  end
   
   def store_last_page
     session[:last_page] = request.url
