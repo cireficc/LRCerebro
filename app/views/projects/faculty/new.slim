@@ -1,0 +1,117 @@
+= simple_form_for @project do |f|
+    .panel.panel-info
+        .panel-heading
+            h3.panel-title FACULTY Project Information
+        .panel-body
+            .row
+                .col-md-6
+                    .row
+                        .col-md-4
+                            h4 Course
+                        .col-md-8
+                            - @courses = current_user.active_courses
+                            = f.input :course_id,
+                                collection: @courses.collect { |c| [c.name, c.id] },
+                                prompt: "Select a course"
+                    .row
+                        .col-md-4
+                            h4 Project type
+                        .col-md-8
+                            - @train = Project::CATEGORY_TRAINING_EVENTS
+                            - @edit = Project::CATEGORY_EDITING_EVENTS
+                            = f.input :category,
+                                collection: Project.categories.collect { |c, i| [c.camelize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
+                                prompt: "Select a project type"
+                            div#other_warning.small.text-warning.hidden
+                                | You are not doing a typical project. Please describe your project in the <em><u>Project Description</em></u> field.
+                    .row
+                        .col-md-4
+                            h4 Project name
+                        .col-md-8
+                            = f.input :name,
+                                input_html: { placeholder: "e.g. Roman Photo", maxlength: 100 }
+                    .row
+                        .col-md-4
+                            h4 Project description
+                        .col-md-8
+                            = f.input :description,
+                                input_html: { placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500 }
+                .col-md-6
+                    .row
+                        .col-md-4
+                            h4 Script due
+                        .col-md-8
+                            = f.input :script_due, wrapper: :vertical_input_group_date
+                                = f.input_field :script_due,
+                                    as: :string,
+                                    class: "form-control",
+                                    input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
+                    .row
+                        .col-md-4
+                            h4 Project due
+                        .col-md-8
+                            = f.input :due, wrapper: :vertical_input_group_date
+                                = f.input_field :due,
+                                    as: :string,
+                                    class: "form-control"
+                    .row
+                        .col-md-12
+                            = f.input :present,
+                                required: false,
+                                as: :boolean,
+                                label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
+                                input_html: { checked: @project.present == "1" ? true : false }
+                    div#viewable_by_hidden
+                        .row
+                            .col-md-4
+                                h4 Projects ready by
+                            .col-md-8
+                                = f.input :viewable_by, wrapper: :vertical_input_group_date
+                                    = f.input_field :viewable_by,
+                                        as: :string,
+                                        class: "form-control",
+                                        input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
+    .bs-callout.bs-callout-warning
+        h4 Heads up: scheduling events
+        p
+            | Below you'll find the <u>recommended number of reservations</u> based on your project type. 
+            | If you want to add <em>more</em> reservations, you may click the  
+            span.btn.btn-xs.btn-info
+                span.glyphicon.glyphicon-plus
+                    |  Add
+            |  button at the bottom of either section. 
+            | Please note that <b><u>you do not need to fill out all of the reservations</b></u>. 
+            | You may leave reservations empty if you do not want to use them, or click the  
+            span.btn.btn-xs.btn-danger
+                span.glyphicon.glyphicon-remove
+            |  button to delete the reservation.
+    .panel.panel-primary
+        .panel-heading
+            h3.panel-title Training Reservations
+        .panel-body
+            div#training_reservations
+                = f.simple_fields_for :project_reservations do |builder|
+                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
+                .col-md-1
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :new
+    .panel.panel-primary
+        .panel-heading
+            h3.panel-title Editing Reservations
+        .panel-body
+            div#editing_reservations
+                = f.simple_fields_for :project_reservations do |builder|
+                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
+                .col-md-1
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
+    = f.submit "Submit Project", :class => "btn btn-info"
+br
