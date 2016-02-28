@@ -30,6 +30,7 @@ class ProjectsController < ApplicationController
         # Director and labasst can use the form even if it is offline
         if (@online || current_user.director? || current_user.labasst?)
             flash.now[:warning] = @deadline_message
+            render "#{@view_path}/new"
         else
             render 'static_pages/form_offline'
         end
@@ -45,7 +46,7 @@ class ProjectsController < ApplicationController
             redirect_to root_path
         else
             flash.now[:danger] = "Sorry, but there were errors in your project. Please correct them before submitting again."
-            render 'new'
+            render "#{@view_path}/new"
         end
     end
     
@@ -55,12 +56,16 @@ class ProjectsController < ApplicationController
         
         # Set the present check-box so that it is checked properly when the form is rendered
         @project.present = "1" if !@project.viewable_by.nil?
+        
+        render "#{@view_path}/show"
     end
     
     def edit
         @project = Project.find(params[:id])
         authorize @project
         @project.present = "1" if !@project.viewable_by.nil?
+        
+        render "#{@view_path}/edit"
     end
     
     def update
@@ -72,7 +77,7 @@ class ProjectsController < ApplicationController
             redirect_to project_path(@project)
         else
             flash.now[:danger] = generate_errors_html(Project, @project.errors.messages)
-            render 'edit'
+            render "#{@view_path}/edit"
         end
     end
     
@@ -85,7 +90,7 @@ class ProjectsController < ApplicationController
             redirect_to projects_path
         else
             flash.now[:danger] = generate_errors_html(Project, @project.errors.messages)
-            render 'edit'
+            render "#{@view_path}/edit"
         end
     end
     
