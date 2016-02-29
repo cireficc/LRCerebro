@@ -1,7 +1,7 @@
 = simple_form_for @project do |f|
     .panel.panel-info
         .panel-heading
-            h3.panel-title FACULTY Project Information
+            h3.panel-title Project Information
         .panel-body
             .row
                 .col-md-6
@@ -72,9 +72,8 @@
                                         class: "form-control",
                                         input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
     .bs-callout.bs-callout-warning
-        h4 Heads up: scheduling events
+        h4 Heads up: scheduling reservations
         p
-            | Below you'll find the <u>recommended number of reservations</u> based on your project type. 
             | If you want to add <em>more</em> reservations, you may click the  
             span.btn.btn-xs.btn-info
                 span.glyphicon.glyphicon-plus
@@ -91,7 +90,7 @@
         .panel-body
             div#training_reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "training"
+                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "training"
             // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
@@ -105,7 +104,7 @@
         .panel-body
             div#editing_reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
+                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "editing"
             // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
@@ -113,5 +112,5 @@
                         span.glyphicon.glyphicon-plus
                             |  Add
                         = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
-    = f.submit "Submit Project", :class => "btn btn-info"
-br
+    = f.submit "Submit Project", :class => "btn btn-info pull-right"
+    br
