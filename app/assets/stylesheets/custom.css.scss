@@ -119,7 +119,7 @@ $brand-danger:          #E74C3C !default;
     width: 100%;
 }
 
-input[disabled], .form-control[disabled], input[readonly], .form-control[readonly] {
+input[readonly], .form-control[readonly] {
     pointer-events: none;
     cursor: default !important;
 }
