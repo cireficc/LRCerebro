@@ -113,5 +113,5 @@
                         span.glyphicon.glyphicon-plus
                             |  Add
                         = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
-    = f.submit "Submit Project", :class => "btn btn-info"
+    = f.submit "Submit Project", :class => "btn btn-info pull-right"
 br
