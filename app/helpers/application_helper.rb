@@ -6,7 +6,7 @@ module ApplicationHelper
         id = new_object.object_id
         
         fields = f.simple_fields_for(association, new_object, child_index: id) do |builder|
-          render(controller_action.to_s + "_" + association.to_s.singularize + "_fields", f: builder)
+          render("#{@view_path}/#{controller_action.to_s}_#{association.to_s.singularize}_fields", f: builder)
         end
         
         hidden_field_tag('add_fields_data', nil, data: {id: id, fields: fields.gsub("\n", "")})
