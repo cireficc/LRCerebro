@@ -1,17 +1,7 @@
 = simple_form_for @project do |f|
     .panel.panel-info
         .panel-heading
-            h3.panel-title
-                div.pull-right
-                    - project_owner = @project.course.get_instructor
-                    - if project_owner
-                        span.label.label-warning #{project_owner.first_name} #{project_owner.last_name}
-                    span.label.label-default #{@project.course.users.length - 1}
-                    - if @project.approved?
-                        span.label.label-success Approved
-                    - else
-                        span.label.label-danger Pending
-                | Project Information DIRECTOR
+            h3.panel-title Project Information
         .panel-body
             .row
                 .col-md-6
@@ -85,71 +75,45 @@
         .panel-heading
             h3.panel-title Training Reservations
         .panel-body
-            .row.form-group.text-center
-                .col-md-2
-                    h4 Start date/time
-                .col-md-2
-                    h4 End date/time
-                .col-md-1
-                    h4 Lab
-                .col-md-2
-                    h4 Reservation subtype
-                .col-md-2
-                    h4 Director notes
-                .col-md-2
-                    h4 Faculty notes
             div#training_reservations
-                = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "training"
-                - if current_user.director?
-                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                    div#add_fields_row.row
-                        .col-md-1
-                            .add-fields.btn.btn-info
-                                span.glyphicon.glyphicon-plus
-                                    |  Add
-                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :edit
+                = f.simple_fields_for :project_reservations do |builder|
+                    = render "#{@view_path}/edit_project_reservation_fields", :f => builder if builder.object.category == "training"
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
+                .col-md-1
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :edit
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
         .panel-body
-            .row.form-group.text-center
-                .col-md-2
-                    h4 Start date/time
-                .col-md-2
-                    h4 End date/time
-                .col-md-1
-                    h4 Lab
-                .col-md-2
-                    h4 Director notes
-                .col-md-2
-                    h4 Faculty notes
             div#editing_reservations
-                = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render 'edit_project_reservation_fields', :f => builder if builder.object.category == "editing"
-                - if current_user.director?
-                    / The add-fields class doesn't do anything except allow easier click-handling than using an id
-                    div#add_fields_row.row
-                        .col-md-1
-                            .add-fields.btn.btn-info
-                                span.glyphicon.glyphicon-plus
-                                    |  Add
-                                = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
-    - if policy(@project).update?
-        .row
-            - submit_button = f.submit "Save Project", class: "btn btn-info pull-right"
-            - delete_button = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
-            - if current_user.director?
-                .col-md-2
-                    = delete_button
-                .col-md-1.col-md-offset-2
-                    h4 Approved?
-                .col-md-2
-                    = f.select :approved, [["Approved", true], ["Pending", false]], {selected: @project.approved}, {:class => "form-control"}
+                = f.simple_fields_for :project_reservations do |builder|
+                    = render "#{@view_path}/edit_project_reservation_fields", :f => builder if builder.object.category == "editing"
+            // The add-fields class doesn't do anything except allow easier click-handling than using an id
+            div#add_fields_row.row
                 .col-md-1
-                    h4 Archived?
-                .col-md-2
-                    = f.select :archived, [["Archived", true], ["Active", false]], {selected: @project.archived}, {:class => "form-control"}
-            .col-md-1.pull-right
-                = submit_button
-        br
+                    .add-fields.btn.btn-info
+                        span.glyphicon.glyphicon-plus
+                            |  Add
+                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
+    .row
+        .col-md-2
+            = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
+        .col-md-1.col-md-offset-2
+            h4 Approved?
+        .col-md-2
+            = f.input :approved,
+                as: :select,
+                prompt: "Is this project approved?"
+        .col-md-1
+            h4 Archived?
+        .col-md-2
+            = f.input :archived,
+                as: :select,
+                prompt: "Is this project archived?"
+        .col-md-1.pull-right
+            = f.submit "Save Project", class: "btn btn-info pull-right"
+    br
