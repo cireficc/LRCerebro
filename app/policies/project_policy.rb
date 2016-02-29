@@ -38,7 +38,7 @@ class ProjectPolicy
             project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
         else
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
-            project_reservations_attributes: [:id, :faculty_notes]]
+            project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
         end
     end
     
