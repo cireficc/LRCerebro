@@ -101,7 +101,5 @@
                 = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
                     = render "#{@view_path}/show_project_reservation_fields", :f => builder if builder.object.category == "editing"
                 // The add-fields class doesn't do anything except allow easier click-handling than using an id
-    .row
-        .col-md-1.col-md-offset-11
-            = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
+    = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
     br
