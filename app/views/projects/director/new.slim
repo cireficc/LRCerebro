@@ -1,7 +1,7 @@
 = simple_form_for @project do |f|
     .panel.panel-info
         .panel-heading
-            h3.panel-title DIRECTOR Project Information
+            h3.panel-title Project Information
         .panel-body
             .row
                 .col-md-6
@@ -91,7 +91,7 @@
         .panel-body
             div#training_reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render "#{controller_name}/#{current_user.role}/new_project_reservation_fields", :f => builder if builder.object.category == "training"
+                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "training"
             // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1
@@ -105,7 +105,7 @@
         .panel-body
             div#editing_reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render 'new_project_reservation_fields', :f => builder if builder.object.category == "editing"
+                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "editing"
             // The add-fields class doesn't do anything except allow easier click-handling than using an id
             div#add_fields_row.row
                 .col-md-1

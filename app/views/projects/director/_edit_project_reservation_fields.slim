@@ -1,51 +1,62 @@
 .removable-fields
     .row
-        - if current_user.director?
-            = f.hidden_field :_destroy
-            = f.hidden_field :category
-        - readonly = current_user.faculty?
-        .col-md-2
-            = f.input :start, wrapper: :vertical_input_group_date
-                = f.input_field :start,
-                    as: :string,
-                    readonly: readonly,
-                    class: "form-control"
-        .col-md-2
-            = f.input :end, wrapper: :vertical_input_group_date
-                = f.input_field :start,
-                    as: :string,
-                    readonly: readonly,
-                    class: "form-control"
-        - if current_user.director?
-            .col-md-1
-                = f.input :lab,
-                    collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
-                    prompt: "Select a lab"
-            .col-md-2
-                = f.input :subtype,
-                    collection: ProjectReservation.subtypes.collect { |s, i| [s.camelize, s] },
-                    prompt: "Select a subtype"
-            .col-md-2
-                = f.input :staff_notes,
-                    input_html: { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
-            .col-md-2
-                = f.input :faculty_notes,
-                    readonly: true,
-                    input_html: { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
-            .col-md-1
-                / The remove-fields class doesn't do anything except allow easier click-handling than using an id
-                .remove-fields.btn.btn-danger
-                    span.glyphicon.glyphicon-remove
-        - else
-            .col-md-1
-                = f.input :lab,
-                    readonly: readonly,
-                    collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
-                    prompt: "Select a lab"
-            .col-md-2
-                = f.input :staff_notes,
-                    readonly: true,
-                    input_html: { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
-            .col-md-2
-                = f.input :faculty_notes,
-                    input_html: { placeholder: "Additional information specific to this reservation", rows: 3, maxlength: 1000 }
+        = f.hidden_field :_destroy
+        = f.hidden_field :category
+        .col-md-5
+            .panel.panel-warning
+                .panel-heading
+                    h3.panel-title When and Where
+                .panel-body
+                    .row
+                        .col-md-4
+                            h4 Start
+                        .col-md-8
+                            = f.input :start, wrapper: :vertical_input_group_date
+                                = f.input_field :start,
+                                    as: :string,
+                                    class: "form-control"
+                    .row
+                        .col-md-4
+                            h4 End
+                        .col-md-8
+                            = f.input :end, wrapper: :vertical_input_group_date
+                                = f.input_field :end,
+                                    as: :string,
+                                    class: "form-control"
+                    .row
+                        .col-md-4
+                            h4 Lab
+                        .col-md-8
+                            = f.input :lab,
+                                collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                prompt: "Select a lab"
+        .col-md-6
+            .panel.panel-info
+                    .panel-heading
+                        h3.panel-title Extra Information
+                    .panel-body
+                        .row
+                            .col-md-4
+                                h4 Reservation Subtype
+                            .col-md-8
+                                = f.input :subtype,
+                                    collection: ProjectReservation.subtypes.collect { |s, i| [s.camelize, s] },
+                                    prompt: "Select a subtype"
+                        .row
+                            .col-md-6
+                                h4 LRC Staff Notes
+                            .col-md-6
+                                h4 Faculty Notes
+                        .row
+                            .col-md-6
+                                = f.input :staff_notes,
+                                    input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
+                            .col-md-6
+                                = f.input :faculty_notes,
+                                    disabled: true,
+                                    input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
+        .col-md-1
+            // The remove-fields class doesn't do anything except allow easier click-handling than using an id
+            .remove-fields.btn.btn-danger
+                span.glyphicon.glyphicon-remove
+    hr
