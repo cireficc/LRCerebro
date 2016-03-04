@@ -43,11 +43,11 @@ class ProjectPolicy
     end
     
     def new?
-        @user.director? || @user.labasst? || @user.faculty?
+        @user.director? || @user.faculty?
     end
     
     def create?
-        @user.director? || @user.labasst? || @user.faculty?
+        @user.director? || @user.faculty?
     end
     
     def show?
