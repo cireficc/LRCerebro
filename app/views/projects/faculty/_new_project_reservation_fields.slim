@@ -1,0 +1,41 @@
+.removable-fields
+    .row
+        = f.hidden_field :_destroy
+        = f.hidden_field :category
+        .col-md-5
+            .panel.panel-warning
+                .panel-heading
+                    h3.panel-title When and Where
+                .panel-body
+                    .row
+                        .col-md-4
+                            h4 Start
+                        .col-md-8
+                            = f.input :start, wrapper: :vertical_input_group_date
+                                = f.input_field :start,
+                                    as: :string,
+                                    class: "form-control"
+                    .row
+                        .col-md-4
+                            h4 End
+                        .col-md-8
+                            = f.input :end, wrapper: :vertical_input_group_date
+                                = f.input_field :end,
+                                    as: :string,
+                                    class: "form-control"
+        .col-md-6
+            .panel.panel-info
+                    .panel-heading
+                        h3.panel-title Extra Information
+                    .panel-body
+                        .row
+                            .col-md-4
+                                h4 Faculty Notes
+                            .col-md-8
+                                = f.input :faculty_notes,
+                                    input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
+        .col-md-1
+            // The remove-fields class doesn't do anything except allow easier click-handling than using an id
+            .remove-fields.btn.btn-danger
+                span.glyphicon.glyphicon-remove
+    hr

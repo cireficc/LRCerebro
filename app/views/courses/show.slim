@@ -1,6 +1,6 @@
 h3 Viewing course
 
-= form_for @course, :html => {:class => "form-horizontal"} do |f|
+= simple_form_for @course do |f|
     - if policy(@course).edit?
         .row
             .col-md-1.pull-right
@@ -16,33 +16,39 @@ h3 Viewing course
                         .col-md-5
                             h4 Name
                         .col-md-7
-                            = f.text_field :name, {class: "form-control", readonly: true}
+                            = f.input :name, disabled: true
                     .form-group
                         .col-md-5
                             h4 Department
                         .col-md-7
-                            = f.select :department, options_for_select(Course.departments.to_a.map { |d, i| [d.camelize, d] }, @course.department), {}, {:class => "form-control"}
+                            = f.input :department,
+                                collection: Course.departments.collect { |d, i| [d.titleize, d] },
+                                selected: @course.department,
+                                disabled: true
                     .form-group
                         .col-md-5
                             h4 Course
                         .col-md-7
-                            = f.number_field :course, {class: "form-control", readonly: true}
+                            = f.input :course, disabled: true
                 .col-md-6
                     .form-group
                         .col-md-5
                             h4 Section
                         .col-md-7
-                            = f.number_field :section, {class: "form-control", readonly: true}
+                            = f.input :section, disabled: true
                     .form-group
                         .col-md-5
                             h4 Year
                         .col-md-7
-                            = f.number_field :year, {class: "form-control", readonly: true}
+                            = f.input :year, disabled: true
                     .form-group
                         .col-md-5
                             h4 Semester
                         .col-md-7
-                            = f.select :semester, options_for_select(Course.semesters.to_a.map { |s, i| [s.camelize, s] }, @course.semester), {}, {:class => "form-control"}
+                            = f.input :semester,
+                                collection: Course.semesters.collect { |s, i| [s.titleize, s] },
+                                selected: @course.semester,
+                                disabled: true
     .panel.panel-warning
         .panel-heading
             h3.panel-title Enrollment Information
@@ -66,7 +72,7 @@ h3 Viewing course
                             td #{instructor.first_name}
                             td #{instructor.username}
                             td #{instructor.g_number}
-                    - @course.users.order(:last_name).each do |user|
+                    - @course.get_students.order(:last_name).each do |user|
                         tr
                             td #{user.last_name}
                             td #{user.first_name}
@@ -75,6 +81,10 @@ h3 Viewing course
             br
             .row
                 .col-md-2
-                    h4 Enrolled users
+                    h3 Enrolled users
                 .col-md-4
-                    = f.select :user_ids, User.all.order(:last_name).collect {|u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id]}, {}, {:class => "form-control", :multiple => true, :size => 10}
+                    = f.association :users,
+                        collection: User.all.order(:last_name).collect { |u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id] },
+                        selected: @course.users.collect { |u| u.id },
+                        :input_html => { multiple: true, size: 20},
+                        disabled: true

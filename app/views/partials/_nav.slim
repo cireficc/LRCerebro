@@ -23,9 +23,10 @@ nav.navbar.navbar-default
                   = link_to "Active Projects", projects_path
                 li
                   a href="/projects/archive" Archived Projects
-                li.divider
-                li
-                  = link_to "Add a Project", new_project_path
+                - if current_user.director?
+                  li.divider
+                  li
+                    = link_to "Add a Project", new_project_path
             li.dropdown
               a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
                 | Course Manager

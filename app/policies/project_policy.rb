@@ -22,10 +22,20 @@ class ProjectPolicy
         @project = project
     end
     
-    def permitted_attributes
+    def create_attributes
+        if @user.director?
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
+        else
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            project_reservations_attributes: [:id, :category, :start, :end, :faculty_notes, :_destroy]]
+        end
+    end
+    
+    def update_attributes
         if @user.director?
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :approved, :archived,
-            project_reservations_attributes: [:id, :category, :start, :end, :lab, :staff_notes, :_destroy]]
+            project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
         else
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
             project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
@@ -33,11 +43,11 @@ class ProjectPolicy
     end
     
     def new?
-        @user.director? || @user.labasst? || @user.faculty?
+        @user.director? || @user.faculty?
     end
     
     def create?
-        @user.director? || @user.labasst? || @user.faculty?
+        @user.director? || @user.faculty?
     end
     
     def show?
