@@ -22,7 +22,7 @@ h3 Viewing course
                             h4 Department
                         .col-md-7
                             = f.input :department,
-                                collection: Course.departments.collect { |d, i| [d.camelize, d] },
+                                collection: Course.departments.collect { |d, i| [d.titleize, d] },
                                 selected: @course.department,
                                 disabled: true
                     .form-group
@@ -46,7 +46,7 @@ h3 Viewing course
                             h4 Semester
                         .col-md-7
                             = f.input :semester,
-                                collection: Course.semesters.collect { |s, i| [s.camelize, s] },
+                                collection: Course.semesters.collect { |s, i| [s.titleize, s] },
                                 selected: @course.semester,
                                 disabled: true
     .panel.panel-warning

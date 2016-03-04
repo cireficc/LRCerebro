@@ -40,7 +40,7 @@
                                 h4 Reservation Subtype
                             .col-md-8
                                 = f.input :subtype,
-                                    collection: ProjectReservation.subtypes.collect { |s, i| [s.camelize, s] },
+                                    collection: ProjectReservation.subtypes.collect { |s, i| [s.titleize, s] },
                                     prompt: "Select a subtype"
                         .row
                             .col-md-4
