@@ -1,0 +1,26 @@
+= simple_form_for @standard_activity do |f|
+    = f.input :activity,
+        collection: StandardActivity.activities.collect { |a, i| [a.titleize, a] },
+        prompt: "Select an activity type"
+    = f.input :start, wrapper: :vertical_input_group_date
+        = f.input_field :start,
+            as: :string,
+            class: "form-control"
+    = f.input :end, wrapper: :vertical_input_group_date
+        = f.input_field :end,
+            as: :string,
+            class: "form-control"
+    = f.input :lab,
+        collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+        prompt: "Select a lab"
+    = f.input :walkthrough,
+        as: :select,
+        prompt: "Can students walk through the lab?"
+    = f.input :utilities,
+        collection: StandardActivity.utilities.collect { |u, i| [u.titleize, u] },
+        as: :check_boxes
+    = f.input :assistances,
+        collection: StandardActivity.assistances.collect { |a, i| [a.titleize, a] },
+        as: :check_boxes
+    = f.input :additional_instructions
+    = f.submit "Submit Reservation", class: "btn btn-info"
