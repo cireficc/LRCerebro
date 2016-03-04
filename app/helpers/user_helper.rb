@@ -1,6 +1,4 @@
-module AccountHelper
-    
-    # Helper methods courtesy of RailsTutorial (https://www.railstutorial.org/book/log_in_log_out)
+module UserHelper
     
     # Logs in the given user
     def log_in(user)

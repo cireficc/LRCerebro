@@ -8,11 +8,22 @@ class User < ActiveRecord::Base
     # :labasst - Lab assistants of the LRC. Elevated privileges
     # :faculty - Faculty in the MLL department who teach courses
     # :student - Students in the MLL department who enroll in courses
-    enum role: [:director, :labasst, :faculty, :student]
+    enum role: {
+        director: 0,
+        labasst: 1,
+        faculty: 2,
+        student: 3
+    }
     
     has_secure_password
     
     def active_courses
-        self.courses.where(enrollments: {archived: false})
+        # Director and labasst will see all non-archived courses
+        if (self.director? || self.labasst?)
+            Course.where(archived: false)
+        # Faculty and student will see non-archived courses that they are enrolled in
+        else
+            self.courses.where(enrollments: {archived: false})
+        end
     end
 end

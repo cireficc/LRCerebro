@@ -38,6 +38,9 @@ $(document).ready(function() {
 	        if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
 	    }
 	});
+	
+	// Initialize all Bootstrap toolips
+	$("[data-toggle='tooltip']").tooltip();
 });
 
 /*
