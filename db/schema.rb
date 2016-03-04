@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214211312) do
+ActiveRecord::Schema.define(version: 20160304181850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,19 @@ ActiveRecord::Schema.define(version: 20160214211312) do
     t.string   "publish_link"
     t.boolean  "archived",     default: false
     t.datetime "archived_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "standard_activities", force: true do |t|
+    t.integer  "activity"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "lab"
+    t.boolean  "walkthrough"
+    t.text     "utilities",               default: [], array: true
+    t.text     "assistance",              default: [], array: true
+    t.text     "additional_instructions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
