@@ -12,11 +12,11 @@ table.table.table-hover
         - @courses.each do |course|
             tr
                 td #{course.name}
-                td #{course.department.camelize}
+                td #{course.department.titleize}
                 td #{course.course}
                 td #{course.section}
                 td #{course.year}
-                td #{course.semester.camelize}
+                td #{course.semester.titleize}
                 td
                     .dropdown
                         - @students = course.get_students
