@@ -1,0 +1,2 @@
+module StandardActivitiesHelper
+end

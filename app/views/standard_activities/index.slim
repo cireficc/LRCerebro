@@ -1,0 +1,27 @@
+<h1>Listing standard_activities</h1>
+
+table.table
+  thead
+    tr
+        th Activity
+        th Start
+        th End
+        th Lab
+        th Walkthrough
+  tbody
+    - @standard_activities.each do |sa|
+      tr
+        td #{sa.activity.titleize}
+        td #{sa.start}
+        td #{sa.end}
+        td #{sa.lab.titleize}
+        td #{sa.walkthrough? ? "Yes" : "No"}
+        td
+            = link_to 'Show', sa
+        td
+            = link_to 'Edit', edit_standard_activity_path(sa)
+        td
+            = link_to 'Destroy', sa, method: :delete, data: { confirm: 'Are you sure?' }
+br
+
+= link_to 'New Standard activity', new_standard_activity_path
