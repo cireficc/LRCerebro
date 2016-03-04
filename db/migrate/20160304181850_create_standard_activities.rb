@@ -7,7 +7,7 @@ class CreateStandardActivities < ActiveRecord::Migration
             t.integer :lab
             t.boolean :walkthrough
             t.text :utilities, array: true, default: []
-            t.text :assistance, array: true, default: []
+            t.text :assistances, array: true, default: []
             t.text :additional_instructions
             t.timestamps
         end
