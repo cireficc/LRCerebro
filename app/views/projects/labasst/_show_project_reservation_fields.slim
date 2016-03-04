@@ -31,7 +31,7 @@
                         .col-md-8
                             = f.input :lab,
                                 readonly: true,
-                                collection: Lab.locations.collect { |l, i| [l.camelize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                                 prompt: "Select a lab"
         .col-md-6
             .panel.panel-info
