@@ -1,19 +1,19 @@
-class AccountController < ApplicationController
+class UserController < ApplicationController
     
     # The login form page
-    def home
+    def login
         @title = "Login"
         @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
         flash.now[:warning] = @config["login"]["data_warning"]
         render "login"
     end
     
-    # POST login, attempt to log the user in, redirect if it's their first time
-    def login
-        @username = params[:username]
-        @password = params[:password]
+    def start_session
         
-        @user = User.find_by username: @username
+        @username = params[:user][:username]
+        @password = params[:user][:password]
+        
+        @user = User.find_by(username: @username)
         
         # The BB username was not found; render the login form again with an error
         if @user.nil?
@@ -28,14 +28,14 @@ class AccountController < ApplicationController
             flash.now[:warning] =
             "This is the first time you are logging in; please register your account. Please note that
              this system uses your Blackboard username and g number, but does not log into Blackboard
-             directly."
-            @signup = true
-            return render "login"
+             directly. You will only need to register once."
+            session[:username] = @user.username
+            return redirect_to signup_url
         end
         
         # Attempt to authenticate the user. On failure, error out
         if !@user.authenticate(@password)
-            flash[:danger] = "Invalid login credentials"
+            flash.now[:danger] = "Invalid login credentials"
             return render "login"
         else
             flash[:success] = "Hello #{@user.first_name}, you have been logged in!"
@@ -43,38 +43,42 @@ class AccountController < ApplicationController
             log_in @user
             return redirect_to root_url
         end
-        
     end
     
-    # POST create, set the user's new password. Make sure they match and are not empty
-    def create
-        @username = params[:username]
-        @g_number = params[:g_number].downcase
-        @password = params[:password]
-        @password_confirmation = params[:password_confirmation]
-        # This variable tells the login view's JavaScript to switch to the Sign Up tab
-        @signup = true
+    def signup
+        @user = User.find_by(username: session[:username])
+        @user.g_number = nil if @user
+        @title = "Sign Up"
+        @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
+        flash.now[:warning] = @config["login"]["data_warning"]
+        render "signup"
+    end
+    
+    def signup_and_start_session
         
-        @user = User.find_by username: @username, g_number: @g_number
+        @_user = params[:user]
+        @username = @_user[:username]
+        @g_number = @_user[:g_number].downcase
+        @password = @_user[:password]
+        @password_confirmation = @_user[:password_confirmation]
+        
+        @user = User.find_by(username: @username, g_number: @g_number)
         
         # If the user could not be found by username and g number, error out
         if @user.nil?
             flash.now[:danger] = "Your Blackboard username [#{@username}] and G number [#{@g_number}] were not valid"
-            return render "login"
+            return render "signup"
         end
         
         if @user.registered?
             flash.now[:danger] = "You have already registered. Please log in instead"
-            # Nullify sign-up variables because the user has already registered
-            @signup = nil
-            @g_number = nil
-            return render "login"
+            return redirect_to login_url
         end
         
         # If the password was empty, error out
         if @password.blank?
-            flash.now[:danger] = "Your new password cannot be blank (or contain only whitespaces)"
-            return render "login"
+            flash.now[:danger] = "Your new password cannot be blank"
+            return render "signup"
         end
         
         @user.password = @password
@@ -84,17 +88,18 @@ class AccountController < ApplicationController
         # Try to save the user's new password and registered status. User.has_secure_password will validate as necessary
         if !@user.save
             flash.now[:danger] = "Your passwords did not match, or you exceeded the length limit of 72 characters"
-            return render "login"
+            return render "signup"
         else
             # Set up the user's session, strip out the temporary session variables and redirect home
             flash[:success] = "Hello #{@user.first_name}, your password has been set and you have been logged in!"
-            # Set the session data via the AccountHelper method
+            # Remove the temporary user and set the session data via the AccountHelper method
+            session.delete(:user)
             log_in @user
             redirect_to root_url
         end
     end
     
-    def logout
+    def end_session
         log_out
         return redirect_to root_url
     end

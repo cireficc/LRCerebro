@@ -1,0 +1,62 @@
+.removable-fields
+    .row
+        = f.hidden_field :_destroy
+        = f.hidden_field :category
+        .col-md-6
+            .panel.panel-warning
+                .panel-heading
+                    h3.panel-title When and Where
+                .panel-body
+                    .row
+                        .col-md-4
+                            h4 Start
+                        .col-md-8
+                            = f.input :start, wrapper: :vertical_input_group_date
+                                = f.input_field :start,
+                                    as: :string,
+                                    readonly: true,
+                                    class: "form-control"
+                    .row
+                        .col-md-4
+                            h4 End
+                        .col-md-8
+                            = f.input :end, wrapper: :vertical_input_group_date
+                                = f.input_field :end,
+                                    as: :string,
+                                    readonly: true,
+                                    class: "form-control"
+                    .row
+                        .col-md-4
+                            h4 Lab
+                        .col-md-8
+                            = f.input :lab,
+                                disabled: true,
+                                collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                prompt: "Select a lab"
+        .col-md-6
+            .panel.panel-info
+                    .panel-heading
+                        h3.panel-title Extra Information
+                    .panel-body
+                        .row
+                            .col-md-4
+                                h4 Reservation Subtype
+                            .col-md-8
+                                = f.input :subtype,
+                                    disabled: true,
+                                    collection: ProjectReservation.subtypes.collect { |s, i| [s.titleize, s] },
+                                    prompt: "Select a subtype"
+                        .row
+                            .col-md-6
+                                h4 LRC Staff Notes
+                            .col-md-6
+                                h4 Faculty Notes
+                        .row
+                            .col-md-6
+                                = f.input :staff_notes,
+                                    disabled: true,
+                                    input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
+                            .col-md-6
+                                = f.input :faculty_notes,
+                                    input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
+    hr

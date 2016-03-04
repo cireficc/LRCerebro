@@ -7,17 +7,19 @@ Rails.application.routes.draw do
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
   
-  # Login/register routes
-  get 'login' => 'account#home'
-  post 'login' => 'account#login'
-  post 'register' => 'account#create'
-  get 'logout' => 'account#logout'
+  # User login/signup routes
+  get 'login' => 'user#login'
+  post 'login' => 'user#start_session'
+  get 'signup' => 'user#signup'
+  post 'signup' => 'user#signup_and_start_session'
+  get 'logout' => 'user#end_session'
   
   # Project resources
   # http://www.codecademy.com/articles/standard-controller-actions
   get 'projects/archive' => 'projects#archive_index'
-  resources :projects
+  resources :users
   resources :courses
+  resources :projects
   
   # App live configuration
   get 'configuration' => 'configuration#load'
