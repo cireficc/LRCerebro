@@ -20,7 +20,15 @@ class Project < ActiveRecord::Base
     # :blog - A blog project using Google Sites
     # :pages - A document-based project using Pages
     # :other - A different type of project that should be detailed in the project's description
-    enum category: [:camtasia, :garage_band, :pixton, :photo_booth, :blog, :pages, :other]
+    enum category: {
+        camtasia: 0,
+        garage_band: 1,
+        pixton: 2,
+        photo_booth: 3,
+        blog: 4,
+        pages: 5,
+        other: 6
+    }
     
     CATEGORY_TRAINING_EVENTS = {
         camtasia: 3,
