@@ -17,7 +17,7 @@ class StandardActivitiesController < ApplicationController
     end
 
     def create
-        @standard_activity = StandardActivity.new(standard_activity_params)
+        @standard_activity = StandardActivity.new(create_params)
 
         if @standard_activity.save
         redirect_to @standard_activity
@@ -28,7 +28,7 @@ class StandardActivitiesController < ApplicationController
 
     def update
       
-        if @standard_activity.update(standard_activity_params)
+        if @standard_activity.update(update_params)
         redirect_to @standard_activity
         else
         render :edit
@@ -42,11 +42,15 @@ class StandardActivitiesController < ApplicationController
 
     private
 
-        def set_standard_activity
-            @standard_activity = StandardActivity.find(params[:id])
-        end
-
-    def standard_activity_params
-        params.require(:standard_activity).permit(:activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: [])
+    def set_standard_activity
+        @standard_activity = StandardActivity.find(params[:id])
+    end
+    
+    def create_params
+        params.require(:standard_activity).permit(policy(StandardActivity).create_attributes)
+    end
+    
+    def update_params
+        params.require(:standard_activity).permit(policy(@standard_activity).update_attributes)
     end
 end
