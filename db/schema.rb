@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20160304181850) do
   end
 
   create_table "standard_activities", force: :cascade do |t|
+    t.integer  "course_id"
     t.integer  "activity"
     t.datetime "start"
     t.datetime "end"
