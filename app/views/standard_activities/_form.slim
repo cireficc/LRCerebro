@@ -1,26 +1,79 @@
 = simple_form_for @standard_activity do |f|
-    = f.input :activity,
-        collection: StandardActivity.activities.collect { |a, i| [a.titleize, a] },
-        prompt: "Select an activity type"
-    = f.input :start, wrapper: :vertical_input_group_date
-        = f.input_field :start,
-            as: :string,
-            class: "form-control"
-    = f.input :end, wrapper: :vertical_input_group_date
-        = f.input_field :end,
-            as: :string,
-            class: "form-control"
-    = f.input :lab,
-        collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
-        prompt: "Select a lab"
-    = f.input :walkthrough,
-        as: :select,
-        prompt: "Can students walk through the lab?"
-    = f.input :utilities,
-        collection: StandardActivity.utilities.collect { |u, i| [u.titleize, u] },
-        as: :check_boxes
-    = f.input :assistances,
-        collection: StandardActivity.assistances.collect { |a, i| [a.titleize, a] },
-        as: :check_boxes
-    = f.input :additional_instructions
-    = f.submit "Submit Reservation", class: "btn btn-info"
+    .row
+        .col-md-6
+            .panel.panel-info
+                    .panel-heading
+                        h3.panel-title General Information
+                    .panel-body
+                        .row
+                            .col-md-3
+                                h4 Course
+                            .col-md-9
+                                - @courses = current_user.active_courses
+                                = f.input :course_id,
+                                    collection: @courses.collect { |c| [c.name, c.id] },
+                                    prompt: "Select a course"
+                        .row
+                            .col-md-3
+                                h4 Activity
+                            .col-md-9
+                                = f.input :activity,
+                                    collection: StandardActivity.activities.collect { |a, i| [a.titleize, a] },
+                                    prompt: "Select an activity type"
+                        .row
+                            .col-md-3
+                                h4 Walkthrough
+                            .col-md-9
+                                = f.input :walkthrough,
+                                    as: :select,
+                                    prompt: "Can students walk through the lab?"
+                        .row
+                            .col-md-3
+                                h4 Utilities
+                            .col-md-9
+                                = f.input :utilities,
+                                    collection: StandardActivity.utilities.collect { |u, i| [u.titleize, u] },
+                                    as: :check_boxes
+                        .row
+                            .col-md-3
+                                h4 Assistance
+                            .col-md-9
+                                = f.input :assistances,
+                                    collection: StandardActivity.assistances.collect { |a, i| [a.titleize, a] },
+                                    as: :check_boxes
+        .col-md-6
+            .panel.panel-warning
+                    .panel-heading
+                        h3.panel-title Date, Time and Instructions
+                    .panel-body
+                        .row
+                            .col-md-3
+                                h4 Start
+                            .col-md-9
+                                 = f.input :start, wrapper: :vertical_input_group_date
+                                    = f.input_field :start,
+                                        as: :string,
+                                        class: "form-control"
+                        .row
+                            .col-md-3
+                                h4 End
+                            .col-md-9
+                                = f.input :end, wrapper: :vertical_input_group_date
+                                    = f.input_field :end,
+                                        as: :string,
+                                        class: "form-control"
+                        .row
+                            .col-md-3
+                                h4 Lab
+                            .col-md-9
+                                = f.input :lab,
+                                    collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                    prompt: "Select a lab"
+                        .row
+                            .col-md-3
+                                h4 Additional Instructions
+                            .col-md-9
+                                = f.input :additional_instructions,
+                                    input_html: { placeholder: "Any additional information that you need us to know", rows: 6, maxlength: 2500 }
+    = f.submit "Submit Reservation", class: "btn btn-info pull-right"
+    = link_to 'Back', standard_activities_path, {class: 'btn btn-primary'}
