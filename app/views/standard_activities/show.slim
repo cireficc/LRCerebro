@@ -1,6 +1,6 @@
-h1 Showing standard_activity
+h3 Viewing reservation for: #{@standard_activity.start}
+br
 
 = render 'form'
 
 = link_to 'Edit', edit_standard_activity_path(@standard_activity), class: "btn btn-info"
-= link_to 'Back', standard_activities_path, class: "btn btn-info"
