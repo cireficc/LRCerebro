@@ -3,41 +3,58 @@ class StandardActivitiesController < ApplicationController
     before_action :set_standard_activity, only: [:show, :edit, :update, :destroy]
 
     def index
-        @standard_activities = StandardActivity.all
-    end
-
-    def show
+        
+        @standard_activities = policy_scope(StandardActivity)
     end
 
     def new
+        
         @standard_activity = StandardActivity.new
-    end
-
-    def edit
+        authorize @standard_activity
     end
 
     def create
+        
         @standard_activity = StandardActivity.new(create_params)
+        authorize @standard_activity
 
         if @standard_activity.save
-        redirect_to @standard_activity
+            redirect_to @standard_activity
         else
-        render :new
+            render :new
         end
+    end
+    
+    def show
+        
+        authorize @standard_activity
+    end
+    
+    def edit
+        
+        authorize @standard_activity
     end
 
     def update
+        
+        authorize @standard_activity
       
         if @standard_activity.update(update_params)
-        redirect_to @standard_activity
+            redirect_to @standard_activity
         else
-        render :edit
+            render :edit
         end
     end
 
     def destroy
-        @standard_activity.destroy
-        redirect_to standard_activities_url
+        
+        authorize @standard_activity
+        
+        if @standard_activity.destroy
+            redirect_to standard_activities_url
+        else
+            render :edit
+        end
     end
 
     private
