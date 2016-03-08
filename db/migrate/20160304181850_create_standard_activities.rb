@@ -1,6 +1,7 @@
 class CreateStandardActivities < ActiveRecord::Migration
     def change
         create_table :standard_activities do |t|
+            t.belongs_to :course
             t.integer :activity
             t.datetime :start
             t.datetime :end
