@@ -2,7 +2,7 @@ class StandardActivity < ActiveRecord::Base
     
     belongs_to :course
     validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
-    validate :start_time_before_end_time
+    validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
     
     # Standard activity types
     # :dill_paired_recordings - DiLL recordings where students are paired together to record
