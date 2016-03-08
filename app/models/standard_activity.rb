@@ -2,6 +2,7 @@ class StandardActivity < ActiveRecord::Base
     
     belongs_to :course
     validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
+    validate :start_time_before_end_time
     
     # Standard activity types
     # :dill_paired_recordings - DiLL recordings where students are paired together to record
@@ -41,4 +42,11 @@ class StandardActivity < ActiveRecord::Base
     # In order for form submissions to assign this property correctly, this enum has to be present
     # in this class. To follow DRY, we use the application-wide enum Lab.locations
     enum lab: Lab.locations
+    
+    def start_time_before_end_time
+        if self.start > self.end
+            self.errors.add(:start, "reservation start time must be earlier than end time")
+            self.errors.add(:end, "reservation start time must be earlier than end time")
+        end
+    end
 end
