@@ -1,5 +1,8 @@
 class StandardActivity < ActiveRecord::Base
     
+    belongs_to :course
+    validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
+    
     # Standard activity types
     # :dill_paired_recordings - DiLL recordings where students are paired together to record
     # :dill_individual_recordings - DiLL recordings where students record individually
