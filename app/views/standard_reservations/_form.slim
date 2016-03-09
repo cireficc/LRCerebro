@@ -81,8 +81,11 @@
     - if action_name == "new" || action_name == "create"
         = f.submit "Schedule Reservation", class: "btn btn-info pull-right"
     - elsif action_name == "show"
-        = link_to "Cancel Reservation", standard_reservation_path(@standard_reservation), data: { confirm: 'Are you sure you want to cancel this reservation?' }, :method => :delete, class: 'btn btn-danger pull-left'
-        = link_to "Edit Reservation", edit_standard_reservation_url(@standard_reservation), {class: 'btn btn-info pull-right'}
+        - if policy(@standard_reservation).destroy?
+            = link_to "Cancel Reservation", standard_reservation_path(@standard_reservation), data: { confirm: 'Are you sure you want to cancel this reservation?' }, :method => :delete, class: 'btn btn-danger pull-left'
+        - if policy(@standard_reservation).edit?
+            = link_to "Edit Reservation", edit_standard_reservation_url(@standard_reservation), {class: 'btn btn-info pull-right'}
     - else
-        = link_to "Cancel Reservation", standard_reservation_path(@standard_reservation), data: { confirm: 'Are you sure you want to cancel this reservation?' }, :method => :delete, class: 'btn btn-danger pull-left'
+        - if policy(@standard_reservation).destroy?
+            = link_to "Cancel Reservation", standard_reservation_path(@standard_reservation), data: { confirm: 'Are you sure you want to cancel this reservation?' }, :method => :delete, class: 'btn btn-danger pull-left'
         = f.submit "Update Reservation", class: "btn btn-info pull-right"
