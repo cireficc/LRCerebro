@@ -1,7 +1,8 @@
 class StandardReservation < ActiveRecord::Base
     
     belongs_to :course
-    validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
+    validates :course_id, :activity, :start, :end, :lab, presence: true
+    validates :walkthrough, inclusion: [true, false]
     validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
     
     after_create :create_or_update_calendar_event, :unless => :seeding_development_database
