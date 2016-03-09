@@ -20,6 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+    forms:
+        submission_errors: "There were errors in your form submission. Please correct the error(s) in red and re-submit."
+        standard_activity:
+            create:
+                success: "Your reservation was succesfully scheduled for %{start}."
+            update:
+                success: "Your reservation was succesfully updated. It is now scheduled for %{start}."
+            destroy:
+                success: "Your reservation for %{start} was successfully cancelled."
     pundit:
         not_authorized_intro: 'You do not have permission to'
         default: 'You must be logged in to perform that action.'
@@ -39,3 +48,11 @@ en:
             edit?: 'edit that course.'
             update?: 'update that course.'
             destroy?: 'delete that course.'
+        standard_activity_policy:
+            index?: 'view lab reservations.'
+            new?: 'create new reservations.'
+            create?: 'create new reservations.'
+            show?: 'view that reservation.'
+            edit?: 'edit that reservation.'
+            update?: 'update that reservation.'
+            destroy?: 'delete that reservation.'
