@@ -1,0 +1,2 @@
+module StandardReservationsHelper
+end
