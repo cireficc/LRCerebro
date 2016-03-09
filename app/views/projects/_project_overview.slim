@@ -3,26 +3,25 @@ div name="project_panel" class= "panel panel-primary"
         h4.panel-title data-toggle="collapse" data-target="##{p.id}"
             .row.text-center
                 .col-md-10
-                    .row
-                        - if current_user.director? || current_user.labasst?
-                            - project_owner = p.course.get_instructor
-                            - if project_owner
-                                .col-md-2
-                                    span#project_owner.label.label-info #{project_owner.last_name}, #{project_owner.first_name}
-                            - else
-                                .col-md-2
-                        .col-md-1
-                            span#course_name.label.label-warning #{p.course.get_short_name}
-                        .col-md-1
-                            span#project_type.label.label-danger #{p.category.titleize}
-                        .col-md-2
-                            span#project_name.label.label-success  #{p.name}
-                        .col-md-1
-                            span#num_students.label.label-default #{p.course.users.length - 1}
-                        .col-md-2
-                            span#submitted_at.label.label-default #{p.created_at.to_s}
-                        .col-md-2
-                            span#updated_at.label.label-default #{p.updated_at.to_s}
+                    - if current_user.director? || current_user.labasst?
+                        - project_owner = p.course.get_instructor
+                        - if project_owner
+                            .col-md-2
+                                span#project_owner.label.label-info #{project_owner.last_name}, #{project_owner.first_name}
+                        - else
+                            .col-md-2
+                    .col-md-1
+                        span#course_name.label.label-warning #{p.course.get_short_name}
+                    .col-md-1
+                        span#project_type.label.label-danger #{p.category.titleize}
+                    .col-md-2
+                        span#project_name.label.label-success  #{p.name}
+                    .col-md-1
+                        span#num_students.label.label-default #{p.course.users.length - 1}
+                    .col-md-2
+                        span#submitted_at.label.label-default #{p.created_at.to_s}
+                    .col-md-2
+                        span#updated_at.label.label-default #{p.updated_at.to_s}
                 .col-md-1
                     - if policy(p).edit?
                         = link_to "Edit Project", edit_project_path(p), :target => '_blank', class: 'btn btn-xs btn-info pull-right'
