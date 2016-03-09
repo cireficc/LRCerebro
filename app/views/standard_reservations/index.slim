@@ -1,27 +1,32 @@
-<h1>Listing standard_reservations</h1>
-
-table.table
-  thead
-    tr
-        th Activity
-        th Start
-        th End
-        th Lab
-        th Walkthrough
-  tbody
-    - @standard_reservations.each do |sa|
-      tr
-        td #{sa.activity.titleize}
-        td #{sa.start}
-        td #{sa.end}
-        td #{sa.lab.titleize}
-        td #{sa.walkthrough? ? "Yes" : "No"}
-        td
-            = link_to 'Show', sa
-        td
-            = link_to 'Edit', edit_standard_reservation_path(sa)
-        td
-            = link_to 'Destroy', sa, method: :delete, data: { confirm: 'Are you sure?' }
+h3 Standard Reservations
 br
 
-= link_to 'New reservation', new_standard_reservation_path
+ul#standard_reservation_tabs.nav.nav-tabs.nav-justified
+    li#upcoming_tab.active
+        a data-toggle="tab" href="#upcoming"
+            | Upcoming 
+            span.badge #{@upcoming.length}
+    li#past_tab
+        a data-toggle="tab" href="#past"
+            | Past 
+            span.badge #{@past.length}
+    br
+    .panel.panel-default
+        .panel-heading
+            .row.text-center
+                .col-md-10
+                    .col-md-2 Course Name
+                    .col-md-2 Activity
+                    .col-md-2 Start
+                    .col-md-2 End
+                    .col-md-2 Lab
+                    .col-md-2 Walkthroughs
+    div#standard_reservation_tabs_content.tab-content
+        div#upcoming.tab-pane.active
+            div#standard_reservation_list.panel-group
+                - @upcoming.each do |reservation|
+                    = render partial: "reservation_overview", locals: {r: reservation}
+        div#past.tab-pane
+            div#standard_reservation_list.panel-group
+                - @past.each do |reservation|
+                    = render partial: "reservation_overview", locals: {r: reservation}
