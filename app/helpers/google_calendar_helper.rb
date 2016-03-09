@@ -10,6 +10,8 @@ require 'google/apis/calendar_v3'
 # batch request: https://developers.google.com/api-client-library/ruby/guide/batch.
 module GoogleCalendarHelper
     
+    include ApplicationHelper
+    
     HOURS_PER_DAY = 24
     MINUTES_PER_DAY = 60 * 24
     SECONDS_PER_DAY = 60 * 60 * 24
@@ -49,8 +51,8 @@ module GoogleCalendarHelper
             " (#{@project.category.titleize} #{res.category.titleize} #{@index + 1} of #{@total})"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
-        @start_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.start)
-        @end_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.end)
+        @start_time = ApplicationHelper.time_local(@res.start)
+        @end_time = ApplicationHelper.time_local(@res.end)
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
@@ -109,8 +111,8 @@ module GoogleCalendarHelper
             " (#{@res.activity.titleize} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
-        @start_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.start)
-        @end_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.end)
+        @start_time = ApplicationHelper.time_local(@res.start)
+        @end_time = ApplicationHelper.time_local(@res.end)
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
