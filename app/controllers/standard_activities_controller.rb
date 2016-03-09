@@ -19,8 +19,10 @@ class StandardActivitiesController < ApplicationController
         authorize @standard_activity
 
         if @standard_activity.save
+            flash[:success] = t "#{controller_name.singularize}.#{action_name}.success", scope: "forms", start: @standard_activity.start
             redirect_to @standard_activity
         else
+            flash[:danger] = t :submission_errors, scope: "forms"
             render :new
         end
     end
@@ -40,8 +42,10 @@ class StandardActivitiesController < ApplicationController
         authorize @standard_activity
       
         if @standard_activity.update(update_params)
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_activity.start
             redirect_to @standard_activity
         else
+            flash[:danger] = t "submission_errors", scope: "forms"
             render :edit
         end
     end
@@ -51,6 +55,7 @@ class StandardActivitiesController < ApplicationController
         authorize @standard_activity
         
         if @standard_activity.destroy
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_activity.start
             redirect_to standard_activities_url
         else
             render :edit
