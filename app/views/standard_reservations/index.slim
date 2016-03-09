@@ -1,4 +1,4 @@
-<h1>Listing standard_activities</h1>
+<h1>Listing standard_reservations</h1>
 
 table.table
   thead
@@ -9,7 +9,7 @@ table.table
         th Lab
         th Walkthrough
   tbody
-    - @standard_activities.each do |sa|
+    - @standard_reservations.each do |sa|
       tr
         td #{sa.activity.titleize}
         td #{sa.start}
@@ -19,9 +19,9 @@ table.table
         td
             = link_to 'Show', sa
         td
-            = link_to 'Edit', edit_standard_activity_path(sa)
+            = link_to 'Edit', edit_standard_reservation_path(sa)
         td
             = link_to 'Destroy', sa, method: :delete, data: { confirm: 'Are you sure?' }
 br
 
-= link_to 'New Standard activity', new_standard_activity_path
+= link_to 'New reservation', new_standard_reservation_path

@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
     
     accepts_nested_attributes_for :users
     has_many :projects
-    has_many :standard_activities
+    has_many :standard_reservations
     
     validates :name, :department, :course, :section, :year, :semester, presence: true
     

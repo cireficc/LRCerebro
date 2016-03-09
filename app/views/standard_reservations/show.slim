@@ -1,0 +1,6 @@
+h3 Viewing reservation for: #{@standard_reservation.start}
+br
+
+= render 'form'
+
+= link_to 'Edit', edit_standard_reservation_path(@standard_reservation), class: "btn btn-info"

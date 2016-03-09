@@ -1,4 +1,4 @@
-= simple_form_for @standard_activity do |f|
+= simple_form_for @standard_reservation do |f|
     .row
         .col-md-6
             .panel.panel-info
@@ -18,7 +18,7 @@
                                 h4 Activity
                             .col-md-9
                                 = f.input :activity,
-                                    collection: StandardActivity.activities.collect { |a, i| [a.titleize, a] },
+                                    collection: StandardReservation.activities.collect { |a, i| [a.titleize, a] },
                                     prompt: "Select an activity type"
                         .row
                             .col-md-3
@@ -32,14 +32,14 @@
                                 h4 Utilities
                             .col-md-9
                                 = f.input :utilities,
-                                    collection: StandardActivity.utilities.collect { |u, i| [u.titleize, u] },
+                                    collection: StandardReservation.utilities.collect { |u, i| [u.titleize, u] },
                                     as: :check_boxes
                         .row
                             .col-md-3
                                 h4 Assistance
                             .col-md-9
                                 = f.input :assistances,
-                                    collection: StandardActivity.assistances.collect { |a, i| [a.titleize, a] },
+                                    collection: StandardReservation.assistances.collect { |a, i| [a.titleize, a] },
                                     as: :check_boxes
         .col-md-6
             .panel.panel-warning
@@ -76,4 +76,4 @@
                                 = f.input :additional_instructions,
                                     input_html: { placeholder: "Any additional information that you need us to know", rows: 9, maxlength: 2500 }
     = f.submit "Submit Reservation", class: "btn btn-info pull-right"
-    = link_to 'Back', standard_activities_path, {class: 'btn btn-primary'}
+    = link_to 'Back', standard_reservations_path, {class: 'btn btn-primary'}
