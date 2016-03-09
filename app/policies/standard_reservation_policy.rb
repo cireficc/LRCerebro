@@ -1,7 +1,7 @@
-class StandardActivityPolicy
-    include StandardActivitiesHelper
+class StandardReservationPolicy
+    include StandardReservationsHelper
     
-    attr_reader :user, :standard_activity
+    attr_reader :user, :standard_reservation
     
     class Scope < Struct.new(:user, :scope)
         
@@ -16,10 +16,10 @@ class StandardActivityPolicy
         end
     end
 
-    def initialize(user, standard_activity)
+    def initialize(user, standard_reservation)
         raise Pundit::NotAuthorizedError unless user
         @user = user
-        @standard_activity = standard_activity
+        @standard_reservation = standard_reservation
     end
     
     def create_attributes
@@ -39,19 +39,19 @@ class StandardActivityPolicy
     end
     
     def show?
-        @user.director? || @user.labasst? || owns_standard_activity
+        @user.director? || @user.labasst? || owns_standard_reservation
     end
     
     def edit?
-        @user.director? || owns_standard_activity
+        @user.director? || owns_standard_reservation
     end
     
     def update?
-        @user.director? || owns_standard_activity
+        @user.director? || owns_standard_reservation
     end
     
     def destroy?
-        @user.director? || owns_standard_activity
+        @user.director? || owns_standard_reservation
     end
     
     private
@@ -59,8 +59,8 @@ class StandardActivityPolicy
     # A user owns the activity if they a faculty member enrolled in the course attached to the activity.
     # This means that if there are 2+ users with role 'faculty' in a course that has an activity, they
     # will ALL have the same permissions on the activity
-    def owns_standard_activity
-        puts "Owns standard activity?: #{@standard_activity.course.users.include? @user}"
-        @user.faculty? && (@standard_activity.course.users.include? @user)
+    def owns_standard_reservation
+        puts "Owns standard reservation?: #{@standard_reservation.course.users.include? @user}"
+        @user.faculty? && (@standard_reservation.course.users.include? @user)
     end
 end

@@ -22,7 +22,7 @@
 en:
     forms:
         submission_errors: "There were errors in your form submission. Please correct the error(s) in red and re-submit."
-        standard_activity:
+        standard_reservation:
             create:
                 success: "Your reservation was succesfully scheduled for %{start}."
             update:
@@ -48,7 +48,7 @@ en:
             edit?: 'edit that course.'
             update?: 'update that course.'
             destroy?: 'delete that course.'
-        standard_activity_policy:
+        standard_reservation_policy:
             index?: 'view lab reservations.'
             new?: 'create new reservations.'
             create?: 'create new reservations.'
