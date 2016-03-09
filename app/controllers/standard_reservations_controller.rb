@@ -5,7 +5,7 @@ class StandardReservationsController < ApplicationController
     def index
         
         
-        @standard_reservations = policy_scope(StandardReservation)
+        @standard_reservations = policy_scope(StandardReservation).order(start: :desc)
         @past = @standard_reservations.where("start < ?", ApplicationHelper.time_local(Time.now))
         @upcoming = @standard_reservations.where("start >= ?", ApplicationHelper.time_local(Time.now))
     end
