@@ -1,4 +1,4 @@
-class StandardActivity < ActiveRecord::Base
+class StandardReservation < ActiveRecord::Base
     
     belongs_to :course
     validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
