@@ -4,6 +4,7 @@ class StandardReservationsController < ApplicationController
 
     def index
         
+        
         @standard_reservations = policy_scope(StandardReservation)
     end
 
@@ -19,7 +20,7 @@ class StandardReservationsController < ApplicationController
         authorize @standard_reservation
 
         if @standard_reservation.save
-            flash[:success] = t "#{controller_name.singularize}.#{action_name}.success", scope: "forms", start: @standard_reservation.start
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize
             redirect_to @standard_reservation
         else
             flash[:danger] = t :submission_errors, scope: "forms"
@@ -42,7 +43,7 @@ class StandardReservationsController < ApplicationController
         authorize @standard_reservation
       
         if @standard_reservation.update(update_params)
-            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize
             redirect_to @standard_reservation
         else
             flash[:danger] = t "submission_errors", scope: "forms"
