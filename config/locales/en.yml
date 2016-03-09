@@ -26,7 +26,7 @@ en:
             create:
                 success: "Your reservation was succesfully scheduled for %{start}."
             update:
-                success: "Your reservation was succesfully updated. It is now scheduled for %{start}."
+                success: "Your reservation was succesfully updated. It is scheduled for %{start}."
             destroy:
                 success: "Your reservation for %{start} was successfully cancelled."
     pundit:
