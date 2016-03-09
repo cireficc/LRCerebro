@@ -10,10 +10,11 @@ require 'google/apis/calendar_v3'
 # batch request: https://developers.google.com/api-client-library/ruby/guide/batch.
 module GoogleCalendarHelper
     
+    include ApplicationHelper
+    
     HOURS_PER_DAY = 24
     MINUTES_PER_DAY = 60 * 24
     SECONDS_PER_DAY = 60 * 60 * 24
-    TIME_ZONE = "America/Detroit"
     RESERVATION_CALENDAR_ID = Figaro.env.google_calendar_reservation_cal_id
    
     @calendar = Google::Apis::CalendarV3::CalendarService.new
@@ -37,7 +38,7 @@ module GoogleCalendarHelper
         @instructor = @course.get_instructor
         @last_name = @instructor.last_name
         @num_students = @course.get_students.count
-        @lab = @res.lab.camelize if @res.lab
+        @lab = @res.lab.titleize if @res.lab
         @index = @res.training? ? @training.index(@res) : @editing.index(@res)
         @total = @res.training? ? @training.length : @editing.length
         
@@ -47,11 +48,11 @@ module GoogleCalendarHelper
         @event_title =
             "#{'HOLD: ' if !@project.approved?}"\
             "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@project.category.camelize} #{res.category.camelize} #{@index + 1} of #{@total})"
+            " (#{@project.category.titleize} #{res.category.titleize} #{@index + 1} of #{@total})"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
-        @start_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.start)
-        @end_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.end)
+        @start_time = ApplicationHelper.time_local(@res.start)
+        @end_time = ApplicationHelper.time_local(@res.end)
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
@@ -59,11 +60,11 @@ module GoogleCalendarHelper
             description: @project.description,
             start: {
                 date_time: @start_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             end: {
                 date_time: @end_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             attendees: [
                 {email: "shultzd@gvsu.edu"},
@@ -83,6 +84,66 @@ module GoogleCalendarHelper
     def self.delete_project_event(project_reservation)
         begin
             @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
+        rescue Google::Apis::ClientError
+            puts "Event no longer exists, ignore trying to delete it"
+        end
+    end
+    
+    # Schedule standard reservation in Google Calendar based on the ActiveRecord callback on a StandardReservation:
+    # :create - create standard reservation
+    # :update - update standard reservation
+    def self.schedule_standard_reservation(res, action)
+        
+        #[:course_id, :activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: []]
+        
+        @res = res
+        
+        @course = @res.course
+        @instructor = @course.get_instructor
+        @last_name = @instructor.last_name
+        @num_students = @course.get_students.count
+        @lab = @res.lab.titleize
+        
+        # e.g.
+        # "FRE 101-01, Ward, 24 (Dill Paired Recordings [Walkthrough: YES])"
+        @event_title =
+            "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
+            " (#{@res.activity.titleize} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
+        
+        # Change the time zone of the reservation start/end from UTC without affecting the time value
+        @start_time = ApplicationHelper.time_local(@res.start)
+        @end_time = ApplicationHelper.time_local(@res.end)
+        
+        @g_cal_event = Google::Apis::CalendarV3::Event.new({
+            summary: @event_title,
+            location: @lab,
+            description: @res.additional_instructions,
+            start: {
+                date_time: @start_time.to_datetime,
+                time_zone: LOCAL_TIME_ZONE
+            },
+            end: {
+                date_time: @end_time.to_datetime,
+                time_zone: LOCAL_TIME_ZONE
+            },
+            attendees: [
+                {email: "shultzd@gvsu.edu"},
+                {email: "clappve@gvsu.edu"},
+                {email: "#{@instructor.username}@gvsu.edu"}
+            ]
+        })
+        
+        if action == :create
+            @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, @g_cal_event)
+            @res.update_columns(google_calendar_event_id: @event.id, google_calendar_html_link: @event.html_link)
+        elsif action == :update
+            @calendar.patch_event(RESERVATION_CALENDAR_ID, @res.google_calendar_event_id, @g_cal_event)
+        end
+    end
+    
+    def self.delete_standard_reservation(standard_reservation)
+        begin
+            @calendar.delete_event(RESERVATION_CALENDAR_ID, standard_reservation.google_calendar_event_id)
         rescue Google::Apis::ClientError
             puts "Event no longer exists, ignore trying to delete it"
         end

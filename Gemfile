@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.5.2'
 # Use PostgreSQL as the database for ActiveRecord
-gem 'pg', '~> 0.18.2'
+gem 'pg', '~> 0.18.4'
 # Use Bcrypt to encrypt passwords in the database
 gem 'bcrypt', '~> 3.1.10'
 # Use Pundit as a role-based resource restriction mechanism
