@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Resource authorization gem
   include Pundit
   include ApplicationHelper
+  include GoogleCalendarHelper
   include UserHelper
   
   # Pseudo-global used to detect whether or not the app is currently being seeded
