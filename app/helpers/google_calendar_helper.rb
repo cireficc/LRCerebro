@@ -37,7 +37,7 @@ module GoogleCalendarHelper
         @instructor = @course.get_instructor
         @last_name = @instructor.last_name
         @num_students = @course.get_students.count
-        @lab = @res.lab.camelize if @res.lab
+        @lab = @res.lab.titleize if @res.lab
         @index = @res.training? ? @training.index(@res) : @editing.index(@res)
         @total = @res.training? ? @training.length : @editing.length
         
@@ -47,7 +47,7 @@ module GoogleCalendarHelper
         @event_title =
             "#{'HOLD: ' if !@project.approved?}"\
             "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@project.category.camelize} #{res.category.camelize} #{@index + 1} of #{@total})"
+            " (#{@project.category.titleize} #{res.category.titleize} #{@index + 1} of #{@total})"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
         @start_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.start)
