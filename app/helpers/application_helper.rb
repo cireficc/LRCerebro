@@ -1,5 +1,7 @@
 module ApplicationHelper
     
+    LOCAL_TIME_ZONE = "America/Detroit"
+    
     def generate_hidden_add_fields_data(f, association, object_defaults, controller_action)
         
         new_object = f.object.send(association).klass.new(object_defaults)
@@ -43,5 +45,9 @@ module ApplicationHelper
     
     def last_page
        session[:last_page] 
+    end
+    
+    def time_local(time)
+        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).utc_to_local(time) 
     end
 end

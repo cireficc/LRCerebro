@@ -13,7 +13,6 @@ module GoogleCalendarHelper
     HOURS_PER_DAY = 24
     MINUTES_PER_DAY = 60 * 24
     SECONDS_PER_DAY = 60 * 60 * 24
-    TIME_ZONE = "America/Detroit"
     RESERVATION_CALENDAR_ID = Figaro.env.google_calendar_reservation_cal_id
    
     @calendar = Google::Apis::CalendarV3::CalendarService.new
@@ -50,8 +49,8 @@ module GoogleCalendarHelper
             " (#{@project.category.titleize} #{res.category.titleize} #{@index + 1} of #{@total})"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
-        @start_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.start)
-        @end_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.end)
+        @start_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.start)
+        @end_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.end)
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
@@ -59,11 +58,11 @@ module GoogleCalendarHelper
             description: @project.description,
             start: {
                 date_time: @start_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             end: {
                 date_time: @end_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             attendees: [
                 {email: "shultzd@gvsu.edu"},
@@ -110,8 +109,8 @@ module GoogleCalendarHelper
             " (#{@res.activity.titleize} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
-        @start_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.start)
-        @end_time = ActiveSupport::TimeZone.new(TIME_ZONE).local_to_utc(@res.end)
+        @start_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.start)
+        @end_time = ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(@res.end)
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
             summary: @event_title,
@@ -119,11 +118,11 @@ module GoogleCalendarHelper
             description: @res.additional_instructions,
             start: {
                 date_time: @start_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             end: {
                 date_time: @end_time.to_datetime,
-                time_zone: TIME_ZONE
+                time_zone: LOCAL_TIME_ZONE
             },
             attendees: [
                 {email: "shultzd@gvsu.edu"},
