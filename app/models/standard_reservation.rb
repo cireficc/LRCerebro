@@ -4,6 +4,10 @@ class StandardReservation < ActiveRecord::Base
     validates :course_id, :activity, :walkthrough, :start, :end, :lab, presence: true
     validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
     
+    after_create :create_or_update_calendar_event, :unless => :seeding_development_database
+    after_update :create_or_update_calendar_event
+    before_destroy :delete_calendar_event
+    
     # Standard activity types
     # :dill_paired_recordings - DiLL recordings where students are paired together to record
     # :dill_individual_recordings - DiLL recordings where students record individually
@@ -48,5 +52,21 @@ class StandardReservation < ActiveRecord::Base
             self.errors.add(:start, "reservation start time must be earlier than end time")
             self.errors.add(:end, "reservation start time must be earlier than end time")
         end
+    end
+    
+    def create_or_update_calendar_event
+        if self.google_calendar_event_id.blank?
+            GoogleCalendarHelper.schedule_standard_reservation(self, :create)
+        else
+            GoogleCalendarHelper.schedule_standard_reservation(self, :update)
+        end
+    end
+    
+    def delete_calendar_event
+        GoogleCalendarHelper.delete_standard_reservation(self)
+    end
+    
+    def seeding_development_database
+       Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
     end
 end
