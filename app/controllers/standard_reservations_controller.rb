@@ -6,6 +6,8 @@ class StandardReservationsController < ApplicationController
         
         
         @standard_reservations = policy_scope(StandardReservation)
+        @past = @standard_reservations.where("start < ?", ApplicationHelper.time_local(Time.now))
+        @upcoming = @standard_reservations.where("start >= ?", ApplicationHelper.time_local(Time.now))
     end
 
     def new
