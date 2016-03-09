@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304181850) do
+ActiveRecord::Schema.define(version: 20160309131236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,11 +75,13 @@ ActiveRecord::Schema.define(version: 20160304181850) do
     t.datetime "end"
     t.integer  "lab"
     t.boolean  "walkthrough"
-    t.text     "utilities",               default: [], array: true
-    t.text     "assistances",             default: [], array: true
+    t.text     "utilities",                 default: [], array: true
+    t.text     "assistances",               default: [], array: true
     t.text     "additional_instructions"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "google_calendar_event_id"
+    t.string   "google_calendar_html_link"
   end
 
   create_table "users", force: :cascade do |t|
