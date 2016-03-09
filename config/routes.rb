@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :users
   resources :courses
   resources :projects
+  resources :standard_reservations
   
   # App live configuration
   get 'configuration' => 'configuration#load'

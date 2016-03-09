@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Resource authorization gem
   include Pundit
   include ApplicationHelper
+  include GoogleCalendarHelper
   include UserHelper
   
   # Pseudo-global used to detect whether or not the app is currently being seeded
@@ -12,6 +13,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   before_action :set_view_path
+  before_action :set_i18n_path, only: [:create, :update, :destroy]
   after_action :store_last_page
   
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -27,6 +29,12 @@ class ApplicationController < ActionController::Base
     else
       @view_path = "#{controller_name}"
     end
+  end
+  
+  # Set the i18n common translation path based on the controller and action.
+  def set_i18n_path
+    @i18n_path = "#{controller_name.singularize}.#{action_name}"
+    puts "i18n path: #{@i18n_path}"
   end
   
   def store_last_page
