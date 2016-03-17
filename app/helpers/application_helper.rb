@@ -48,6 +48,6 @@ module ApplicationHelper
     end
     
     def self.time_local(time)
-        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).utc_to_local(time) 
+        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(time) 
     end
 end
