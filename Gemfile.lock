@@ -74,7 +74,7 @@ GEM
       thor (~> 0.14)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    google-api-client (0.9.3)
+    google-api-client (0.9.5)
       addressable (~> 2.3)
       googleauth (~> 0.5)
       httpclient (~> 2.7)
@@ -93,7 +93,7 @@ GEM
       os (~> 0.9)
       signet (~> 0.7)
     hike (1.2.3)
-    httpclient (2.7.1)
+    httpclient (2.8.0)
     hurley (0.2)
     i18n (0.7.0)
     jbuilder (2.4.1)
@@ -107,10 +107,10 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
-    jwt (1.5.3)
+    jwt (1.5.4)
     libv8 (3.16.14.13)
     little-plugger (1.1.4)
-    logging (2.0.0)
+    logging (2.1.0)
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
     lograge (0.3.6)
@@ -249,3 +249,6 @@ DEPENDENCIES
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.11.2
