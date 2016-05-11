@@ -1,5 +1,5 @@
 class ApplicationConfigurationPolicy
-    include ConfigurationsHelper
+    include ApplicationConfigurationsHelper
     
     attr_reader :user, :configuration
     
