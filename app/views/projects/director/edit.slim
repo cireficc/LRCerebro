@@ -108,12 +108,6 @@
             = f.input :approved,
                 as: :select,
                 prompt: "Is this project approved?"
-        .col-md-1
-            h4 Archived?
-        .col-md-2
-            = f.input :archived,
-                as: :select,
-                prompt: "Is this project archived?"
         .col-md-1.pull-right
             = f.submit "Save Project", class: "btn btn-info pull-right"
     br
