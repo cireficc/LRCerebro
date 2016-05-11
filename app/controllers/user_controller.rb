@@ -3,8 +3,8 @@ class UserController < ApplicationController
     # The login form page
     def login
         @title = "Login"
-        @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
-        flash.now[:warning] = @config["login"]["data_warning"]
+        @config = ApplicationConfiguration.last
+        flash.now[:warning] = @config.enrollment_update_message
         render "login"
     end
     
@@ -49,8 +49,8 @@ class UserController < ApplicationController
         @user = User.find_by(username: session[:username])
         @user.g_number = nil if @user
         @title = "Sign Up"
-        @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
-        flash.now[:warning] = @config["login"]["data_warning"]
+        @config = ApplicationConfiguration.last
+        flash.now[:warning] = @config.enrollment_update_message
         render "signup"
     end
     
