@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509155500) do
+ActiveRecord::Schema.define(version: 20160511212132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,19 +30,21 @@ ActiveRecord::Schema.define(version: 20160509155500) do
   end
 
   create_table "courses", force: :cascade do |t|
-    t.integer "year"
-    t.integer "semester"
-    t.integer "department"
-    t.integer "course"
-    t.integer "section"
-    t.string  "name"
-    t.boolean "archived",   default: false
+    t.integer  "year"
+    t.integer  "semester"
+    t.integer  "department"
+    t.integer  "course"
+    t.integer  "section"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.string  "user_id",                   null: false
-    t.integer "course_id",                 null: false
-    t.boolean "archived",  default: false
+    t.string   "user_id",    null: false
+    t.integer  "course_id",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "enrollments", ["course_id", "user_id"], name: "index_enrollments_on_course_id_and_user_id", using: :btree
@@ -75,8 +77,6 @@ ActiveRecord::Schema.define(version: 20160509155500) do
     t.datetime "viewable_by"
     t.boolean  "approved",     default: false
     t.string   "publish_link"
-    t.boolean  "archived",     default: false
-    t.datetime "archived_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(version: 20160509155500) do
     t.string   "last_name"
     t.integer  "role"
     t.boolean  "registered"
-    t.boolean  "archived",        default: false
   end
 
 end
