@@ -29,6 +29,9 @@ en:
                 success: "Your reservation was succesfully updated. It is scheduled for %{start} in Lab %{lab}."
             destroy:
                 success: "Your reservation for %{start} was successfully cancelled."
+        application_configuration:
+            update:
+                success: "The configuration was successfully updated."
     pundit:
         not_authorized_intro: 'You do not have permission to'
         default: 'You must be logged in to perform that action.'
@@ -56,3 +59,6 @@ en:
             edit?: 'edit that reservation.'
             update?: 'update that reservation.'
             destroy?: 'delete that reservation.'
+        application_configuration_policy:
+            edit?: 'edit application configuration.'
+            update?: 'update application configuration.'
