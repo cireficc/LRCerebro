@@ -134,4 +134,10 @@ cireficc.courses << fre3
 #spa.users << faculty << student
 #fre.users << faculty << student
 
+# Seed for the site configuration
+ApplicationConfiguration.create(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
+                    current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days,
+                    class_project_submission_start: 2.days.ago, class_project_submission_end: Time.now + 10.days,
+                    class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
+
 puts "Done"
