@@ -22,10 +22,7 @@ class ProjectsController < ApplicationController
         
         # Check to see if the form is offline and act appropriately
         @config = ApplicationConfiguration.last
-        puts "After submission start?: #{Time.now > @config.class_project_submission_start}"
-        puts "Before submission end?: #{Time.now < @config.class_project_submission_end}"
         @online = Time.now > @config.class_project_submission_start && Time.now < @config.class_project_submission_end
-        puts "Online?: #{@online}"
         
         # Director can use the form even if it is offline
         if (@online || current_user.director?)
