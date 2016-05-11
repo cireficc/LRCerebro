@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
     
     def index
-        @projects = policy_scope(Project).where(archived: false)
+        @projects = policy_scope(Project).active
         @approved = @projects.where(approved: true)
         @pending = @projects.where(approved: false)
     end
     
     def archive_index
-        @projects = policy_scope(Project).where(archived: true)
+        @projects = policy_scope(Project).archived
         render 'archive_index'
     end
     
