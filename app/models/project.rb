@@ -7,6 +7,9 @@ class Project < ActiveRecord::Base
     validates_associated :project_reservations
     attr_accessor :present
     
+    scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
+    scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
+    
     # Create/update Google Calendar events here because (children) ProjectReservation are created before Project
     after_create :create_or_update_calendar_events, :unless => :seeding_development_database
     # ProjectReservations can be created in a Project update action, so check both cases
@@ -49,6 +52,14 @@ class Project < ActiveRecord::Base
         pages: 2,
         other: 3
     }
+    
+    def active?
+        self.updated_at > ApplicationConfiguration.last.current_semester_start
+    end
+    
+    def archived?
+        self.updated_at < ApplicationConfiguration.last.current_semester_start
+    end
     
     def create_calendar_events
         self.project_reservations.each do |res|
