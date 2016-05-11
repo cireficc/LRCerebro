@@ -21,18 +21,16 @@ class ProjectsController < ApplicationController
         @num_editing.times { @project.project_reservations.build :category => ProjectReservation.categories[:editing] }
         
         # Check to see if the form is offline and act appropriately
-        @config = YAML.load_file(File.join(Rails.root, 'config', 'lrc_settings.yml'))
-        @class_project = @config["class_project"]
-        @online = @class_project["online"]
-        @offline_message = @class_project["offline_message"]
-        @deadline_message = @class_project["deadline_message"]
+        @config = ApplicationConfiguration.last
+        @online = Time.now > @config.class_project_submission_start && Time.now < @config.class_project_submission_end
         
-        # Director and labasst can use the form even if it is offline
-        if (@online || current_user.director? || current_user.labasst?)
-            flash.now[:warning] = @deadline_message
+        # Director can use the form even if it is offline
+        if (@online || current_user.director?)
+            flash.now[:warning] = @config.class_project_before_deadline_message
             render "#{@view_path}/new"
         else
-            render 'static_pages/form_offline'
+            flash.now[:danger] = @config.class_project_after_deadline_message
+            render 'form_offline'
         end
     end
     
