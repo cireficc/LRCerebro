@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
     has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
     
+    scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
+    scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
+    
     # User roles in the MLL department and the LRC:
     # :director - Director and assistant director of the LRC. Highest privileges
     # :labasst - Lab assistants of the LRC. Elevated privileges
@@ -17,13 +20,21 @@ class User < ActiveRecord::Base
     
     has_secure_password
     
+    def active?
+        self.updated_at > ApplicationConfiguration.last.current_semester_start
+    end
+    
+    def archived?
+        self.updated_at < ApplicationConfiguration.last.current_semester_start
+    end
+    
     def active_courses
         # Director and labasst will see all non-archived courses
         if (self.director? || self.labasst?)
-            Course.where(archived: false)
+            Course.active
         # Faculty and student will see non-archived courses that they are enrolled in
         else
-            self.courses.where(enrollments: {archived: false})
+            self.courses.active
         end
     end
 end
