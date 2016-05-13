@@ -1,23 +1,19 @@
-default: &default
+development:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: lrcadmin
-  password: w@rw1ck03
-
-
-development:
-  <<: *default
   database: lrcerebro_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: lrcerebro_test
 
 production:
-  url: <%= Figaro.env.database_url! %>
+  url: <%= ENV["DATABASE_URL"] %>
   pool: 5
   encoding: unicode
