@@ -49,6 +49,12 @@ group :development do
   gem "capistrano-rails-console", require: false
 end
 
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_girl"
+  gem "database_cleaner"
+end
+
 group :staging, :production do
   # Change the logging output to use a structured logging format.
   gem "lograge"
