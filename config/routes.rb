@@ -8,16 +8,16 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
   
   # User login/signup routes
-  get 'login' => 'user#login'
-  post 'login' => 'user#start_session'
-  get 'signup' => 'user#signup'
-  post 'signup' => 'user#signup_and_start_session'
-  get 'logout' => 'user#end_session'
+  get  'login'  => 'users#login'
+  post 'login'  => 'users#start_session'
+  get  'signup' => 'users#signup'
+  post 'signup' => 'users#signup_and_start_session'
+  get  'logout' => 'users#end_session'
   
   # Project resources
   # http://www.codecademy.com/articles/standard-controller-actions
   get 'projects/archive' => 'projects#archive_index'
-  resources :users
+
   resources :courses
   resources :projects
   resources :standard_reservations
