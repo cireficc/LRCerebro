@@ -8,3 +8,7 @@ This is the GVSU Language Resource Center's faculty, student and staff portal fo
 * PostgreSQL 9.3.6
 
 There may be other dependencies...
+
+## Environment Variables (development)
+ - `GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/secrets/GOOGLE_AUTH_DEVELOPMENT.json`
+ - `GOOGLE_CALENDAR_RESERVATION_CAL_ID=7niit4bglqaq74la04jee8ddc4@group.calendar.google.com`
