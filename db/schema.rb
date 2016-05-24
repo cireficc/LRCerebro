@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160524211547) do
   end
 
   create_table "cds", force: :cascade do |t|
+    t.integer  "language"
     t.string   "artist"
     t.string   "album"
     t.integer  "year"
