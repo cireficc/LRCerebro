@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511212132) do
+ActiveRecord::Schema.define(version: 20160520193401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,20 @@ ActiveRecord::Schema.define(version: 20160511212132) do
 
   add_index "enrollments", ["course_id", "user_id"], name: "index_enrollments_on_course_id_and_user_id", using: :btree
   add_index "enrollments", ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id", using: :btree
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.string   "catalog_number"
+    t.string   "catalog_code"
+    t.integer  "status"
+    t.text     "status_description"
+    t.text     "notes"
+    t.integer  "inventoriable_id"
+    t.string   "inventoriable_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "inventory_items", ["inventoriable_id", "inventoriable_type"], name: "inventory_items_polymorphic_association_index", using: :btree
 
   create_table "project_reservations", force: :cascade do |t|
     t.integer  "project_id"
