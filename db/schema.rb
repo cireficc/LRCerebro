@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160524214927) do
     t.text     "cast_members",       default: [],              array: true
     t.integer  "year"
     t.integer  "length"
-    t.string   "mpaa_raing"
+    t.integer  "mpaa_rating"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end

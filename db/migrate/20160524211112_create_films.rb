@@ -12,7 +12,7 @@ class CreateFilms < ActiveRecord::Migration
       # :genres (acts_as_taggable)
       t.integer :year
       t.integer :length
-      t.string :mpaa_raing
+      t.integer :mpaa_rating
       t.timestamps null: false
     end
   end
