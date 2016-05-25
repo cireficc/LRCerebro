@@ -134,6 +134,27 @@ cireficc.courses << fre3
 #spa.users << faculty << student
 #fre.users << faculty << student
 
+film1 = Film.create(english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles",
+                    description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
+                    audio_languages: ["English", "French"], subtitle_languages: ["English", "French"], year: 1951)
+film2 = Film.create(english_title: "Finding Nemo", foreign_title: "Findet Nemo",
+                    description: "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
+                    audio_languages: ["English", "German"], subtitle_languages: ["English", "German"], year: 2003)
+film3 = Film.create(english_title: "The Lion King", foreign_title: "El Rey Leon",
+                    description: "Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble.",
+                    audio_languages: ["English", "Spanish"], subtitle_languages: ["English", "Spanish"], year: 1994)
+game = Game.create(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
+                    audio_languages: ["English", "Spanish"], subtitle_languages: ["English", "Spanish"], platform: 0, year: 2014)
+
+InventoryItem.create(catalog_number: "FA-01", inventoriable: film1)
+InventoryItem.create(catalog_number: "GF-01", inventoriable: film2)
+InventoryItem.create(catalog_number: "SR-01", inventoriable: film3)
+InventoryItem.create(catalog_number: "FR-PS-A01", inventoriable: game)
+InventoryItem.create(catalog_number: "LAP-01", inventoriable: Equipment.create(equipment_type: 0))
+InventoryItem.create(catalog_number: "EV-01", inventoriable: Equipment.create(equipment_type: 1))
+InventoryItem.create(catalog_number: "ET-01", inventoriable: Equipment.create(equipment_type: 2))
+InventoryItem.create(catalog_number: "EM-01", inventoriable: Equipment.create(equipment_type: 3))
+
 # Seed for the site configuration
 ApplicationConfiguration.create(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
                     current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days,
