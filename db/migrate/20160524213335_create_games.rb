@@ -6,6 +6,7 @@ class CreateGames < ActiveRecord::Migration
       t.text :audio_languages, array: true, default: []
       t.text :subtitle_languages, array: true, default: []
       t.integer :platform
+      t.integer :year
       t.timestamps null: false
     end
   end

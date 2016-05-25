@@ -10,7 +10,6 @@ class CreateFilms < ActiveRecord::Migration
       t.text :directors, array: true, default: []
       t.text :cast_members, array: true, default: []
       # :genres (acts_as_taggable)
-      t.string :released
       t.integer :year
       t.integer :length
       t.string :mpaa_raing

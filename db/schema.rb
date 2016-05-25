@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20160524214927) do
     t.text     "subtitle_languages", default: [],              array: true
     t.text     "directors",          default: [],              array: true
     t.text     "cast_members",       default: [],              array: true
-    t.string   "released"
     t.integer  "year"
     t.integer  "length"
     t.string   "mpaa_raing"
@@ -89,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160524214927) do
     t.text     "audio_languages",    default: [],              array: true
     t.text     "subtitle_languages", default: [],              array: true
     t.integer  "platform"
+    t.integer  "year"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
