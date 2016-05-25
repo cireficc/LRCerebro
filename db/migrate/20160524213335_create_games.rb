@@ -1,9 +1,11 @@
 class CreateGames < ActiveRecord::Migration
   def change
     create_table :games do |t|
-      t.integer :language
+      t.string :english_title
+      t.string :foreign_title
+      t.text :audio_languages, array: true, default: []
+      t.text :subtitle_languages, array: true, default: []
       t.integer :platform
-      t.string :title
       t.timestamps null: false
     end
   end
