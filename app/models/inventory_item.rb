@@ -2,6 +2,8 @@ class InventoryItem < ActiveRecord::Base
     
     belongs_to :inventoriable, polymorphic: true, dependent: :destroy
     
+    validates :catalog_number, :status, presence: true
+    
     scope :films, -> { where(inventoriable_type: "Film") }
     scope :cds, -> { where(inventoriable_type: "CD") }
     scope :games, -> { where(inventoriable_type: "Game") }
