@@ -1,6 +1,8 @@
 class Film < ActiveRecord::Base
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     
+    validates :film_type, :audio_languages, :subtitle_languages, :year, :length, :mpaa_rating, presence: true
+    
     # Film types
     # :vhs - A VHS tape
     # :dvd_from_vhs - A VHS converted to DVD
