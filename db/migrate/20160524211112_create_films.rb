@@ -7,8 +7,8 @@ class CreateFilms < ActiveRecord::Migration
       t.text :description
       t.text :audio_languages, array: true, default: []
       t.text :subtitle_languages, array: true, default: []
-      t.text :directors, array: true, default: []
-      t.text :cast_members, array: true, default: []
+      # :directors (acts_as_taggable)
+      # :cast_members (acts_as_taggable)
       # :genres (acts_as_taggable)
       t.integer :year
       t.integer :length
