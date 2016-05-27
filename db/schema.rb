@@ -73,8 +73,6 @@ ActiveRecord::Schema.define(version: 20160524214927) do
     t.text     "description"
     t.text     "audio_languages",    default: [],              array: true
     t.text     "subtitle_languages", default: [],              array: true
-    t.text     "directors",          default: [],              array: true
-    t.text     "cast_members",       default: [],              array: true
     t.integer  "year"
     t.integer  "length"
     t.integer  "mpaa_rating"
