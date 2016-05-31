@@ -139,14 +139,14 @@ film3 = Film.create!(film_type: 2, english_title: "The Lion King", foreign_title
 game = Game.create!(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
                     audio_languages: ["English", "Spanish"], subtitle_languages: ["English", "Spanish"], platform: 0, year: 2014)
 
-InventoryItem.create!(catalog_number: "FA-01", status: 0, inventoriable: film1)
-InventoryItem.create!(catalog_number: "GF-01", status: 0, inventoriable: film2)
-InventoryItem.create!(catalog_number: "SR-01", status: 0, inventoriable: film3)
-InventoryItem.create!(catalog_number: "FR-PS-A01", status: 0, inventoriable: game)
-InventoryItem.create!(catalog_number: "LAP-01", status: 0, inventoriable: Equipment.create(equipment_type: 0))
-InventoryItem.create!(catalog_number: "EV-01", status: 0, inventoriable: Equipment.create(equipment_type: 1))
-InventoryItem.create!(catalog_number: "ET-01", status: 0, inventoriable: Equipment.create(equipment_type: 2))
-InventoryItem.create!(catalog_number: "EM-01", status: 0, inventoriable: Equipment.create(equipment_type: 3))
+InventoryItem.create!(status: 0, inventoriable: film1)
+InventoryItem.create!(status: 0, inventoriable: film2)
+InventoryItem.create!(status: 0, inventoriable: film3)
+InventoryItem.create!(status: 0, inventoriable: game)
+InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 0))
+InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 1))
+InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 2))
+InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 3))
 
 # Seed for the site configuration
 ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
