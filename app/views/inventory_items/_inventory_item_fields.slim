@@ -1,0 +1,33 @@
+.col-md-6
+    fieldset disabled = disabled
+        .panel.panel-warning
+                .panel-heading
+                    h3.panel-title Inventory Information
+                .panel-body
+                    .row
+                        .col-md-3
+                            h4 Catalog Number
+                        .col-md-9
+                            = form.input :catalog_number
+                    .row
+                            .col-md-3
+                                h4 Catalog Code
+                            .col-md-9
+                                = form.input :catalog_code
+                    .row
+                        .col-md-3
+                            h4 Status
+                        .col-md-9
+                            = form.input :status,
+                                collection: InventoryItem.statuses.collect { |a, i| [a.titleize, a] },
+                                prompt: "Select a status type"
+                    .row
+                        .col-md-3
+                            h4 Status Description
+                        .col-md-9
+                            = form.input :status_description
+                    .row
+                        .col-md-3
+                            h4 Notes
+                        .col-md-9
+                            = form.input :notes
