@@ -29,22 +29,22 @@ fre3.save!
 Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
 
 # Create a few projects to assign to courses
-spa_project_1 = Project.create!(name: "SPA Project", description: "Camtasia description", category: Project.categories[:camtasia], num_groups: 5,
+spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: Project.categories[:camtasia], num_groups: 5,
                                 script_due: DateTime.new(2015,8,15,7,0,0,'-5'), due: DateTime.new(2015,8,25,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,27,13,0,0,'-5'), approved: false)
-spa_project_2 = Project.create!(name: "Bienvenido", description: "Some type of Garage Band project", category: Project.categories[:garage_band], num_groups: 8,
+spa_project_2 = Project.create!(course: spa2, name: "Bienvenido", description: "Some type of Garage Band project", category: Project.categories[:garage_band], num_groups: 8,
                                 script_due: DateTime.new(2015,8,17,7,0,0,'-5'), due: DateTime.new(2015,8,29,18,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: true)
-spa_project_3 = Project.create!(name: "Muy Caliente", description: "Pixton project", category: Project.categories[:pixton], num_groups: 9,
+spa_project_3 = Project.create!(course: spa2, name: "Muy Caliente", description: "Pixton project", category: Project.categories[:pixton], num_groups: 9,
                                 script_due: DateTime.new(2015,8,11,7,0,0,'-5'), due: DateTime.new(2015,8,24,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,26,13,0,0,'-5'), approved: false)
-fre_project_1 = Project.create!(name: "FRE Project 1", description: "Garage Band description", category: Project.categories[:garage_band], num_groups: 6,
+fre_project_1 = Project.create!(course: fre, name: "FRE Project 1", description: "Garage Band description", category: Project.categories[:garage_band], num_groups: 6,
                                 script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: false)
-fre_project_2 = Project.create!(name: "FRE Project 2", description: "Pixton description", category: Project.categories[:pixton], num_groups: 3,
+fre_project_2 = Project.create!(course: fre2, name: "FRE Project 2", description: "Pixton description", category: Project.categories[:pixton], num_groups: 3,
                                 script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: true)
-fre_project_3 = Project.create!(name: "FRE Project 3", description: "Camtasia awesomeness", category: Project.categories[:camtasia], num_groups: 7,
+fre_project_3 = Project.create!(course: fre3, name: "FRE Project 3", description: "Camtasia awesomeness", category: Project.categories[:camtasia], num_groups: 7,
                                 script_due: DateTime.new(2015,8,5,7,0,0,'-5'), due: DateTime.new(2015,8,29,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: false)
                             
@@ -116,13 +116,6 @@ spa_project_3.project_reservations << training_7 << training_9 << editing_7 << e
 fre_project_1.project_reservations << training_8 << training_10 << editing_3 << editing_9
 fre_project_2.project_reservations << training_11 << editing_4 << editing_10
 fre_project_3.project_reservations << training_5 << training_6 << editing_11 << editing_12
-                            
-# Assign the projects to the courses
-spa.projects << spa_project_1
-spa2.projects << spa_project_2 << spa_project_3
-fre.projects << fre_project_1
-fre2.projects << fre_project_2
-fre3.projects << fre_project_3
 
 # Assigning the course to the faculty means that the faculty is also enrolled in the course
 faculty.courses << spa << fre
