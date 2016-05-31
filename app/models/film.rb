@@ -3,6 +3,7 @@ class Film < ActiveRecord::Base
     
     validates :film_type, :year, :length, :mpaa_rating, presence: true
     validate :validate_audio_languages
+    validate :validate_subtitle_languages
     
     # Film types
     # :vhs - A VHS tape
@@ -31,26 +32,12 @@ class Film < ActiveRecord::Base
     }
     
     def validate_audio_languages
-        
-        # This is not the greatest idea, but it works. Remove the empty string during validation
-        audio_languages.reject! { |l| l.empty? }
-        
-        if !audio_languages.any?
-            errors.add(:audio_languages, "need to select a language")
-        end
-        
-        # If any of the audio languages is invalid, add the error and break
-        audio_languages.each do |al|
-            valid = false
-            Language.languages.each do |l, i|
-                puts "#{al.downcase} != #{l.downcase}"
-                valid = true if (al.downcase == l.downcase)
-            end
-            
-            if !valid
-                errors.add(:audio_languages, "not a valid language selection")
-                break
-            end
-        end
+        error = Language.validate_languages(audio_languages)
+        errors.add(:audio_languages, error) if error
+    end
+    
+    def validate_subtitle_languages
+        error = Language.validate_languages(subtitle_languages)
+        errors.add(:subtitle_languages, error) if error
     end
 end
