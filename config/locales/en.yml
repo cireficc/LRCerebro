@@ -24,11 +24,18 @@ en:
         submission_errors: "There were errors in your form submission. Please correct the error(s) in red and re-submit."
         standard_reservation:
             create:
-                success: "Your reservation was succesfully scheduled for %{start} in Lab %{lab}."
+                success: "Your reservation was successfully scheduled for %{start} in Lab %{lab}."
             update:
-                success: "Your reservation was succesfully updated. It is scheduled for %{start} in Lab %{lab}."
+                success: "Your reservation was successfully updated. It is scheduled for %{start} in Lab %{lab}."
             destroy:
                 success: "Your reservation for %{start} was successfully cancelled."
+        film:
+            create:
+                success: "%{title} has been added to the catalog."
+            update:
+                success: "%{title} was successfully updated."
+            destroy:
+                success: "%{title} has been removed from the catalog."
         application_configuration:
             update:
                 success: "The configuration was successfully updated."
