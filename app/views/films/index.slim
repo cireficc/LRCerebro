@@ -1,0 +1,22 @@
+= render 'search'
+hr
+table.table.table-hover
+    thead
+        tr
+            th English Title
+            th Foreign Title
+            th Audio Languages
+            th Subtitle Languages
+            th Description
+            th Year
+    tbody
+        - @films.each do |film|
+            tr
+                td #{film.english_title}
+                td #{film.foreign_title}
+                td #{film.audio_languages.join(", ")}
+                td #{film.subtitle_languages.join(", ")}
+                td #{film.description}
+                td #{film.year}
+                td
+                    = link_to 'View', film_path(film)
