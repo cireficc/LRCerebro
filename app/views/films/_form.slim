@@ -1,41 +1,9 @@
 - form_url = (action_name == "new" || action_name == "create") ? films_path : film_path(@film)
+// Disable the form fields if in the 'show' action
+- disabled = action_name == "show"
 = simple_form_for(@inventory_item, url: form_url) do |i|
-    // Disable the form fields if in the 'show' action
-    - disabled = action_name == "show"
     .row
-        .col-md-6
-            fieldset disabled = disabled
-                .panel.panel-warning
-                        .panel-heading
-                            h3.panel-title Inventory Information
-                        .panel-body
-                            .row
-                                .col-md-3
-                                    h4 Catalog Number
-                                .col-md-9
-                                    = i.input :catalog_number
-                            .row
-                                    .col-md-3
-                                        h4 Catalog Code
-                                    .col-md-9
-                                        = i.input :catalog_code
-                            .row
-                                .col-md-3
-                                    h4 Status
-                                .col-md-9
-                                    = i.input :status,
-                                        collection: InventoryItem.statuses.collect { |a, i| [a.titleize, a] },
-                                        prompt: "Select a status type"
-                            .row
-                                .col-md-3
-                                    h4 Status Description
-                                .col-md-9
-                                    = i.input :status_description
-                            .row
-                                .col-md-3
-                                    h4 Notes
-                                .col-md-9
-                                    = i.input :notes
+        = render "inventory_items/inventory_item_fields", form: i, disabled: disabled
         .col-md-6
             = i.simple_fields_for @film do |f|
                 fieldset disabled = disabled
