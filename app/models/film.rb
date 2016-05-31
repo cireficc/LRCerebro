@@ -1,7 +1,8 @@
 class Film < ActiveRecord::Base
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     
-    validates :film_type, :audio_languages, :subtitle_languages, :year, :length, :mpaa_rating, presence: true
+    validates :film_type, :year, :length, :mpaa_rating, presence: true
+    validate :validate_audio_languages
     
     # Film types
     # :vhs - A VHS tape
@@ -28,4 +29,28 @@ class Film < ActiveRecord::Base
         r: 3,
         nc_17: 4
     }
+    
+    def validate_audio_languages
+        
+        # This is not the greatest idea, but it works. Remove the empty string during validation
+        audio_languages.reject! { |l| l.empty? }
+        
+        if !audio_languages.any?
+            errors.add(:audio_languages, "need to select a language")
+        end
+        
+        # If any of the audio languages is invalid, add the error and break
+        audio_languages.each do |al|
+            valid = false
+            Language.languages.each do |l, i|
+                puts "#{al.downcase} != #{l.downcase}"
+                valid = true if (al.downcase == l.downcase)
+            end
+            
+            if !valid
+                errors.add(:audio_languages, "not a valid language selection")
+                break
+            end
+        end
+    end
 end
