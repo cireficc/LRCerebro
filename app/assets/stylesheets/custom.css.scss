@@ -123,3 +123,8 @@ input[readonly], .form-control[readonly] {
     pointer-events: none;
     cursor: default !important;
 }
+
+// Padding for the bottom of all pages
+body{
+    padding-bottom: 50px;
+}
