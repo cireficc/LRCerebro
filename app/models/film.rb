@@ -1,7 +1,8 @@
 class Film < ActiveRecord::Base
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     
-    validates :film_type, :year, :length, :mpaa_rating, presence: true
+    validates :film_type, :mpaa_rating, presence: true
+    validates :year, :length, numericality: { only_integer: true }
     validate :validate_audio_languages
     validate :validate_subtitle_languages
     
