@@ -34,5 +34,7 @@ class Language < ActiveRecord::Base
             
             return "not a valid language selection" unless valid
         end
+        
+        nil
     end
 end
