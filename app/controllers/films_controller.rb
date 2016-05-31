@@ -35,7 +35,8 @@ class FilmsController < ApplicationController
         @inventory_item.inventoriable = @film
     
         if @inventory_item.save
-            flash[:success] = t "#{@i18n_path}.success", scope: "forms", title: @film.english_title
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms",
+                                title: @film.english_title, catalog_number: @inventory_item.catalog_number
             redirect_to films_path
         else
             render :new
