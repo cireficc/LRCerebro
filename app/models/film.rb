@@ -3,6 +3,7 @@ class Film < ActiveRecord::Base
     
     validates :film_type, :mpaa_rating, presence: true
     validates :year, :length, numericality: { only_integer: true }
+    validate :validate_title
     validate :validate_audio_languages
     validate :validate_subtitle_languages
     
@@ -31,6 +32,13 @@ class Film < ActiveRecord::Base
         r: 3,
         nc_17: 4
     }
+    
+    def validate_title
+        if english_title.blank? && foreign_title.blank?
+            errors.add(:english_title, "English title or foreign title must not be blank")
+            errors.add(:foreign_title, "English title or foreign title must not be blank")
+        end
+    end
     
     def validate_audio_languages
         error = Language.validate_languages(audio_languages)
