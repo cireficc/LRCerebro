@@ -31,7 +31,7 @@ en:
                 success: "Your reservation for %{start} was successfully cancelled."
         film:
             create:
-                success: "%{title} has been added to the catalog."
+                success: "%{title} has been added to the catalog with the catalog number %{catalog_number}."
             update:
                 success: "%{title} was successfully updated."
             destroy:
