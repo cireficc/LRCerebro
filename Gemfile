@@ -25,6 +25,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'google-api-client', '~> 0.9'
 # Use Simple Form for forms instead of building complex forms by hand
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
+# Use Acts-As-Taggable-On for tagging models
+gem 'acts-as-taggable-on', '~> 3.5'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
