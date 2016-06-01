@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require select2-full
 //= require turbolinks
 //= require moment
 //= require bootstrap-datetimepicker
