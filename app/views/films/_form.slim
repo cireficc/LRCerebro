@@ -52,6 +52,24 @@
                                 //         = f.input :cast_members,
                                 //             input_html: { placeholder: "e.g. Jennifer Lawrence,Johnny Depp,Ryan Reynolds"}
                                 .row
+                                    .col-md-3
+                                        h4 Directors
+                                    .col-md-9
+                                        = f.input :director_list,
+                                            input_html: {value: @film.director_list.to_s}
+                                .row
+                                    .col-md-3
+                                        h4 Cast Members
+                                    .col-md-9
+                                        = f.input :cast_member_list,
+                                            input_html: {value: @film.cast_member_list.to_s}
+                                .row
+                                    .col-md-3
+                                        h4 Genres
+                                    .col-md-9
+                                        = f.input :genre_list,
+                                            input_html: {value: @film.genre_list.to_s}
+                                .row
                                     .col-md-4
                                             h4 Year
                                             = f.input :year
