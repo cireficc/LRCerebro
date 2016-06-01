@@ -75,6 +75,7 @@ class FilmsController < ApplicationController
     
         def film_params
             params[:inventory_item][:film].permit(:film_type, :english_title, :foreign_title, :description, :year,
-                    :length, :mpaa_rating, audio_languages: [], subtitle_languages: [])
+                    :length, :mpaa_rating, :tag_list, :director_list, :cast_member_list, :genre_list,
+                    audio_languages: [], subtitle_languages: [])
         end
 end
