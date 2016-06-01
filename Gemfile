@@ -27,6 +27,8 @@ gem 'google-api-client', '~> 0.9'
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
 # Use Acts-As-Taggable-On for tagging models
 gem 'acts-as-taggable-on', '~> 3.5'
+# Use Select2 for tag multi-select
+gem 'select2-rails', '~> 4.0', '>= 4.0.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
