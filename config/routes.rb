@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :projects
   resources :standard_reservations
   resources :films
+  resources :tags
   
   # App live configuration
   get 'configuration' => 'application_configurations#edit'
