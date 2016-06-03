@@ -3,6 +3,6 @@ class TagsController < ApplicationController
         @tags = ActsAsTaggableOn::Tag.where("name LIKE ?", "#{params[:name]}%")
                 .joins(:taggings)
                 .where(taggings: {taggable_type: params[:taggable_type], context: params[:context] })
-        render json: @tags.map(&:name)
+        render json: @tags
     end
 end
