@@ -32,43 +32,46 @@
                                     .col-md-6
                                             h4 Audio Languages
                                             = f.input :audio_languages,
-                                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
+                                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
                                                 as: :check_boxes
                                     .col-md-6
                                             h4 Subtitle Languages
                                             = f.input :subtitle_languages,
-                                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
+                                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
                                                 as: :check_boxes
-                                // .row
-                                //     .col-md-3
-                                //         h4 Directors
-                                //     .col-md-9
-                                //         = f.input :directors,
-                                //             input_html: { placeholder: "e.g. Steven Spielberg,James Cameron,Quentin Tarantino"}
-                                // .row
-                                //     .col-md-3
-                                //         h4 Cast Members
-                                //     .col-md-9
-                                //         = f.input :cast_members,
-                                //             input_html: { placeholder: "e.g. Jennifer Lawrence,Johnny Depp,Ryan Reynolds"}
                                 .row
                                     .col-md-3
                                         h4 Directors
                                     .col-md-9
+                                        = f.hidden_field :director_list, value: @film.director_list.to_s
                                         = f.input :director_list,
-                                            input_html: {value: @film.director_list.to_s}
+                                            input_html: { id: "director_list_select2",
+                                                        name: "director_list_select2",
+                                                        multiple: true,
+                                                        data: { taggable: true, taggable_type: "Film", context: "directors" } },
+                                            collection: @film.director_list
                                 .row
                                     .col-md-3
                                         h4 Cast Members
                                     .col-md-9
+                                        = f.hidden_field :cast_member_list, value: @film.cast_member_list.to_s
                                         = f.input :cast_member_list,
-                                            input_html: {value: @film.cast_member_list.to_s}
+                                            input_html: { id: "cast_member_list_select2",
+                                                        name: "cast_member_list_select2",
+                                                        multiple: true,
+                                                        data: { taggable: true, taggable_type: "Film", context: "cast_members" } },
+                                            collection: @film.cast_member_list
                                 .row
                                     .col-md-3
                                         h4 Genres
                                     .col-md-9
+                                        = f.hidden_field :genre_list, value: @film.genre_list.to_s
                                         = f.input :genre_list,
-                                            input_html: {value: @film.genre_list.to_s}
+                                            input_html: { id: "genre_list_select2",
+                                                        name: "genre_list_select2",
+                                                        multiple: true,
+                                                        data: { taggable: true, taggable_type: "Film", context: "genres" } },
+                                            collection: @film.genre_list
                                 .row
                                     .col-md-4
                                             h4 Year
@@ -81,6 +84,7 @@
                                             = f.input :mpaa_rating,
                                                 collection: Film.mpaa_ratings.collect { |a, i| [a.titleize, a] },
                                                 prompt: "Select an MPAA rating"
+                                        
     - if action_name == "new" || action_name == "create"
         = i.submit "Create Film", class: "btn btn-info pull-right"
     - elsif action_name == "show"
