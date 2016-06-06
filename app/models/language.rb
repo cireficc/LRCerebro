@@ -29,7 +29,7 @@ class Language < ActiveRecord::Base
         field.each do |f|
             valid = false
             Language.languages.each do |l, i|
-                valid = true if (f.downcase == l.downcase)
+                valid = true if (f == l)
             end
             
             return "not a valid language selection" unless valid
