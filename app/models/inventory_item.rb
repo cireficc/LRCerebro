@@ -42,7 +42,7 @@ class InventoryItem < ActiveRecord::Base
             prefix = "M"
             
             # Get the first character of the audio language that is not English
-            language_character = inventoriable.audio_languages.reject! { |l| l == "English" }.first[0]
+            language_character = inventoriable.audio_languages.reject! { |l| l == "english" }.first[0]
             
             # Prefer the English title over the foreign one
             title_character = (inventoriable.foreign_title?) ? inventoriable.foreign_title[0] : inventoriable.english_title[0]
