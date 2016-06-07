@@ -69,3 +69,11 @@ en:
         application_configuration_policy:
             edit?: 'edit application configuration.'
             update?: 'update application configuration.'
+        film_policy:
+            index?: 'view films.'
+            new?: 'create new films.'
+            create?: 'create new films.'
+            show?: 'view that film.'
+            edit?: 'edit that film.'
+            update?: 'update that film.'
+            destroy?: 'delete that film.'
