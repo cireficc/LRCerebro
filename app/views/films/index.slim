@@ -14,8 +14,8 @@ table.table.table-hover
             tr
                 td #{film.english_title}
                 td #{film.foreign_title}
-                td #{film.audio_languages.join(", ")}
-                td #{film.subtitle_languages.join(", ")}
+                td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
+                td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
                 td #{film.description}
                 td #{film.year}
                 td
