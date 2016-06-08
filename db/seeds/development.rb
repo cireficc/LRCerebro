@@ -129,15 +129,15 @@ cireficc.courses << fre3
 
 film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles",
                     description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
-                    audio_languages: ["English", "French"], subtitle_languages: ["English", "French"], year: 1951, length: 120, mpaa_rating: 0)
+                    audio_languages: ["english", "french"], subtitle_languages: ["english", "french"], year: 1951, length: 120, mpaa_rating: 0)
 film2 = Film.create!(film_type: 2, english_title: "Finding Nemo", foreign_title: "Findet Nemo",
                     description: "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
-                    audio_languages: ["English", "German"], subtitle_languages: ["English", "German"], year: 2003, length: 120, mpaa_rating: 0)
+                    audio_languages: ["english", "german"], subtitle_languages: ["english", "german"], year: 2003, length: 120, mpaa_rating: 0)
 film3 = Film.create!(film_type: 2, english_title: "The Lion King", foreign_title: "El Rey Leon",
                     description: "Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble.",
-                    audio_languages: ["English", "Spanish"], subtitle_languages: ["English", "Spanish"], year: 1994, length: 120, mpaa_rating: 0)
+                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 120, mpaa_rating: 0)
 game = Game.create!(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
-                    audio_languages: ["English", "Spanish"], subtitle_languages: ["English", "Spanish"], platform: 0, year: 2014)
+                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], platform: 0, year: 2014)
 
 InventoryItem.create!(status: 0, inventoriable: film1)
 InventoryItem.create!(status: 0, inventoriable: film2)
