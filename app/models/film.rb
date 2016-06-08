@@ -1,4 +1,6 @@
 class Film < ActiveRecord::Base
+    searchkick
+    
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     acts_as_taggable
     acts_as_taggable_on :directors, :cast_members, :genres
