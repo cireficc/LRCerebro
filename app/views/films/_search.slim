@@ -1,1 +1,8 @@
-h4 Search fields
+= form_tag films_path, method: :get do |f|
+    .row
+        .col-md-6
+            .input-group
+                = search_field_tag :search, params[:search], autofocus: true, placeholder: "Search by title, description, catalog number", class: "form-control"
+                span.input-group-btn
+                    button.btn.btn-primary(type="submit")
+                        .glyphicon.glyphicon-search
