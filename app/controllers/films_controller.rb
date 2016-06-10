@@ -3,7 +3,11 @@ class FilmsController < ApplicationController
 
     # GET /films
     def index
-        @films = Film.all
+        if params[:search].present?
+            @films = Film.search(params[:search])
+        else
+            @films = Film.all
+        end
     end
 
     # GET /films/1
