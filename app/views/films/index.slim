@@ -3,6 +3,7 @@ hr
 table.table.table-hover
     thead
         tr
+            th Catalog Number
             th English Title
             th Foreign Title
             th Audio Languages
@@ -12,6 +13,7 @@ table.table.table-hover
     tbody
         - @films.each do |film|
             tr
+                td #{film.inventory_item.catalog_number}
                 td #{film.english_title}
                 td #{film.foreign_title}
                 td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
