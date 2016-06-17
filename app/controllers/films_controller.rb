@@ -4,9 +4,23 @@ class FilmsController < ApplicationController
     # GET /films
     def index
         if params[:search].present?
-            @films = Film.search(params[:search])
+            @films = Film.search(
+                params[:search],
+                include: [:inventory_item],
+                fields: [
+                    :english_title,
+                    :foreign_title,
+                    :description,
+                    {catalog_number: :exact }
+                ],
+                order: { catalog_number: :asc }
+            )
         else
-            @films = Film.all
+            @films = Film.search(
+                "*",
+                include: [:inventory_item],
+                order: { catalog_number: :asc }
+            )
         end
     end
 
