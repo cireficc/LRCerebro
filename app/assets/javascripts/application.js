@@ -97,9 +97,13 @@ $(document).ready(function() {
 */
 $(document).on('change', "*[data-taggable='true']", function() {
 	 
-	var hidden = $(this).parent().prev("input:hidden");
-	var joined = $(this).val().join(",");
-	hidden.val(joined);
+	var taggable_id = $(this).attr('id')
+	// genre_list_select2 --> genre_list
+    var hidden_id = taggable_id.replace("_select2", "");
+    // inventory_item_film_*genre_list* ($= jQuery selectors ends with)
+    var hidden = $("[id$=" + hidden_id + "]")
+    var joined = $(this).val().join(",");
+    hidden.val(joined);
 });
 
 /*
