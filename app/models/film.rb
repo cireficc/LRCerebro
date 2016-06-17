@@ -37,6 +37,15 @@ class Film < ActiveRecord::Base
         nc_17: 4
     }
     
+    def search_data
+        {
+            catalog_number: inventory_item.catalog_number,
+            english_title: english_title,
+            foreign_title: foreign_title,
+            description: description
+        }
+    end
+    
     def validate_title
         if english_title.blank? && foreign_title.blank?
             errors.add(:english_title, "English title or foreign title must not be blank")
