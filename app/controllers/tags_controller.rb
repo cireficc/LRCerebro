@@ -4,7 +4,8 @@ class TagsController < ApplicationController
                 .where("name ILIKE ?", "#{params[:name]}%")
                 .where.not(name: params[:tags_chosen])
                 .includes(:taggings)
-                .where(taggings: {taggable_type: params[:taggable_type], context: params[:context] })
+                .where(taggings: {taggable_type: params[:taggable_type]})
+        @tags = @tags.where(taggings: {context: params[:context] }) if params[:context]
         render json: @tags
     end
 end
