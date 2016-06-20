@@ -128,6 +128,9 @@ GEM
       turbolinks
     json (1.8.3)
     jwt (1.5.4)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     libv8 (3.16.14.15)
     little-plugger (1.1.4)
     logging (2.1.0)
@@ -284,6 +287,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  kaminari (~> 0.17.0)
   lograge
   momentjs-rails (>= 2.9.0)
   pg (~> 0.18.4)
