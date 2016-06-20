@@ -30,14 +30,14 @@ class FilmsController < ApplicationController
                     {catalog_number: :exact }
                 ],
                 where: @where,
-                limit: @limit, order: @order
+                order: @order, page: params[:page], per_page: @limit
             )
         else
             @films = Film.search(
                 "*",
                 include: @includes,
                 where: @where,
-                limit: @limit, order: @order
+                order: @order, page: params[:page], per_page: @limit
             )
         end
     end
