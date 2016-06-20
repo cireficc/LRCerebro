@@ -42,7 +42,12 @@ class Film < ActiveRecord::Base
             catalog_number: inventory_item.catalog_number,
             english_title: english_title,
             foreign_title: foreign_title,
-            description: description
+            audio_languages: audio_languages,
+            subtitle_languages: subtitle_languages,
+            description: description,
+            director_list: directors.collect(&:name),
+            cast_member_list: cast_members.collect(&:name),
+            genre_list: genres.collect(&:name)
         }
     end
     
