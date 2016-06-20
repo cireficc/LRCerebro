@@ -3,23 +3,41 @@ class FilmsController < ApplicationController
 
     # GET /films
     def index
+        
+        @limit = 25
+        @order = { catalog_number: :asc }
+        @includes = [:inventory_item, :genres, :directors, :cast_members]
+        
+        @where = {}
+        @where[:audio_languages] = {all: params[:audio_languages]} if params[:audio_languages].present?
+        @where[:subtitle_languages] = {all: params[:subtitle_languages]} if params[:subtitle_languages].present?
+        # One input for any taggable field, so OR them together
+        @tag_array = params[:tag_list].split(",") if params[:tag_list].present?
+        @where[:or] = [[
+                    {director_list: @tag_array},
+                    {cast_member_list: @tag_array},
+                    {genre_list: @tag_array}
+                ]] if @tag_array
+        
         if params[:search].present?
             @films = Film.search(
                 params[:search],
-                include: [:inventory_item],
+                include: @includes,
                 fields: [
                     :english_title,
                     :foreign_title,
                     :description,
                     {catalog_number: :exact }
                 ],
-                order: { catalog_number: :asc }
+                where: @where,
+                limit: @limit, order: @order
             )
         else
             @films = Film.search(
                 "*",
-                include: [:inventory_item],
-                order: { catalog_number: :asc }
+                include: @includes,
+                where: @where,
+                limit: @limit, order: @order
             )
         end
     end
