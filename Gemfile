@@ -31,6 +31,8 @@ gem 'acts-as-taggable-on', '~> 3.5'
 gem 'select2-rails', '~> 4.0', '>= 4.0.1'
 # Use Searchkick (+ ElasticSearch) to complex searching
 gem 'searchkick', '~> 1.3'
+# Use Kaminari to paginate large result sets
+gem 'kaminari', '~> 0.17.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
