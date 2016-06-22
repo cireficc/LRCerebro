@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   resources :courses
   resources :projects
   resources :standard_reservations
-  resources :films
+  resources :films do
+    collection do
+      get :autocomplete
+    end
+  end
   resources :tags
   
   # App live configuration
