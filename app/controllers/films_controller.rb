@@ -1,6 +1,14 @@
 class FilmsController < ApplicationController
     before_action :set_inventory_and_film, only: [:show, :edit, :update, :destroy]
 
+    # GET /films/autocomplete
+    def autocomplete
+        @films = Film.search(params[:query],
+                            autocomplete: true,
+                            limit: 10)
+        render json: @films
+    end
+
     # GET /films
     def index
         
