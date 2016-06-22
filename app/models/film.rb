@@ -1,5 +1,5 @@
 class Film < ActiveRecord::Base
-    searchkick
+    searchkick autocomplete: [:english_title, :foreign_title, :catalog_number]
     
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     acts_as_taggable
