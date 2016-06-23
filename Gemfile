@@ -33,6 +33,8 @@ gem 'select2-rails', '~> 4.0', '>= 4.0.1'
 gem 'searchkick', '~> 1.3'
 # Use Kaminari to paginate large result sets
 gem 'kaminari', '~> 0.17.0'
+# Use ActiveModelSerializers to succinctly customize JSON output
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
