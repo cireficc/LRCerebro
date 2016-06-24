@@ -3,7 +3,7 @@
         .col-md-4
             h4 Keyword
             .input-group
-                = search_field_tag :search, params[:search], autofocus: true, placeholder: "Search by title, description, catalog number", class: "form-control"
+                = search_field_tag :search, params[:search], autofocus: true, placeholder: "Search by title, description, catalog number", class: "form-control", autocomplete: "off"
                 span.input-group-btn
                     button.btn.btn-primary(type="submit")
                         .glyphicon.glyphicon-search
@@ -31,4 +31,70 @@ javascript:
     $(document).ready(function() {
 	    $("[id$=audio_languages]").select2({theme: "bootstrap"});
         $("[id$=subtitle_languages]").select2({theme: "bootstrap"});
+
+        var films = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                wildcard: '%QUERY',
+                url: '/films/autocomplete?query=%QUERY'
+            },
+        });
+
+        $('#search').typeahead({
+                minLength: 2
+            },
+            {
+                name: 'films',
+                display: 'foreign_title',
+                source: films,
+                templates: {
+                    empty: '<div class="empty-message">Unable to find any films that match the current query</div>',
+                    suggestion: function(s) {
+
+                        var audio_html = "", subtitle_html = "";
+                        for (i = 0; i < s.audio_languages.length; i ++) {
+                            audio_html += "<span class='label label-primary'>" + s.audio_languages[i] + "</span> "
+                        }
+
+                        for (i = 0; i < s.subtitle_languages.length; i ++) {
+                            subtitle_html += "<span class='label label-primary'>" + s.subtitle_languages[i] + "</span> "
+                        }
+                        var html = '<div class="container-fluid">\
+                                        <div class="row">\
+                                            <div class="col-md-3">\
+                                                <div>\
+                                                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Film%20Image&w=100&h=150" class="img-responsive">\
+                                                </div>\
+                                            </div>\
+                                            <div class="col-md-9">\
+                                                <div class="row">\
+                                                    <div class="col-md-8">\
+                                                        <p><strong>' + s.title + '</strong></p>\
+                                                    </div>\
+                                                    <div class="col-md-4">\
+                                                        <p class="text-right"><strong>' + s.catalog_number + '</strong></p>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="row">\
+                                                    <div class="col-md-12">\
+                                                        <p class="text-justify"><small>' + s.description + '</small></p>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="row">\
+                                                    <div class="col-md-6">\
+                                                        <p><strong>Audio</strong>: ' + audio_html + '</p>\
+                                                    </div>\
+                                                    <div class="col-md-6">\
+                                                        <p><strong>Subtitles</strong>: ' + subtitle_html + '</p>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>'
+                        return html;
+                    }
+                }
+            }
+        );
     });
