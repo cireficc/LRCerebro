@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include GoogleCalendarHelper
   include UsersHelper
+  include ActionController::Serialization
   
   # Pseudo-global used to detect whether or not the app is currently being seeded
   SEEDING_IN_PROGRESS = false
