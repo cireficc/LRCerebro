@@ -1,9 +1,9 @@
-= form_tag films_path, method: :get do |f|
+= form_tag films_path, id: "film_search_form", method: :get do |f|
     .row
         .col-md-4
             h4 Keyword
             .input-group
-                = search_field_tag :search, params[:search], autofocus: true, placeholder: "Search by title, description, catalog number", class: "form-control", autocomplete: "off"
+                = search_field_tag :search, params[:search], placeholder: "Search by title, description, or catalog number", class: "form-control", autocomplete: "off"
                 span.input-group-btn
                     button.btn.btn-primary(type="submit")
                         .glyphicon.glyphicon-search
@@ -38,7 +38,7 @@ javascript:
             remote: {
                 wildcard: '%QUERY',
                 url: '/films/autocomplete?query=%QUERY'
-            },
+            }
         });
 
         $('#search').typeahead({
@@ -49,7 +49,7 @@ javascript:
                 display: 'foreign_title',
                 source: films,
                 templates: {
-                    empty: '<div class="empty-message">Unable to find any films that match the current query</div>',
+                    empty: '<div>Autocomplete failed to find any matching titles or catalog numbers. However, you can simply <strong>press the search button</strong> to do a broader keyword search on the collection.</div>',
                     suggestion: function(s) {
 
                         var audio_html = "", subtitle_html = "";
@@ -97,4 +97,8 @@ javascript:
                 }
             }
         );
+
+        $("#search").on("typeahead:select", function(ev, suggestion) {
+            $("#film_search_form").submit();
+        });
     });
