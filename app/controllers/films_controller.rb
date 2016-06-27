@@ -3,7 +3,7 @@ class FilmsController < ApplicationController
 
     # GET /films/autocomplete
     def autocomplete
-        @films = Film.search(params[:query],
+        @films = Film.search(params[:search],
                             autocomplete: true,
                             limit: 5,
                             order: { catalog_number: :asc })
