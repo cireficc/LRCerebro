@@ -47,7 +47,7 @@ fre_project_2 = Project.create!(course: fre2, name: "FRE Project 2", description
 fre_project_3 = Project.create!(course: fre3, name: "FRE Project 3", description: "Camtasia awesomeness", category: Project.categories[:camtasia], num_groups: 7,
                                 script_due: DateTime.new(2015,8,5,7,0,0,'-5'), due: DateTime.new(2015,8,29,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: false)
-                            
+
 # Create some reservations for a project
 training_1 = ProjectReservation.create!(start: DateTime.new(2015,8,17,7,0,0,'-5'), end: DateTime.new(2015,8,17,7,50,0,'-5'),
                                         lab: Lab.locations[:a], category: ProjectReservation.categories[:training],
@@ -108,7 +108,7 @@ editing_11 = ProjectReservation.create!(start: DateTime.new(2015,8,21,7,0,0,'-5'
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
 editing_12 = ProjectReservation.create!(start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-                                                    
+
 # Assign the reservations to the projects
 spa_project_1.project_reservations << training_1 << training_2 << training_3 << editing_1 << editing_2
 spa_project_2.project_reservations << training_4 << editing_6 << editing_5
@@ -127,22 +127,47 @@ cireficc.courses << fre3
 #spa.users << faculty << student
 #fre.users << faculty << student
 
-film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles",
+film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles", transliterated_foreign_title: "Alice au pays des merveilles",
                     description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
-                    audio_languages: ["english", "french"], subtitle_languages: ["english", "french"], year: 1951, length: 120, mpaa_rating: 0)
-film2 = Film.create!(film_type: 2, english_title: "Finding Nemo", foreign_title: "Findet Nemo",
+                    audio_languages: ["english", "french"], subtitle_languages: ["english", "french"], year: 1951, length: 75, mpaa_rating: 0)
+film2 = Film.create!(film_type: 2, english_title: "Finding Nemo", foreign_title: "Findet Nemo", transliterated_foreign_title: "Findet Nemo",
                     description: "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
-                    audio_languages: ["english", "german"], subtitle_languages: ["english", "german"], year: 2003, length: 120, mpaa_rating: 0)
-film3 = Film.create!(film_type: 2, english_title: "The Lion King", foreign_title: "El Rey Leon",
+                    audio_languages: ["english", "german"], subtitle_languages: ["english", "german"], year: 2003, length: 100, mpaa_rating: 0)
+film3 = Film.create!(film_type: 2, english_title: "The Lion King", foreign_title: "El Rey Leon", transliterated_foreign_title: "El Rey Leon",
                     description: "Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble.",
-                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 120, mpaa_rating: 0)
-game = Game.create!(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
-                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], platform: 0, year: 2014)
-
+                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 89, mpaa_rating: 0)
+film4 = Film.create!(film_type: 2, english_title: "Life Is Beautiful", foreign_title: "La vita è bella", transliterated_foreign_title: "La vita e bella",
+                    description: "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor and imagination to protect his son from the dangers around their camp.",
+                    audio_languages: ["english", "italian"], subtitle_languages: ["english", "italian"], year: 1997, length: 116, mpaa_rating: 2)
+film5 = Film.create!(film_type: 2, english_title: "Princess Mononoke", foreign_title: "もののけ姫", transliterated_foreign_title: "Mononoke-hime",
+                    description: "On a journey to find the cure for a Tatarigami's curse, Ashitaka finds himself in the middle of a war between the forest gods and Tatara, a mining colony. In this quest he also meets San, the Mononoke Hime.",
+                    audio_languages: ["english", "japanese"], subtitle_languages: ["english", "japanese"], year: 1997, length: 134, mpaa_rating: 2)
+film6 = Film.create!(film_type: 2, english_title: "Crouching Tiger, Hidden Dragon", foreign_title: "卧虎藏龙", transliterated_foreign_title: "Wo hu cang long",
+                    description: "",
+                    audio_languages: ["english", "chinese"], subtitle_languages: ["english", "chinese"], year: 2000, length: 120, mpaa_rating: 2)
+film7 = Film.create!(film_type: 2, english_title: "The Land", foreign_title: "الأرض", transliterated_foreign_title: "Al-ard",
+                    description: "A small peasant village's struggles against the careless inroads of the large local landowner, The Land shows why political oppression does not necessarily lead to a sense of solidarity among the disinherited.",
+                    audio_languages: ["english", "arabic"], subtitle_languages: ["english", "arabic"], year: 1969, length: 130, mpaa_rating: 5)
+film8 = Film.create!(film_type: 2, english_title: "The Cranes Are Flying", foreign_title: "Летят журавли", transliterated_foreign_title: "Letyat zhuravli",
+                    description: "Veronica plans a rendezvous with her lover, Boris, at the bank of river, only for him to be drafted into World War II shortly thereafter.",
+                    audio_languages: ["english", "russian"], subtitle_languages: ["english", "russian"], year: 1957, length: 97, mpaa_rating: 5)
+film9 = Film.create!(film_type: 2, english_title: "Knife in the Water", foreign_title: "Nóż w wodzie", transliterated_foreign_title: "Noz w wodzie",
+                    description: "On their way to a sailing trip, an aging husband and wife invite along an emphatic young hitchhiker out of sheer patronization.",
+                    audio_languages: ["english", "other"], subtitle_languages: ["english", "other"], year: 1962, length: 94, mpaa_rating: 5)
 InventoryItem.create!(status: 0, inventoriable: film1)
 InventoryItem.create!(status: 0, inventoriable: film2)
 InventoryItem.create!(status: 0, inventoriable: film3)
+InventoryItem.create!(status: 0, inventoriable: film4)
+InventoryItem.create!(status: 0, inventoriable: film5)
+InventoryItem.create!(status: 0, inventoriable: film6)
+InventoryItem.create!(status: 0, inventoriable: film7)
+InventoryItem.create!(status: 0, inventoriable: film8)
+InventoryItem.create!(status: 0, inventoriable: film9)
+
+game = Game.create!(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
+                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], platform: 0, year: 2014)
 InventoryItem.create!(status: 0, inventoriable: game)
+
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 0))
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 1))
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 2))
