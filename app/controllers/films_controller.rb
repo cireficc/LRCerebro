@@ -5,7 +5,7 @@ class FilmsController < ApplicationController
     def autocomplete
         @films = Film.search(params[:query],
                             autocomplete: true,
-                            limit: 10,
+                            limit: 5,
                             order: { catalog_number: :asc })
         render json: @films, each_serializer: FilmAutocompleteSerializer
     end
