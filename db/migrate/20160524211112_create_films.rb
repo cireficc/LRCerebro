@@ -4,7 +4,7 @@ class CreateFilms < ActiveRecord::Migration
       t.integer :film_type
       t.string :english_title
       t.string :foreign_title
-      t.string :normalized_foreign_title
+      t.string :transliterated_foreign_title
       t.text :description
       t.text :audio_languages, array: true, default: []
       t.text :subtitle_languages, array: true, default: []
