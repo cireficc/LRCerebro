@@ -12,11 +12,11 @@ class FilmsController < ApplicationController
 
     # GET /films
     def index
-        
+
         @limit = 25
         @order = { catalog_number: :asc }
         @includes = [:inventory_item, :genres, :directors, :cast_members]
-        
+
         @where = {}
         @where[:audio_languages] = {all: params[:audio_languages]} if params[:audio_languages].present?
         @where[:subtitle_languages] = {all: params[:subtitle_languages]} if params[:subtitle_languages].present?
@@ -27,7 +27,7 @@ class FilmsController < ApplicationController
                     {cast_member_list: @tag_array},
                     {genre_list: @tag_array}
                 ]] if @tag_array
-        
+
         if params[:search].present?
             @films = Film.search(
                 params[:search],
@@ -59,9 +59,7 @@ class FilmsController < ApplicationController
     def new
         @inventory_item = InventoryItem.new
         @film = Film.new
-        
-        #@inventory_item.inventoriable = @film
-        
+
         authorize Film
     end
 
@@ -72,13 +70,13 @@ class FilmsController < ApplicationController
 
     # POST /films
     def create
-    
+
         @inventory_item = InventoryItem.new(inventory_item_params)
         @film = Film.new(film_params)
         authorize @film
-        
+
         @inventory_item.inventoriable = @film
-    
+
         if @inventory_item.save
             flash[:success] = t "#{@i18n_path}.success", scope: "forms",
                                 title: @film.english_title, catalog_number: @inventory_item.catalog_number
@@ -90,9 +88,9 @@ class FilmsController < ApplicationController
 
     # PATCH/PUT /films/1
     def update
-        
+
         authorize @film
-    
+
         if @inventory_item.update(inventory_item_params) && @film.update(film_params)
             flash[:success] = t "#{@i18n_path}.success", scope: "forms", title: @film.english_title
             redirect_to film_path(@film)
@@ -103,24 +101,25 @@ class FilmsController < ApplicationController
 
     # DELETE /films/1
     def destroy
-        
+
         authorize @film
-      
+
         @inventory_item.destroy
         flash[:success] = t "#{@i18n_path}.success", scope: "forms", title: @film.english_title
         redirect_to films_path
     end
 
     private
-    
+
         def set_inventory_and_film
             @inventory_item = InventoryItem.films.find_by(inventoriable_id: params[:id])
             @film = @inventory_item.inventoriable
         end
-    
+
         def film_params
-            params[:inventory_item][:film].permit(:film_type, :english_title, :foreign_title, :description, :year,
-                    :length, :mpaa_rating, :director_list, :cast_member_list, :genre_list,
-                    audio_languages: [], subtitle_languages: [])
+            params[:inventory_item][:film].permit(:film_type, :english_title, :foreign_title,
+                    :transliterated_foreign_title, :description, :year, :length, :mpaa_rating,
+                    :director_list, :cast_member_list, :genre_list, audio_languages: [],
+                    subtitle_languages: [])
         end
 end

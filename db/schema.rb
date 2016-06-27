@@ -70,15 +70,15 @@ ActiveRecord::Schema.define(version: 20160601160411) do
     t.integer  "film_type"
     t.string   "english_title"
     t.string   "foreign_title"
-    t.string   "normalized_foreign_title"
+    t.string   "transliterated_foreign_title"
     t.text     "description"
-    t.text     "audio_languages",          default: [],              array: true
-    t.text     "subtitle_languages",       default: [],              array: true
+    t.text     "audio_languages",              default: [],              array: true
+    t.text     "subtitle_languages",           default: [],              array: true
     t.integer  "year"
     t.integer  "length"
     t.integer  "mpaa_rating"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "games", force: :cascade do |t|
