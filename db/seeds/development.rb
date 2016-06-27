@@ -129,31 +129,40 @@ cireficc.courses << fre3
 
 film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles", transliterated_foreign_title: "Alice au pays des merveilles",
                     description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
-                    audio_languages: ["english", "french"], subtitle_languages: ["english", "french"], year: 1951, length: 75, mpaa_rating: 0)
+                    audio_languages: ["english", "french"], subtitle_languages: ["english", "french"], year: 1951, length: 75, mpaa_rating: 0,
+                    director_list: ["Clyde Geronimi", "Wilfred Jackson", "Hamilton Luske"], cast_member_list: ["Kathryn Beaumont", "Ed Wynn", "Richard Haydn"], genre_list: ["Animation", "Adventure", "Family"])
 film2 = Film.create!(film_type: 2, english_title: "Finding Nemo", foreign_title: "Findet Nemo", transliterated_foreign_title: "Findet Nemo",
                     description: "After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home.",
-                    audio_languages: ["english", "german"], subtitle_languages: ["english", "german"], year: 2003, length: 100, mpaa_rating: 0)
+                    audio_languages: ["english", "german"], subtitle_languages: ["english", "german"], year: 2003, length: 100, mpaa_rating: 0,
+                    director_list: ["Andrew Stanton", "Lee Unkrich"], cast_member_list: ["Albert Brooks", "Ellen DeGeneres", "Alexander Gould"], genre_list: ["Animation", "Adventure", "Comedy"])
 film3 = Film.create!(film_type: 2, english_title: "The Lion King", foreign_title: "El Rey Leon", transliterated_foreign_title: "El Rey Leon",
                     description: "Lion cub and future king Simba searches for his identity. His eagerness to please others and penchant for testing his boundaries sometimes gets him into trouble.",
-                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 89, mpaa_rating: 0)
+                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 89, mpaa_rating: 0,
+                    director_list: ["Roger Allers", "Rob Minkoff"], cast_member_list: ["Matthew Broderick", "Jeremy Irons", "James Earl Jones"], genre_list: ["Animation", "Adventure", "Drama"])
 film4 = Film.create!(film_type: 2, english_title: "Life Is Beautiful", foreign_title: "La vita è bella", transliterated_foreign_title: "La vita e bella",
                     description: "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor and imagination to protect his son from the dangers around their camp.",
-                    audio_languages: ["english", "italian"], subtitle_languages: ["english", "italian"], year: 1997, length: 116, mpaa_rating: 2)
+                    audio_languages: ["english", "italian"], subtitle_languages: ["english", "italian"], year: 1997, length: 116, mpaa_rating: 2,
+                    director_list: ["Roberto Benigni"], cast_member_list: ["Roberto Benigni", "Nicoletta Braschi", "Giorgio Cantarini"], genre_list: ["Comedy", "Drama", "Romance"])
 film5 = Film.create!(film_type: 2, english_title: "Princess Mononoke", foreign_title: "もののけ姫", transliterated_foreign_title: "Mononoke-hime",
                     description: "On a journey to find the cure for a Tatarigami's curse, Ashitaka finds himself in the middle of a war between the forest gods and Tatara, a mining colony. In this quest he also meets San, the Mononoke Hime.",
-                    audio_languages: ["english", "japanese"], subtitle_languages: ["english", "japanese"], year: 1997, length: 134, mpaa_rating: 2)
+                    audio_languages: ["english", "japanese"], subtitle_languages: ["english", "japanese"], year: 1997, length: 134, mpaa_rating: 2,
+                    director_list: ["Hayao Miyazaki"], cast_member_list: ["Yôji Matsuda", "Yuriko Ishida", "Yûko Tanaka"], genre_list: ["Animation", "Adventure", "Fantasy"])
 film6 = Film.create!(film_type: 2, english_title: "Crouching Tiger, Hidden Dragon", foreign_title: "卧虎藏龙", transliterated_foreign_title: "Wo hu cang long",
-                    description: "",
-                    audio_languages: ["english", "chinese"], subtitle_languages: ["english", "chinese"], year: 2000, length: 120, mpaa_rating: 2)
+                    description: "Two warriors in pursuit of a stolen sword and a notorious fugitive are led to an impetuous, physically skilled, adolescent nobleman's daughter, who is at a crossroads in her life.",
+                    audio_languages: ["english", "chinese"], subtitle_languages: ["english", "chinese"], year: 2000, length: 120, mpaa_rating: 2,
+                    director_list: ["Ang Lee"], cast_member_list: ["Yun-Fat Chow", "Michelle Yeoh", "Ziyi Zhang"], genre_list: ["Action", "Drama", "Romance"])
 film7 = Film.create!(film_type: 2, english_title: "The Land", foreign_title: "الأرض", transliterated_foreign_title: "Al-ard",
                     description: "A small peasant village's struggles against the careless inroads of the large local landowner, The Land shows why political oppression does not necessarily lead to a sense of solidarity among the disinherited.",
-                    audio_languages: ["english", "arabic"], subtitle_languages: ["english", "arabic"], year: 1969, length: 130, mpaa_rating: 5)
+                    audio_languages: ["english", "arabic"], subtitle_languages: ["english", "arabic"], year: 1969, length: 130, mpaa_rating: 5,
+                    director_list: ["Youssef Chahine"], cast_member_list: ["Hamdy Ahmed", "Yehia Chahine", "Ezzat El Alaili"], genre_list: ["Drama"])
 film8 = Film.create!(film_type: 2, english_title: "The Cranes Are Flying", foreign_title: "Летят журавли", transliterated_foreign_title: "Letyat zhuravli",
                     description: "Veronica plans a rendezvous with her lover, Boris, at the bank of river, only for him to be drafted into World War II shortly thereafter.",
-                    audio_languages: ["english", "russian"], subtitle_languages: ["english", "russian"], year: 1957, length: 97, mpaa_rating: 5)
+                    audio_languages: ["english", "russian"], subtitle_languages: ["english", "russian"], year: 1957, length: 97, mpaa_rating: 5,
+                    director_list: ["Mikhail Kalatozov"], cast_member_list: ["Tatyana Samoylova", "Aleksey Batalov", "Vasiliy Merkurev"], genre_list: ["Drama", "Romance", "War"])
 film9 = Film.create!(film_type: 2, english_title: "Knife in the Water", foreign_title: "Nóż w wodzie", transliterated_foreign_title: "Noz w wodzie",
                     description: "On their way to a sailing trip, an aging husband and wife invite along an emphatic young hitchhiker out of sheer patronization.",
-                    audio_languages: ["english", "other"], subtitle_languages: ["english", "other"], year: 1962, length: 94, mpaa_rating: 5)
+                    audio_languages: ["english", "other"], subtitle_languages: ["english", "other"], year: 1962, length: 94, mpaa_rating: 5,
+                    director_list: ["Roman Polanski"], cast_member_list: ["Leon Niemczyk", "Jolanta Umecka", "Zygmunt Malanowicz"], genre_list: ["Drama", "Thriller"])
 InventoryItem.create!(status: 0, inventoriable: film1)
 InventoryItem.create!(status: 0, inventoriable: film2)
 InventoryItem.create!(status: 0, inventoriable: film3)
