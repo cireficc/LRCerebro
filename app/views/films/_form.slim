@@ -30,6 +30,11 @@
                                         = f.input :foreign_title
                                 .row
                                     .col-md-3
+                                        h4 Transliterated Foreign Title
+                                    .col-md-9
+                                        = f.input :transliterated_foreign_title
+                                .row
+                                    .col-md-3
                                         h4 Description
                                     .col-md-9
                                         = f.input :description
@@ -89,7 +94,7 @@
                                             = f.input :mpaa_rating,
                                                 collection: Film.mpaa_ratings.collect { |a, i| [a.titleize, a] },
                                                 prompt: "Select an MPAA rating"
-                                        
+
     - if action_name == "new" || action_name == "create"
         = i.submit "Create Film", class: "btn btn-info pull-right"
     - elsif action_name == "show"
