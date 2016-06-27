@@ -35,8 +35,9 @@ gem 'searchkick', '~> 1.3'
 gem 'kaminari', '~> 0.17.0'
 # Use ActiveModelSerializers to succinctly customize JSON output
 gem 'active_model_serializers', '~> 0.10.0'
-# Use CarrierWave to do image attachments and processing
+# Use CarrierWave to do image attachments and processing, and Cloudinary to host them
 gem 'carrierwave', '~> 0.11.2'
+gem 'cloudinary', '~> 1.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
