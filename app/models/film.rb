@@ -4,6 +4,7 @@ class Film < ActiveRecord::Base
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     acts_as_taggable
     acts_as_taggable_on :directors, :cast_members, :genres
+    mount_uploader :cover, FilmCoverUploader
 
     validates :film_type, :mpaa_rating, presence: true
     validates :year, :length, numericality: { only_integer: true }
