@@ -1,7 +1,7 @@
 - form_url = (action_name == "new" || action_name == "create") ? films_path : film_path(@film)
 // Disable the form fields if in the 'show' action
 - disabled = action_name == "show"
-= simple_form_for(@inventory_item, url: form_url) do |i|
+= simple_form_for(@inventory_item, url: form_url, html: {multipart: true}) do |i|
     .row
         = render "inventory_items/inventory_item_fields", form: i, disabled: disabled
         .col-md-6
@@ -94,6 +94,15 @@
                                             = f.input :mpaa_rating,
                                                 collection: Film.mpaa_ratings.collect { |a, i| [a.titleize, a] },
                                                 prompt: "Select an MPAA rating"
+                                .row
+                                    .col-md-12
+                                        = image_tag(@film.cover_url(:display), class: "img-responsive") if @film.cover_url(:display)
+                                        h4 Change Cover
+                                        h5 File Upload
+                                        = f.input :cover, type: :file
+                                        = f.hidden_field :cover_cache
+                                        h5 or Image Link
+                                        = f.input :remote_cover_url
 
     - if action_name == "new" || action_name == "create"
         = i.submit "Create Film", class: "btn btn-info pull-right"
