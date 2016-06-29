@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include GoogleCalendarHelper
   include UsersHelper
+  include ActionController::Serialization
   
   # Pseudo-global used to detect whether or not the app is currently being seeded
   SEEDING_IN_PROGRESS = false
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
   after_action :store_last_page
   
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
+  def inventory_item_params
+    params[:inventory_item].permit(:catalog_number, :catalog_code, :status, :status_description, :notes)
+  end
 
   private
   
