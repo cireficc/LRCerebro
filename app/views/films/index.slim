@@ -3,6 +3,7 @@ hr
 table.table.table-hover
     thead
         tr
+            th
             th Catalog Number
             th English Title
             th Foreign Title
@@ -16,6 +17,8 @@ table.table.table-hover
     tbody
         - @films.each do |film|
             tr
+                td
+                    = image_tag(film.cover_url(:thumb)) if film.cover_url(:thumb)
                 td #{film.inventory_item.catalog_number}
                 td #{film.english_title}
                 td #{film.foreign_title}
