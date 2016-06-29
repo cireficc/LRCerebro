@@ -25,6 +25,19 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
 gem 'google-api-client', '~> 0.9'
 # Use Simple Form for forms instead of building complex forms by hand
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
+# Use Acts-As-Taggable-On for tagging models
+gem 'acts-as-taggable-on', '~> 3.5'
+# Use Select2 for tag multi-select
+gem 'select2-rails', '~> 4.0', '>= 4.0.1'
+# Use Searchkick (+ ElasticSearch) to complex searching
+gem 'searchkick', '~> 1.3'
+# Use Kaminari to paginate large result sets
+gem 'kaminari', '~> 0.17.0'
+# Use ActiveModelSerializers to succinctly customize JSON output
+gem 'active_model_serializers', '~> 0.10.0'
+# Use CarrierWave to do image attachments and processing, and Cloudinary to host them
+gem 'carrierwave', '~> 0.11.2'
+gem 'cloudinary', '~> 1.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

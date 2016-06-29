@@ -1,0 +1,35 @@
+= render 'search'
+hr
+table.table.table-hover
+    thead
+        tr
+            th
+            th Catalog Number
+            th English Title
+            th Foreign Title
+            th Audio Languages
+            th Subtitle Languages
+            th Description
+            th Directors
+            th Cast Members
+            th Genres
+            th Year
+    tbody
+        - @films.each do |film|
+            tr
+                td
+                    = image_tag(film.cover_url(:thumb)) if film.cover_url(:thumb)
+                td #{film.inventory_item.catalog_number}
+                td #{film.english_title}
+                td #{film.foreign_title}
+                td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
+                td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
+                td #{film.description}
+                td #{film.directors.map { |g| g.name.titleize }.join(", ")}
+                td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
+                td #{film.genres.map { |g| g.name.titleize }.join(", ")}
+                td #{film.year}
+                td
+                    = link_to 'View', film_path(film)
+.text-center
+    = paginate @films
