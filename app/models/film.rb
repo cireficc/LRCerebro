@@ -10,7 +10,6 @@ class Film < ActiveRecord::Base
     validates :year, :length, numericality: { only_integer: true }
     validate :validate_title
     validate :validate_audio_languages
-    validate :validate_subtitle_languages
 
     # Film types
     # :vhs - A VHS tape
@@ -65,10 +64,5 @@ class Film < ActiveRecord::Base
     def validate_audio_languages
         error = Language.validate_languages(audio_languages)
         errors.add(:audio_languages, error) if error
-    end
-
-    def validate_subtitle_languages
-        error = Language.validate_languages(subtitle_languages)
-        errors.add(:subtitle_languages, error) if error
     end
 end
