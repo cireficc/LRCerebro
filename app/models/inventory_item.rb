@@ -4,6 +4,7 @@ class InventoryItem < ActiveRecord::Base
 
     # The catalog number is generated and set when the record is created
     validates :catalog_number, presence: true, unless: :new_record?
+    validates :catalog_number, uniqueness: true
     validates :status, presence: true
     validates :inventoriable, presence: true, associated: true
 
