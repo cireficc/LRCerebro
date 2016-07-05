@@ -29,7 +29,7 @@ class FilmCoverUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
 
   # If we're in development, add a tag so we can easily delete dev images later
-  process :tags => ["development"] if (ENV["RAILS_ENV"] == "development")
+  process :tags => ["development"] if (ENV["RAILS_ENV"] == "development" || ApplicationController::SEEDING_IN_PROGRESS)
 
   version :display do
     eager
