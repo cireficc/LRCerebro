@@ -37,7 +37,8 @@
                                     .col-md-3
                                         h4 Description
                                     .col-md-9
-                                        = f.input :description
+                                        = f.input :description,
+                                            input_html: { rows: 5}
                                 .row
                                     .col-md-6
                                             h4 Audio Languages
