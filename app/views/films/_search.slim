@@ -29,8 +29,6 @@
                     class: "form-control"}
 javascript:
     $(document).ready(function() {
-	    $("[id$=audio_languages]").select2({theme: "bootstrap"});
-        $("[id$=subtitle_languages]").select2({theme: "bootstrap"});
 
         var films = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
