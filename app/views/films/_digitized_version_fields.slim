@@ -11,7 +11,7 @@
                             h4 Audio Language
                         .col-md-8
                             = f.input :audio_language,
-                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
+                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
                                 prompt: "Select an MPAA rating"
                         .col-md-4
                             h4 Subtitle Language
