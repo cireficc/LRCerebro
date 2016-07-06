@@ -43,50 +43,56 @@ $(document).ready(function() {
 	// Initialize all Bootstrap toolips
 	$("[data-toggle='tooltip']").tooltip();
 	
-	// Initialize all acts-as-taggable-on + select2 tag inputs.
+	// Initialize all acts-as-taggable-on + select2 tag inputs
 	$("*[data-taggable='true']").each(function() {
-            console.log("Taggable: " + $(this).attr('id') + "; initializing select2");
-            $(this).select2({
-                tags: true,
-                theme: "bootstrap",
-                tokenSeparators: [','],
-                minimumInputLength: 2,
-                ajax: {
-                    url: "/tags",
-                    dataType: 'json',
-                    delay: 100,
-                    data: function (params) {
-                        console.log("Using AJAX to get tags...");
-                        console.log("Tag name: " + params.term);
-                        console.log("Existing tags: " + $(this).val());
-                        console.log("Taggable type: " + $(this).data("taggable-type"));
-                        console.log("Tag context: " + $(this).data("context"));
-                        return {
-                            name: params.term,
-                            tags_chosen: $(this).val(),
-                            taggable_type: $(this).data("taggable-type"),
-                            context: $(this).data("context"),
-                            page: params.page
-                        }
-                    },
-                    processResults: function (data, params) {
-                        console.log("Got tags from AJAX: " + JSON.stringify(data, null, '\t'));
-                        params.page = params.page || 1;
-                
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    // id has to be the tag name, because acts_as_taggable expects it!
-                                    id: item.name
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
+        console.log("Taggable: " + $(this).attr('id') + "; initializing select2");
+        $(this).select2({
+            tags: true,
+            theme: "bootstrap",
+            width: "100%",
+            tokenSeparators: [','],
+            minimumInputLength: 2,
+            ajax: {
+                url: "/tags",
+                dataType: 'json',
+                delay: 100,
+                data: function (params) {
+                    console.log("Using AJAX to get tags...");
+                    console.log("Tag name: " + params.term);
+                    console.log("Existing tags: " + $(this).val());
+                    console.log("Taggable type: " + $(this).data("taggable-type"));
+                    console.log("Tag context: " + $(this).data("context"));
+                    return {
+                        name: params.term,
+                        tags_chosen: $(this).val(),
+                        taggable_type: $(this).data("taggable-type"),
+                        context: $(this).data("context"),
+                        page: params.page
+                    }
+                },
+                processResults: function (data, params) {
+                    console.log("Got tags from AJAX: " + JSON.stringify(data, null, '\t'));
+                    params.page = params.page || 1;
+            
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                // id has to be the tag name, because acts_as_taggable expects it!
+                                id: item.name
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
         });
+    });
+        
+    // Initialze all selects (that aren't for tags) with Select2
+    $("select:not([data-taggable='true'])").each(function(index){  
+        $(this).select2({theme: "bootstrap", width: "100%"});
+    });
 });
 
 /*
