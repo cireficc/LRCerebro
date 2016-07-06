@@ -12,13 +12,13 @@
                         .col-md-8
                             = f.input :audio_language,
                                 collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
-                                prompt: "Select an MPAA rating"
+                                prompt: "Select an audio language"
                         .col-md-4
                             h4 Subtitle Language
                         .col-md-8
                             = f.input :subtitle_language,
                                 collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
-                                prompt: "Select an MPAA rating"
+                                prompt: "Select a subtitle language"
                     .row
                         .col-md-4
                             h4 Direct Link
