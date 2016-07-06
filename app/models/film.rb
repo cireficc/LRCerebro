@@ -2,6 +2,8 @@ class Film < ActiveRecord::Base
     searchkick autocomplete: [:english_title, :foreign_title, :transliterated_foreign_title, :catalog_number]
 
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
+    has_many :digitized_versions, dependent: :destroy
+    accepts_nested_attributes_for :digitized_versions, reject_if: :all_blank, :allow_destroy => true
     acts_as_taggable
     acts_as_taggable_on :directors, :cast_members, :genres
     mount_uploader :cover, FilmCoverUploader
@@ -10,6 +12,7 @@ class Film < ActiveRecord::Base
     validates :year, :length, numericality: { only_integer: true }
     validate :validate_title
     validate :validate_audio_languages
+    validates_associated :digitized_versions
 
     # Film types
     # :vhs - A VHS tape
