@@ -24,8 +24,8 @@ var dtpDefaults = {
 	format: "YYYY-MM-DD  h:mm A" // 2015-08-10 5:30 PM; Rails-friendly DateTime format
 }
 
-// Page ready for all pages
-$(document).ready(function() {
+// Page ready and change for all pages (initialization code)
+var readyAndChange = function() {
 	
 	// Initialize all of the DateTimePickers with their correctly-displayed value
 	$('.glyphicon-calendar').each(function (event) {
@@ -93,7 +93,10 @@ $(document).ready(function() {
     $("select:not([data-taggable='true'])").each(function(index){  
         $(this).select2({theme: "bootstrap", width: "100%"});
     });
-});
+}
+
+$(document).ready(readyAndChange);
+$(document).change(readyAndChange);
 
 /*
 * When any taggable input changes, get the value from the select2 input and
@@ -145,6 +148,9 @@ $(document).on('click', '.add-fields', function(event) {
     
     // Use the regex to update the id, then add the fields before the [+ Add] button
     $(this).closest("#add_fields_row").before(addFieldsDataElement.data('fields').replace(regexp, time));
+    
+    // Trigger a document change event so that any initialization code is run
+    $(document).trigger("change");
 });
 
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
