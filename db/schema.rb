@@ -52,8 +52,8 @@ ActiveRecord::Schema.define(version: 20160705212031) do
 
   create_table "digitized_versions", force: :cascade do |t|
     t.integer  "film_id"
-    t.integer  "audio_language"
-    t.integer  "subtitle_language"
+    t.string   "audio_language"
+    t.string   "subtitle_language"
     t.string   "direct_link"
     t.text     "embed_code"
     t.datetime "created_at",        null: false
