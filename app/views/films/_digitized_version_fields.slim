@@ -1,0 +1,37 @@
+.removable-fields
+    .row
+        = f.hidden_field :_destroy
+        .col-md-11
+            .panel.panel-warning
+                .panel-heading
+                    h3.panel-title Version
+                .panel-body
+                    .row
+                        .col-md-4
+                            h4 Audio Language
+                        .col-md-8
+                            = f.input :audio_language,
+                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
+                                prompt: "Select an MPAA rating"
+                        .col-md-4
+                            h4 Subtitle Language
+                        .col-md-8
+                            = f.input :subtitle_language,
+                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
+                                prompt: "Select an MPAA rating"
+                    .row
+                        .col-md-4
+                            h4 Direct Link
+                        .col-md-8
+                            = f.input :direct_link
+                    .row
+                        .col-md-4
+                            h4 Embed Code
+                        .col-md-8
+                            = f.input :embed_code,
+                            input_html: { rows: 8 }
+        .col-md-1
+            // The remove-fields class doesn't do anything except allow easier click-handling than using an id
+            .remove-fields.btn.btn-danger
+                span.glyphicon.glyphicon-remove
+    hr
