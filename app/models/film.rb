@@ -58,7 +58,7 @@ class Film < ActiveRecord::Base
     end
 
     def validate_title
-        if foreign_title.blank? && transliterated_foreign_title.blank?
+        if foreign_title.blank? || transliterated_foreign_title.blank?
             errors.add(:foreign_title, "Foreign title and transliterated foreign title must not be blank")
             errors.add(:transliterated_foreign_title, "Foreign title and transliterated foreign title must not be blank")
         end
