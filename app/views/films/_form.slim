@@ -110,7 +110,7 @@
                         h3.panel-title Digitized Versions
                     .panel-body
                         = f.simple_fields_for :digitized_versions do |builder|
-                            = render "digitized_version_fields", :f => builder
+                            = render "digitized_version_fields", f: builder
                         // The add-fields class doesn't do anything except allow easier click-handling than using an id
                         div#add_fields_row.row
                             .col-md-1
@@ -127,3 +127,23 @@
         - if policy(@film).destroy?
             = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
         = i.submit "Update Film", class: "btn btn-info pull-right"
+
+javascript:
+    // If any form input changes, update the generated digitized version titles
+    $("form").on('input change', function() {
+        var foreign_title = $("form").find("input[id$=foreign_title]").val();
+        var english_title = $("form").find("input[id$=english_title]").val();
+
+        $("p.bg-info").each(function() {
+            var panel = $(this).closest(".panel-body");
+            var audio = panel.find("select[id$=audio_language]").val();
+            var subtitles = panel.find("select[id$=subtitle_language]").val();
+            title = foreign_title;
+            if (english_title) { title += " (" + english_title + ")"; }
+            title += " (Audio: " + audio;
+            if (subtitles) { title +=  "; Subtitles: " + subtitles + ")"}
+            else title += ")";
+            $(this).text(title);
+        });
+        
+    });
