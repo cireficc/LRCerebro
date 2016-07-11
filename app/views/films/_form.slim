@@ -12,16 +12,16 @@
                             .panel-body
                                 .row
                                     .col-md-3
+                                        h4 IMDB Link
+                                    .col-md-9
+                                        = f.input :imdb_link
+                                .row
+                                    .col-md-3
                                         h4 Film Type
                                     .col-md-9
                                         = f.input :film_type,
                                             collection: Film.film_types.collect { |a, i| [a.titleize, a] },
                                             prompt: "Select a film type"
-                                .row
-                                    .col-md-3
-                                        h4 English Title
-                                    .col-md-9
-                                        = f.input :english_title
                                 .row
                                     .col-md-3
                                         h4 Foreign Title
@@ -32,6 +32,11 @@
                                         h4 Transliterated Foreign Title
                                     .col-md-9
                                         = f.input :transliterated_foreign_title
+                                .row
+                                    .col-md-3
+                                        h4 English Title
+                                    .col-md-9
+                                        = f.input :english_title
                                 .row
                                     .col-md-3
                                         h4 Description
