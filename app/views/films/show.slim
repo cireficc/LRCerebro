@@ -59,6 +59,21 @@
                                 - @film.genres.each do |g|
                                     span.label.label-default #{g.name.titleize}
                                     ' 
+        .row
+            .col-md-12
+                h3 Digitized Versions:
+        - @film.digitized_versions.each do |d|
+            .row
+                .col-md-12
+                    h4
+                        span.label.label-primary #{d.audio_language.titleize}
+                        ' 
+                        span.label.label-primary #{d.subtitle_language.titleize}
+                        ' 
+                        span.label.label-primary #{d.direct_link}
+                        ' 
+                        span.label.label-primary #{d.embed_code}
+                        ' 
 br
 - if policy(@film).destroy?
     = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
