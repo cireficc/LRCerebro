@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require select2-full
 //= require turbolinks
 //= require moment
 //= require bootstrap-datetimepicker
@@ -23,8 +26,8 @@ var dtpDefaults = {
 	format: "YYYY-MM-DD  h:mm A" // 2015-08-10 5:30 PM; Rails-friendly DateTime format
 }
 
-// Page ready for all pages
-$(document).ready(function() {
+// Page ready and change for all pages (initialization code)
+var readyAndChange = function() {
 	
 	// Initialize all of the DateTimePickers with their correctly-displayed value
 	$('.glyphicon-calendar').each(function (event) {
@@ -41,6 +44,78 @@ $(document).ready(function() {
 	
 	// Initialize all Bootstrap toolips
 	$("[data-toggle='tooltip']").tooltip();
+	
+	// Initialize all acts-as-taggable-on + select2 tag inputs
+	$("*[data-taggable='true']").each(function() {
+        console.log("Taggable: " + $(this).attr('id') + "; initializing select2");
+        $(this).select2({
+            tags: true,
+            theme: "bootstrap",
+            width: "100%",
+            tokenSeparators: [','],
+            minimumInputLength: 2,
+            ajax: {
+                url: "/tags",
+                dataType: 'json',
+                delay: 100,
+                data: function (params) {
+                    console.log("Using AJAX to get tags...");
+                    console.log("Tag name: " + params.term);
+                    console.log("Existing tags: " + $(this).val());
+                    console.log("Taggable type: " + $(this).data("taggable-type"));
+                    console.log("Tag context: " + $(this).data("context"));
+                    return {
+                        name: params.term,
+                        tags_chosen: $(this).val(),
+                        taggable_type: $(this).data("taggable-type"),
+                        context: $(this).data("context"),
+                        page: params.page
+                    }
+                },
+                processResults: function (data, params) {
+                    console.log("Got tags from AJAX: " + JSON.stringify(data, null, '\t'));
+                    params.page = params.page || 1;
+            
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                // id has to be the tag name, because acts_as_taggable expects it!
+                                id: item.name
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    });
+        
+    // Initialze all selects (that aren't for tags) with Select2
+    $("select:not([data-taggable='true'])").each(function(index){  
+        $(this).select2({theme: "bootstrap", width: "100%"});
+    });
+}
+
+$(document).ready(readyAndChange);
+$(document).change(readyAndChange);
+
+/*
+* When any taggable input changes, get the value from the select2 input and
+* convert it to a comma-separated string. Assign this value to the nearest hidden
+* input, which is the input for the acts-on-taggable field. Select2 submits an array,
+* but acts-as-taggable-on expects a CSV string; it is why this conversion exists.
+*/
+$(document).on('select2:select select2:unselect', "*[data-taggable='true']", function() {
+	 
+	var taggable_id = $(this).attr('id')
+	// genre_list_select2 --> genre_list
+    var hidden_id = taggable_id.replace("_select2", "");
+    // inventory_item_film_*genre_list* ($= jQuery selectors ends with)
+    var hidden = $("[id$=" + hidden_id + "]")
+    // Select2 either has elements selected or it doesn't, in which case use []
+    var joined = ($(this).val() || []).join(",");
+    hidden.val(joined);
 });
 
 /*
@@ -75,6 +150,9 @@ $(document).on('click', '.add-fields', function(event) {
     
     // Use the regex to update the id, then add the fields before the [+ Add] button
     $(this).closest("#add_fields_row").before(addFieldsDataElement.data('fields').replace(regexp, time));
+    
+    // Trigger a document change event so that any initialization code is run
+    $(document).trigger("change");
 });
 
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
