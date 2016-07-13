@@ -21,7 +21,10 @@ table.table.table-hover
                     = link_to image_tag(film.cover_url(:thumb)), film_path(film), :target => '_blank' if film.cover_url(:thumb)
                 td #{film.inventory_item.catalog_number}
                 td #{film.english_title}
-                td #{film.foreign_title}
+                - if (film.audio_languages & ["arabic", "chinese", "japanese", "russian"]).any?
+                    td #{film.foreign_title} (#{film.transliterated_foreign_title})
+                - else
+                    td #{film.foreign_title}
                 td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
                 td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
                 td #{film.description}
