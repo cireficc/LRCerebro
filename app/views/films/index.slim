@@ -14,6 +14,7 @@ table.table.table-hover
             th Cast Members
             th Genres
             th Year
+            th Streamable?
     tbody
         - @films.each do |film|
             tr
@@ -32,6 +33,8 @@ table.table.table-hover
                 td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
                 td #{film.genres.map { |g| g.name.titleize }.join(", ")}
                 td #{film.year}
+                - streamable = film.digitized_versions.detect { |d| d.embed_code.present? }
+                td #{streamable ? 'Yes' : 'No'}
                 td
                     = link_to 'Details', film_path(film), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
 .text-center
