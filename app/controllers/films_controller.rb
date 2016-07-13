@@ -15,7 +15,7 @@ class FilmsController < ApplicationController
 
         @limit = 25
         @order = { catalog_number: :asc }
-        @includes = [:inventory_item, :genres, :directors, :cast_members]
+        @includes = [:inventory_item, :genres, :directors, :cast_members, :digitized_versions]
 
         @where = {}
         @where[:audio_languages] = {all: params[:audio_languages]} if params[:audio_languages].present?
