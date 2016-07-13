@@ -1,6 +1,6 @@
 = render 'search'
 hr
-table.table.table-hover
+table#films.table.table-hover
     thead
         tr
             th
@@ -15,6 +15,7 @@ table.table.table-hover
             th Genres
             th Year
             th Streamable?
+            th
     tbody
         - @films.each do |film|
             tr
@@ -39,3 +40,8 @@ table.table.table-hover
                     = link_to 'Details', film_path(film), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
 .text-center
     = paginate @films
+
+javascript:
+    $(document).ready(function() {
+        $("#films").DataTable();
+    });
