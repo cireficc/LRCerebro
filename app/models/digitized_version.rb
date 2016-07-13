@@ -2,7 +2,7 @@ class DigitizedVersion < ActiveRecord::Base
     
     belongs_to :film
     
-    validates :audio_language, :direct_link, :embed_code, presence: true
+    validates :audio_language, presence: true
     
     def generated_title
         return "" if film.nil?
