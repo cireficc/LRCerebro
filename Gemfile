@@ -38,6 +38,8 @@ gem 'active_model_serializers', '~> 0.10.0'
 # Use CarrierWave to do image attachments and processing, and Cloudinary to host them
 gem 'carrierwave', '~> 0.11.2'
 gem 'cloudinary', '~> 1.2'
+# Use DataTables for table sorting
+gem 'jquery-datatables-rails', '~> 3.4'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
