@@ -78,11 +78,14 @@
                                 span.label.label-primary #{d.subtitle_language.titleize}
                 .tab-content
                     - @film.digitized_versions.each_with_index do |d, i|
-                        .tab-pane class="#{'active' if i == 0}" id="version#{i}"
-                            .col-md-9
-                                = raw d.embed_code
-                                - if policy(@film).edit?
-                                    = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info'
+                            .tab-pane class="#{'active' if i == 0}" id="version#{i}"
+                                - if d.embed_code.present?
+                                    .col-md-9
+                                        = raw d.embed_code
+                                        - if policy(@film).edit?
+                                            = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
+                                - else
+                                    p No content available
         - else
             h3 No streaming available.
 br
