@@ -7,7 +7,8 @@ class DigitizedVersion < ActiveRecord::Base
     def generated_title
         return "" if film.nil?
         
-        title = film.foreign_title;
+        title = film.inventory_item.catalog_number
+        title += " #{film.foreign_title}"
         title += " (#{film.english_title})" if film.english_title.present?
         title += " (Audio; #{audio_language}"
         if (subtitle_language.present?)
