@@ -34,6 +34,11 @@
                             - @film.subtitle_languages.each do |l|
                                 span.label.label-primary #{l.titleize}
                                 ' 
+                .row
+                    .col-md-3
+                        h4 IMDB:
+                    .col-md-9
+                        = link_to "View", @film.imdb_link, :target => '_blank', class: 'btn btn-info'
             .col-md-6
                     .row
                         .col-md-3
@@ -75,6 +80,8 @@
                     .tab-pane class="#{'active' if i == 0}" id="version#{i}"
                         .col-md-9
                             = raw d.embed_code
+                            - if policy(@film).edit?
+                                = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info'
 br
 - if policy(@film).destroy?
     = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
