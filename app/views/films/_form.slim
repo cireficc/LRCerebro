@@ -145,8 +145,8 @@ javascript:
             var subtitles = panel.find("select[id$=subtitle_language]").val();
             title = foreign_title;
             if (english_title) { title += " (" + english_title + ")"; }
-            title += " (Audio: " + audio;
-            if (subtitles) { title +=  "; Subtitles: " + subtitles + ")"}
+            title += " (Audio; " + audio;
+            if (subtitles) { title +=  ", Subtitles; " + subtitles + ")"}
             else title += ")";
             $(this).text(title);
         });

@@ -9,9 +9,9 @@ class DigitizedVersion < ActiveRecord::Base
         
         title = film.foreign_title;
         title += " (#{film.english_title})" if film.english_title.present?
-        title += " (Audio: #{audio_language}"
+        title += " (Audio; #{audio_language}"
         if (subtitle_language.present?)
-            title +=  "; Subtitles: #{subtitle_language})"
+            title +=  ", Subtitles; #{subtitle_language})"
         else
             title += ")";
         end
