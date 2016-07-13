@@ -3,8 +3,8 @@ hr
 table#films.table.table-hover
     thead
         tr
-            th
             th Catalog Number
+            th.no-sort
             th English Title
             th Foreign Title
             th Audio Languages
@@ -15,13 +15,13 @@ table#films.table.table-hover
             th Genres
             th Year
             th Streamable?
-            th
+            th.no-sort
     tbody
         - @films.each do |film|
             tr
+                td #{film.inventory_item.catalog_number}
                 td
                     = link_to image_tag(film.cover_url(:thumb)), film_path(film), :target => '_blank' if film.cover_url(:thumb)
-                td #{film.inventory_item.catalog_number}
                 td #{film.english_title}
                 - if (film.audio_languages & ["arabic", "chinese", "japanese", "russian"]).any?
                     td #{film.foreign_title} (#{film.transliterated_foreign_title})
@@ -43,5 +43,9 @@ table#films.table.table-hover
 
 javascript:
     $(document).ready(function() {
-        $("#films").DataTable();
+        $("#films").DataTable({
+            columnDefs: [
+                { orderable: false, targets: 'no-sort' }
+            ]
+        });
     });
