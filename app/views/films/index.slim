@@ -18,7 +18,7 @@ table.table.table-hover
         - @films.each do |film|
             tr
                 td
-                    = link_to image_tag(film.cover_url(:thumb)), film_path(film) if film.cover_url(:thumb)
+                    = link_to image_tag(film.cover_url(:thumb)), film_path(film), :target => '_blank' if film.cover_url(:thumb)
                 td #{film.inventory_item.catalog_number}
                 td #{film.english_title}
                 td #{film.foreign_title}
