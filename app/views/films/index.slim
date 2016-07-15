@@ -1,0 +1,51 @@
+= render 'search'
+hr
+table#films.table.table-hover
+    thead
+        tr
+            th Catalog Number
+            th.no-sort
+            th English Title
+            th Foreign Title
+            th Audio Languages
+            th Subtitle Languages
+            th Description
+            th Directors
+            th Cast Members
+            th Genres
+            th Year
+            th Streamable?
+            th.no-sort
+    tbody
+        - @films.each do |film|
+            tr
+                td #{film.inventory_item.catalog_number}
+                td
+                    = link_to image_tag(film.cover_url(:thumb)), film_path(film), :target => '_blank' if film.cover_url(:thumb)
+                td #{film.english_title}
+                - if (film.audio_languages & ["arabic", "chinese", "japanese", "russian"]).any?
+                    td #{film.foreign_title} (#{film.transliterated_foreign_title})
+                - else
+                    td #{film.foreign_title}
+                td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
+                td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
+                td #{film.description}
+                td #{film.directors.map { |g| g.name.titleize }.join(", ")}
+                td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
+                td #{film.genres.map { |g| g.name.titleize }.join(", ")}
+                td #{film.year}
+                - streamable = film.digitized_versions.detect { |d| d.embed_code.present? }
+                td #{streamable ? 'Yes' : 'No'}
+                td
+                    = link_to 'Details', film_path(film), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
+.text-center
+    = paginate @films
+
+javascript:
+    $("#films").DataTable({
+        columnDefs: [
+            { orderable: false, targets: 'no-sort' }
+        ],
+        "paging": false,
+        "info" : false
+    });
