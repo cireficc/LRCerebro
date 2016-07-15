@@ -66,13 +66,18 @@ nav.navbar.navbar-default
             ul.nav.navbar-nav.navbar-right
                 li.disabled.not-active
                     a href="#" Time Admin
-                li.dropdown.disabled.not-active
+                li.dropdown
                     a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
                         | LRC Media
                         span.caret
-                    ul.dropdown-menu role="menu"
-                        li.disabled.not-active
+                    ul.dropdown-menu.multi-level role="menu"
+                        li.dropdown-submenu
                             a href="#" Films
+                            ul.dropdown-menu
+                                li
+                                    = link_to "Film Catalog", films_path
+                                li
+                                    = link_to "Add a Film", new_film_path
                         li.disabled.not-active
                             a href="#" Music
                     li.disabled.not-active
