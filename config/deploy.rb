@@ -18,7 +18,8 @@ set :deploy_to, "/app/lrcerebro"
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push(
   "config/application.yml",
-  "config/GOOGLE_API_SERVICE_PRODUCTION.json"
+  "config/GOOGLE_API_SERVICE_PRODUCTION.json",
+  "config/cloudinary.yml"
 )
 
 # Default value for linked_dirs is []
