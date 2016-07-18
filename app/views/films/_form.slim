@@ -48,12 +48,12 @@
                                             h4 Audio Languages
                                             = f.input :audio_languages,
                                                 collection: Language.languages.collect { |u, i| [u.titleize, u] },
-                                                as: :check_boxes
+                                                input_html: { multiple: true }
                                     .col-md-6
                                             h4 Subtitle Languages
                                             = f.input :subtitle_languages,
                                                 collection: Language.languages.collect { |u, i| [u.titleize, u] },
-                                                as: :check_boxes
+                                                input_html: { multiple: true }
                                 .row
                                     .col-md-3
                                         h4 Directors
