@@ -64,30 +64,58 @@
                                 - @film.genres.each do |g|
                                     span.label.label-default #{g.name.titleize}
                                     ' 
-        - if @film.digitized_versions.any?
-            h3 Streaming
-            .row
-                ul.nav.nav-tabs
-                    - @film.digitized_versions.each_with_index do |d, i|
-                        li class="#{'active' if i == 0}"
-                            a data-toggle="tab" href="#version#{i}"
-                                | A: 
-                                span.label.label-primary #{d.audio_language.titleize}
-                                ' 
-                                | / S: 
-                                span.label.label-primary #{d.subtitle_language.titleize}
-                .tab-content
-                    - @film.digitized_versions.each_with_index do |d, i|
-                            .tab-pane class="#{'active' if i == 0}" id="version#{i}"
-                                - if d.embed_code.present?
-                                    .col-md-9
-                                        = raw d.embed_code
-                                        - if policy(@film).edit?
-                                            = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
-                                - else
-                                    p No content available
+        // - if @film.digitized_versions.any?
+        //     h3 Streaming
+        //     .row
+        //         ul.nav.nav-tabs
+        //             - @film.digitized_versions.each_with_index do |d, i|
+        //                 li class="#{'active' if i == 0}"
+        //                     a data-toggle="tab" href="#version#{i}"
+        //                         | A: 
+        //                         span.label.label-primary #{d.audio_language.titleize}
+        //                         ' 
+        //                         | / S: 
+        //                         span.label.label-primary #{d.subtitle_language.titleize}
+        //         .tab-content
+        //             - @film.digitized_versions.each_with_index do |d, i|
+        //                     .tab-pane class="#{'active' if i == 0}" id="version#{i}"
+        //                         - if d.embed_code.present?
+        //                             .col-md-9
+        //                                 = raw d.embed_code
+        //                                 - if policy(@film).edit?
+        //                                     = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
+        //                         - else
+        //                             p No content available
+        // - else
+        //     h3 No streaming available.
+        
+        h3 Streaming
+        - if current_user
+            - if @film.digitized_versions.any?
+                .row
+                    ul.nav.nav-tabs
+                        - @film.digitized_versions.each_with_index do |d, i|
+                            li class="#{'active' if i == 0}"
+                                a data-toggle="tab" href="#version#{i}"
+                                    | A: 
+                                    span.label.label-primary #{d.audio_language.titleize}
+                                    ' 
+                                    | / S: 
+                                    span.label.label-primary #{d.subtitle_language.titleize}
+                    .tab-content
+                        - @film.digitized_versions.each_with_index do |d, i|
+                                .tab-pane class="#{'active' if i == 0}" id="version#{i}"
+                                    - if d.embed_code.present?
+                                        .col-md-9
+                                            = raw d.embed_code
+                                            - if policy(@film).edit?
+                                                = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
+                                    - else
+                                        p No content available
+            - else
+                h4 No streaming available.
         - else
-            h3 No streaming available.
+            h4 You must be logged in to stream films.
 br
 - if policy(@film).destroy?
     = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
