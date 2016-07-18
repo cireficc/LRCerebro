@@ -1,4 +1,4 @@
-table.table.table-hover
+table#courses.table.table-hover
     thead
         tr
             th Name
@@ -8,6 +8,7 @@ table.table.table-hover
             th Year
             th Semester
             th # Students
+            th.no-sort
     tbody
         - @courses.each do |course|
             tr
@@ -34,3 +35,15 @@ table.table.table-hover
                                     label.label-info #{u.last_name}, #{u.first_name}
                 td
                     = link_to 'View', course_path(course)
+                    
+javascript:
+    $("#courses").DataTable({
+        columnDefs: [
+          { orderable: false, targets: 'no-sort' }
+        ],
+        "paging": false,
+        "info" : false,
+        "language": {
+          "search": "Filter records:"
+        }
+    });
