@@ -8,7 +8,7 @@ class Film < ActiveRecord::Base
     acts_as_taggable_on :directors, :cast_members, :genres
     mount_uploader :cover, FilmCoverUploader
 
-    validates :imdb_link, :film_type, :mpaa_rating, presence: true
+    validates :film_type, :mpaa_rating, presence: true
     validates :year, :length, numericality: { only_integer: true }
     validate :validate_title
     validate :validate_audio_languages
