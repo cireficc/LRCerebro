@@ -31,7 +31,7 @@ class CoursesController < ApplicationController
         authorize @course
     
         if @course.save
-            flash[:success] = "#{@course.name} has been successfully created"
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @course.name
             redirect_to courses_path
         else
             render :new
@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
         authorize @course
     
         if @course.update(course_params)
-            flash[:success] = "#{@course.name} has been successfully updated"
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @course.name
             redirect_to course_path(@course)
         else
             render :edit
@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
         authorize @course
       
         @course.destroy
-        flash[:success] = "#{@course.name} has been successfully deleted"
+        flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @course.name
         redirect_to courses_path
     end
 
