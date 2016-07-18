@@ -9,5 +9,16 @@ nav.navbar.navbar-default
 			a.navbar-brand href="/"  LRCerebro
 		div#nav-collapse.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
+            	li.dropdown
+                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+                        | LRC Media
+                        span.caret
+                    ul.dropdown-menu role="menu"
+                        li
+                            = link_to "Films", films_path
+                        li.disabled.not-active
+                            a href="#" Games
+                        li.disabled.not-active
+                            a href="#" Music
                 li
             		= link_to "Log In", login_path
