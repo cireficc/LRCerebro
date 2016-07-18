@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
   
   def store_last_page
-    session[:last_page] = request.url
+    session[:last_page] = request.referrer
   end
   
   def user_not_authorized(exception)
