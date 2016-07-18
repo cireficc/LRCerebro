@@ -37,38 +37,39 @@
                                             as: :string,
                                             class: "form-control"
             .col-md-6
-                .panel.panel-info
-                        .panel-heading
-                            h3.panel-title Project
-                        .panel-body
-                            .row
-                                .col-md-3
-                                    h4 Submission Start
-                                .col-md-9
-                                     = f.input :class_project_submission_start, wrapper: :vertical_input_group_date
-                                        = f.input_field :class_project_submission_start,
-                                            as: :string,
-                                            class: "form-control"
-                            .row
-                                .col-md-3
-                                    h4 Submission End
-                                .col-md-9
-                                     = f.input :class_project_submission_end, wrapper: :vertical_input_group_date
-                                        = f.input_field :class_project_submission_end,
-                                            as: :string,
-                                            class: "form-control"
-                            .row
-                                .col-md-3
-                                    h4 Deadline Upcoming Message
-                                .col-md-9
-                                    = f.input :class_project_before_deadline_message,
-                                        input_html: { placeholder: "A message to show faculty when the deadline for submitting projects is approaching.", rows: 3, maxlength: 1000 }
-
-                            .row
-                                .col-md-3
-                                    h4 Deadline Passed Message
-                                .col-md-9
-                                    = f.input :class_project_after_deadline_message,
-                                        input_html: { placeholder: "A message to show faculty when the deadline for submitting projects has passed.", rows: 3, maxlength: 1000 }
+                fieldset disabled = current_user.labasst?
+                    .panel.panel-info
+                            .panel-heading
+                                h3.panel-title Project
+                            .panel-body
+                                .row
+                                    .col-md-3
+                                        h4 Submission Start
+                                    .col-md-9
+                                         = f.input :class_project_submission_start, wrapper: :vertical_input_group_date
+                                            = f.input_field :class_project_submission_start,
+                                                as: :string,
+                                                class: "form-control"
+                                .row
+                                    .col-md-3
+                                        h4 Submission End
+                                    .col-md-9
+                                         = f.input :class_project_submission_end, wrapper: :vertical_input_group_date
+                                            = f.input_field :class_project_submission_end,
+                                                as: :string,
+                                                class: "form-control"
+                                .row
+                                    .col-md-3
+                                        h4 Deadline Upcoming Message
+                                    .col-md-9
+                                        = f.input :class_project_before_deadline_message,
+                                            input_html: { placeholder: "A message to show faculty when the deadline for submitting projects is approaching.", rows: 3, maxlength: 1000 }
+    
+                                .row
+                                    .col-md-3
+                                        h4 Deadline Passed Message
+                                    .col-md-9
+                                        = f.input :class_project_after_deadline_message,
+                                            input_html: { placeholder: "A message to show faculty when the deadline for submitting projects has passed.", rows: 3, maxlength: 1000 }
     
     = f.submit "Update Configuration", class: "btn btn-info pull-right"
