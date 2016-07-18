@@ -42,7 +42,7 @@ class UsersController < ApplicationController
             flash[:success] = "Hello #{@user.first_name}, you have been logged in!"
             # Set the session data via the AccountHelper method
             log_in @user
-            return redirect_to root_url
+            return redirect_to session[:last_page]
         end
     end
     
@@ -96,7 +96,7 @@ class UsersController < ApplicationController
             # Remove the temporary user and set the session data via the AccountHelper method
             session.delete(:user)
             log_in @user
-            redirect_to root_url
+            redirect_to session[:last_page]
         end
     end
     
