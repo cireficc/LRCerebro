@@ -35,6 +35,8 @@ table#courses.table.table-hover
                                     label.label-info #{u.last_name}, #{u.first_name}
                 td
                     = link_to 'View', course_path(course)
+.text-center
+    = paginate @courses
                     
 javascript:
     $("#courses").DataTable({
