@@ -1,0 +1,43 @@
+//= render 'search'
+hr
+table#users.table.table-hover
+    thead
+        tr
+            th G#
+            th Username
+            th First Name
+            th Last Name
+            th Role
+            th Active?
+            th.no-sort
+            th.no-sort
+            th.no-sort
+    tbody
+        - @users.each do |user|
+            tr
+                td #{user.g_number}
+                td #{user.username}
+                td #{user.first_name}
+                td #{user.last_name}
+                td #{user.role}
+                td #{user.active? ? 'Yes' : 'No'}
+                td
+                    = link_to 'Details', user_path(user), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
+                td
+                    = link_to 'Edit', edit_user_path(user), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
+                td
+                    = link_to "Delete", user_path(user), data: { confirm: "Are you sure you want to delete this user? Only do this if you know what you're doing!" }, :method => :delete, class: 'btn btn-xs btn-danger pull-right'
+.text-center
+    = paginate @users
+
+javascript:
+    $("#users").DataTable({
+        columnDefs: [
+          { orderable: false, targets: 'no-sort' }
+        ],
+        "paging": false,
+        "info" : false,
+        "language": {
+          "search": "Filter records:"
+        }
+    });

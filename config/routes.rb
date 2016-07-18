@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   # Project resources
   # http://www.codecademy.com/articles/standard-controller-actions
   get 'projects/archive' => 'projects#archive_index'
-
+  
+  resources :users
   resources :courses
   resources :projects
   resources :standard_reservations

@@ -22,6 +22,13 @@
 en:
     forms:
         submission_errors: "There were errors in your form submission. Please correct the error(s) in red and re-submit."
+        user:
+            create:
+                success: "%{name} was successfully created."
+            update:
+                success: "%{name} was successfully updated."
+            destroy:
+                success: "%{name} was successfully deleted."
         standard_reservation:
             create:
                 success: "Your reservation was successfully scheduled for %{start} in Lab %{lab}."
@@ -42,6 +49,14 @@ en:
     pundit:
         not_authorized_intro: 'You do not have permission to'
         default: 'You must be logged in to perform that action.'
+        user_policy:
+            index?: 'view users.'
+            new?: 'create new users.'
+            create?: 'create new users.'
+            show?: 'view that user.'
+            edit?: 'edit that user.'
+            update?: 'update that user.'
+            destroy?: 'delete that user.'
         project_policy:
             index?: 'view projects.'
             new?: 'create new projects.'
