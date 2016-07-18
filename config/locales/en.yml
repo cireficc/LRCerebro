@@ -29,6 +29,13 @@ en:
                 success: "%{name} was successfully updated."
             destroy:
                 success: "%{name} was successfully deleted."
+        course:
+            create:
+                success: "%{name} was successfully created."
+            update:
+                success: "%{name} was successfully updated."
+            destroy:
+                success: "%{name} was successfully deleted."
         standard_reservation:
             create:
                 success: "Your reservation was successfully scheduled for %{start} in Lab %{lab}."
