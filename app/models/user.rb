@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
     has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
     
+    accepts_nested_attributes_for :courses
+    
+    validates :g_number, :username, :first_name, :last_name, :role, presence: true
+    
     scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
     scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
     
