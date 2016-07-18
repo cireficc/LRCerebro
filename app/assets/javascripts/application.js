@@ -27,7 +27,7 @@ var dtpDefaults = {
 }
 
 // Page ready and change for all pages (initialization code)
-var readyAndChange = function() {
+var initialize = function() {
 	
 	// Initialize all of the DateTimePickers with their correctly-displayed value
 	$('.glyphicon-calendar').each(function (event) {
@@ -97,8 +97,7 @@ var readyAndChange = function() {
     });
 }
 
-$(document).ready(readyAndChange);
-$(document).change(readyAndChange);
+$(document).ready(initialize);
 
 /*
 * When any taggable input changes, get the value from the select2 input and
@@ -151,8 +150,8 @@ $(document).on('click', '.add-fields', function(event) {
     // Use the regex to update the id, then add the fields before the [+ Add] button
     $(this).closest("#add_fields_row").before(addFieldsDataElement.data('fields').replace(regexp, time));
     
-    // Trigger a document change event so that any initialization code is run
-    $(document).trigger("change");
+    // Initialize everything
+    initialize();
 });
 
 // If a calendar glyphicon is clicked, initialize the DateTimePicker
