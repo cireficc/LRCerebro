@@ -70,8 +70,6 @@ nav.navbar.navbar-default
                                 li
                                     = link_to "Create", new_course_path
             ul.nav.navbar-nav.navbar-right
-                li.disabled.not-active
-                    a href="#" Time Admin
                 li.dropdown
                     a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
                         | LRC Media
@@ -85,7 +83,9 @@ nav.navbar.navbar-default
                                 li
                                     = link_to "Add a Film", new_film_path
                         li.disabled.not-active
+                            a href="#" Games
+                        li.disabled.not-active
                             a href="#" Music
                     li.disabled.not-active
-                        a href="#" Equipment
+                            a href="#" TimeTracker
                 = render 'partials/account_dropdown'
