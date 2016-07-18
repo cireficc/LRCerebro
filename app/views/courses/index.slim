@@ -28,11 +28,11 @@ table#courses.table.table-hover
                             - instructor = course.get_instructor
                             - if instructor
                                 li
-                                    label.label-danger #{instructor.last_name}, #{instructor.first_name}
+                                    span.label.label-danger #{instructor.last_name}, #{instructor.first_name}
                             li.divider
                             - @students.order(:last_name).each do |u|
                                 li
-                                    label.label-info #{u.last_name}, #{u.first_name}
+                                    span.label.label-info #{u.last_name}, #{u.first_name}
                 td
                     = link_to 'View', course_path(course)
 .text-center
