@@ -34,11 +34,12 @@
                             - @film.subtitle_languages.each do |l|
                                 span.label.label-primary #{l.titleize}
                                 ' 
-                .row
-                    .col-md-3
-                        h4 IMDB:
-                    .col-md-9
-                        = link_to "View", @film.imdb_link, :target => '_blank', class: 'btn btn-info'
+                - if @film.more_info_link.present?
+                    .row
+                        .col-md-3
+                            h4 More info:
+                        .col-md-9
+                            = link_to "View", @film.more_info_link, :target => '_blank', class: 'btn btn-info'
             .col-md-6
                     .row
                         .col-md-3

@@ -117,7 +117,7 @@ class FilmsController < ApplicationController
         end
 
         def film_params
-            params[:inventory_item][:film].permit(:imdb_link, :film_type, :english_title, :foreign_title,
+            params[:inventory_item][:film].permit(:more_info_link, :film_type, :english_title, :foreign_title,
                     :transliterated_foreign_title, :description, :year, :length, :mpaa_rating,
                     :director_list, :cast_member_list, :genre_list, :cover, :cover_cache,
                     :remote_cover_url, audio_languages: [], subtitle_languages: [],
