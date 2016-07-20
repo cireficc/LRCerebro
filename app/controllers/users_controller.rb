@@ -3,6 +3,12 @@ class UsersController < ApplicationController
     
     # The login form page
     def login
+        
+        if current_user
+            redirect_to root_url
+            return
+        end
+        
         @title = "Login"
         @config = ApplicationConfiguration.last
         flash.now[:warning] = @config.enrollment_update_message
