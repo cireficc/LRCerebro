@@ -12,7 +12,9 @@
                             .panel-body
                                 .row
                                     .col-md-3
-                                        h4 More Info Link
+                                        h4
+                                            | More Info 
+                                            a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/films/more_info_link'}") data-toggle="popover" href="#" title="More Info Link"
                                     .col-md-9
                                         = f.input :more_info_link
                                 .row
@@ -24,17 +26,23 @@
                                             prompt: "Select a film type"
                                 .row
                                     .col-md-3
-                                        h4 Foreign Title
+                                        h4
+                                            | Foreign Title 
+                                            a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/films/foreign_title'}") data-toggle="popover" href="#" title="Foreign Title"
                                     .col-md-9
                                         = f.input :foreign_title
                                 .row
                                     .col-md-3
-                                        h4 Transliterated Foreign Title
+                                        h4
+                                            | Transliterated Title 
+                                            a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/films/transliterated_foreign_title'}") data-toggle="popover" href="#" title="Transliterated Foreign Title"
                                     .col-md-9
                                         = f.input :transliterated_foreign_title
                                 .row
                                     .col-md-3
-                                        h4 English Title
+                                        h4
+                                            | English Title 
+                                            a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/films/english_title'}") data-toggle="popover" href="#" title="English Title"
                                     .col-md-9
                                         = f.input :english_title
                                 .row
