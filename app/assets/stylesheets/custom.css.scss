@@ -177,3 +177,12 @@ body{
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+a[data-toggle='popover'] {
+    color: #3498DB;
+    text-decoration: none;
+}
+
+a[data-toggle='popover']:focus, [data-toggle='popover']:hover {
+    color: #2c3e50;
+}
