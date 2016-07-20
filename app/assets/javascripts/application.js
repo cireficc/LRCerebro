@@ -44,7 +44,7 @@ var initialize = function() {
 	
 	// Initialize all Bootstrap toolips and popovers
 	$("[data-toggle='tooltip']").tooltip();
-	$("[data-toggle='popover']").popover({ trigger: "hover focus", container: "body" });
+	$("[data-toggle='popover']").popover({ trigger: "focus", container: "body", html: true });
 	
 	// Initialize all acts-as-taggable-on + select2 tag inputs
 	$("*[data-taggable='true']").each(function() {
