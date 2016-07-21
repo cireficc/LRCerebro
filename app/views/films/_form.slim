@@ -53,7 +53,9 @@
                                             input_html: { rows: 5}
                                 .row
                                     .col-md-6
-                                            h4 Audio Languages
+                                            h4
+                                                | Audio Languages 
+                                                a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/films/audio_languages'}") data-toggle="popover" href="#" title="English Title"
                                             = f.input :audio_languages,
                                                 collection: Language.languages.collect { |u, i| [u.titleize, u] },
                                                 input_html: { multiple: true }
