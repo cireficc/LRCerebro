@@ -25,6 +25,13 @@ class Language < ActiveRecord::Base
             return "need to select a language"
         end
         
+        # Remove English because we don't have an English catalog
+        field_temp = field.reject { |l| l == "english" }
+        
+        if !field_temp.any?
+            return "English cannot be the only language selected"
+        end
+        
         # If any of the audio languages is invalid, add the error and break
         field.each do |f|
             valid = false
