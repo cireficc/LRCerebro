@@ -154,7 +154,7 @@ javascript:
             var panel = $(this).closest(".panel-body");
             var audio = panel.find("select[id$=audio_language]").val();
             var subtitles = panel.find("select[id$=subtitle_language]").val();
-            title = catalog_number;
+            title = catalog_number || "";
             title += " " + foreign_title;
             if (english_title) { title += " (" + english_title + ")"; }
             title += " (Audio; " + audio;
