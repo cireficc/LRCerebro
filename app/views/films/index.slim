@@ -29,7 +29,7 @@ table#films.table.table-hover
                     td #{film.foreign_title}
                 td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
                 td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
-                td #{film.description}
+                td #{film.short_description}
                 td #{film.directors.map { |g| g.name.titleize }.join(", ")}
                 td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
                 td #{film.genres.map { |g| g.name.titleize }.join(", ")}
