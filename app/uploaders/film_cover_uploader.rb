@@ -42,6 +42,6 @@ class FilmCoverUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    model.transliterated_foreign_title
+    model.transliterated_foreign_title.gsub(/[^a-z0-9\s]/i, '')
   end
 end
