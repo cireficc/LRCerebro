@@ -17,6 +17,13 @@ module ApplicationHelper
           
         hidden_field_tag('add_fields_data', nil, data: {id: id, fields: fields.gsub("\n", "")})
     end
+    
+    def info_popover(partial_path, title)
+      content = render("partials/popovers/#{partial_path}")
+      a = link_to("", "#", class: 'glyphicon glyphicon-info-sign', data: { content: content, original_title: title, toggle: "popover" }, role: "button", tabindex: "-1")
+      # Remove href="#" so that clicking a popover doesn't take the user to the top of the page
+      a.sub('href="#"', "").html_safe
+    end
   
     def generate_errors_html(association, errors)
         puts "Errors: #{errors}"
