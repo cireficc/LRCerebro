@@ -83,13 +83,9 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
         authorize @project
         
-        if @project.destroy
-            flash[:success] = "#{@project.name} has been successfully deleted!"
-            redirect_to projects_path
-        else
-            flash.now[:danger] = generate_errors_html(Project, @project.errors.messages)
-            render "#{@view_path}/edit"
-        end
+        @project.destroy
+        flash[:success] = "#{@project.name} has been successfully deleted!"
+        redirect_to projects_path
     end
     
     private
