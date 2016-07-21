@@ -10,7 +10,7 @@
                         .col-md-4
                             h4
                                 | Generated Title 
-                                a.glyphicon.glyphicon-info-sign data-content=("#{render 'partials/popovers/digitized_versions/generated_title'}") data-toggle="popover" href="#" title="Generated Title"
+                                = info_popover("digitized_versions/generated_title", "Generated Title")
                         .col-md-8
                             p.well-sm.bg-info #{f.object.generated_title}
                     .row
