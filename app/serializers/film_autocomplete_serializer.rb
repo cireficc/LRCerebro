@@ -9,8 +9,7 @@ class FilmAutocompleteSerializer < ActiveModel::Serializer
 
     # A 147-character-length max description plus "..." for 150 characters
     def description
-        d = object.description
-        (d.length >= 122) ? "#{d[0..122]}..." : d
+        object.short_description
     end
 
     def audio_languages
