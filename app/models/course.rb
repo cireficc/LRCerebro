@@ -1,5 +1,7 @@
 class Course < ActiveRecord::Base
     
+    searchkick
+    
     has_many :enrollment
     has_many :users, :through => :enrollment
     
@@ -59,8 +61,21 @@ class Course < ActiveRecord::Base
         "ITA" => departments[:italian],
         "JPN" => departments[:japanese],
         "RUS" => departments[:russian],
-        "SPA" => departments[:spanish]
+        "SPA" => departments[:spanish],
+        "LRC" => departments[:lrc],
+        "OTH" => departments[:other]
     }
+    
+    def search_data
+        {
+            name: name,
+            department: department,
+            course: course,
+            section: section,
+            year: year,
+            semester: semester
+        }
+    end
     
     def active?
         self.updated_at > ApplicationConfiguration.last.current_semester_start
