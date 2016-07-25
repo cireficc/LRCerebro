@@ -114,7 +114,35 @@ class UsersController < ApplicationController
     # GET /users
     def index
         authorize User
-        @users = User.order(:g_number).page(params[:page]).per(50)
+        @limit = 50
+        @order = { g_number: :asc }
+        @includes = [:courses]
+
+        @where = {}
+        @where[:role] = params[:role] if params[:role].present?
+        @where[:active_courses] = params[:active_courses] if params[:active_courses].present?
+
+        if params[:search].present?
+            @users = User.search(
+                params[:search],
+                include: @includes,
+                fields: [
+                    :username,
+                    {g_number: :exact},
+                    :first_name,
+                    :last_name,
+                ],
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        else
+            @users = User.search(
+                "*",
+                include: @includes,
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        end
     end
 
     # GET /users/1
