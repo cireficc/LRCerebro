@@ -13,7 +13,6 @@
                 options_for_select(Course.departments.map { |d, i| [d.titleize, d] }, params[:department]), {class: "form-control", multiple: true}
         .col-md-2
             h4 Course #
-            //= number_field_tag :course, params[:course], class: "form-control"
             = select_tag :course,
                 options_for_select(Course.all.map(&:course).uniq.sort!, params[:course]), {class: "form-control", multiple: true}
         .col-md-1
