@@ -54,4 +54,12 @@ class User < ActiveRecord::Base
             self.courses.active
         end
     end
+    
+    def full_name
+       "#{last_name}, #{first_name}" 
+    end
+    
+    def full_name_with_username
+        "#{last_name}, #{first_name} (#{username})"
+    end
 end
