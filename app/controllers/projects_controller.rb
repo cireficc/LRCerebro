@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
     
     def index
-        #@projects = policy_scope(Project).active
         @limit = 25
         @order = { created_at: :asc }
         @includes = [:course, :project_reservations]
