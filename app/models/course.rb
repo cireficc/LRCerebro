@@ -89,6 +89,10 @@ class Course < ActiveRecord::Base
        self.users.find { |u| u.faculty? }
     end
     
+    def instructors
+        self.users.where(role: User.roles[:faculty])
+    end
+    
     def get_students
        self.users.where(role: User.roles[:student])
     end
