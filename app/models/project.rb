@@ -65,12 +65,11 @@ class Project < ActiveRecord::Base
             script_due: script_due,
             due: due,
             course: course.id,
-            submitted_by: course.get_instructor.id,
+            submitted_by: course.instructors.collect(&:id),
             first_training: project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training]).start,
             last_editing: project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing]).start,
             created_at: created_at,
             approved: approved,
-            owner: course.get_instructor.id,
             members: course.users.collect(&:id)
         }
     end
