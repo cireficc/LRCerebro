@@ -1,0 +1,39 @@
+= form_tag standard_reservations_path, id: "standard_reservation_search_form", method: :get do |f|
+    .row
+        .col-md-6
+            h4 Course
+            = select_tag :course,
+                options_for_select(Course.all.order(:name).map { |c| [c.name, c.id] }, params[:course]), {class: "form-control", multiple: true}
+        .col-md-3
+            h4 Submitted By
+            = select_tag :submitted_by,
+                options_for_select(StandardReservation.all.map { |s| o = s.course.get_instructor; [o.full_name_with_username, o.id] }.uniq.sort!,
+                    params[:submitted_by]), {class: "form-control", multiple: true}
+        .col-md-3
+            h4 Activity
+            = select_tag :activity,
+                options_for_select(StandardReservation.activities.map { |a, i| [a.titleize, a] }, params[:activity]), {class: "form-control", multiple: true}
+    .row
+        .col-md-2
+            h4 From
+            .input-group.date
+                = text_field_tag :start, params[:start], class: "form-control"
+                span.input-group-btn
+                    button.btn.btn-primary(type="button")
+                        .glyphicon.glyphicon-calendar
+        .col-md-2
+            h4 To
+            .input-group.date
+                = text_field_tag :end, params[:end], class: "form-control"
+                span.input-group-btn
+                    button.btn.btn-primary(type="button")
+                        .glyphicon.glyphicon-calendar
+        .col-md-2
+            h4 Lab
+            = select_tag :lab,
+                options_for_select(Lab.locations.map { |l, i| [l.titleize, l] }, params[:lab]), {class: "form-control", multiple: true}
+        .col-md-2
+            h4 &nbsp
+            button.btn.btn-primary.col-md-6(type="submit")
+                .glyphicon.glyphicon-search
+                |  Search
