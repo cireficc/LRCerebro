@@ -1,3 +1,6 @@
+-if current_user.director? || current_user.labasst?
+    = render 'search'
+    hr
 ul#project_tabs.nav.nav-tabs.nav-justified
     li#pending_tab.active
         a data-toggle="tab" href="#pending"
@@ -46,3 +49,5 @@ ul#project_tabs.nav.nav-tabs.nav-justified
             div#project_list.panel-group
                 - @approved.each do |project|
                     = render partial: "project_overview", locals: {p: project}
+.text-center
+    = paginate @projects

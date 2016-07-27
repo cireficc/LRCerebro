@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
     
+    searchkick
+    
     belongs_to :course
     has_many :project_reservations, :dependent => :destroy
     accepts_nested_attributes_for :project_reservations, :reject_if => lambda { |a| a[:start].blank? && a[:end].blank? }, :allow_destroy => true
@@ -9,6 +11,8 @@ class Project < ActiveRecord::Base
     
     scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
     scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
+    scope :approved, -> { where(approved: true) }
+    scope :pending, -> { where(approved: false) }
     
     # Create/update Google Calendar events here because (children) ProjectReservation are created before Project
     after_create :create_or_update_calendar_events, :unless => :seeding_development_database
@@ -52,6 +56,23 @@ class Project < ActiveRecord::Base
         pages: 2,
         other: 3
     }
+    
+    def search_data
+        {
+            name: name,
+            description: description,
+            category: category,
+            script_due: script_due,
+            due: due,
+            course: course.id,
+            submitted_by: course.instructors.collect(&:id),
+            first_training: project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training]).start,
+            last_editing: project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing]).start,
+            created_at: created_at,
+            approved: approved,
+            members: course.users.collect(&:id)
+        }
+    end
     
     def active?
         self.updated_at > ApplicationConfiguration.last.current_semester_start

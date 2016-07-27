@@ -4,7 +4,35 @@ class CoursesController < ApplicationController
     # GET /courses
     def index
         authorize Course
-        @courses = Course.order(year: :desc, semester: :desc, name: :asc).page(params[:page]).per(50)
+        @limit = 25
+        @order = { name: :asc }
+        @includes = [:enrollment, :users]
+
+        @where = {}
+        @where[:department] = params[:department] if params[:department].present?
+        @where[:course] = params[:course] if params[:course].present?
+        @where[:section] = params[:section] if params[:section].present?
+        @where[:year] = params[:year] if params[:year].present?
+        @where[:semester] = params[:semester] if params[:semester].present?
+
+        if params[:search].present?
+            @courses = Course.search(
+                params[:search],
+                include: @includes,
+                fields: [
+                    :name
+                ],
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        else
+            @courses = Course.search(
+                "*",
+                include: @includes,
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        end
     end
 
     # GET /courses/1
