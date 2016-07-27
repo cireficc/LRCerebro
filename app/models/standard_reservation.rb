@@ -1,5 +1,7 @@
 class StandardReservation < ActiveRecord::Base
     
+    searchkick
+    
     belongs_to :course
     validates :course_id, :activity, :start, :end, :lab, presence: true
     validates :walkthrough, inclusion: [true, false]
@@ -47,6 +49,17 @@ class StandardReservation < ActiveRecord::Base
     # In order for form submissions to assign this property correctly, this enum has to be present
     # in this class. To follow DRY, we use the application-wide enum Lab.locations
     enum lab: Lab.locations
+    
+    def search_data
+        {
+            course: course.id,
+            submitted_by: course.instructors.collect(&:id),
+            activity: activity,
+            reservation_start: start,
+            lab: lab,
+            members: course.users.collect(&:id)
+        }
+    end
     
     def start_time_before_end_time
         if self.start > self.end
