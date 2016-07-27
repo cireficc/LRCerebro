@@ -4,10 +4,36 @@ class StandardReservationsController < ApplicationController
 
     def index
         
+        @limit = 25
+        @order = { reservation_start: :desc }
+        @includes = [:course]
+
+        @where = {}
+        @where[:course] = params[:course] if params[:course].present?
+        @where[:submitted_by] = params[:submitted_by] if params[:submitted_by].present?
+        @where[:activity] = params[:activity] if params[:activity].present?
+        if params[:start].present? && params[:end].present?
+            @where[:reservation_start] = { gte: DateTime.parse(params[:start]), lte: DateTime.parse(params[:end]) }
+        elsif params[:start].present?
+            @where[:reservation_start] = { gte: DateTime.parse(params[:start]) }
+        else
+            @where[:reservation_start] = { lte: DateTime.parse(params[:end]) } if params[:end].present?
+        end
+        @where[:lab] = params[:lab] if params[:lab].present?
         
-        @standard_reservations = policy_scope(StandardReservation).order(start: :desc)
-        @past = @standard_reservations.where("start < ?", ApplicationHelper.time_local(Time.now))
-        @upcoming = @standard_reservations.where("start >= ?", ApplicationHelper.time_local(Time.now))
+        # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
+        # Director/labasst have full access to all standard reservations, faculty/students only to their own
+        @where[:members] = current_user.id if (current_user.faculty? || current_user.student?)
+
+        @standard_reservations = StandardReservation.search(
+                "*",
+                include: @includes,
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        
+        @past = @standard_reservations.select { |r| r.start < ApplicationHelper.time_local(Time.now) }
+        @upcoming = @standard_reservations.select { |r| r.start >= ApplicationHelper.time_local(Time.now) }
     end
 
     def new

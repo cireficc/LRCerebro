@@ -1,9 +1,45 @@
 class ProjectsController < ApplicationController
     
     def index
-        @projects = policy_scope(Project).active
-        @approved = @projects.where(approved: true)
-        @pending = @projects.where(approved: false)
+        @limit = 25
+        @order = { created_at: :asc }
+        @includes = [:course, :project_reservations]
+
+        @where = {}
+        @where[:category] = params[:category] if params[:category].present?
+        @where[:submitted_by] = params[:submitted_by] if params[:submitted_by].present?
+        @where[:course] = params[:course] if params[:course].present?
+        @where[:script_due] = { lte: DateTime.parse(params[:script_due]) } if params[:script_due].present?
+        @where[:due] = { lte: DateTime.parse(params[:due]) } if params[:due].present?
+        @where[:first_training] = { lte: DateTime.parse(params[:first_training]) } if params[:first_training].present?
+        @where[:last_editing] = { lte: DateTime.parse(params[:last_editing]) } if params[:last_editing].present?
+        
+        # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
+        # Director/labasst have full access to all projects, faculty/students only to their own
+        @where[:members] = current_user.id if (current_user.faculty? || current_user.student?)
+
+        if params[:search].present?
+            @projects = Project.search(
+                params[:search],
+                include: @includes,
+                fields: [
+                    :name,
+                    :description
+                ],
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        else
+            @projects = Project.search(
+                "*",
+                include: @includes,
+                where: @where,
+                order: @order, page: params[:page], per_page: @limit
+            )
+        end
+        
+        @approved = @projects.select { |p| p.approved }
+        @pending = @projects.select { |p| !p.approved }
     end
     
     def archive_index
@@ -41,7 +77,7 @@ class ProjectsController < ApplicationController
         
         if @project.save
             flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
-            redirect_to root_path
+            redirect_to projects_path
         else
             flash.now[:danger] = "Sorry, but there were errors in your project. Please correct them before submitting again."
             render "#{@view_path}/new"

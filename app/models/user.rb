@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
     
+    searchkick
+    
     has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
     
@@ -22,6 +24,17 @@ class User < ActiveRecord::Base
         student: 3
     }
     
+    def search_data
+        {
+            username: username,
+            g_number: g_number,
+            first_name: first_name,
+            last_name: last_name,
+            role: role,
+            active_courses: active_courses.collect(&:id)
+        }
+    end
+    
     has_secure_password
     
     def active?
@@ -40,5 +53,13 @@ class User < ActiveRecord::Base
         else
             self.courses.active
         end
+    end
+    
+    def full_name
+       "#{last_name}, #{first_name}" 
+    end
+    
+    def full_name_with_username
+        "#{last_name}, #{first_name} (#{username})"
     end
 end

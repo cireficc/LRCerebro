@@ -46,7 +46,7 @@ class InventoryItem < ActiveRecord::Base
             language_character = inventoriable.audio_languages.reject { |l| l == "english" }.first[0]
 
             # Prefer the foreign title over the English one
-            title_character = inventoriable.transliterated_foreign_title[0]
+            title_character = inventoriable.transliterated_foreign_title.strip![0]
 
             final_prefix = "#{prefix}#{language_character}-#{title_character}".upcase
 
