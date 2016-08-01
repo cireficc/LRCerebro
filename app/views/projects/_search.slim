@@ -24,7 +24,7 @@
         .col-md-5
             h4 Submitted By
             = select_tag :submitted_by,
-                options_for_select(Project.all.map { |p| o = p.course.get_instructor; [o.full_name_with_username, o.id] }.uniq.sort!,
+                options_for_select(@projects.map { |p| o = p.course.get_instructor; [o.full_name_with_username, o.id] }.uniq.sort!,
                     params[:submitted_by]), {class: "form-control", multiple: true}
     .row
         .col-md-3
