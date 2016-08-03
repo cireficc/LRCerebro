@@ -70,6 +70,7 @@ class Project < ActiveRecord::Base
             last_editing: project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing]).start,
             created_at: created_at,
             approved: approved,
+            archived: archived?,
             members: course.users.collect(&:id)
         }
     end
