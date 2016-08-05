@@ -70,6 +70,7 @@ class Project < ActiveRecord::Base
             last_editing: project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing]).start,
             created_at: created_at,
             approved: approved,
+            archived: archived?,
             members: course.users.collect(&:id)
         }
     end
@@ -80,6 +81,14 @@ class Project < ActiveRecord::Base
     
     def archived?
         self.updated_at < ApplicationConfiguration.last.current_semester_start
+    end
+    
+    def first_training
+        self.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
+    end
+    
+    def last_editing
+        self.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
     end
     
     def create_calendar_events

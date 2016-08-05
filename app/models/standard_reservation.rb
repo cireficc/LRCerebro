@@ -57,7 +57,8 @@ class StandardReservation < ActiveRecord::Base
             activity: activity,
             reservation_start: start,
             lab: lab,
-            members: course.users.collect(&:id)
+            members: course.users.collect(&:id),
+            archived: archived?
         }
     end
     
@@ -66,6 +67,10 @@ class StandardReservation < ActiveRecord::Base
             self.errors.add(:start, "reservation start time must be earlier than end time")
             self.errors.add(:end, "reservation start time must be earlier than end time")
         end
+    end
+    
+    def archived?
+        self.updated_at < ApplicationConfiguration.last.current_semester_start
     end
     
     def create_or_update_calendar_event

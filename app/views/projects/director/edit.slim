@@ -100,9 +100,9 @@
                             |  Add
                         = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
     .row
-        .col-md-2
+        .col-md-1
             = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
-        .col-md-1.col-md-offset-2
+        .col-md-1.col-md-offset-7
             h4 Approved?
         .col-md-2
             = f.input :approved,

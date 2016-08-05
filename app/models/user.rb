@@ -55,8 +55,12 @@ class User < ActiveRecord::Base
         end
     end
     
-    def full_name
+    def full_name_reverse
        "#{last_name}, #{first_name}" 
+    end
+    
+    def full_name
+        "#{first_name} #{last_name}" 
     end
     
     def full_name_with_username

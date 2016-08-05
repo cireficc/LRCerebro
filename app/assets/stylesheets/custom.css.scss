@@ -178,11 +178,19 @@ body{
     border-radius: 6px 0 6px 6px;
 }
 
-a[data-toggle='popover'] {
+a[data-toggle='popover'], a[data-toggle='modal'] {
     color: #3498DB;
     text-decoration: none;
 }
 
-a[data-toggle='popover']:focus {
+a[data-toggle='popover']:focus, a[data-toggle='modal']:focus {
     color: #2c3e50;
+}
+
+.modal-dialog.modal-xlg {
+    width: 1400px;
+}
+
+.well {
+    margin: 6px !important;
 }
