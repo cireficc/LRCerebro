@@ -39,7 +39,11 @@ module ApplicationHelper
        session[:last_page] 
     end
     
-    def self.time_local(time)
-        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(time) 
+    def self.local_to_utc(time)
+        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).local_to_utc(time)
+    end
+    
+    def self.utc_to_local(time)
+        ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).utc_to_local(time)
     end
 end

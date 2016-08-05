@@ -32,8 +32,8 @@ class StandardReservationsController < ApplicationController
                 order: @order, page: params[:page], per_page: @limit
             )
         
-        @past = @standard_reservations.select { |r| r.start < ApplicationHelper.time_local(Time.now) }
-        @upcoming = @standard_reservations.select { |r| r.start >= ApplicationHelper.time_local(Time.now) }
+        @past = @standard_reservations.select { |r| r.start < ApplicationHelper.local_to_utc(Time.now) }
+        @upcoming = @standard_reservations.select { |r| r.start >= ApplicationHelper.local_to_utc(Time.now) }
     end
 
     def new
