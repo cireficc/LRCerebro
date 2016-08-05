@@ -1,100 +1,132 @@
-div name="project_panel" class= "panel panel-primary"
-    .panel-heading.cursor-pointer
-        h4.panel-title data-toggle="collapse" data-target="##{p.id}"
-            .row.text-center
-                .col-md-10
-                    - if current_user.director? || current_user.labasst?
-                        - project_owner = p.course.get_instructor
-                        - if project_owner
-                            .col-md-2
-                                span#project_owner.label.label-info #{project_owner.last_name}, #{project_owner.first_name}
-                        - else
-                            .col-md-2
+.modal.fade role="dialog" id="#{p.id}"
+    .modal-dialog.modal-xlg
+        .modal-content
+            .modal-header
+                .row
+                    .col-md-5
+                        h4 At a glance: <i>#{p.name}</i>
+                    .col-md-3
+                        | <i>Submitted: <b>#{p.created_at}</b></i>
+                    .col-md-3
+                        | <i>Updated: <b>#{p.updated_at}</b></i>
                     .col-md-1
-                        span#course_name.label.label-warning #{p.course.get_short_name}
-                    .col-md-1
-                        span#project_type.label.label-danger #{p.category.titleize}
-                    .col-md-2
-                        span#project_name.label.label-success  #{p.name}
-                    .col-md-1
-                        span#num_students.label.label-default #{p.course.users.length - 1}
-                    .col-md-2
-                        span#submitted_at.label.label-default #{p.created_at.to_s}
-                    .col-md-2
-                        span#updated_at.label.label-default #{p.updated_at.to_s}
-                .col-md-1
-                    - if policy(p).edit?
-                        = link_to "Edit Project", edit_project_path(p), :target => '_blank', class: 'btn btn-xs btn-info pull-right'
-                .col-md-1
-                    - if policy(p).show?
-                        = link_to "View Project", project_path(p), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
-    = content_tag :div, class: "panel-collapse collapse", id: p.id
-        .panel-body
-            .form-horizontal
+                        button.close data-dismiss="modal" type="button"  &times;
+            .modal-body
                 .row
                     .col-md-4
                         .panel.panel-info
                             .panel-heading
                                 h4.panel-title Important Dates
                             .panel-body
-                                .form-group
-                                    .col-md-5
-                                        .well.well-sm Script due
-                                    .col-md-7
-                                        div
-                                            = text_field_tag :script_due, p.script_due, {class: "form-control", readonly: true}
-                                .form-group
-                                    .col-md-5
-                                        .well.well-sm First training
-                                    .col-md-7
-                                        div
-                                            - first_training = p.project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training])
-                                            - if first_training
-                                                = text_field_tag :first_training, first_training.start, {class: "form-control", readonly: true}
-                                .form-group
-                                    .col-md-5
-                                        .well.well-sm Last editing
-                                    .col-md-7
-                                        div
-                                            - last_editing = p.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
-                                            - if last_editing
-                                                = text_field_tag :last_editing, last_editing.start, {class: "form-control", readonly: true}
-                                .form-group
-                                    .col-md-5
-                                        .well.well-sm Project due
-                                    .col-md-7
-                                        div
-                                            = text_field_tag :due, p.due, {class: "form-control", readonly: true}
-                                .form-group
-                                    .col-md-5
-                                        .well.well-sm Projects ready by
-                                    .col-md-7
-                                        div
-                                            - if p.viewable_by
-                                                = text_field_tag :viewable_by, p.viewable_by, {class: "form-control", readonly: true}
+                                .row
+                                    .col-md-4
+                                        h4 Script due
+                                    .col-md-8
+                                        .well.well-sm #{p.script_due}
+                                .row
+                                    .col-md-4
+                                        h4 First training
+                                    .col-md-8
+                                        .well.well-sm #{p.first_training.start}
+                                .row
+                                    .col-md-4
+                                        h4 Last editing
+                                    .col-md-8
+                                        .well.well-sm #{p.last_editing.start}
+                                .row
+                                    .col-md-4
+                                        h4 Project due
+                                    .col-md-8
+                                        .well.well-sm #{p.due}
+                                .row
+                                    .col-md-4
+                                        h4 Publish by
+                                    .col-md-8
+                                        - if p.viewable_by
+                                            .well.well-sm #{p.viewable_by}
                     - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
-                    - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
-                    .col-md-4
+                    .col-md-8
                         .panel.panel-danger
                             .panel-heading
                                 h4.panel-title Training Reservations
                             .panel-body
-                                - @training.each_with_index do |res, i|
-                                    .form-group
-                                        .col-md-4
-                                            .well.well-sm Training #{i + 1}
-                                        .col-md-8
-                                            = text_field_tag :start, res.start, {class: "form-control", readonly: true}
+                                .list-group
+                                    - @training.each_with_index do |res, i|
+                                        .list-group-item
+                                            .row
+                                                .col-md-6
+                                                    h4
+                                                        span.label.label-primary #{res.start.to_date}
+                                                        ' 
+                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        '
+                                                        | to 
+                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        '
+                                                        | in 
+                                                        span.label.label-primary #{res.lab.titleize}
+                                                        ' 
+                                                        - if res.subtype.present?
+                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                .col-md-6
+                                                    p #{res.staff_notes}
+                .row
                     .col-md-4
+                        .panel.panel-info
+                            .panel-heading
+                                h4.panel-title Project Information
+                            .panel-body
+                                .row
+                                    .col-md-4
+                                        h4 Professor
+                                    .col-md-8
+                                        .well.well-sm #{p.course.get_instructor.full_name}
+                                .row
+                                    .col-md-4
+                                        h4 Course
+                                    .col-md-8
+                                        .well.well-sm #{p.course.get_short_name}
+                                .row
+                                    .col-md-4
+                                        h4 Project type
+                                    .col-md-8
+                                        .well.well-sm #{p.category.titleize}
+                                .row
+                                    .col-md-4
+                                        h4 # Students
+                                    .col-md-8
+                                        .well.well-sm #{p.course.users.length - 1}
+                                .row
+                                    .col-md-4
+                                        h4 Description
+                                    .col-md-8
+                                        - d = p.description
+                                        .well.well-sm #{(d.length > 100) ? d[0..100] + "..." : d}
+                    - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
+                    .col-md-8
                         .panel.panel-warning
                             .panel-heading
                                 h4.panel-title Editing Reservations
                             .panel-body
-                                - @editing.each_with_index do |res, i|
-                                    .form-group
-                                        .col-md-4
-                                            .well.well-sm Editing #{i + 1}
-                                        .col-md-8
-                                            = text_field_tag :start, res.start, {class: "form-control", readonly: true}
-                .row
-                    .well.well-lg #{p.description}
+                                .list-group
+                                    - @editing.each_with_index do |res, i|
+                                        .list-group-item
+                                            .row
+                                                .col-md-6
+                                                    h4
+                                                        span.label.label-primary #{res.start.to_date}
+                                                        ' 
+                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        '
+                                                        | to 
+                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        '
+                                                        | in 
+                                                        span.label.label-primary #{res.lab.titleize}
+                                                        ' 
+                                                        - if res.subtype.present?
+                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                .col-md-6
+                                                    p #{res.staff_notes}
+            .modal-footer
+                button.btn.btn-default data-dismiss="modal" type="button" Close
