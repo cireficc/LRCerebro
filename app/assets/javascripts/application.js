@@ -23,7 +23,9 @@
 
 // Default options for the DateTimePicker
 var dtpDefaults = {
-	format: "YYYY-MM-DD  h:mm A" // 2015-08-10 5:30 PM; Rails-friendly DateTime format
+	format: "YYYY-MM-DD  h:mm A", // 2015-08-10 5:30 PM; Rails-friendly DateTime format
+	sideBySide: true,
+	viewMode: "months"
 }
 
 // Page ready and change for all pages (initialization code)
