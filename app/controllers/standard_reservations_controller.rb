@@ -24,6 +24,8 @@ class StandardReservationsController < ApplicationController
         # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
         # Director/labasst have full access to all standard reservations, faculty/students only to their own
         @where[:members] = current_user.id if (current_user.faculty? || current_user.student?)
+        
+        @where[:archived] = params[:archived] if params[:archived].present?
 
         @standard_reservations = StandardReservation.search(
                 "*",
