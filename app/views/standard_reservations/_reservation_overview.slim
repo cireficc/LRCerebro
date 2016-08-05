@@ -1,50 +1,75 @@
-div name="standard_reservation_panel" class= "panel panel-primary"
-    .panel-heading.cursor-pointer
-        h4.panel-title data-toggle="collapse" data-target="##{r.id}"
-            .row.text-center
-                .col-md-10
-                    .col-md-2
-                        span#course_name.label.label-warning #{r.course.get_short_name}
-                    .col-md-2
-                        span#activity.label.label-danger #{r.activity.titleize}
-                    .col-md-2
-                        span#start.label.label-default  #{r.start}
-                    .col-md-2
-                        span#end.label.label-default #{r.end}
-                    .col-md-2
-                        span#lab.label.label-default #{r.lab.titleize}
-                    .col-md-2
-                        span#walkthrough.label.label-default #{r.walkthrough? ? "YES" : "NO"}
-                .col-md-1
-                    - if policy(r).edit?
-                        = link_to "Edit Reservation", edit_standard_reservation_path(r), target: '_blank', class: 'btn btn-xs btn-info pull-right'
-                .col-md-1
-                    - if policy(r).show?
-                        = link_to "View Reservation", standard_reservation_path(r), target: '_blank', class: 'btn btn-xs btn-default pull-right'
-    = content_tag :div, class: "panel-collapse collapse", id: r.id
-        .panel-body
-            = simple_form_for r do |f|
-                fieldset disabled = true
-                    .row
-                        .col-md-6
-                            .row
-                                .col-md-3
-                                    h4 Utilities
-                                .col-md-9
-                                    = f.input :utilities,
-                                        collection: StandardReservation.utilities.collect { |u, i| [u.titleize, u] },
-                                        as: :check_boxes
-                            .row
-                                .col-md-3
-                                    h4 Assistance
-                                .col-md-9
-                                    = f.input :assistances,
-                                        collection: StandardReservation.assistances.collect { |a, i| [a.titleize, a] },
-                                        as: :check_boxes
-                        .col-md-6
-                            .row
-                                .col-md-3
-                                    h4 Additional Instructions
-                                .col-md-9
-                                    = f.input :additional_instructions,
-                                        input_html: { rows: 9 }
+.modal.fade role="dialog" id="#{r.id}"
+    .modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+                .row
+                    .col-md-4
+                        | <i>Submitted: <b>#{r.created_at}</b></i>
+                    .col-md-4
+                        | <i>Updated: <b>#{r.updated_at}</b></i>
+                    .col-md-3
+                        = link_to 'View on Google Calendar', r.google_calendar_html_link, :target => '_blank', class: 'btn btn-xs btn-default'
+                    .col-md-1
+                        button.close data-dismiss="modal" type="button"  &times;
+            .modal-body
+                .row
+                    .col-md-6
+                        .panel.panel-info
+                            .panel-heading
+                                h4.panel-title General Information
+                            .panel-body
+                                .row
+                                    .col-md-4
+                                        h4 Instructor
+                                    .col-md-8
+                                        .well.well-sm #{r.course.get_instructor.full_name}
+                                .row
+                                    .col-md-4
+                                        h4 Course
+                                    .col-md-8
+                                        .well.well-sm #{r.course.get_short_name}
+                                .row
+                                    .col-md-4
+                                        h4 Walkthrough
+                                    .col-md-8
+                                        .well.well-sm #{r.walkthrough? ? "Yes" : "No"}
+                                .row
+                                    .col-md-4
+                                        h4 Utilities
+                                    .col-md-8
+                                        - if r.utilities.reject(&:blank?).any?
+                                            .well.well-sm #{r.utilities.reject!(&:blank?).map { |u| u.titleize }.join(", ")}
+                                .row
+                                    .col-md-4
+                                        h4 Asistance
+                                    .col-md-8
+                                        - if r.assistances.reject(&:blank?).any?
+                                            .well.well-sm #{r.assistances.reject!(&:blank?).map { |a| a.titleize }.join(", ")}
+                    .col-md-6
+                        .panel.panel-warning
+                            .panel-heading
+                                h4.panel-title Date, Time and Instructions
+                            .panel-body
+                                .row
+                                    .col-md-4
+                                        h4 Start Time
+                                    .col-md-8
+                                        .well.well-sm #{r.start}
+                                .row
+                                    .col-md-4
+                                        h4 End Time
+                                    .col-md-8
+                                        .well.well-sm #{r.end}
+                                .row
+                                    .col-md-4
+                                        h4 Lab
+                                    .col-md-8
+                                        .well.well-sm #{r.lab.titleize}
+                                .row
+                                    .col-md-4
+                                        h4 Instructions
+                                    .col-md-8
+                                        - if r.additional_instructions.present?
+                                            .well.well-sm #{r.additional_instructions}
+            .modal-footer
+                button.btn.btn-default data-dismiss="modal" type="button" Close
