@@ -23,7 +23,13 @@ class ProjectReservation < ActiveRecord::Base
     enum subtype: {
         project_introduction: 0,
         camera_training: 1,
-        camtasia_traning: 2
+        camtasia_training: 2
+    }
+    
+    SUBTYPES_SHORTHAND = {
+        project_introduction: "ProjIntro",
+        camera_training: "VidCam",
+        camtasia_training: "Camtas."
     }
     
     # In order for form submissions to assign this property correctly, this enum has to be present
