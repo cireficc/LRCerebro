@@ -12,122 +12,121 @@
                     .col-md-1
                         button.close data-dismiss="modal" type="button"  &times;
             .modal-body
-                .panel-body
-                    .row
-                        .col-md-4
-                            .panel.panel-info
-                                .panel-heading
-                                    h4.panel-title Important Dates
-                                .panel-body
-                                    .row
-                                        .col-md-4
-                                            h4 Script due
-                                        .col-md-8
-                                            .well.well-sm #{p.script_due}
-                                    .row
-                                        .col-md-4
-                                            h4 First training
-                                        .col-md-8
-                                            .well.well-sm #{p.first_training.start}
-                                    .row
-                                        .col-md-4
-                                            h4 Last editing
-                                        .col-md-8
-                                            .well.well-sm #{p.last_editing.start}
-                                    .row
-                                        .col-md-4
-                                            h4 Project due
-                                        .col-md-8
-                                            .well.well-sm #{p.due}
-                                    .row
-                                        .col-md-4
-                                            h4 Publish by
-                                        .col-md-8
-                                            - if p.viewable_by
-                                                .well.well-sm #{p.viewable_by}
-                        - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
-                        .col-md-8
-                            .panel.panel-danger
-                                .panel-heading
-                                    h4.panel-title Training Reservations
-                                .panel-body
-                                    .list-group
-                                        - @training.each_with_index do |res, i|
-                                            .list-group-item
-                                                .row
-                                                    .col-md-6
-                                                        h4
-                                                            span.label.label-primary #{res.start.to_date}
-                                                            ' 
-                                                            span.label.label-primary #{res.start.to_s[10..-1]}
-                                                            '
-                                                            | to 
-                                                            span.label.label-primary #{res.end.to_s[10..-1]}
-                                                            '
-                                                            | in 
-                                                            span.label.label-primary #{res.lab.titleize}
-                                                            ' 
-                                                            - if res.subtype.present?
-                                                                span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
-                                                    .col-md-6
-                                                        p #{res.staff_notes}
-                    .row
-                        .col-md-4
-                            .panel.panel-info
-                                .panel-heading
-                                    h4.panel-title Project Information
-                                .panel-body
-                                    .row
-                                        .col-md-4
-                                            h4 Professor
-                                        .col-md-8
-                                            .well.well-sm #{p.course.get_instructor.full_name}
-                                    .row
-                                        .col-md-4
-                                            h4 Course
-                                        .col-md-8
-                                            .well.well-sm #{p.course.get_short_name}
-                                    .row
-                                        .col-md-4
-                                            h4 Project type
-                                        .col-md-8
-                                            .well.well-sm #{p.category.titleize}
-                                    .row
-                                        .col-md-4
-                                            h4 # Students
-                                        .col-md-8
-                                            .well.well-sm #{p.course.users.length - 1}
-                                    .row
-                                        .col-md-4
-                                            h4 Description
-                                        .col-md-8
-                                            - d = p.description
-                                            .well.well-sm #{(d.length > 100) ? d[0..100] + "..." : d}
-                        - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
-                        .col-md-8
-                            .panel.panel-warning
-                                .panel-heading
-                                    h4.panel-title Editing Reservations
-                                .panel-body
-                                    .list-group
-                                        - @editing.each_with_index do |res, i|
-                                            .list-group-item
-                                                .row
-                                                    .col-md-6
-                                                        h4
-                                                            span.label.label-primary #{res.start.to_date}
-                                                            ' 
-                                                            span.label.label-primary #{res.start.to_s[10..-1]}
-                                                            '
-                                                            | to 
-                                                            span.label.label-primary #{res.end.to_s[10..-1]}
-                                                            '
-                                                            | in 
-                                                            span.label.label-primary #{res.lab.titleize}
-                                                            ' 
-                                                            - if res.subtype.present?
-                                                                span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
-                                                    .col-md-6
-                                                        p #{res.staff_notes}
+                .row
+                    .col-md-4
+                        .panel.panel-info
+                            .panel-heading
+                                h4.panel-title Important Dates
+                            .panel-body
+                                .row
+                                    .col-md-4
+                                        h4 Script due
+                                    .col-md-8
+                                        .well.well-sm #{p.script_due}
+                                .row
+                                    .col-md-4
+                                        h4 First training
+                                    .col-md-8
+                                        .well.well-sm #{p.first_training.start}
+                                .row
+                                    .col-md-4
+                                        h4 Last editing
+                                    .col-md-8
+                                        .well.well-sm #{p.last_editing.start}
+                                .row
+                                    .col-md-4
+                                        h4 Project due
+                                    .col-md-8
+                                        .well.well-sm #{p.due}
+                                .row
+                                    .col-md-4
+                                        h4 Publish by
+                                    .col-md-8
+                                        - if p.viewable_by
+                                            .well.well-sm #{p.viewable_by}
+                    - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
+                    .col-md-8
+                        .panel.panel-danger
+                            .panel-heading
+                                h4.panel-title Training Reservations
+                            .panel-body
+                                .list-group
+                                    - @training.each_with_index do |res, i|
+                                        .list-group-item
+                                            .row
+                                                .col-md-6
+                                                    h4
+                                                        span.label.label-primary #{res.start.to_date}
+                                                        ' 
+                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        '
+                                                        | to 
+                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        '
+                                                        | in 
+                                                        span.label.label-primary #{res.lab.titleize}
+                                                        ' 
+                                                        - if res.subtype.present?
+                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                .col-md-6
+                                                    p #{res.staff_notes}
+                .row
+                    .col-md-4
+                        .panel.panel-info
+                            .panel-heading
+                                h4.panel-title Project Information
+                            .panel-body
+                                .row
+                                    .col-md-4
+                                        h4 Professor
+                                    .col-md-8
+                                        .well.well-sm #{p.course.get_instructor.full_name}
+                                .row
+                                    .col-md-4
+                                        h4 Course
+                                    .col-md-8
+                                        .well.well-sm #{p.course.get_short_name}
+                                .row
+                                    .col-md-4
+                                        h4 Project type
+                                    .col-md-8
+                                        .well.well-sm #{p.category.titleize}
+                                .row
+                                    .col-md-4
+                                        h4 # Students
+                                    .col-md-8
+                                        .well.well-sm #{p.course.users.length - 1}
+                                .row
+                                    .col-md-4
+                                        h4 Description
+                                    .col-md-8
+                                        - d = p.description
+                                        .well.well-sm #{(d.length > 100) ? d[0..100] + "..." : d}
+                    - @editing = p.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
+                    .col-md-8
+                        .panel.panel-warning
+                            .panel-heading
+                                h4.panel-title Editing Reservations
+                            .panel-body
+                                .list-group
+                                    - @editing.each_with_index do |res, i|
+                                        .list-group-item
+                                            .row
+                                                .col-md-6
+                                                    h4
+                                                        span.label.label-primary #{res.start.to_date}
+                                                        ' 
+                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        '
+                                                        | to 
+                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        '
+                                                        | in 
+                                                        span.label.label-primary #{res.lab.titleize}
+                                                        ' 
+                                                        - if res.subtype.present?
+                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                .col-md-6
+                                                    p #{res.staff_notes}
             .modal-footer
                 button.btn.btn-default data-dismiss="modal" type="button" Close
