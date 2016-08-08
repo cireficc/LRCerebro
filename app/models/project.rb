@@ -9,8 +9,6 @@ class Project < ActiveRecord::Base
     validates_associated :project_reservations
     attr_accessor :present
     
-    scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
-    scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
     scope :approved, -> { where(approved: true) }
     scope :pending, -> { where(approved: false) }
     

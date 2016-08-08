@@ -11,9 +11,6 @@ class Course < ActiveRecord::Base
     
     validates :name, :department, :course, :section, :year, :semester, presence: true
     
-    scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
-    scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
-    
     # Enum to describe the semester in which a course takes place.
     # Although there are technically 3 summer semester types
     # (6-week 1, 6-week 2, 12-week), classify them all as summer
