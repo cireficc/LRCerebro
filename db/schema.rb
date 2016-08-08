@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720161701) do
+ActiveRecord::Schema.define(version: 20160808152150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160720161701) do
     t.text     "class_project_after_deadline_message"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.integer  "current_semester_year"
+    t.integer  "current_semester"
   end
 
   create_table "cds", force: :cascade do |t|

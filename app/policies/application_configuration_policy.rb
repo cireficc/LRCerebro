@@ -21,9 +21,12 @@ class ApplicationConfigurationPolicy
     
     def update_attributes
         if @user.director?
-            [:enrollment_update_message, :enrollment_last_updated, :current_semester_start, :current_semester_end, :class_project_submission_start, :class_project_submission_end, :class_project_before_deadline_message, :class_project_after_deadline_message]
+            [:enrollment_update_message, :enrollment_last_updated, :current_semester_start, :current_semester_end,
+            :current_semester_year, :current_semester, :class_project_submission_start, :class_project_submission_end,
+            :class_project_before_deadline_message, :class_project_after_deadline_message]
         else
-            [:enrollment_update_message, :enrollment_last_updated, :current_semester_start, :current_semester_end]
+            [:enrollment_update_message, :enrollment_last_updated, :current_semester_start, :current_semester_end,
+            :current_semester_year, :current_semester]
         end
     end
     
