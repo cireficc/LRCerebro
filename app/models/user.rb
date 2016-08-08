@@ -9,9 +9,6 @@ class User < ActiveRecord::Base
     
     validates :g_number, :username, :first_name, :last_name, :role, presence: true
     
-    scope :active, -> { where("#{self.table_name}.updated_at > ?", ApplicationConfiguration.last.current_semester_start) }
-    scope :archived, -> { where("#{self.table_name}.updated_at < ?", ApplicationConfiguration.last.current_semester_start) }
-    
     # User roles in the MLL department and the LRC:
     # :director - Director and assistant director of the LRC. Highest privileges
     # :labasst - Lab assistants of the LRC. Elevated privileges
