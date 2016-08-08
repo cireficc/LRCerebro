@@ -124,8 +124,10 @@ class UsersController < ApplicationController
         
         if params[:archived].present?
             if params[:archived] == "true"
-                @where[:year] = { not: ApplicationConfiguration.first.current_semester_year }
-                @where[:semester] = { not: ApplicationConfiguration.first.current_semester }
+                @where[:or] = [[
+                    {year: { not: ApplicationConfiguration.first.current_semester_year }},
+                    {semester: { not: ApplicationConfiguration.first.current_semester }}
+                ]]
             else
                 @where[:year] = ApplicationConfiguration.first.current_semester_year
                 @where[:semester] = ApplicationConfiguration.first.current_semester
