@@ -36,6 +36,18 @@
                                         = f.input_field :current_semester_end,
                                             as: :string,
                                             class: "form-control"
+                            .row
+                                .col-md-3
+                                    h4 Current Semester Year
+                                .col-md-9
+                                    = f.input :current_semester_year
+                            .row
+                                .col-md-3
+                                    h4 Current Semester
+                                .col-md-9
+                                    = f.input :current_semester,
+                                        collection: ApplicationConfiguration.current_semesters.collect { |s, i| [s.titleize, s] },
+                                        selected: @configuration.current_semester
             .col-md-6
                 fieldset disabled = current_user.labasst?
                     .panel.panel-info
