@@ -1,13 +1,13 @@
 = form_tag users_path, id: "user_search_form", method: :get do |f|
     .row
-        .col-md-4
+        .col-md-3
             h4 Keyword
             .input-group
                 = search_field_tag :search, params[:search], placeholder: "Search by username, G#, first name, or last name", class: "form-control", autocomplete: "off"
                 span.input-group-btn
                     button.btn.btn-primary(type="submit")
                         .glyphicon.glyphicon-search
-        .col-md-6
+        .col-md-5
             h4 Enrolled In
             = select_tag :active_courses,
                 options_for_select(Course.all.order(:name).map { |c| [c.name, c.id] }, params[:active_courses]), {class: "form-control", multiple: true}
@@ -15,3 +15,7 @@
             h4 Role
             = select_tag :role,
                 options_for_select(User.roles.map { |r, i| [r.titleize, r] }, params[:role]), {class: "form-control", multiple: true}
+        .col-md-2
+            h4 Archived?
+            = select_tag :archived,
+                options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
