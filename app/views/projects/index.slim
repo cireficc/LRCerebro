@@ -52,10 +52,4 @@ table#projects.table.table-hover
     = paginate @projects
 
 javascript:
-    $("#projects").DataTable({
-        columnDefs: [
-            { orderable: false, targets: 'no-sort' }
-        ],
-        "paging": false,
-        "info" : false
-    });
+    $("#projects").DataTable(dataTableDefaults);

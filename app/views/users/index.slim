@@ -33,13 +33,4 @@ table#users.table.table-hover
     = paginate @users
 
 javascript:
-    $("#users").DataTable({
-        columnDefs: [
-          { orderable: false, targets: 'no-sort' }
-        ],
-        "paging": false,
-        "info" : false,
-        "language": {
-          "search": "Filter records:"
-        }
-    });
+    $("#users").DataTable(dataTableDefaults);

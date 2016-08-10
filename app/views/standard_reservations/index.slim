@@ -49,10 +49,4 @@ table#standard_reservations.table.table-hover
     = paginate @standard_reservations
 
 javascript:
-    $("#standard_reservations").DataTable({
-        columnDefs: [
-            { orderable: false, targets: 'no-sort' }
-        ],
-        "paging": false,
-        "info" : false
-    });
+    $("#standard_reservations").DataTable(dataTableDefaults);
