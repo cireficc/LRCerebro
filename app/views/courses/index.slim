@@ -47,13 +47,4 @@ table#courses.table.table-hover
     = paginate @courses
                     
 javascript:
-    $("#courses").DataTable({
-        columnDefs: [
-          { orderable: false, targets: 'no-sort' }
-        ],
-        "paging": false,
-        "info" : false,
-        "language": {
-          "search": "Filter records:"
-        }
-    });
+    $("#courses").DataTable(dataTableDefaults);

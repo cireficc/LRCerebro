@@ -28,6 +28,19 @@ var dtpDefaults = {
 	viewMode: "months"
 }
 
+// Default options for DataTables
+var dataTableDefaults = {
+    order: [],
+        columnDefs: [
+            { orderable: false, targets: 'no-sort' }
+        ],
+        paging: false,
+        info : false,
+        language: {
+          search: "Filter records:"
+        }
+}
+
 // Page ready and change for all pages (initialization code)
 var initialize = function() {
 	

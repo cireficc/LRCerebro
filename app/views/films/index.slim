@@ -42,10 +42,4 @@ table#films.table.table-hover
     = paginate @films
 
 javascript:
-    $("#films").DataTable({
-        columnDefs: [
-            { orderable: false, targets: 'no-sort' }
-        ],
-        "paging": false,
-        "info" : false
-    });
+    $("#films").DataTable(dataTableDefaults);
