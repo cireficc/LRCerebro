@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
     
     def index
         @limit = 25
-        @order = { created_at: :asc }
+        @order = { created_at: :desc }
         @includes = [:course, :project_reservations]
 
         @where = {}
