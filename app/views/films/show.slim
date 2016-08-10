@@ -68,26 +68,30 @@
         h3 Streaming
         - if current_user
             - if @film.digitized_versions.any?
-                .row
-                    ul.nav.nav-tabs
-                        - @film.digitized_versions.each_with_index do |d, i|
-                            li class="#{'active' if i == 0}"
-                                a data-toggle="tab" href="#version#{i}"
-                                    | A: 
-                                    span.label.label-primary #{d.audio_language.titleize}
-                                    ' 
-                                    | / S: 
-                                    span.label.label-primary #{d.subtitle_language.titleize}
-                    .tab-content
-                        - @film.digitized_versions.each_with_index do |d, i|
-                                .tab-pane class="#{'active' if i == 0}" id="version#{i}"
-                                    - if d.embed_code.present?
-                                        .col-md-9
-                                            = raw d.embed_code
-                                            - if policy(@film).edit?
-                                                = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
-                                    - else
-                                        p No content available
+                // Director, labasst and faculty can stream anywhere. Students can only stream in the LRC
+                - if (current_user.director? || current_user.labasst? || current_user.faculty?) || (current_user.student? && @ip_in_lrc_subnet)
+                    .row
+                        ul.nav.nav-tabs
+                            - @film.digitized_versions.each_with_index do |d, i|
+                                li class="#{'active' if i == 0}"
+                                    a data-toggle="tab" href="#version#{i}"
+                                        | A: 
+                                        span.label.label-primary #{d.audio_language.titleize}
+                                        ' 
+                                        | / S: 
+                                        span.label.label-primary #{d.subtitle_language.titleize}
+                        .tab-content
+                            - @film.digitized_versions.each_with_index do |d, i|
+                                    .tab-pane class="#{'active' if i == 0}" id="version#{i}"
+                                        - if d.embed_code.present?
+                                            .col-md-9
+                                                = raw d.embed_code
+                                                - if policy(@film).edit?
+                                                    = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
+                                        - else
+                                            p No content available
+                - else
+                    h4 If you are a student, you must be in the LRC to stream films. Otherwise, your professor can make films streamable through Blackboard for off-campus viewing.
             - else
                 h4 No streaming available.
         - else
