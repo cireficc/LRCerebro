@@ -56,6 +56,10 @@ class Project < ActiveRecord::Base
     }
     
     def search_data
+        
+        first_training_start = first_training.start if first_training
+        last_editing_start = last_editing.start if last_editing
+        
         {
             name: name,
             description: description,
@@ -64,8 +68,8 @@ class Project < ActiveRecord::Base
             due: due,
             course: course.id,
             submitted_by: course.instructors.collect(&:id),
-            first_training: project_reservations.order(:start).find_by(category: ProjectReservation.categories[:training]).start,
-            last_editing: project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing]).start,
+            first_training: first_training_start,
+            last_editing: last_editing_start,
             created_at: created_at,
             approved: approved,
             members: course.users.collect(&:id),

@@ -26,13 +26,15 @@
                                 .row
                                     .col-md-4
                                         h4 First training
-                                    .col-md-8
-                                        .well.well-sm #{p.first_training.start}
+                                    - if p.first_training
+                                        .col-md-8
+                                            .well.well-sm #{p.first_training.start}
                                 .row
                                     .col-md-4
                                         h4 Last editing
-                                    .col-md-8
-                                        .well.well-sm #{p.last_editing.start}
+                                    - if p.last_editing
+                                        .col-md-8
+                                            .well.well-sm #{p.last_editing.start}
                                 .row
                                     .col-md-4
                                         h4 Project due
