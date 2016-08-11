@@ -95,9 +95,17 @@
                                         .well.well-sm #{p.category.titleize}
                                 .row
                                     .col-md-4
-                                        h4 # Students
+                                        h4 # Students / Group Size
                                     .col-md-8
-                                        .well.well-sm #{p.course.users.length - 1}
+                                        .well.well-sm
+                                            - num_students = p.course.get_students.length
+                                            - per_group = p.students_per_group
+                                            span.label.label-info #{num_students}
+                                            |  #{"student".pluralize(num_students)}, 
+                                            span.label.label-info #{p.group_size}
+                                            |  per group = 
+                                            span.label.label-info #{per_group}
+                                            |  #{"group".pluralize(per_group)}
                                 .row
                                     .col-md-4
                                         h4 Description
