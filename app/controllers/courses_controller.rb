@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
     def index
         authorize Course
         @limit = 25
-        @order = { name: :asc }
+        @order = { name: :asc, year: :desc, semester: :asc }
         @includes = [:enrollment, :users]
 
         @where = {}
