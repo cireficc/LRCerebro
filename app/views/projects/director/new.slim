@@ -39,6 +39,11 @@
                 .col-md-6
                     .row
                         .col-md-4
+                            h4 Student Group Size
+                        .col-md-8
+                            = f.input :group_size, input_html: { min: 1, max: 4 }
+                    .row
+                        .col-md-4
                             h4 Script due
                         .col-md-8
                             = f.input :script_due, wrapper: :vertical_input_group_date
