@@ -24,20 +24,20 @@ class ProjectPolicy
     
     def create_attributes
         if @user.director?
-            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :group_size,
             project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
         else
-            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :group_size,
             project_reservations_attributes: [:id, :category, :start, :end, :faculty_notes, :_destroy]]
         end
     end
     
     def update_attributes
         if @user.director?
-            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :approved, :archived,
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :approved, :archived, :group_size,
             project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
         else
-            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by,
+            [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :group_size,
             project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
         end
     end
