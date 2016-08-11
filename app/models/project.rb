@@ -95,6 +95,10 @@ class Project < ActiveRecord::Base
         self.project_reservations.order(:start).reverse_order.find_by(category: ProjectReservation.categories[:editing])
     end
     
+    def students_per_group
+        (self.course.get_students.length.to_f/self.group_size.to_f).ceil
+    end
+    
     def create_calendar_events
         self.project_reservations.each do |res|
             res.create_calendar_event
