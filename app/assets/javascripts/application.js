@@ -57,6 +57,16 @@ var initialize = function() {
 	    }
 	});
 	
+	// If a DTP start time is changed, update the end time to match it
+	$('.input-group').on('dp.change', function(e) {
+
+        if ($(this).find('input[type="text"]').attr('id').endsWith("start")) {
+            var panelBody = $(this).closest('.panel-body');
+            var endInput = $(panelBody).find('input[id$="_end"]');
+            endInput.closest('.input-group').data("DateTimePicker").date(e.date);
+        }
+    });
+
 	// Initialize all Bootstrap toolips and popovers
 	$("[data-toggle='tooltip']").tooltip();
 	$("[data-toggle='popover']").popover({ trigger: "focus", container: "body", html: true });
@@ -168,16 +178,4 @@ $(document).on('click', '.add-fields', function(event) {
     
     // Initialize everything
     initialize();
-});
-
-// If a calendar glyphicon is clicked, initialize the DateTimePicker
-$(document).on('click', '.glyphicon-calendar', function() {
-    
-    var input = $(this).closest('.input-group');
-	var textField = input.find('input[type="text"]');
-    
-    // Only initialize a DTP when the input is enabled
-	if (!textField.prop('disabled')) {
-	    input.datetimepicker(dtpDefaults);
-	}
 });
