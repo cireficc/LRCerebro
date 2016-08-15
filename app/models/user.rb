@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
     
     has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
+    has_many :project_group_members
+    has_many :project_groups, through: :project_group_members
     
     accepts_nested_attributes_for :courses
     

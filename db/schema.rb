@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810191424) do
+ActiveRecord::Schema.define(version: 20160815180704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,20 @@ ActiveRecord::Schema.define(version: 20160810191424) do
   end
 
   add_index "inventory_items", ["inventoriable_id", "inventoriable_type"], name: "inventory_items_polymorphic_association_index", using: :btree
+
+  create_table "project_group_members", force: :cascade do |t|
+    t.integer  "project_group_id"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "project_groups", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "publish_link"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "project_reservations", force: :cascade do |t|
     t.integer  "project_id"
