@@ -1,5 +1,5 @@
 doctype html
-html
+html lang="en"
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -23,7 +23,7 @@ html
       / Have a loding GIF for turbolinks while a page is still loading
       / Show and hide it with JavaScript
       div#loading.vertical-center
-          = image_tag("loading.gif", alt: "Loading...", title: "Loading...")
+          = image_tag("loading.gif", alt: "Loading...")
       javascript:
         $(document).on('page:fetch', function() {
           $("#content").hide();

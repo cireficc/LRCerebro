@@ -12,9 +12,9 @@
           = image_tag "lab_grey.jpg", class: "carousel-image"
         .item
           = image_tag "lab_dark.jpg", class: "carousel-image"
-      a.left.carousel-control data-slide="prev" href="#image_carousel" role="button"
+      span.left.carousel-control data-slide="prev" href="#image_carousel" role="button"
         span.glyphicon.glyphicon-chevron-left aria-hidden="true"
-      a.right.carousel-control data-slide="next" href="#image_carousel" role="button"
+      span.right.carousel-control data-slide="next" href="#image_carousel" role="button"
         span.glyphicon.glyphicon-chevron-right aria-hidden="true"
   .col-md-6
     .col-md-6
@@ -26,14 +26,12 @@
             em What is this site's purpose?
         p This site is meant to make it easier for faculty, students and staff to interact with the LRC's resources.
         p Our resources include class project management, lab reservations, media access (films and music), media requests (digitization, duplication, and video recordings), equipment checkouts, and general work orders.
-        - if !logged_in?
-            = link_to "Log In", login_path, {class: 'btn btn-primary btn-lg'}
 hr
 .row.text-center
     .col-lg-12
         h1.page-header
             | What can I do here? 
-            | (<em><u>work in progress</u></em>)
+            | (<em>work in progress</em>)
     .col-md-4
         .panel.panel-primary
             .panel-heading
