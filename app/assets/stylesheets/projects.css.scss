@@ -1,3 +1,15 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+li.list-group-item.project-group-member {
+  cursor: move;
+}
+
+ul.list-group.project-group {
+  background: #eee; padding: 10px 10px; width: auto;
+}
+  
+ul.list-group.project-group:empty::after{
+  content: attr(data-empty-message);
+}
