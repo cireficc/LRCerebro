@@ -43,6 +43,7 @@ gem 'jquery-datatables-rails', '~> 3.4'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 5.0.5'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # User Jquery-turbolinks to fix event binding problems for document ready
