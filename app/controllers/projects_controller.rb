@@ -112,10 +112,23 @@ class ProjectsController < ApplicationController
         authorize @project
         @project.present = "1" if !@project.viewable_by.nil?
         
+        to_build = @project.students_per_group - @project.project_groups.length
+        to_build.times do @project.project_groups.build end
+        
+        enrolled = @project.course.get_students
+        assigned = Array.new
+        @project.project_groups.map { |group| assigned.push(*group.users) }
+        @unassigned = enrolled - assigned
+        
         render "#{@view_path}/edit"
     end
     
     def update
+        # Project groups come in as:
+        # "project_groups_attributes"=>{"0"=>{"user_ids"=>"0,1"}, "1"=>{"user_ids"=>"2,3"}}
+        # but AR needs a user_ids[], so we convert it
+        params[:project][:project_groups_attributes].map { |group, val| val[:user_ids] = val[:user_ids].split(',') }
+        
         @project = Project.find(params[:id])
         authorize @project
         

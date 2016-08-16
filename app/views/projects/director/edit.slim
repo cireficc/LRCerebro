@@ -104,6 +104,29 @@
                         span.glyphicon.glyphicon-plus
                             |  Add
                         = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :edit
+    .panel.panel-info
+        .panel-heading
+            h3.panel-title Project Groups
+        .panel-body
+            div#project_groups
+                .row
+                    .col-md-3
+                        h4#unassigned_header Unassigned students (#{@unassigned.length})
+                        ul#unassigned_list.list-group.project-group
+                            - @unassigned.each do |student|
+                                li.list-group-item.project-group-member id="#{student.id}" #{student.full_name_reverse}
+                    .col-md-9
+                        = f.association :project_groups do |project_group|
+                            - i = project_group.index
+                            .col-md-4
+                                h4 Group #{i + 1}
+                                = project_group.hidden_field :user_ids
+                                ul.list-group.project-group data-empty-message=("Drag and drop students here")
+                                    - project_group.object.users.each do |student|
+                                        li.list-group-item.project-group-member id="#{student.id}" #{student.full_name_reverse}
+                            // Gross hack to make sure groups in rows don't move when students are added to them
+                            - if i % 3 == 2
+                                .row
     .row
         .col-md-1
             = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
