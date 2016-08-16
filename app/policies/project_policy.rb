@@ -35,7 +35,8 @@ class ProjectPolicy
     def update_attributes
         if @user.director?
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :approved, :archived, :group_size,
-            project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
+            project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy],
+            project_groups_attributes: [:id, user_ids: []]]
         else
             [:course_id, :category, :name, :description, :script_due, :due, :present, :viewable_by, :group_size,
             project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
