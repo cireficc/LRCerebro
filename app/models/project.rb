@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
     has_many :project_reservations, :dependent => :destroy
     has_many :project_groups, dependent: :destroy
     accepts_nested_attributes_for :project_reservations, :reject_if => lambda { |a| a[:start].blank? && a[:end].blank? }, :allow_destroy => true
+    accepts_nested_attributes_for :project_groups
     validates :course_id, :category, :name, :description, :script_due, :due, :group_size, presence: true
     validates :group_size, inclusion: 1..4
     validates_associated :project_reservations
