@@ -18,7 +18,8 @@ log_file.puts
 
 # After import, we use these two arrays to remove users that are no longer active in MLL courses
 @imported_users = Array.new # The list of users being imported from the CSV file
-@existing_users = User.active # The current users in the database that are not archived
+@existing_users = User.search("*", where: {archived: false}).to_a # The current users in the database that are not archived
+puts "#{@existing_users.length} existing users found"
 
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
@@ -36,8 +37,6 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	@user = User.find_by(g_number: g_number)
 	@user = User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
-	
-	@user.touch # Any user in the current set of MLL data should be un-archived by touching the record
 	
 	@imported_users << @user
 end
