@@ -55,11 +55,11 @@ class ProjectPolicy
     end
     
     def edit?
-        !@project.archived? && (@user.director? || owns_project)
+        @user.director? || owns_project
     end
     
     def update?
-        !@project.archived? && (@user.director? || owns_project)
+        @user.director? || owns_project
     end
     
     def destroy?
