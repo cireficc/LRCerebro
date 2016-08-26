@@ -9,7 +9,7 @@ table#users.table.table-hover
             th Last Name
             th Role
             th Enrolled In
-            th.no-sort Active?
+            th.no-sort Archived?
             th.no-sort
             th.no-sort
             th.no-sort
@@ -22,7 +22,7 @@ table#users.table.table-hover
                 td #{user.last_name}
                 td #{user.role}
                 td #{user.courses.map { |c| c.name }.join(", ")}
-                td #{user.active? ? 'Yes' : 'No'}
+                td #{user.archived? ? 'Yes' : 'No'}
                 td
                     = link_to 'Details', user_path(user), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
                 td
