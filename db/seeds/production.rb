@@ -19,7 +19,6 @@ log_file.puts
 # After import, we use these two arrays to remove users that are no longer active in MLL courses
 @imported_users = Array.new # The list of users being imported from the CSV file
 @existing_users = User.search("*", where: {archived: false}).to_a # The current users in the database that are not archived
-puts "#{@existing_users.length} existing users found"
 
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
@@ -43,18 +42,6 @@ end
 
 log_file.puts "DONE"
 log_file.puts
-
-# Get a list of users that were in the database before import, but were not in the CSV, and delete them
-@users_to_delete = @existing_users - @imported_users
-log_file.puts "Deleting students that have been removed from the MLL data along with all course enrollment data for the user" if @users_to_delete.any?
-@users_to_delete.each do |u|
-	if u.student? # Only delete students
-		log_file.puts "Deleting user: #{u.username}"
-		u.courses.delete_all # Remove all courses from the user before deleting to keep the join table clean
-		u.delete
-	end
-end
-
 log_file.puts "[IMPORTING] courses from lrc_crs.txt..."
 log_file.puts
 
@@ -95,16 +82,6 @@ end
 
 log_file.puts "DONE"
 log_file.puts
-
-# Get a list of courses that were in the database before import, but were not in the CSV, and delete them
-@courses_to_delete = @existing_courses - @imported_courses
-log_file.puts "Deleting courses that have been removed from the MLL data along with all user enrollment data for the course" if @courses_to_delete.any?
-@courses_to_delete.each do |c|
-	log_file.puts "Deleting course: #{c.name}"
-	c.users.delete_all # Remove all users from the course before deleting to keep the join table clean
-	c.delete
-end
-
 log_file.puts "[IMPORTING] enrollments from lrc_enr.txt..."
 log_file.puts
 
@@ -121,12 +98,6 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	# If the course changed, delete the enrollments for the course where the user unenrolled
 	# then reset the lists of imported enrolls and existing enrolls for the new course
 	if @course && @course.id != course_id
-		@enrolls_to_delete = @existing_enrolls - @imported_enrolls
-		log_file.puts "Deleting enrollment data that has been removed from the MLL data" if @enrolls_to_delete.any?
-		@enrolls_to_delete.each do |u|
-			log_file.puts "Deleting enrolled: user [#{u.first_name}] from course [#{@course.name}]"
-			@course.users.delete(u)
-		end
 		
 		# Find the new course
 		@course = Course.find_by_id(course_id)
