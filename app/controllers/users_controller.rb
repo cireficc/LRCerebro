@@ -121,18 +121,7 @@ class UsersController < ApplicationController
         @where = {}
         @where[:role] = params[:role] if params[:role].present?
         @where[:active_courses] = params[:active_courses] if params[:active_courses].present?
-        
-        if params[:archived].present?
-            if params[:archived] == "true"
-                @where[:or] = [[
-                    {year: { not: ApplicationConfiguration.first.current_semester_year }},
-                    {semester: { not: ApplicationConfiguration.first.current_semester }}
-                ]]
-            else
-                @where[:year] = ApplicationConfiguration.first.current_semester_year
-                @where[:semester] = ApplicationConfiguration.first.current_semester
-            end
-        end
+        @where[:archived] = params[:archived] if params[:archived].present?
 
         if params[:search].present?
             @users = User.search(
