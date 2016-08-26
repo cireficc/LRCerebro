@@ -2,6 +2,12 @@ puts "Seeding development..."
 
 IMAGE_PATH = Rails.root.join( 'db', 'seeds', 'images')
 
+# Seed for the site configuration
+ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
+                    current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days, current_semester_year: 2016, current_semester: 0,
+                    class_project_submission_start: 2.days.ago, class_project_submission_end: Time.now + 10.days,
+                    class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
+
 # Create a few users to log in with and view/manipulate content with
 User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
 User.create(username: 'labasst', g_number: 'g00000001', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
@@ -192,11 +198,5 @@ InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type:
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 1))
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 2))
 InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 3))
-
-# Seed for the site configuration
-ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
-                    current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days, current_semester_year: 2016, current_semester: 0,
-                    class_project_submission_start: 2.days.ago, class_project_submission_end: Time.now + 10.days,
-                    class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
 
 puts "Done"
