@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
     }
     
     def search_data
-        
-        config = ApplicationConfiguration.first
         {
             username: username,
             g_number: g_number,
@@ -31,21 +29,18 @@ class User < ActiveRecord::Base
             last_name: last_name,
             role: role,
             active_courses: active_courses.collect(&:id),
-            # Assume that when a user is created/updated, they are active for the current semester
-            # Most other resources are tied to a single course, which is used for archiving
-            year: config.current_semester_year,
-            semester: config.current_semester
+            archived: !active?
         }
     end
     
     has_secure_password
     
     def active?
-        self.updated_at > ApplicationConfiguration.last.current_semester_start
+        self.courses.active.any?
     end
     
     def archived?
-        self.updated_at < ApplicationConfiguration.last.current_semester_start
+        !active?
     end
     
     def active_courses

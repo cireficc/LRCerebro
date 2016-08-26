@@ -11,7 +11,19 @@ class Course < ActiveRecord::Base
     
     validates :name, :department, :course, :section, :year, :semester, presence: true
     
-    scope :active, -> { where(year: ApplicationConfiguration.last.current_semester_year, semester: ApplicationConfiguration.last.current_semester) }
+    after_commit :reindex_associations
+    
+    scope :active, -> {
+            config = ApplicationConfiguration.last;
+            # Enums don't work in where clauses < Rails 5: https://github.com/rails/rails/issues/19964#issuecomment-98591859
+            where(year: config.current_semester_year, semester: Course.semesters[config.current_semester])
+        }
+    scope :archived, -> {
+            config = ApplicationConfiguration.last;
+            # Enums don't work in where clauses < Rails 5: https://github.com/rails/rails/issues/19964#issuecomment-98591859
+            where("year != ? OR semester != ?", config.current_semester_year, Course.semesters[config.current_semester])
+
+        }
     
     # Enum to describe the semester in which a course takes place.
     # Although there are technically 3 summer semester types
@@ -75,13 +87,21 @@ class Course < ActiveRecord::Base
             semester: semester
         }
     end
+
+    def reindex_associations
+        users.each { |u| u.reindex }
+        projects.each { |p| p.reindex }
+        standard_reservations.each { |sr| sr.reindex }
+    end
     
     def active?
-        self.updated_at > ApplicationConfiguration.last.current_semester_start
+        config = ApplicationConfiguration.last
+        self.year == config.current_semester_year && self.semester == config.current_semester
     end
     
     def archived?
-        self.updated_at < ApplicationConfiguration.last.current_semester_start
+        config = ApplicationConfiguration.last
+        self.year != config.current_semester_year || self.semester != config.current_semester
     end
     
     def get_instructor
