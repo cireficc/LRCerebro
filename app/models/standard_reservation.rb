@@ -58,8 +58,7 @@ class StandardReservation < ActiveRecord::Base
             reservation_start: start,
             lab: lab,
             members: course.users.collect(&:id),
-            year: course.year,
-            semester: course.semester
+            archived: !active?
         }
     end
     
@@ -70,8 +69,8 @@ class StandardReservation < ActiveRecord::Base
         end
     end
     
-    def archived?
-        self.updated_at < ApplicationConfiguration.last.current_semester_start
+    def active?
+        self.course.active?
     end
     
     def create_or_update_calendar_event

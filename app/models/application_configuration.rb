@@ -9,7 +9,17 @@ class ApplicationConfiguration < ActiveRecord::Base
     validate :semester_dates_valid
     validate :project_deadline_dates_valid
     
+    # If the current semester or year changed, things will be archived through reindexing
+    after_commit :reindex_associations
+    
     enum current_semester: Course.semesters
+    
+    def reindex_associations
+        # Course doesn't need to be reindexed because the year/semester are in the model already
+        User.reindex
+        Project.reindex
+        StandardReservation.reindex
+    end
     
     def semester_dates_valid
         if self.current_semester_start > self.current_semester_end

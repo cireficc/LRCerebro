@@ -74,17 +74,12 @@ class Project < ActiveRecord::Base
             created_at: created_at,
             approved: approved,
             members: course.users.collect(&:id),
-            year: course.year,
-            semester: course.semester
+            archived: !active?
         }
     end
     
     def active?
-        self.updated_at > ApplicationConfiguration.last.current_semester_start
-    end
-    
-    def archived?
-        self.updated_at < ApplicationConfiguration.last.current_semester_start
+        self.course.active?
     end
     
     def first_training
