@@ -9,8 +9,9 @@
                         .glyphicon.glyphicon-search
         .col-md-5
             h4 Enrolled In
+            - courses = (params[:archived] == "true") ? Course.archived : Course.active
             = select_tag :active_courses,
-                options_for_select(Course.all.order(:name).map { |c| [c.name, c.id] }, params[:active_courses]), {class: "form-control", multiple: true}
+                options_for_select(courses.order(:name).map { |c| [c.name, c.id] }, params[:active_courses]), {class: "form-control", multiple: true}
         .col-md-2
             h4 Role
             = select_tag :role,
