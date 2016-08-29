@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810191424) do
+ActiveRecord::Schema.define(version: 20160829171602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20160810191424) do
     t.integer  "category"
     t.datetime "start"
     t.datetime "end"
-    t.integer  "lab"
+    t.integer  "lab",                       default: 1
     t.integer  "subtype"
     t.text     "staff_notes"
     t.text     "faculty_notes"
