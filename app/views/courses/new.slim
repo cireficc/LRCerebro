@@ -46,28 +46,6 @@ h3 Adding course
         .panel-heading
             h3.panel-title Enrollment Information
         .panel-body
-            table.table.table-hover
-                thead
-                    tr
-                        th
-                            h3 Last Name
-                        th
-                            h3 First Name
-                        th
-                            h3 Username
-                tbody
-                    - instructor = @course.get_instructor
-                    - if instructor
-                        tr.danger
-                            td #{instructor.last_name}
-                            td #{instructor.first_name}
-                            td #{instructor.username}
-                    - @course.users.order(:last_name).each do |user|
-                        tr
-                            td #{user.last_name}
-                            td #{user.first_name}
-                            td #{user.username}
-            br
             .row
                 .col-md-2
                     h4 Enrolled users
