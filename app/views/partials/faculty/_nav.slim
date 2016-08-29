@@ -29,22 +29,22 @@ nav.navbar.navbar-default
                         li.divider
                         li
                             = link_to "Schedule a Reservation", new_standard_reservation_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
-                        | Forms
-                        span.caret
-                    ul.dropdown-menu role="menu"
-                        li.disabled.not-active
-                            a href="#" Film Upload
-                        li.divider
-                        li.disabled.not-active
-                            a href="#" Video Duplication
-                        li.divider
-                        li.disabled.not-active
-                            a href="#" Vidcam Shoot
-                        li.divider
-                        li.disabled.not-active
-                            a href="#" Work Request
+                // li.dropdown
+                //     a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+                //         | Forms
+                //         span.caret
+                //     ul.dropdown-menu role="menu"
+                //         li.disabled.not-active
+                //             a href="#" Film Upload
+                //         li.divider
+                //         li.disabled.not-active
+                //             a href="#" Video Duplication
+                //         li.divider
+                //         li.disabled.not-active
+                //             a href="#" Vidcam Shoot
+                //         li.divider
+                //         li.disabled.not-active
+                //             a href="#" Work Request
             ul.nav.navbar-nav.navbar-right
                 li.dropdown
                     a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
@@ -57,6 +57,6 @@ nav.navbar.navbar-default
                             a href="#" Games
                         li.disabled.not-active
                             a href="#" Music
-                    li.disabled.not-active
-                            a href="#" TimeTracker
+                    li
+                        a href="https://lrcerebro.mll.gvsu.edu/time" target="_blank" TimeTracker
                 = render 'partials/account_dropdown'
