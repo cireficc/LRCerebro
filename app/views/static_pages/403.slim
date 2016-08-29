@@ -2,7 +2,12 @@ h1
     | 403: Forbidden
 - if current_user
     h4
-        | If you believe this is an error, please email 
+        | You do not have access to that resource. If you believe this is an error, please email 
         = mail_to "shultzd@gvsu.edu", "David Shultz", {subject: "LRCerebro - 403 Forbidden", cc: "cireficc@mail.gvsu.edu", body: generate_403_email_body}
         | .
-input type= "button" onclick="history.back();" value="Back" class= "btn btn-primary"
+- else
+    h3 Please 
+        #{link_to "log in", login_path, class: 'btn btn-sm btn-info'}
+        to access this resource, or
+        #{link_to "go back", :back, class: 'btn btn-sm btn-default'}
+        to your previous page.
