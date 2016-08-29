@@ -115,7 +115,7 @@ class UsersController < ApplicationController
     def index
         authorize User
         @limit = 50
-        @order = { g_number: :asc }
+        @order = { last_name: :asc }
         @includes = [:courses]
 
         @where = {}
