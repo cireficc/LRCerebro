@@ -57,8 +57,6 @@ h3 Viewing course
                             h3 First Name
                         th
                             h3 Username
-                        th
-                            h3 G Number
                 tbody
                     - instructor = @course.get_instructor
                     - if instructor
@@ -66,20 +64,18 @@ h3 Viewing course
                             td #{instructor.last_name}
                             td #{instructor.first_name}
                             td #{instructor.username}
-                            td #{instructor.g_number}
                     - @course.get_students.order(:last_name).each do |user|
                         tr
                             td #{user.last_name}
                             td #{user.first_name}
                             td #{user.username}
-                            td #{user.g_number}
             br
             .row
                 .col-md-2
                     h3 Enrolled users
                 .col-md-4
                     = f.association :users,
-                        collection: User.all.order(:last_name).collect { |u| ["#{u.last_name}, #{u.first_name} (#{u.g_number})", u.id] },
+                        collection: User.all.order(:last_name).collect { |u| ["#{u.full_name_with_username}", u.id] },
                         selected: @course.users.collect { |u| u.id },
                         :input_html => { multiple: true, size: 20},
                         disabled: true

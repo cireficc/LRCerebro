@@ -30,7 +30,7 @@ module ApplicationHelper
         body = "\n\n---------- Please do not remove or modify the information below this line ----------\n\n"
         body += (sprintf "%-15s %s\n", "First name:", u.first_name)
         body += (sprintf "%-15s %s\n", "Last name:", u.last_name)
-        body += (sprintf "%-15s %s\n", "G number:", u.g_number)
+        body += (sprintf "%-15s %s\n", "Username:", u.username)
         body += (sprintf "%-15s %s\n", "Role:", u.role)
         body += (sprintf "%-15s %s\n", "URL:", request.url)
     end

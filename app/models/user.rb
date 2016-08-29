@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
     def search_data
         {
             username: username,
-            g_number: g_number,
             first_name: first_name,
             last_name: last_name,
             role: role,
