@@ -3,7 +3,6 @@ hr
 table#users.table.table-hover
     thead
         tr
-            th G#
             th Username
             th First Name
             th Last Name
@@ -16,7 +15,6 @@ table#users.table.table-hover
     tbody
         - @users.each do |user|
             tr
-                td #{user.g_number}
                 td #{user.username}
                 td #{user.first_name}
                 td #{user.last_name}

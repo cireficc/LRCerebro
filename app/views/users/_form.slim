@@ -9,11 +9,13 @@
                         .panel-heading
                             h3.panel-title User Information
                         .panel-body
-                            .row
-                                .col-md-3
-                                    h4 G#
-                                .col-md-9
-                                    = f.input :g_number
+                            // Never show this data, only allow creating it
+                            - if action_name == "new"
+                                .row
+                                    .col-md-3
+                                        h4 G#
+                                    .col-md-9
+                                        = f.input :g_number
                             .row
                                 .col-md-3
                                     h4 Username
