@@ -53,9 +53,10 @@ class FilmsController < ApplicationController
 
     # GET /films/1
     def show
-        lrc_subnet = IPAddr.new("148.61.167.0/24")
+        lrc_wired_subnet = IPAddr.new("35.39.169.0/24")
+        lrc_wireless_subnet = IPAddr.new("35.39.168.0/24")
         ip = IPAddr.new(request.ip)
-        @ip_in_lrc_subnet = (lrc_subnet.include? ip)
+        @ip_in_lrc_subnet = ((lrc_wired_subnet.include? ip) || (lrc_wireless_subnet.include? ip))
     end
 
     # GET /films/new
