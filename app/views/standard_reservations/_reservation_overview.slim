@@ -30,6 +30,11 @@
                                         .well.well-sm #{r.course.get_short_name}
                                 .row
                                     .col-md-4
+                                        h4 # Students
+                                    .col-md-8
+                                        .well.well-sm #{r.course.get_students.count}
+                                .row
+                                    .col-md-4
                                         h4 Walkthrough
                                     .col-md-8
                                         .well.well-sm #{r.walkthrough? ? "Yes" : "No"}
