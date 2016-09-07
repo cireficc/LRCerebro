@@ -20,4 +20,8 @@ class Lab < ActiveRecord::Base
         c: 16,
         c_and_a: 36
     }
+    
+    def self.with_workstations(lab)
+        "#{lab.titleize} (fits #{WORKSTATIONS[lab.to_sym]})"
+    end
 end

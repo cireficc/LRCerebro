@@ -70,7 +70,7 @@
                                 h4 Lab
                             .col-md-9
                                 = f.input :lab,
-                                    collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                    collection: Lab.locations.collect { |l, i| [Lab.with_workstations(l), l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                                     prompt: "Select a lab"
                         .row
                             .col-md-3

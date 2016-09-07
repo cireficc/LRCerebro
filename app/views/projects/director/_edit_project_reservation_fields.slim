@@ -28,7 +28,7 @@
                             h4 Lab
                         .col-md-8
                             = f.input :lab,
-                                collection: Lab.locations.collect { |l, i| [l.titleize, l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
+                                collection: Lab.locations.collect { |l, i| [Lab.with_workstations(l), l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                                 prompt: "Select a lab"
         .col-md-6
             .panel.panel-info
