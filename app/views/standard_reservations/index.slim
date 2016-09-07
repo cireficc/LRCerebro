@@ -9,6 +9,7 @@ table#standard_reservations.table.table-hover
             th Start
             th End
             th Lab
+            th # Students
             th Walkthrough
             th Submitted
             th Last Updated
@@ -29,6 +30,7 @@ table#standard_reservations.table.table-hover
                 td #{reservation.start}
                 td #{reservation.end}
                 td #{reservation.lab.titleize}
+                td #{reservation.course.get_students.count}
                 td
                     - if reservation.walkthrough?
                         span.label.label-success Yes
