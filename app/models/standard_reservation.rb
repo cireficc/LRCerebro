@@ -29,7 +29,8 @@ class StandardReservation < ActiveRecord::Base
     # :roaming_support - Provide roaming support
     enum utility: {
         projector: 0,
-        sound_system: 1
+        sound_system: 1,
+        document_viewer: 2
     }
     
     # Standard assistance types
