@@ -123,4 +123,8 @@ class Course < ActiveRecord::Base
         
         "#{department_code} #{self.course}-#{section}" 
     end
+    
+    def enrollment_json
+        self.users.as_json(only: [:id, :username, :first_name, :last_name, :role])
+    end
 end
