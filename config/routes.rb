@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :courses
   resources :projects
   resources :standard_reservations
+  get 'reservation_viability' => "reservation_viability#viable_labs"
   resources :films do
     collection do
       get :autocomplete

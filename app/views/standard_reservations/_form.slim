@@ -89,3 +89,28 @@
         - if policy(@standard_reservation).destroy?
             = link_to "Cancel Reservation", standard_reservation_path(@standard_reservation), data: { confirm: 'Are you sure you want to cancel this reservation?' }, :method => :delete, class: 'btn btn-danger pull-left'
         = f.submit "Update Reservation", class: "btn btn-info pull-right"
+
+javascript:
+    $("[id$=lab]").on('select2:open', function() {
+	 
+    	console.log($(this).attr("id"));
+    	var panelBody = $(this).closest(".panel-body");
+    	var start = $(panelBody).find("input[id$='start']").val();
+    	var end = $(panelBody).find("input[id$='end']").val();
+    	var enrollment_data = $("select[id$='course_id'] option:selected").data("enrollment");
+    	console.log("start: " + start + " || end: " + end + " || num_students: " + enrollment_data);
+    	
+    	if (enrollment_data && start && end) {
+        	$.ajax({
+                url: "/reservation_viability",
+                data: {
+                        start: start,
+                        end: end,
+                        num_students: enrollment_data
+                    }
+            }).done(function(json) {
+                console.log("AJAX RESULT: " + JSON.stringify(json));
+                return json;
+            });
+        }
+    });
