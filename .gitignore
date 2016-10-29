@@ -80,6 +80,7 @@ bower.json
 .idea/dataSources.xml
 .idea/dataSources.local.xml
 .idea/sqlDataSources.xml
+.idea/runConfigurations/
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 
