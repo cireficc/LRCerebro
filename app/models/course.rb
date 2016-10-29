@@ -54,6 +54,7 @@ class Course < ActiveRecord::Base
         russian: 6,
         spanish: 7,
         lrc: 8,
+        mll: 10,
         other: 9
     }
     
@@ -74,6 +75,7 @@ class Course < ActiveRecord::Base
         "RUS" => departments[:russian],
         "SPA" => departments[:spanish],
         "LRC" => departments[:lrc],
+        "MLL" => departments[:mll],
         "OTH" => departments[:other]
     }
     
