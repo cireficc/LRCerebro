@@ -43,12 +43,16 @@ module GoogleCalendarHelper
         @total = @res.training? ? @training.length : @editing.length
         
         # e.g.
-        # (not approved) "HOLD: FRE 101-01, Ward, 24 (Camtasia Training 1 of 2)"
-        # (approved) "FRE 101-01, Ward, 24 (Camtasia Editing 1 of 3)"
+        # (not approved) "HOLD: FRE 101-01, Ward, 24 (Camtasia Training 1 of 2) - ProjIntro"
+        # (approved) "FRE 101-01, Ward, 24 (Camtasia Editing 1 of 3) - In-cl Shoot"
         @event_title =
             "#{'HOLD: ' if !@project.approved?}"\
             "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@project.category.titleize} #{res.category.titleize} #{@index + 1} of #{@total})"
+            " (#{@project.category.titleize} #{@res.category.titleize} #{@index + 1} of #{@total})"
+
+        if (@res.subtype)
+            @event_title = @event_title + " - #{ProjectReservation::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
+        end
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
         @start_time = ApplicationHelper.local_to_utc(@res.start)
