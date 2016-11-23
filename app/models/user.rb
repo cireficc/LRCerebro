@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
     
     searchkick
+    devise :database_authenticatable, authentication_keys: [:username]
     
     has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
     has_many :courses, :through => :enrollment
@@ -31,8 +32,6 @@ class User < ActiveRecord::Base
             archived: !active?
         }
     end
-    
-    has_secure_password
     
     def active?
         self.courses.active.any?
