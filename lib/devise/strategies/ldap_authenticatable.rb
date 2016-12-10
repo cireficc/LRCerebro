@@ -16,17 +16,13 @@ class Devise::Strategies::LdapAuthenticatable < Devise::Strategies::Authenticata
       })
 
     if results
-      row  = results.first
-      user = User.find_or_initialize_by(username: username)
+      user = User.find_by(username: username)
 
-      if user.new_record?
-        user.update!({
-          first_name: result[:givenname].first,
-          last_name:  result[:sn].first,
-        })
+      if (user)
+        success!(user)
+      else
+        fail('LRCerebro is only accessible to Modern Languages and Literatures faculty and students.')
       end
-
-      success!(user)
     else
       fail(:invalid_login)
     end
