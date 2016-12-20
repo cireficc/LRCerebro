@@ -9,14 +9,14 @@ ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enroll
                     class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
 
 # Create a few users to log in with and view/manipulate content with
-User.create(username: 'director', g_number: 'g00000000', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
-User.create(username: 'labasst', g_number: 'g00000001', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
-faculty = User.create(username: 'faculty', g_number: 'g00000002', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
-student = User.create(username: 'student', g_number: 'g00000003', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
-User.create(username: 'unregistered', g_number: 'g00000004', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
-wardse = User.create(username: 'wardse', g_number: 'g00000005', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
-fuchsk = User.create(username: 'fuchsk', g_number: 'g00000006', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
-cireficc = User.create(username: 'cireficc', g_number: 'g00749804', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
+User.create(username: 'director', pitm: 'DIRECTOR', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
+User.create(username: 'labasst', pitm: 'LABASST', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
+faculty = User.create(username: 'faculty', pitm: 'FACULTY', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
+student = User.create(username: 'student', pitm: 'STUDENT', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
+User.create(username: 'unregistered', pitm: 'UNREGISTERED', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
+wardse = User.create(username: 'wardse', pitm: 'WARDSE', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
+fuchsk = User.create(username: 'fuchsk', pitm: 'FUCHSK', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
+cireficc = User.create(username: 'cireficc', pitm: 'CIREFICC', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
