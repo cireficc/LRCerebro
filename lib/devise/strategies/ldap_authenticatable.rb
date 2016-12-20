@@ -28,3 +28,5 @@ class Devise::Strategies::LdapAuthenticatable < Devise::Strategies::Authenticata
     end
   end
 end
+
+Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)
