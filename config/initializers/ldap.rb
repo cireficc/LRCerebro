@@ -11,7 +11,7 @@ if Rails.env.production?
       encryption: :simple_tls,
     })
 
-  if !ldap.bind
+  if !Cerebro.ldap.bind
     raise ArgumentError, "Invalid LDAP credentials"
   end
 end
