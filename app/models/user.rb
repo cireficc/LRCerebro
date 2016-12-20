@@ -3,12 +3,14 @@ class User < ActiveRecord::Base
     searchkick
     devise :database_authenticatable, authentication_keys: [:username]
     
-    has_many :enrollment, foreign_key: :user_id, primary_key: :g_number
+    has_many :enrollment, foreign_key: :user_id, primary_key: :pitm
     has_many :courses, :through => :enrollment
     
     accepts_nested_attributes_for :courses
     
-    validates :g_number, :username, :first_name, :last_name, :role, presence: true
+    validates :username, :first_name, :last_name, :role, presence: true
+
+    before_save :set_pitm
     
     # User roles in the MLL department and the LRC:
     # :director - Director and assistant director of the LRC. Highest privileges
@@ -31,6 +33,11 @@ class User < ActiveRecord::Base
             active_courses: active_courses.collect(&:id),
             archived: !active?
         }
+    end
+
+    def set_pitm
+        self.pitm = self.username.upcase
+        return true
     end
     
     def active?

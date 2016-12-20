@@ -20,7 +20,6 @@ class UsersController < ApplicationController
                 include: @includes,
                 fields: [
                     :username,
-                    {g_number: :exact},
                     :first_name,
                     :last_name,
                 ],
@@ -98,6 +97,6 @@ class UsersController < ApplicationController
         end
 
         def user_params
-            params[:user].permit(:username, :g_number, :first_name, :last_name, :role, :registered, course_ids: [])
+            params[:user].permit(:username, :first_name, :last_name, :role, :registered, course_ids: [])
         end
 end

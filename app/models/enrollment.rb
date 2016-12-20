@@ -1,7 +1,7 @@
 class Enrollment < ActiveRecord::Base
 
     belongs_to :course
-    belongs_to :user, foreign_key: :user_id, primary_key: :g_number
+    belongs_to :user, foreign_key: :user_id, primary_key: :pitm
     
     def active?
         self.updated_at > ApplicationConfiguration.last.current_semester_start
