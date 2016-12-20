@@ -42,6 +42,7 @@ gem 'carrierwave', '~> 0.11.2'
 gem 'cloudinary', '~> 1.2'
 # Use DataTables for table sorting
 gem 'jquery-datatables-rails', '~> 3.4'
+gem 'net-ldap'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
