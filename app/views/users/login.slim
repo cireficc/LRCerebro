@@ -1,9 +1,0 @@
-= simple_form_for @user || User.new, url: login_path, method: :post do |f|
-    h4.text-info If this is your first time logging in, please 
-        #{link_to "Sign Up", signup_path, class: 'btn btn-xs btn-danger'}
-        to register your account. This will only be required one time.
-    = f.label :username, required: false
-    = f.input :username, input_html: { autofocus: true, placeholder: "e.g. johnsond", maxlength: 15 }
-    = f.label :password
-    = f.input :password, maxlength: 72
-    = f.button :submit, "Log In", class: "btn-primary"
