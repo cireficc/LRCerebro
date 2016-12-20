@@ -60,8 +60,4 @@ class ApplicationController < ActionController::Base
     
     render 'static_pages/403'
   end
-
-  def after_sign_in_path_for(resource)
-    session[:last_page] || root_path
-  end
 end
