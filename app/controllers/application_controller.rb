@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   include GoogleCalendarHelper
   include UsersHelper
   include ActionController::Serialization
+  # Hack-load LdapAuthenticatable so that it's defined and can be used by other controller actions
+  Devise::Strategies::LdapAuthenticatable
   
   # Pseudo-global used to detect whether or not the app is currently being seeded
   SEEDING_IN_PROGRESS = false
