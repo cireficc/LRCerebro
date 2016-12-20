@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
 
+  devise_for :users,
+             path: '',
+             path_names: { sign_in: 'login', sign_out: 'logout'},
+             controllers: {
+                 sessions: 'users/sessions'
+             }
+
   # The home page is a splash page with a login/register link and various static page links
   root 'static_pages#home'
   
   # Static pages accessible when not logged in
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
-  
-  # User login/signup routes
-  get  'login'  => 'users#login'
-  post 'login'  => 'users#start_session'
-  get  'signup' => 'users#signup'
-  post 'signup' => 'users#signup_and_start_session'
-  get  'logout' => 'users#end_session'
   
   # Project resources
   # http://www.codecademy.com/articles/standard-controller-actions

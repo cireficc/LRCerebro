@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.2'
 # Use PostgreSQL as the database for ActiveRecord
 gem 'pg', '~> 0.18.4'
+# Use Devise as an authentication solution
+gem 'devise', '~> 4.2'
 # Use Bcrypt to encrypt passwords in the database
 gem 'bcrypt', '~> 3.1.10'
 # Use Pundit as a role-based resource restriction mechanism
@@ -40,6 +42,7 @@ gem 'carrierwave', '~> 0.11.2'
 gem 'cloudinary', '~> 1.2'
 # Use DataTables for table sorting
 gem 'jquery-datatables-rails', '~> 3.4'
+gem 'net-ldap'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

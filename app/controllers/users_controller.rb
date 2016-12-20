@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!
     
     # The login form page
     def login
@@ -79,7 +80,7 @@ class UsersController < ApplicationController
         
         if @user.registered?
             flash.now[:danger] = "You have already registered. Please log in instead"
-            return redirect_to login_url
+            return redirect_to new_user_session_path
         end
         
         # If the password was empty, error out

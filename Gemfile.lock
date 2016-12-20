@@ -89,6 +89,12 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     database_cleaner (1.5.3)
+    devise (4.2.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.1)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     elasticsearch (1.0.17)
       elasticsearch-api (= 1.0.17)
@@ -177,11 +183,13 @@ GEM
       railties (>= 3.1)
     multi_json (1.12.0)
     multipart-post (2.0.0)
+    net-ldap (0.15.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.1.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    orm_adapter (0.5.0)
     os (0.9.6)
     pg (0.18.4)
     pundit (1.0.1)
@@ -219,6 +227,8 @@ GEM
     ref (2.0.0)
     representable (2.3.0)
       uber (~> 0.0.7)
+    responders (2.3.0)
+      railties (>= 4.2.0, < 5.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     retriable (2.1.0)
@@ -291,6 +301,8 @@ GEM
     uber (0.0.15)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    warden (1.2.6)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
@@ -309,6 +321,7 @@ DEPENDENCIES
   cloudinary (~> 1.2)
   coffee-rails (~> 4.0.0)
   database_cleaner
+  devise (~> 4.2)
   factory_girl
   figaro
   google-api-client (~> 0.9)
@@ -319,6 +332,7 @@ DEPENDENCIES
   kaminari (~> 0.17.0)
   lograge
   momentjs-rails (>= 2.9.0)
+  net-ldap
   pg (~> 0.18.4)
   pundit (~> 1.0.1)
   rails (= 4.2.5.2)
@@ -334,4 +348,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.12.1
+   1.13.6
