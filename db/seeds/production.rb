@@ -23,10 +23,10 @@ log_file.puts
 # Iterate through all of the MLL faculty/students
 CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	
-	# Format: g_number|username|first_name|last_name|role
-	# e.g. G00000000|cireficc|Chris|Cirefice|STUDENT
+	# Format: pitm|username|first_name|last_name|role
+	# e.g. 12345678|cireficc|Chris|Cirefice|STUDENT
   
-	g_number = row[0].downcase
+	pitm = row[0].downcase
 	username = row[1]
 	first_name = row[2]
 	last_name = row[3]
@@ -34,8 +34,8 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	# Convert the string to our User.role's enum value
 	role = User.roles[role]
 	
-	@user = User.find_by(g_number: g_number)
-	@user = User.create(username: username, g_number: g_number, first_name: first_name, last_name: last_name, role: role) if @user.nil?
+	@user = User.find_by(pitm: pitm)
+	@user = User.create(username: username, pitm: pitm, first_name: first_name, last_name: last_name, role: role) if @user.nil?
 	
 	@imported_users << @user
 end
@@ -93,7 +93,7 @@ log_file.puts
 CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
-	g_number = row[1].downcase
+	pitm = row[1].downcase
 	
 	# If the course changed, delete the enrollments for the course where the user unenrolled
 	# then reset the lists of imported enrolls and existing enrolls for the new course
@@ -106,7 +106,7 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	end
 	
 	# Get the user that is about to be enrolled
-	@user = User.find_by(g_number: g_number)
+	@user = User.find_by(pitm: pitm)
 	
 	# Only operate on the entry if the course exists and the user exists (they won't exist if deleted in the previous step(s))
 	if @course && @user
