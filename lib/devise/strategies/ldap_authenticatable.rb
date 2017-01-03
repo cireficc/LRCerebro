@@ -8,6 +8,12 @@ class Devise::Strategies::LdapAuthenticatable < Devise::Strategies::Authenticata
     username = params[:user][:username]
     password = params[:user][:password]
 
+    # If not in production, fail immediately since we don't have the LDAP credentials
+    # This will degrade to normal username/password login, which works locally
+    if (!Rails.env.production?)
+      return fail()
+    end
+
     results =
       Cerebro.ldap.bind_as({
         base:     "OU=GVSU,DC=ROOTLDS",
