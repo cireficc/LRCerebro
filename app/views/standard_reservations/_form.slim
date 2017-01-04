@@ -44,7 +44,7 @@
                                 = f.input :assistances,
                                     collection: StandardReservation.assistances.collect { |a, i| [a.titleize, a] },
                                     as: :check_boxes
-            .col-md-6 style="position: fixed; left: 0; bottom: 10rem;"
+            #reservation-calendar.col-md-6 style="position: fixed; left: 0; bottom: 10rem;"
                 .embed-responsive.embed-responsive-16by9
                     = render partial: "partials/reservation_calendar_google"
         .row
