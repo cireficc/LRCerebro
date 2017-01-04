@@ -179,3 +179,22 @@ $(document).on('click', '.add-fields', function(event) {
     // Initialize everything
     initialize();
 });
+
+
+/*
+ * For project scheduling, have a toggle to display the reservation calendar.
+ */
+$(document).on('click', '.reservation-calendar-toggle', function (event) {
+
+    event.preventDefault();
+    var cal = $(".reservation-calendar");
+    var toggle = $(".reservation-calendar-toggle");
+
+    cal.toggleClass('hidden');
+
+    if (cal.hasClass('hidden')) {
+        toggle.each(function (index) { $(this).find(".text").text(" Show reservation calendar"); });
+    } else {
+        toggle.each(function (index) { $(this).find(".text").text(" Hide reservation calendar"); });
+    }
+});
