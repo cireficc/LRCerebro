@@ -45,7 +45,7 @@ var dataTableDefaults = {
 var initialize = function() {
 	
 	// Initialize all of the DateTimePickers with their correctly-displayed value
-	$('.glyphicon-calendar').each(function (event) {
+	$('.input-group-addon .glyphicon-calendar').each(function (event) {
 		var input = $(this).closest('.input-group');
 	    var textField = input.find('input[type="text"]');
 	    var text = textField.val();
