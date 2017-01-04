@@ -45,7 +45,7 @@ var dataTableDefaults = {
 var initialize = function() {
 	
 	// Initialize all of the DateTimePickers with their correctly-displayed value
-	$('.glyphicon-calendar').each(function (event) {
+	$('.input-group-addon .glyphicon-calendar').each(function (event) {
 		var input = $(this).closest('.input-group');
 	    var textField = input.find('input[type="text"]');
 	    var text = textField.val();
@@ -178,4 +178,23 @@ $(document).on('click', '.add-fields', function(event) {
     
     // Initialize everything
     initialize();
+});
+
+
+/*
+ * For project scheduling, have a toggle to display the reservation calendar.
+ */
+$(document).on('click', '.reservation-calendar-toggle', function (event) {
+
+    event.preventDefault();
+    var cal = $(".reservation-calendar");
+    var toggle = $(".reservation-calendar-toggle");
+
+    cal.toggleClass('hidden');
+
+    if (cal.hasClass('hidden')) {
+        toggle.each(function (index) { $(this).find(".text").text(" Show reservation calendar"); });
+    } else {
+        toggle.each(function (index) { $(this).find(".text").text(" Hide reservation calendar"); });
+    }
 });
