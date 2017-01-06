@@ -12,7 +12,9 @@ class UsersController < ApplicationController
         @where = {}
         @where[:role] = params[:role] if params[:role].present?
         @where[:active_courses] = params[:active_courses] if params[:active_courses].present?
-        @where[:archived] = params[:archived] if params[:archived].present?
+        # Default archived to false if it hasn't been selected out yet
+        params[:archived] = false if params[:archived].blank?
+        @where[:archived] = params[:archived]
 
         if params[:search].present?
             @users = User.search(
