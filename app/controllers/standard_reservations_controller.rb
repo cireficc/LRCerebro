@@ -51,8 +51,9 @@ class StandardReservationsController < ApplicationController
         authorize @standard_reservation
 
         if @standard_reservation.save
-            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize
-            redirect_to @standard_reservation
+            @schedule_another_html = view_context.link_to("Schedule another reservation", new_standard_reservation_path, {class: 'btn btn-info'})
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize, schedule_another_html: @schedule_another_html
+            redirect_to standard_reservations_path
         else
             flash[:danger] = t :submission_errors, scope: "forms"
             render :new
