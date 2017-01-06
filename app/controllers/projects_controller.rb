@@ -80,10 +80,11 @@ class ProjectsController < ApplicationController
         authorize @project
         
         if @project.save
-            flash[:success] = "Your project, #{@project.name}, has been successfully submitted!"
+            @submit_another_html = view_context.link_to("Submit another proposal", new_project_path, {class: 'btn btn-info'})
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @project.name, submit_another_html: @submit_another_html
             redirect_to projects_path
         else
-            flash.now[:danger] = "Sorry, but there were errors in your project. Please correct them before submitting again."
+            flash[:danger] = t :submission_errors, scope: "forms"
             render "#{@view_path}/new"
         end
     end
