@@ -125,7 +125,7 @@ class FilmsController < ApplicationController
                     :transliterated_foreign_title, :description, :year, :length, :mpaa_rating,
                     :director_list, :cast_member_list, :genre_list, :cover, :cover_cache,
                     :remote_cover_url, audio_languages: [], subtitle_languages: [],
-                    digitized_versions_attributes: [:id, :audio_language, :subtitle_language,
-                    :direct_link, :embed_code, :_destroy])
+                    digitized_versions_attributes: [:id, :foreign_title, :english_title, :audio_language,
+                                                    :subtitle_language, :direct_link, :embed_code, :_destroy])
         end
 end

@@ -9,10 +9,24 @@
                     .row
                         .col-md-4
                             h4
-                                | Generated Filename
+                                | Generated Filename 
                                 = info_popover("digitized_versions/generated_filename", "Generated Filename")
                         .col-md-8
                             p.well-sm.bg-info #{f.object.generated_filename}
+                    .row
+                        .col-md-4
+                            h4
+                                | Foreign Title 
+                                = info_popover("digitized_versions/foreign_title", "DV Foreign Title")
+                        .col-md-8
+                            = f.input :foreign_title
+                    .row
+                        .col-md-4
+                            h4
+                                | English Title 
+                                = info_popover("digitized_versions/english_title", "DV English Title")
+                        .col-md-8
+                            = f.input :english_title
                     .row
                         .col-md-4
                             h4 Audio Language
@@ -20,6 +34,7 @@
                             = f.input :audio_language,
                                 collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
                                 prompt: "Select an audio language"
+                    .row
                         .col-md-4
                             h4 Subtitle Language
                         .col-md-8
