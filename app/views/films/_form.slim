@@ -154,9 +154,27 @@ javascript:
             var panel = $(this).closest(".panel-body");
             var audio = panel.find("select[id$=audio_language]").val();
             var subtitles = panel.find("select[id$=subtitle_language]").val();
+            var dv_foreign_title = panel.find("input[id$=foreign_title]").val();
+            var dv_english_title = panel.find("input[id$=english_title]").val();
+
             var filename = catalog_number || "";
             filename += " " + foreign_title;
-            if (english_title) { filename += " (" + english_title + ")"; }
+            if (english_title) {
+              filename += " (" + english_title + ")";
+            }
+
+            filename += " [";
+
+            if (dv_foreign_title && dv_english_title) {
+              filename += dv_foreign_title + " - " + dv_english_title;
+            } else if (dv_foreign_title) {
+              filename += dv_foreign_title;
+            } else if (dv_english_title) {
+              filename += dv_english_title;
+            }
+
+            filename += "]";
+
             filename += " (Audio; " + audio;
             if (subtitles) { filename +=  ", Subtitles; " + subtitles + ")"}
             else filename += ")";
