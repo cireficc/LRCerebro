@@ -95,7 +95,10 @@
             - else
                 h4 No streaming available.
         - else
-            h4 You must be logged in to stream films.
+            h4
+                | Please 
+                = link_to "log in", new_user_session_path, {class: 'btn btn-primary'}
+                |  to stream films.
 br
 - if policy(@film).destroy?
     = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
