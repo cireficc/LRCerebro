@@ -41,6 +41,8 @@ var dataTableDefaults = {
         }
 }
 
+var currentGoogleCalendarIframeDate = new Date();
+
 // Page ready and change for all pages (initialization code)
 var initialize = function() {
 	
@@ -56,8 +58,9 @@ var initialize = function() {
 	        if (text.length != 0) input.data("DateTimePicker").date(new Date(text));
 	    }
 	});
-	
-	// If a DTP start time is changed, update the end time to match it
+
+	// If a DTP start time is changed, update the end time to match it, and update the
+    // Google Calendar iframe
 	$('.input-group').on('dp.change', function(e) {
 
         if ($(this).find('input[type="text"]').attr('id').endsWith("start")) {
@@ -65,6 +68,8 @@ var initialize = function() {
             var endInput = $(panelBody).find('input[id$="_end"]');
             endInput.closest('.input-group').data("DateTimePicker").date(e.date);
         }
+
+        updateGoogleCalendarIframe(e.date);
     });
 
 	// Initialize all Bootstrap toolips and popovers
@@ -198,3 +203,58 @@ $(document).on('click', '.reservation-calendar-toggle', function (event) {
         toggle.each(function (index) { $(this).find(".text").text(" Hide reservation calendar"); });
     }
 });
+
+$(document).on('click', '.input-group-addon .glyphicon-calendar', function (event) {
+
+    var panelBody = $(this).closest('.panel-body');
+    var startText = $(panelBody).find('input[id$="_start"]').val();
+
+    if (startText.length != 0) updateGoogleCalendarIframe(new Date(startText));
+});
+
+function updateGoogleCalendarIframe(newTimestamp) {
+
+    var cal = $(".reservation-calendar");
+    var toggle = $(".reservation-calendar-toggle").first();
+
+    // If the reservation calendar is hidden, make it calendar visible
+    if (cal.hasClass('hidden')) { toggle.click(); }
+
+    var newDate = new Date(newTimestamp);
+    var now = new Date();
+    var datesSame = (currentGoogleCalendarIframeDate.toDateString() === newDate.toDateString());
+
+    // The date was erased, so reset the iframe to the current date in month view
+    if (!newTimestamp) {
+        setGoogleCalendarIframeUri(now, "MONTH");
+        currentGoogleCalendarIframeDate = now;
+    }
+    // There is a new date being set, show it in agenda view
+    if (!datesSame) {
+        setGoogleCalendarIframeUri(newDate, "AGENDA");
+        currentGoogleCalendarIframeDate = newDate;
+    }
+}
+
+function setGoogleCalendarIframeUri(date, viewMode) {
+
+    var googleCal = document.getElementById("google-res-calendar");
+    var googleCalUri = googleCal.getAttribute("src");
+
+    // Google Calendar iframe requires e.g. dates=20170105/20170105 for the querystring to display a date range
+    var formattedDateString = moment(date).format('YYYYMMDD/YYYYMMDD');
+    var newUri = updateQueryStringParameter(googleCalUri, "dates", formattedDateString);
+    newUri = updateQueryStringParameter(newUri, "mode", viewMode);
+    googleCal.setAttribute("src", newUri);
+}
+
+function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+        return uri + separator + key + "=" + value;
+    }
+}
