@@ -112,10 +112,10 @@ class ProjectsController < ApplicationController
         authorize @project
         
         if @project.update_attributes(update_params)
-            flash[:success] = "#{@project.name} has been successfully updated!"
+            flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @project.name
             redirect_to project_path(@project)
         else
-            flash.now[:danger] = "Sorry, but there were errors in your project. Please correct them before submitting again."
+            flash[:danger] = t :submission_errors, scope: "forms"
             render "#{@view_path}/edit"
         end
     end
@@ -125,7 +125,7 @@ class ProjectsController < ApplicationController
         authorize @project
         
         @project.destroy
-        flash[:success] = "#{@project.name} has been successfully deleted!"
+        flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @project.name
         redirect_to projects_path
     end
     
