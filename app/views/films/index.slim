@@ -34,8 +34,11 @@ table#films.table.table-hover
                 td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
                 td #{film.genres.map { |g| g.name.titleize }.join(", ")}
                 td #{film.year}
-                - streamable = film.digitized_versions.detect { |d| d.embed_code.present? }
-                td #{streamable ? 'Yes' : 'No'}
+                - streamable = film.digitized_versions.select { |d| d.embed_code.present? }
+                - if streamable.count > 0
+                    td #{pluralize(streamable.count, 'video')} available
+                - else
+                    td No
                 td
                     = link_to 'Details', film_path(film), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
 .text-center
