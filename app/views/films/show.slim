@@ -75,7 +75,7 @@
                             - @film.digitized_versions.each_with_index do |d, i|
                                 li class="#{'active' if i == 0}"
                                     a data-toggle="tab" href="#version#{i}"
-                                        p.text-center #{d.foreign_title} - #{d.english_title}
+                                        p.text-center #{d.full_title}
                                         | A: 
                                         span.label.label-primary #{d.audio_language.titleize}
                                         ' 
