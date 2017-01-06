@@ -76,7 +76,7 @@ class StandardReservationsController < ApplicationController
       
         if @standard_reservation.update(update_params)
             flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize
-            redirect_to @standard_reservation
+            redirect_to standard_reservations_path
         else
             flash[:danger] = t "submission_errors", scope: "forms"
             render :edit
