@@ -18,9 +18,6 @@ class Language < ActiveRecord::Base
     # Return the error message to the caller to use with errors.add
     def self.validate_languages(field)
         
-        # This is not the greatest idea, but it works. Remove the empty string during validation
-        field.reject! { |l| l.empty? }
-        
         if !field.any?
             return "need to select a language"
         end

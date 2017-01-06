@@ -13,6 +13,9 @@ class Film < ActiveRecord::Base
     validate :validate_title
     validate :validate_audio_languages
     validates_associated :digitized_versions
+    
+    # Languages is an array which will always have an empty element, so get rid of it
+    before_validation :reject_empty_languages
 
     # Film types
     # :vhs - A VHS tape
@@ -55,6 +58,11 @@ class Film < ActiveRecord::Base
             cast_member_list: cast_members.collect(&:name),
             genre_list: genres.collect(&:name)
         }
+    end
+    
+    def reject_empty_languages
+        audio_languages.reject! { |l| l.empty? }
+        subtitle_languages.reject! { |l| l.empty? }
     end
 
     def validate_title
