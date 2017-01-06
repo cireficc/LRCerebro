@@ -3,7 +3,8 @@
         .col-md-3
             h4 Course
             = select_tag :course,
-                options_for_select(@standard_reservations.map { |p| [p.course.name, p.course.id] }, params[:course]), {class: "form-control", multiple: true}
+                options_for_select(StandardReservation.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
+                        params[:course]), {class: "form-control", multiple: true}
         .col-md-4
             h4 Activity
             = select_tag :activity,
@@ -19,8 +20,8 @@
         .col-md-3
             h4 Submitted By
             = select_tag :submitted_by,
-                options_for_select(@standard_reservations.map { |s| o = s.course.get_instructor; [o.full_name_with_username, o.id] }.uniq.sort!,
-                    params[:submitted_by]), {class: "form-control", multiple: true}
+                options_for_select(StandardReservation.all.map { |s| o = s.course.get_instructor; [o.full_name_with_username, o.id] }.uniq.sort!,
+                        params[:submitted_by]), {class: "form-control", multiple: true}
         .col-md-2
             h4 Lab
             = select_tag :lab,
