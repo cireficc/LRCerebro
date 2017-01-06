@@ -14,7 +14,9 @@ class ProjectsController < ApplicationController
         @where[:first_training] = { lte: DateTime.parse(params[:first_training]) } if params[:first_training].present?
         @where[:last_editing] = { lte: DateTime.parse(params[:last_editing]) } if params[:last_editing].present?
         @where[:approved] = params[:approved] if params[:approved].present?
-        @where[:archived] = params[:archived] if params[:archived].present?
+        # Default archived to false if it hasn't been selected out yet
+        params[:archived] = false if params[:archived].blank?
+        @where[:archived] = params[:archived]
         
         # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
         # Director/labasst have full access to all projects, faculty/students only to their own
