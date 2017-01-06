@@ -41,30 +41,30 @@
                         .col-md-9
                             = link_to "View", @film.more_info_link, :target => '_blank', class: 'btn btn-info'
             .col-md-6
-                    .row
-                        .col-md-3
-                            h4 Directors:
-                        .col-md-9
-                            h4
-                                - @film.directors.each do |d|
-                                    span.label.label-default #{d.name.titleize}
-                                    ' 
-                    .row
-                        .col-md-3
-                            h4 Cast members:
-                        .col-md-9
-                            h4
-                                - @film.cast_members.each do |c|
-                                    span.label.label-default #{c.name.titleize}
-                                    ' 
-                    .row
-                        .col-md-3
-                            h4 Genres:
-                        .col-md-9
-                            h4
-                                - @film.genres.each do |g|
-                                    span.label.label-default #{g.name.titleize}
-                                    ' 
+                .row
+                    .col-md-3
+                        h4 Directors:
+                    .col-md-9
+                        h4
+                            - @film.directors.each do |d|
+                                span.label.label-default #{d.name.titleize}
+                                '
+                .row
+                    .col-md-3
+                        h4 Cast members:
+                    .col-md-9
+                        h4
+                            - @film.cast_members.each do |c|
+                                span.label.label-default #{c.name.titleize}
+                                '
+                .row
+                    .col-md-3
+                        h4 Genres:
+                    .col-md-9
+                        h4
+                            - @film.genres.each do |g|
+                                span.label.label-default #{g.name.titleize}
+                                '
         h3 Streaming
         - if current_user
             - if @film.digitized_versions.any?
@@ -82,14 +82,14 @@
                                         span.label.label-primary #{d.subtitle_language.titleize}
                         .tab-content
                             - @film.digitized_versions.each_with_index do |d, i|
-                                    .tab-pane class="#{'active' if i == 0}" id="version#{i}"
-                                        - if d.embed_code.present?
-                                            .col-md-9
-                                                = raw d.embed_code
-                                                - if policy(@film).edit?
-                                                    = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
-                                        - else
-                                            p No content available
+                                .tab-pane class="#{'active' if i == 0}" id="version#{i}"
+                                    - if d.embed_code.present?
+                                        .col-md-9
+                                            = raw d.embed_code
+                                            - if policy(@film).edit?
+                                                = link_to "View on Ensemble", d.direct_link, :target => '_blank', class: 'btn btn-xs btn-info' if d.direct_link.present?
+                                    - else
+                                        p No content available
                 - else
                     h4 If you are a student, you must be in the LRC to stream films. Otherwise, your professor can make films streamable through Blackboard for off-campus viewing.
             - else
