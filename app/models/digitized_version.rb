@@ -4,17 +4,17 @@ class DigitizedVersion < ActiveRecord::Base
     
     validates :audio_language, presence: true
     
-    def generated_title
+    def generated_filename
         return "" if film.nil?
-        
-        title = film.inventory_item.catalog_number
-        title += " #{film.foreign_title}"
-        title += " (#{film.english_title})" if film.english_title.present?
-        title += " (Audio; #{audio_language}"
+
+        filename = film.inventory_item.catalog_number
+        filename += " #{film.foreign_title}"
+        filename += " (#{film.english_title})" if film.english_title.present?
+        filename += " (Audio; #{audio_language}"
         if (subtitle_language.present?)
-            title +=  ", Subtitles; #{subtitle_language})"
+            filename +=  ", Subtitles; #{subtitle_language})"
         else
-            title += ")";
+            filename += ")";
         end
     end
 end
