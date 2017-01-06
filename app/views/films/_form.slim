@@ -144,7 +144,7 @@
         = i.submit "Update Film", class: "btn btn-info pull-right"
 
 javascript:
-    // If any form input changes, update the generated digitized version titles
+    // If any form input changes, update the generated digitized version filename
     $("form").on('input change', function() {
         var catalog_number = $("form").find("input[id$=catalog_number]").val();
         var foreign_title = $("form").find("input[id$=foreign_title]").val();
@@ -154,13 +154,13 @@ javascript:
             var panel = $(this).closest(".panel-body");
             var audio = panel.find("select[id$=audio_language]").val();
             var subtitles = panel.find("select[id$=subtitle_language]").val();
-            title = catalog_number || "";
-            title += " " + foreign_title;
-            if (english_title) { title += " (" + english_title + ")"; }
-            title += " (Audio; " + audio;
-            if (subtitles) { title +=  ", Subtitles; " + subtitles + ")"}
-            else title += ")";
-            $(this).text(title);
+            var filename = catalog_number || "";
+            filename += " " + foreign_title;
+            if (english_title) { filename += " (" + english_title + ")"; }
+            filename += " (Audio; " + audio;
+            if (subtitles) { filename +=  ", Subtitles; " + subtitles + ")"}
+            else filename += ")";
+            $(this).text(filename);
         });
         
     });
