@@ -26,7 +26,7 @@ CSV.foreach(lrc_ppl, col_sep: '|', headers: false).each_with_index do |row, i|
 	# Format: pitm|username|first_name|last_name|role
 	# e.g. 12345678|cireficc|Chris|Cirefice|STUDENT
   
-	pitm = row[0].downcase
+	pitm = row[0]
 	username = row[1]
 	first_name = row[2]
 	last_name = row[3]
@@ -93,7 +93,7 @@ log_file.puts
 CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
-	pitm = row[1].downcase
+	pitm = row[1]
 	
 	# If the course changed, delete the enrollments for the course where the user unenrolled
 	# then reset the lists of imported enrolls and existing enrolls for the new course
