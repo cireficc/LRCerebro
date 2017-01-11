@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     end
 
     def set_pitm
-        self.pitm = self.username.upcase
+        self.pitm = self.username.upcase if self.pitm.nil?
         return true
     end
     
