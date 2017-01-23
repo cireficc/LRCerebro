@@ -10,7 +10,7 @@ class DigitizedVersion < ActiveRecord::Base
         filename = film.inventory_item.catalog_number
         filename += " #{film.foreign_title}"
         filename += " (#{film.english_title})" if film.english_title.present?
-        filename += " [#{full_title}]"
+        filename += " [#{full_title}]" if full_title
 
         filename += " (Audio; #{audio_language}"
         if (subtitle_language.present?)
@@ -28,5 +28,7 @@ class DigitizedVersion < ActiveRecord::Base
       elsif english_title.present?
         english_title
       end
+      
+      return nil
     end
 end

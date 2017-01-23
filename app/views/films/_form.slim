@@ -162,18 +162,20 @@ javascript:
             if (english_title) {
               filename += " (" + english_title + ")";
             }
-
-            filename += " [";
+            
+            var full_title = "";
 
             if (dv_foreign_title && dv_english_title) {
-              filename += dv_foreign_title + " - " + dv_english_title;
+              full_title += dv_foreign_title + " - " + dv_english_title;
             } else if (dv_foreign_title) {
-              filename += dv_foreign_title;
+              full_title += dv_foreign_title;
             } else if (dv_english_title) {
-              filename += dv_english_title;
+              full_title += dv_english_title;
             }
 
-            filename += "]";
+            if (full_title) {
+              filename += " [" + full_title + "]";
+            }
 
             filename += " (Audio; " + audio;
             if (subtitles) { filename +=  ", Subtitles; " + subtitles + ")"}
