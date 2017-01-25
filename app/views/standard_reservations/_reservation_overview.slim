@@ -22,12 +22,12 @@
                                     .col-md-4
                                         h4 Instructor
                                     .col-md-8
-                                        .well.well-sm #{r.course.get_instructor.full_name}
+                                        .well.well-sm #{r.course.get_instructor.decorate.full_name}
                                 .row
                                     .col-md-4
                                         h4 Course
                                     .col-md-8
-                                        .well.well-sm #{r.course.get_short_name}
+                                        .well.well-sm #{r.course.decorate.short_name}
                                 .row
                                     .col-md-4
                                         h4 # Students

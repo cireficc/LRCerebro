@@ -28,12 +28,12 @@ class StandardReservationsController < ApplicationController
         params[:archived] = false if params[:archived].blank?
         @where[:archived] = params[:archived]
 
-        @standard_reservations = StandardReservation.search(
+        @standard_reservations = StandardReservationDecorator.decorate_collection(StandardReservation.search(
                 "*",
                 include: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
-            )
+            ))
         
         @past = @standard_reservations.select { |r| r.start < ApplicationHelper.local_to_utc(Time.now) }
         @upcoming = @standard_reservations.select { |r| r.start >= ApplicationHelper.local_to_utc(Time.now) }

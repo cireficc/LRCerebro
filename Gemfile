@@ -43,6 +43,8 @@ gem 'cloudinary', '~> 1.2'
 # Use DataTables for table sorting
 gem 'jquery-datatables-rails', '~> 3.4'
 gem 'net-ldap'
+# Use Draper for view-models (keep view code out of models)
+gem 'draper', '~> 2.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -21,10 +21,10 @@ table#standard_reservations.table.table-hover
             tr
                 td
                     - reservation.course.instructors.each do |i| 
-                        span.label.label-info #{i.full_name}
+                        span.label.label-info #{i.decorate.full_name}
                         ' 
                 td
-                    span.label.label-warning #{reservation.course.get_short_name}
+                    span.label.label-warning #{reservation.course.decorate.short_name}
                 td
                     span.label.label-danger #{reservation.activity.titleize}
                 td #{reservation.start}
