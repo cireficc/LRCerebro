@@ -22,11 +22,11 @@ class DigitizedVersion < ActiveRecord::Base
   
     def full_title
       if foreign_title.present? && english_title.present?
-        "#{foreign_title} - #{english_title}"
+        return "#{foreign_title} - #{english_title}"
       elsif foreign_title.present?
-        foreign_title
+        return foreign_title
       elsif english_title.present?
-        english_title
+        return english_title
       end
       
       return nil
