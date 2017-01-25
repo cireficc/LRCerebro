@@ -29,12 +29,12 @@ class UsersController < ApplicationController
                 order: @order, page: params[:page], per_page: @limit
             )
         else
-            @users = User.search(
+            @users = UserDecorator.decorate_collection(User.search(
                 "*",
                 include: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
-            )
+            ))
         end
     end
 

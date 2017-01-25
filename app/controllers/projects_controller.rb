@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
         @where[:members] = current_user.id if (current_user && (current_user.faculty? || current_user.student?))
 
         if params[:search].present?
-            @projects = Project.search(
+            @projects = ProjectDecorator.decorate_collection(Project.search(
                 params[:search],
                 include: @includes,
                 fields: [
@@ -32,14 +32,14 @@ class ProjectsController < ApplicationController
                 ],
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
-            )
+            ))
         else
-            @projects = Project.search(
+            @projects = ProjectDecorator.decorate_collection(Project.search(
                 "*",
                 include: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
-            )
+            ))
         end
         
         @approved = @projects.select { |p| p.approved }
