@@ -26,12 +26,12 @@ class CoursesController < ApplicationController
                 order: @order, page: params[:page], per_page: @limit
             )
         else
-            @courses = Course.search(
+            @courses = CourseDecorator.decorate_collection(Course.search(
                 "*",
                 include: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
-            )
+            ))
         end
     end
 
