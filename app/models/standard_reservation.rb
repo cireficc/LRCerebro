@@ -22,6 +22,7 @@ class StandardReservation < ActiveRecord::Base
         dill_individual_recordings: 1,
         writing_or_web_research: 2,
         film_viewing: 3,
+        lrc_orientation: 5,
         other: 4
     }
     
