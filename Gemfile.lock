@@ -96,6 +96,11 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
     elasticsearch (1.0.17)
       elasticsearch-api (= 1.0.17)
       elasticsearch-transport (= 1.0.17)
@@ -227,6 +232,7 @@ GEM
     ref (2.0.0)
     representable (2.3.0)
       uber (~> 0.0.7)
+    request_store (1.3.2)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.6.7)
@@ -322,6 +328,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise (~> 4.2)
+  draper (~> 2.1)
   factory_girl
   figaro
   google-api-client (~> 0.9)
@@ -348,4 +355,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
