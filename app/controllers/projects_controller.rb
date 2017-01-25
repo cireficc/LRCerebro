@@ -90,7 +90,7 @@ class ProjectsController < ApplicationController
     end
     
     def show
-        @project = Project.find(params[:id])
+        @project = Project.find(params[:id]).decorate
         authorize @project
         
         # Set the present check-box so that it is checked properly when the form is rendered
@@ -100,7 +100,7 @@ class ProjectsController < ApplicationController
     end
     
     def edit
-        @project = Project.find(params[:id])
+        @project = Project.find(params[:id]).decorate
         authorize @project
         @project.present = "1" if !@project.viewable_by.nil?
         
