@@ -39,7 +39,7 @@
                                     h4 Enrolled in
                                 .col-md-9
                                     = f.association :courses,
-                                        collection: Course.all.order(:name).collect { |c| ["#{c.get_short_name}", c.id] },
+                                        collection: CourseDecorator.decorate_collection(Course.all.order(:name)).collect { |c| ["#{c.full_name}", c.id] },
                                         selected: @user.courses.collect { |c| c.id },
                                         input_html: { multiple: true, disabled: disabled }
 

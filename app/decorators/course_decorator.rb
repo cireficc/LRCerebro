@@ -5,4 +5,8 @@ class CourseDecorator < Draper::Decorator
     PaginatingDecorator
   end
 
+  def full_name
+    "#{name} (#{semester.titleize} #{year})"
+  end
+  
 end

@@ -1,5 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
+  decorates_association :courses
 
   def self.collection_decorator_class
     PaginatingDecorator
