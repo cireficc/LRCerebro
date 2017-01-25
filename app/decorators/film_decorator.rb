@@ -5,4 +5,8 @@ class FilmDecorator < Draper::Decorator
     PaginatingDecorator
   end
 
+  def short_description
+    h.truncate(description, length: 150)
+  end
+
 end

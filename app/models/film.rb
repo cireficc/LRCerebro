@@ -76,8 +76,4 @@ class Film < ActiveRecord::Base
         error = Language.validate_languages(audio_languages)
         errors.add(:audio_languages, error) if error
     end
-    
-    def short_description
-        (description.length >= 147) ? "#{description[0..147]}..." : description
-    end
 end

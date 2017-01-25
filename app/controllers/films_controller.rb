@@ -3,10 +3,10 @@ class FilmsController < ApplicationController
 
     # GET /films/autocomplete
     def autocomplete
-        @films = Film.search(params[:search],
+        @films = FilmDecorator.decorate_collection(Film.search(params[:search],
                             autocomplete: true,
                             limit: 5,
-                            order: { catalog_number: :asc })
+                            order: { catalog_number: :asc }))
         render json: @films, each_serializer: FilmAutocompleteSerializer
     end
 
