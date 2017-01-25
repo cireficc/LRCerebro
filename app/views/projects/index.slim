@@ -21,10 +21,10 @@ table#projects.table.table-hover
             tr
                 td
                     - project.course.instructors.each do |i| 
-                        span.label.label-info #{i.full_name}
+                        span.label.label-info #{i.decorate.full_name}
                         ' 
                 td
-                    span.label.label-warning #{project.course.get_short_name}
+                    span.label.label-warning #{project.course.decorate.short_name}
                 td
                     span.label.label-danger #{project.category.titleize}
                 td #{project.script_due}

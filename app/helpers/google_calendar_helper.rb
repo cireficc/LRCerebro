@@ -47,7 +47,7 @@ module GoogleCalendarHelper
         # (approved) "FRE 101-01, Ward, 24 (Camtasia Editing 1 of 3) - In-cl Shoot"
         @event_title =
             "#{'HOLD: ' if !@project.approved?}"\
-            "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
+            "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
             " (#{@project.category.titleize} #{@res.category.titleize} #{@index + 1} of #{@total})"
 
         if (@res.subtype)
@@ -111,7 +111,7 @@ module GoogleCalendarHelper
         # e.g.
         # "FRE 101-01, Ward, 24 (Dill Paired Recordings [Walkthrough: YES])"
         @event_title =
-            "#{@course.get_short_name}, #{@instructor.last_name}, #{@num_students}"\
+            "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
             " (#{@res.activity.titleize} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
