@@ -51,7 +51,7 @@ h3 Adding course
                     h4 Enrolled users
                 .col-md-4
                     = f.association :users,
-                        collection: User.all.order(:last_name).collect { |u| ["#{u.full_name_with_username}", u.id] },
+                        collection: UserDecorator.decorate_collection(User.all.order(:last_name)).collect { |u| ["#{u.full_name_with_username}", u.id] },
                         :input_html => { multiple: true, size: 20 }
     - if policy(@course).create?
         .row
