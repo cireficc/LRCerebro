@@ -31,6 +31,7 @@ class Project < ActiveRecord::Base
         garage_band: 1,
         pixton: 2,
         photo_booth: 3,
+        storybird: 7,
         blog: 4,
         pages: 5,
         other: 6
