@@ -185,6 +185,10 @@ $(document).on('click', '.add-fields', function(event) {
     initialize();
 });
 
+/*
+ * After a dynamic nested object is generated and inserted by Cocoon, re-initialize everything.
+ */
+$(document).on('cocoon:after-insert', function(e, item) { initialize() });
 
 /*
  * For project scheduling, have a toggle to display the reservation calendar.
