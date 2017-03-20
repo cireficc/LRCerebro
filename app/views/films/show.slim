@@ -73,6 +73,7 @@
                     .row
                         ul.nav.nav-tabs
                             - @film.digitized_versions.each_with_index do |d, i|
+                                - d = d.decorate
                                 li class="#{'active' if i == 0}"
                                     a data-toggle="tab" href="#version#{i}"
                                         p.text-center #{d.full_title}
