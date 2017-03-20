@@ -1,7 +1,8 @@
 .removable-fields
     .row
         = f.hidden_field :_destroy
-        = f.hidden_field :category
+        - category = f.object.category || category
+        = f.hidden_field :category, value: category
         .col-md-5
             .panel.panel-warning
                 .panel-heading
@@ -57,7 +58,6 @@
                                     disabled: true,
                                     input_html: { placeholder: "Additional notes specific to this reservation", rows: 4, maxlength: 1000 }
         .col-md-1
-            // The remove-fields class doesn't do anything except allow easier click-handling than using an id
             .remove-fields.btn.btn-danger
                 span.glyphicon.glyphicon-remove
     hr

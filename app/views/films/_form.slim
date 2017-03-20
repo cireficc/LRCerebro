@@ -124,15 +124,12 @@
                     .panel-heading
                         h3.panel-title Digitized Versions
                     .panel-body
-                        = f.simple_fields_for :digitized_versions do |builder|
-                            = render "digitized_version_fields", f: builder
-                        // The add-fields class doesn't do anything except allow easier click-handling than using an id
-                        div#add_fields_row.row
-                            .col-md-1
-                                .add-fields.btn.btn-info
-                                    span.glyphicon.glyphicon-plus
-                                        |  Add
-                                    = generate_hidden_add_fields_data f, :digitized_versions, {}, nil, true
+                        - digitized_versions_partial = "digitized_version_fields"
+                        div#digitized-versions
+                            = f.simple_fields_for :digitized_versions do |builder|
+                                = render digitized_versions_partial, f: builder
+                        div#add-digitized-versions
+                            = link_to_add_association 'Add a digitized version', f, :digitized_versions, {partial: digitized_versions_partial, class: 'btn btn-info'}
         .col-md-6
             = render "inventory_items/inventory_item_fields", form: i, disabled: disabled
 
