@@ -164,29 +164,6 @@ $(document).on('click', '.remove-fields', function(event) {
 });
 
 /*
-* Helper method to create nested objects for a simple "add another"-type functionality.
-* The necessary HTML is already attached to the button, so replace the id with the time
-* (this acts as a unique identifier for the object), then append the HTML above the add
-* button.
-*/
-$(document).on('click', '.add-fields', function(event) {
-    
-    var addFieldsDataElement, regexp, time;
-    
-    // Get the hidden element that contains all of the fields/data for a new nested object
-    addFieldsDataElement = $(this).find('#add_fields_data');
-    // Get the time (unique) and regex replace the id of the new nested object (for a truly unique id)
-    time = new Date().getTime();
-    regexp = new RegExp(addFieldsDataElement.data('id'), 'g');
-    
-    // Use the regex to update the id, then add the fields before the [+ Add] button
-    $(this).closest("#add_fields_row").before(addFieldsDataElement.data('fields').replace(regexp, time));
-    
-    // Initialize everything
-    initialize();
-});
-
-/*
  * After a dynamic nested object is generated and inserted by Cocoon, re-initialize everything.
  */
 $(document).on('cocoon:after-insert', function(e, item) { initialize() });
