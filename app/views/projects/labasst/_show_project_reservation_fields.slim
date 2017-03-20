@@ -1,7 +1,8 @@
 .removable-fields
     .row
         = f.hidden_field :_destroy
-        = f.hidden_field :category
+        - category = f.object.category || category
+        = f.hidden_field :category, value: category
         .col-md-6
             .panel.panel-warning
                 .panel-heading
@@ -31,7 +32,7 @@
                             h4 Lab
                         .col-md-8
                             = f.input :lab,
-                                readonly: true,
+                                disabled: true,
                                 collection: Lab.locations.collect { |l, i| [Lab.with_workstations(l), l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                                 prompt: "Select a lab"
         .col-md-6
@@ -44,7 +45,7 @@
                                 h4 Reservation Subtype
                             .col-md-8
                                 = f.input :subtype,
-                                    readonly: true,
+                                    disabled: true,
                                     collection: ProjectReservation.subtypes.collect { |s, i| [s.titleize, s] },
                                     prompt: "Select a subtype"
                         .row

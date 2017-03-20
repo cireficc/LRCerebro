@@ -90,33 +90,26 @@
             span.btn.btn-xs.btn-danger
                 span.glyphicon.glyphicon-remove
             |  button to delete the reservation.
+    - reservation_partial = "#{@view_path}/new_project_reservation_fields"
     .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
         .panel-body
-            div#training_reservations
+            - category = "training"
+            div#training-reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "training"
-            // The add-fields class doesn't do anything except allow easier click-handling than using an id
-            div#add_fields_row.row
-                .col-md-1
-                    .add-fields.btn.btn-info
-                        span.glyphicon.glyphicon-plus
-                            |  Add
-                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:training]}, :new
+                    = render reservation_partial, f: builder if builder.object.category == category
+            div#add-training-reservations
+                = link_to_add_association 'Add a training reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: { category: category }}, class: 'btn btn-info'}
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
         .panel-body
-            div#editing_reservations
+            - category = "editing"
+            div#editing-reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render "#{@view_path}/new_project_reservation_fields", :f => builder if builder.object.category == "editing"
-            // The add-fields class doesn't do anything except allow easier click-handling than using an id
-            div#add_fields_row.row
-                .col-md-1
-                    .add-fields.btn.btn-info
-                        span.glyphicon.glyphicon-plus
-                            |  Add
-                        = generate_hidden_add_fields_data f, :project_reservations, {:category => ProjectReservation.categories[:editing]}, :new
+                    = render reservation_partial, f: builder if builder.object.category == category
+            div#add-editing-reservations
+                = link_to_add_association 'Add an editing reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: {category: category}}, class: 'btn btn-info'}
     = f.submit "Submit Project", :class => "btn btn-info pull-right"
 br

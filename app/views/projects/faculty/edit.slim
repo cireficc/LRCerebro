@@ -83,19 +83,22 @@
             | Reservation date, time and lab location may only be changed (in LRCerebro) by David Shultz. 
             | If you would like to change the dates and/or times of your reservations, please email David directly.
             | You may, however, leave any special notes in the Faculty Notes field. David will be able to see these notes.
+    - reservation_partial = "#{@view_path}/edit_project_reservation_fields"
     .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
         .panel-body
-            div#training_reservations
+            - category = "training"
+            div#training-reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render "#{@view_path}/edit_project_reservation_fields", :f => builder if builder.object.category == "training"
+                    = render reservation_partial, f: builder if builder.object.category == category
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
         .panel-body
-            div#editing_reservations
+            - category = "editing"
+            div#editing-reservations
                 = f.simple_fields_for :project_reservations do |builder|
-                    = render "#{@view_path}/edit_project_reservation_fields", :f => builder if builder.object.category == "editing"
+                    = render reservation_partial, f: builder if builder.object.category == category
     = f.submit "Save Project", class: "btn btn-info pull-right"
     br
