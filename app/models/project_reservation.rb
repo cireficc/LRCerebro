@@ -27,13 +27,6 @@ class ProjectReservation < ActiveRecord::Base
         in_class_shoot: 3
     }
     
-    SUBTYPES_SHORTHAND = {
-        project_introduction: "ProjIntro",
-        camera_training: "VidCam",
-        camtasia_training: "Camtas.",
-        in_class_shoot: "In-cl Shoot"
-    }
-    
     # In order for form submissions to assign this property correctly, this enum has to be present
     # in this class. To follow DRY, we use the application-wide enum Lab.locations
     enum lab: Lab.locations

@@ -54,22 +54,23 @@
                             .panel-body
                                 .list-group
                                     - @training.each_with_index do |res, i|
+                                        - res = res.decorate
                                         .list-group-item
                                             .row
                                                 .col-md-6
                                                     h4
                                                         span.label.label-primary #{res.start.to_date}
                                                         ' 
-                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        span.label.label-primary #{res.short_date(res.start)}
                                                         '
                                                         | to 
-                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        span.label.label-primary #{res.short_date(res.end)}
                                                         '
                                                         | in 
                                                         span.label.label-primary #{res.lab.titleize}
                                                         ' 
                                                         - if res.subtype.present?
-                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                            span.label.label-info #{res.subtype_shorthand}
                                                 .col-md-6
                                                     p #{res.staff_notes}
                 .row
@@ -120,22 +121,23 @@
                             .panel-body
                                 .list-group
                                     - @editing.each_with_index do |res, i|
+                                        - res = res.decorate
                                         .list-group-item
                                             .row
                                                 .col-md-6
                                                     h4
                                                         span.label.label-primary #{res.start.to_date}
                                                         ' 
-                                                        span.label.label-primary #{res.start.to_s[10..-1]}
+                                                        span.label.label-primary #{res.short_date(res.start)}
                                                         '
                                                         | to 
-                                                        span.label.label-primary #{res.end.to_s[10..-1]}
+                                                        span.label.label-primary #{res.short_date(res.end)}
                                                         '
                                                         | in 
                                                         span.label.label-primary #{res.lab.titleize}
                                                         ' 
                                                         - if res.subtype.present?
-                                                            span.label.label-info #{ProjectReservation::SUBTYPES_SHORTHAND[res.subtype.to_sym]}
+                                                            span.label.label-info #{res.subtype_shorthand}
                                                 .col-md-6
                                                     p #{res.staff_notes}
             .modal-footer
