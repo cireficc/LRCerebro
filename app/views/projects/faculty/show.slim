@@ -19,7 +19,7 @@
                         .col-md-8
                             - @courses = current_user.active_courses.order(:name)
                             = f.input :course_id,
-                                readonly: true,
+                                disabled: true,
                                 collection: @courses.collect { |c| [c.name, c.id] },
                                 prompt: "Select a course"
                     .row
@@ -29,7 +29,7 @@
                             - @train = Project::CATEGORY_TRAINING_EVENTS
                             - @edit = Project::CATEGORY_EDITING_EVENTS
                             = f.input :category,
-                                readonly: true,
+                                disabled: true,
                                 collection: Project.categories.collect { |c, i| [c.titleize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
                                 prompt: "Select a project type"
                             div#other_warning.small.text-warning.hidden
@@ -88,22 +88,21 @@
                                         readonly: true,
                                         class: "form-control",
                                         input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
+    - reservation_partial = "#{@view_path}/show_project_reservation_fields"
     .panel.panel-primary
         .panel-heading
             h3.panel-title Training Reservations
         .panel-body
-            div#training_reservations
+            div#training-reservations
                 = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render "#{@view_path}/show_project_reservation_fields", :f => builder if builder.object.category == "training"
-                // The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    = render reservation_partial, f: builder if builder.object.category == "training"
     .panel.panel-primary
         .panel-heading
             h3.panel-title Editing Reservations
         .panel-body
             div#editing_reservations
                 = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
-                    = render "#{@view_path}/show_project_reservation_fields", :f => builder if builder.object.category == "editing"
-                // The add-fields class doesn't do anything except allow easier click-handling than using an id
+                    = render reservation_partial, f: builder if builder.object.category == "editing"
     - if policy(@project).edit?
         = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
     br
