@@ -51,7 +51,7 @@ module GoogleCalendarHelper
             " (#{@project.category.titleize} #{@res.category.titleize} #{@index + 1} of #{@total})"
 
         if (@res.subtype)
-            @event_title = @event_title + " - #{ProjectReservation::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
+            @event_title = @event_title + " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
         end
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value

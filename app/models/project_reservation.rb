@@ -20,11 +20,14 @@ class ProjectReservation < ActiveRecord::Base
     # :project_introduction - Introduce the project to the students, create accounts, demonstration/how-to's, etc.
     # :camera_training - Train the students how to operate the cameras
     # :camtasia_traning - Train the students how to use Camtasia Studio
+    # :in_class_shoot - Students film during their class meeting time
+    # :screen_final_project - Students screen their final projects
     enum subtype: {
         project_introduction: 0,
         camera_training: 1,
         camtasia_training: 2,
-        in_class_shoot: 3
+        in_class_shoot: 3,
+        screen_final_project: 4
     }
     
     # In order for form submissions to assign this property correctly, this enum has to be present

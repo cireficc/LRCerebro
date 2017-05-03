@@ -5,7 +5,8 @@ class ProjectReservationDecorator < Draper::Decorator
       project_introduction: "ProjIntro",
       camera_training: "VidCam",
       camtasia_training: "Camtas.",
-      in_class_shoot: "In-cl Shoot"
+      in_class_shoot: "In-cl Shoot",
+      screen_final_project: "ScreenProj"
   }
   
   def subtype_shorthand
