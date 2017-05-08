@@ -125,15 +125,15 @@ fre_project_1.project_reservations << training_8 << training_10 << editing_3 << 
 fre_project_2.project_reservations << training_11 << editing_4 << editing_10
 fre_project_3.project_reservations << training_5 << training_6 << editing_11 << editing_12
 
-# Assigning the course to the faculty means that the faculty is also enrolled in the course
-faculty.courses << spa << fre
-student.courses << spa << fre
-wardse.courses << fre2 << fre3
-fuchsk.courses << spa2
-cireficc.courses << fre3
-# Adding the faculty as a user of the course also triggers this relationship
-#spa.users << faculty << student
-#fre.users << faculty << student
+# Create the enrollments for users in courses
+Enrollment.create!(user: faculty, course: spa, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: faculty, course: fre, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: student, course: spa, role: Enrollment.roles[:student])
+Enrollment.create!(user: student, course: fre, role: Enrollment.roles[:student])
+Enrollment.create!(user: wardse, course: fre2, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: wardse, course: fre3, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: fuchsk, course: spa2, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: cireficc, course: fre3, role: Enrollment.roles[:student])
 
 film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles", transliterated_foreign_title: "Alice au pays des merveilles",
                     description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
