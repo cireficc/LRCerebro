@@ -35,9 +35,9 @@ module GoogleCalendarHelper
         @editing = @project.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
         
         @course = @project.course
-        @instructor = @course.get_instructor
+        @instructor = @course.instructor
         @last_name = @instructor.last_name
-        @num_students = @course.get_students.count
+        @num_students = @course.students.count
         @lab = @res.lab.titleize if @res.lab
         @index = @res.training? ? @training.index(@res) : @editing.index(@res)
         @total = @res.training? ? @training.length : @editing.length
@@ -103,9 +103,9 @@ module GoogleCalendarHelper
         @res = res
         
         @course = @res.course
-        @instructor = @course.get_instructor
+        @instructor = @course.instructor
         @last_name = @instructor.last_name
-        @num_students = @course.get_students.count
+        @num_students = @course.students.count
         @lab = @res.lab.titleize
         
         # e.g.

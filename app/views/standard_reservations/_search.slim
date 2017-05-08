@@ -20,7 +20,7 @@
         .col-md-3
             h4 Submitted By
             = select_tag :submitted_by,
-                options_for_select(StandardReservation.all.map { |s| o = s.course.get_instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
+                options_for_select(StandardReservation.all.map { |s| o = s.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
                         params[:submitted_by]), {class: "form-control", multiple: true}
         .col-md-2
             h4 Lab

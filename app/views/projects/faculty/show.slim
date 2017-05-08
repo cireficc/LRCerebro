@@ -4,10 +4,10 @@
         .panel-heading
             h3.panel-title
                 div.pull-right
-                    - project_owner = @project.course.get_instructor.decorate
+                    - project_owner = @project.course.instructor.decorate
                     - if project_owner
                         span.label.label-warning #{project_owner.full_name}
-                    span.label.label-default #{@project.course.get_students.count}
+                    span.label.label-default #{@project.course.students.count}
                     = @project.status
                 | Project Information
         .panel-body

@@ -20,9 +20,8 @@ table#standard_reservations.table.table-hover
         - @standard_reservations.each do |reservation|
             tr
                 td
-                    - reservation.course.instructors.each do |i| 
-                        span.label.label-info #{i.decorate.full_name}
-                        ' 
+                    span.label.label-info #{reservation.course.instructor.decorate.full_name}
+                    '
                 td
                     span.label.label-warning #{reservation.course.decorate.short_name}
                 td
@@ -30,7 +29,7 @@ table#standard_reservations.table.table-hover
                 td #{reservation.start}
                 td #{reservation.end}
                 td #{reservation.lab.titleize}
-                td #{reservation.course.get_students.count}
+                td #{reservation.course.students.count}
                 td
                     - if reservation.walkthrough?
                         span.label.label-success Yes

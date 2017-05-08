@@ -83,7 +83,7 @@
                                     .col-md-4
                                         h4 Professor
                                     .col-md-8
-                                        .well.well-sm #{p.course.get_instructor.decorate.full_name}
+                                        .well.well-sm #{p.course.instructor.decorate.full_name}
                                 .row
                                     .col-md-4
                                         h4 Course
@@ -99,7 +99,7 @@
                                         h4 # Students / Group Size
                                     .col-md-8
                                         .well.well-sm
-                                            - num_students = p.course.get_students.length
+                                            - num_students = p.course.students.length
                                             - per_group = p.students_per_group
                                             span.label.label-info #{num_students}
                                             |  #{"student".pluralize(num_students)}, 

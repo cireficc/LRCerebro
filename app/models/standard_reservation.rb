@@ -54,7 +54,7 @@ class StandardReservation < ActiveRecord::Base
     def search_data
         {
             course: course.id,
-            submitted_by: course.instructors.collect(&:id),
+            submitted_by: course.instructor.id,
             activity: activity,
             reservation_start: start,
             lab: lab,

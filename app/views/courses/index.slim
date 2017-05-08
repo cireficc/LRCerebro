@@ -24,12 +24,12 @@ table#courses.table.table-hover
                 td #{course.semester.titleize}
                 td
                     .dropdown
-                        - @students = course.get_students
+                        - @students = course.students
                         .btn.btn-sm.btn-info.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button" 
                             | #{@students.length} 
                             span.caret
                         ul.dropdown-menu
-                            - instructor = course.get_instructor
+                            - instructor = course.instructor
                             - if instructor
                                 li
                                     span.label.label-danger #{instructor.last_name}, #{instructor.first_name}

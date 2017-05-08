@@ -20,9 +20,8 @@ table#projects.table.table-hover
         - @projects.each do |project|
             tr
                 td
-                    - project.course.instructors.each do |i| 
-                        span.label.label-info #{i.decorate.full_name}
-                        ' 
+                    span.label.label-info #{project.course.instructor.decorate.full_name}
+                    ' 
                 td
                     span.label.label-warning #{project.course.decorate.short_name}
                 td
