@@ -43,15 +43,15 @@ class StandardReservationPolicy
     end
     
     def edit?
-        @user.director? || owns_standard_reservation
+        @user.director? || @user.labasst? || owns_standard_reservation
     end
     
     def update?
-        @user.director? || owns_standard_reservation
+        @user.director? || @user.labasst? || owns_standard_reservation
     end
     
     def destroy?
-        @user.director? || owns_standard_reservation
+        @user.director? || @user.labasst? || owns_standard_reservation
     end
     
     private
