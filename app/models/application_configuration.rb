@@ -15,7 +15,7 @@ class ApplicationConfiguration < ActiveRecord::Base
     enum current_semester: Course.semesters
     
     def reindex_associations
-        # Course doesn't need to be reindexed because the year/semester are in the model already
+        Course.reindex
         User.reindex
         Project.reindex
         StandardReservation.reindex
