@@ -94,6 +94,9 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	
 	course_id = row[0].to_i
 	pitm = row[1]
+	role = row[2].downcase
+	# Convert the string to our User.role's enum value
+	role = Enrollment.roles[role]
 	
 	# If the course changed, delete the enrollments for the course where the user unenrolled
 	# then reset the lists of imported enrolls and existing enrolls for the new course
@@ -111,7 +114,8 @@ CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
 	# Only operate on the entry if the course exists and the user exists (they won't exist if deleted in the previous step(s))
 	if @course && @user
 		# If the user isn't already enrolled, actually add them to the course (we need to prevent duplicates)
-		@course.users << @user unless @existing_enrolls.include?(@user)
+		Enrollment.create(user: @user, course: @course, role: role)
+    @course.users << @user unless @existing_enrolls.include?(@user)
 		@imported_enrolls << @user
 	end
 end
