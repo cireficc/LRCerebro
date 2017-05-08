@@ -56,13 +56,13 @@ h3 Editing course
                         th
                             h3 Username
                 tbody
-                    - instructor = @course.get_instructor
+                    - instructor = @course.instructor
                     - if instructor
                         tr.danger
                             td #{instructor.last_name}
                             td #{instructor.first_name}
                             td #{instructor.username}
-                    - @course.get_students.order(:last_name).each do |user|
+                    - @course.students.order(:last_name).each do |user|
                         tr
                             td #{user.last_name}
                             td #{user.first_name}

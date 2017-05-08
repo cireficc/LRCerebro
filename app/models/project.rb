@@ -69,7 +69,7 @@ class Project < ActiveRecord::Base
             script_due: script_due,
             due: due,
             course: course.id,
-            submitted_by: course.instructors.collect(&:id),
+            submitted_by: course.instructor.id,
             first_training: first_training_start,
             last_editing: last_editing_start,
             created_at: created_at,
@@ -92,7 +92,7 @@ class Project < ActiveRecord::Base
     end
     
     def students_per_group
-        (self.course.get_students.length.to_f/self.group_size.to_f).ceil
+        (self.course.students.length.to_f/self.group_size.to_f).ceil
     end
     
     def create_calendar_events

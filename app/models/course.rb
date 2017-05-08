@@ -106,15 +106,11 @@ class Course < ActiveRecord::Base
         self.year != config.current_semester_year || self.semester != config.current_semester
     end
     
-    def get_instructor
-       self.users.find { |u| u.faculty? }
+    def instructor
+       User.includes(:enrollment).where(enrollments: {course_id: self, role: Enrollment.roles[:instructor]}).first
     end
     
-    def instructors
-        self.users.where(role: User.roles[:faculty])
-    end
-    
-    def get_students
-       self.users.where(role: User.roles[:student])
+    def students
+        User.includes(:enrollment).where(enrollments: {course_id: self, role: Enrollment.roles[:student]})
     end
 end
