@@ -28,7 +28,6 @@ Then just launch with `lunchy start postgres` and `lunchy start elasticsearch`.
 
 ## Environment Variables (development)
 
- - `export GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/secrets/GOOGLE_AUTH_DEVELOPMENT.json`
- - `export GOOGLE_CALENDAR_RESERVATION_CAL_ID=7niit4bglqaq74la04jee8ddc4@group.calendar.google.com`
- 
- in `~/.bash_profile`.
+- `export GOOGLE_APPLICATION_CREDENTIALS=/PATH/TO/LRCerebro/config/GOOGLE_API_SERVICE_DEVELOPMENT.json`
+
+in `~/.bash_profile`. `GOOGLE_API_SERVICE_DEVELOPMENT.json` is a JSON credential file that needs to be obtained before running the app.
