@@ -15,7 +15,8 @@ module GoogleCalendarHelper
     HOURS_PER_DAY = 24
     MINUTES_PER_DAY = 60 * 24
     SECONDS_PER_DAY = 60 * 60 * 24
-    RESERVATION_CALENDAR_ID = Figaro.env.google_calendar_reservation_cal_id
+    RESERVATION_CALENDAR_ID = Rails.application.secrets.google_calendar_reservation_cal
+    PROJECT_PUBLISHING_CALENDAR_ID = Rails.application.secrets.google_calendar_project_publishing_cal
    
     @calendar = Google::Apis::CalendarV3::CalendarService.new
     @calendar.authorization = Google::Auth.get_application_default(GoogleApiHelper::SCOPES)
@@ -88,6 +89,52 @@ module GoogleCalendarHelper
     def self.delete_project_event(project_reservation)
         begin
             @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
+        rescue Google::Apis::ClientError
+            puts "Event no longer exists, ignore trying to delete it"
+        end
+    end
+
+    # Schedule project publish event in Google Calendar based on the ActiveRecord callback on a Project:
+    # :create - create project publish event
+    # :update - update project publish event
+    def self.schedule_project_publish_event(project, action)
+
+        @project = project
+        @course = @project.course
+        @instructor = @course.instructor
+        @start_time = @project.viewable_by - 2.hours
+        @end_time = @project.viewable_by
+
+        # e.g. "Publishing: (Camtasia) Ward FRE 101-01"
+        @event_title = "Publishing: (#{@project.category.titleize}) #{@instructor.last_name} #{@course.decorate.short_name}"
+
+        # Change the time zone of the reservation start/end from UTC without affecting the time value
+        @start_time = ApplicationHelper.local_to_utc(@start_time)
+        @end_time = ApplicationHelper.local_to_utc(@end_time)
+        
+        @g_cal_event = Google::Apis::CalendarV3::Event.new({
+           summary: @event_title,
+           start: {
+               date_time: @start_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           },
+           end: {
+               date_time: @end_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           }
+        })
+
+        if action == :create
+            @event = @calendar.insert_event(PROJECT_PUBLISHING_CALENDAR_ID, @g_cal_event)
+            @project.update_columns(google_calendar_publish_event_id: @event.id)
+        elsif action == :update
+            @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, @project.google_calendar_publish_event_id, @g_cal_event)
+        end
+    end
+
+    def self.delete_project_publish_event(project)
+        begin
+            @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id)
         rescue Google::Apis::ClientError
             puts "Event no longer exists, ignore trying to delete it"
         end
