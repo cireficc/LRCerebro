@@ -1,0 +1,17 @@
+<%= simple_form_for(@test) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.label :string_enum, "String Enum" %>
+    <%= f.select :string_enum, Test::STRING_ENUM_OPTIONS %>
+    <%= f.input :string_enum_other,
+                input_html: {
+                    data: { depends_on: "#test_string_enum", depends_on_value: "Other"}
+                }
+    %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
