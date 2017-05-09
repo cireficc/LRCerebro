@@ -8,6 +8,7 @@ class Test < ActiveRecord::Base
       StoryBird
       Blog
       Pages
-      Other
   )
+  
+  validates :string_enum, presence: true
 end

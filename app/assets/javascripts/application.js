@@ -76,14 +76,15 @@ var initialize = function() {
 	// Initialize all Bootstrap toolips and popovers
 	$("[data-toggle='tooltip']").tooltip();
 	$("[data-toggle='popover']").popover({ trigger: "focus", container: "body", html: true });
-	
-	// Initialize all acts-as-taggable-on + select2 tag inputs
+
+    $.fn.select2.defaults.set("theme", "bootstrap");
+    $.fn.select2.defaults.set("width", "100%");
+
+    // Initialize all acts-as-taggable-on + select2 tag inputs
 	$("*[data-taggable='true']").each(function() {
         console.log("Taggable: " + $(this).attr('id') + "; initializing select2");
         $(this).select2({
             tags: true,
-            theme: "bootstrap",
-            width: "100%",
             tokenSeparators: [','],
             minimumInputLength: 2,
             ajax: {
@@ -122,10 +123,35 @@ var initialize = function() {
             }
         });
     });
+
+    // Initialize all select2 "Other"-enabled inputs
+    $("select[data-other='true']").each(function() {
+        $(this).select2({
+            tags: true,
+            createTag: function (params) {
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                }
+            },
+            templateResult: function (data) {
+                var $result = $("<span></span>");
+
+                $result.text(data.text);
+
+                if (data.newOption) {
+                    $result.prepend("<strong>(CUSTOM):</strong> ");
+                }
+
+                return $result;
+            }
+        });
+    });
         
-    // Initialze all selects (that aren't for tags) with Select2
-    $("select:not([data-taggable='true'])").each(function(index){  
-        $(this).select2({theme: "bootstrap", width: "100%"});
+    // Initialze all selects (that aren't for tags or "Other" selects) with Select2
+    $("select:not([data-taggable='true'], [data-other='true'])").each(function(index){ 
+        $(this).select2();
     });
 }
 
@@ -240,58 +266,3 @@ function updateQueryStringParameter(uri, key, value) {
         return uri + separator + key + "=" + value;
     }
 }
-
-/*
- * Select "Other" option: when "Other" is selected, show the _other_ text field
- * for custom input. When unselected, hide the _other text field. Code adapted from:
- * https://gist.github.com/masonjm/1c221475fc099c90ba30
- */
-(function($){
-
-    $.fn.dependsOn = function(element, value) {
-        
-        var elements = this;
-        var hideOrShow = function() {
-            var $this = $(this);
-            var showEm;
-            
-            if ($this.is('input[type="checkbox"]')) {
-                showEm = $this.is(':checked');
-            } else if ($this.is('select')) {
-                var fieldValue = $this.find('option:selected').val();
-                
-                if (typeof(value) == 'undefined') {
-                    showEm = fieldValue && $.trim(fieldValue) != '';
-                } else if ($.isArray(value)) {
-                    showEm = $.inArray(fieldValue, value.map(function(v) {return v.toString()})) >= 0;
-                } else {
-                    showEm = value.toString() == fieldValue;
-                }
-            }
-            elements.toggle(showEm);
-        };
-        
-        // Add change handler to element
-        $(element).change(hideOrShow);
-
-        // Hide the dependent fields
-        $(element).each(hideOrShow);
-
-        return elements;
-    };
-
-    $(document).on('ready page:load', function() {
-        $('*[data-depends-on]').each(function() {
-            var $this = $(this);
-            var master = $this.data('dependsOn').toString();
-            var value = $this.data('dependsOnValue');
-            
-            if (typeof(value) != 'undefined') {
-                $this.dependsOn(master, value);
-            } else {
-                $this.dependsOn(master);
-            }
-        });
-    });
-
-})(jQuery);
