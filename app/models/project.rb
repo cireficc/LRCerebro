@@ -18,45 +18,24 @@ class Project < ActiveRecord::Base
     # ProjectReservations can be created in a Project update action, so check both cases
     after_update :create_or_update_reservation_calendar_events, :create_or_update_publishing_event
     before_destroy :delete_publish_calendar_event
-    
-    # Project categories
-    # :camtasia - A video project using Camtasia Studio
-    # :garage_band - A podcast-type project using Garage Band
-    # :pixton - A comic book project using Pixton
-    # :photo_booth - A short video or photo project using Photo Booth
-    # :blog - A blog project using Google Sites
-    # :pages - A document-based project using Pages
-    # :other - A different type of project that should be detailed in the project's description
-    enum category: {
-        camtasia: 0,
-        garage_band: 1,
-        pixton: 2,
-        photo_booth: 3,
-        storybird: 7,
-        blog: 4,
-        pages: 5,
-        other: 6
-    }
-    
-    CATEGORY_TRAINING_EVENTS = {
-        camtasia: 3,
-        garage_band: 2,
-        pixton: 2,
-        photo_booth: 1,
-        blog: 2,
-        pages: 1,
-        other: 2
-    }
-    
-    CATEGORY_EDITING_EVENTS = {
-        camtasia: 4,
-        garage_band: 3,
-        pixton: 3,
-        photo_booth: 2,
-        blog: 2,
-        pages: 2,
-        other: 3
-    }
+
+    # Project categories 
+    # Camtasia - A video project using Camtasia Studio 
+    # Garage Band - A podcast-type project using Garage Band 
+    # Pixton - A comic book project using Pixton 
+    # Photo Booth - A short video or photo project using Photo Booth 
+    # Storybird - A short story project with artwork using Storybird
+    # Blog - A blog project using Google Sites 
+    # Pages - A document-based project using Pages 
+    CATEGORIES = [
+      "Camtasia",
+      "Garage Band",
+      "Pixton",
+      "Photo Booth",
+      "Storybird",
+      "Blog",
+      "Pages"
+    ]
     
     def search_data
         

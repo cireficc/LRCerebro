@@ -37,22 +37,22 @@ fre3.save!
 Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
 
 # Create a few projects to assign to courses
-spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: Project.categories[:camtasia], group_size: 3,
+spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: "Camtasia", group_size: 3,
                                 script_due: DateTime.new(2015,8,15,7,0,0,'-5'), due: DateTime.new(2015,8,25,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,27,13,0,0,'-5'), approved: false)
-spa_project_2 = Project.create!(course: spa2, name: "Bienvenido", description: "Some type of Garage Band project", category: Project.categories[:garage_band], group_size: 2,
+spa_project_2 = Project.create!(course: spa2, name: "Bienvenido", description: "Some type of Garage Band project", category: "Garage Band", group_size: 2,
                                 script_due: DateTime.new(2015,8,17,7,0,0,'-5'), due: DateTime.new(2015,8,29,18,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: true)
-spa_project_3 = Project.create!(course: spa2, name: "Muy Caliente", description: "Pixton project", category: Project.categories[:pixton], group_size: 3,
+spa_project_3 = Project.create!(course: spa2, name: "Muy Caliente", description: "Pixton project", category: "Pixton", group_size: 3,
                                 script_due: DateTime.new(2015,8,11,7,0,0,'-5'), due: DateTime.new(2015,8,24,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,26,13,0,0,'-5'), approved: false)
-fre_project_1 = Project.create!(course: fre, name: "FRE Project 1", description: "Garage Band description", category: Project.categories[:garage_band], group_size: 1,
+fre_project_1 = Project.create!(course: fre, name: "FRE Project 1", description: "Garage Band description", category: "Garage Band", group_size: 1,
                                 script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: false)
-fre_project_2 = Project.create!(course: fre2, name: "FRE Project 2", description: "Pixton description", category: Project.categories[:pixton], group_size: 2,
+fre_project_2 = Project.create!(course: fre2, name: "FRE Project 2", description: "Pixton description", category: "Pixton", group_size: 2,
                                 script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: true)
-fre_project_3 = Project.create!(course: fre3, name: "FRE Project 3", description: "Camtasia awesomeness", category: Project.categories[:camtasia], group_size: 2,
+fre_project_3 = Project.create!(course: fre3, name: "FRE Project 3", description: "Camtasia awesomeness", category: "Camtasia", group_size: 2,
                                 script_due: DateTime.new(2015,8,5,7,0,0,'-5'), due: DateTime.new(2015,8,29,16,0,0,'-5'),
                                 viewable_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: false)
 

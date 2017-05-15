@@ -34,7 +34,7 @@
         .col-md-3
             h4 Category
             = select_tag :category,
-                options_for_select(Project.categories.map { |c, i| [c.titleize, c] }, params[:category]), {class: "form-control", multiple: true}
+                options_for_select(Project::CATEGORIES.map { |c, i| [c, c] }, params[:category]), {class: "form-control", multiple: true}
         .col-md-3
             h4 Course
             = select_tag :course,
