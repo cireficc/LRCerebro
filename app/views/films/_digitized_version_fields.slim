@@ -33,15 +33,17 @@
                             h4 Audio Language
                         .col-md-8
                             = f.input :audio_language,
-                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
-                                prompt: "Select an audio language"
+                                input_html: {data: {other: true}},
+                                collection: Language::LANGUAGES.clone.push(*f.object.audio_language).uniq,
+                                prompt: "Select a language or type your own"
                     .row
                         .col-md-4
                             h4 Subtitle Language
                         .col-md-8
                             = f.input :subtitle_language,
-                                collection: Language.languages.collect { |u, i| [u.titleize, u.titleize] },
-                                prompt: "Select a subtitle language"
+                                input_html: {data: {other: true}},
+                                collection: Language::LANGUAGES.clone.push(*f.object.subtitle_language).uniq,
+                                prompt: "Select a language or type your own"
                     .row
                         .col-md-4
                             h4 Direct Link

@@ -53,17 +53,19 @@
                                             input_html: { rows: 5}
                                 .row
                                     .col-md-6
-                                            h4
-                                                | Audio Languages 
-                                                = info_popover("films/audio_languages", "Audio Languages")
-                                            = f.input :audio_languages,
-                                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
-                                                input_html: { multiple: true }
+                                        h4
+                                            | Audio Languages 
+                                            = info_popover("films/audio_languages", "Audio Languages")
+                                        = f.input :audio_languages,
+                                            input_html: {multiple: true, data: {other: true}},
+                                            collection: Language::LANGUAGES.clone.push(*f.object.audio_languages).uniq,
+                                            prompt: "Select a language or type your own"
                                     .col-md-6
-                                            h4 Subtitle Languages
-                                            = f.input :subtitle_languages,
-                                                collection: Language.languages.collect { |u, i| [u.titleize, u] },
-                                                input_html: { multiple: true }
+                                        h4 Subtitle Languages
+                                        = f.input :subtitle_languages,
+                                            input_html: {multiple: true, data: {other: true}},
+                                            collection: Language::LANGUAGES.clone.push(*f.object.subtitle_languages).uniq,
+                                            prompt: "Select a language or type your own"
                                 .row
                                     .col-md-3
                                         h4 Directors

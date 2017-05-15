@@ -10,11 +10,11 @@
         .col-md-2
             h4 Audio Languages
             = select_tag :audio_languages,
-                options_for_select(Language.languages.map { |l, i| [l.titleize, l] }, params[:audio_languages]), {class: "form-control", multiple: true}
+                options_for_select(Language::LANGUAGES.map { |l, i| [l, l] }, params[:audio_languages]), {class: "form-control", multiple: true}
         .col-md-2
             h4 Subtitle Languages
             = select_tag :subtitle_languages,
-                options_for_select(Language.languages.map { |l, i| [l.titleize, l] }, params[:subtitle_languages]), {class: "form-control", multiple: true}
+                options_for_select(Language::LANGUAGES.map { |l, i| [l, l] }, params[:subtitle_languages]), {class: "form-control", multiple: true}
         .col-md-4
             h4 Directors, Cast Members and Genres
             = hidden_field_tag :tag_list, params[:tag_list]
