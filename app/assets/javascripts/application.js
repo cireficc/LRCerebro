@@ -141,7 +141,7 @@ var initialize = function() {
                 $result.text(data.text);
 
                 if (data.newOption) {
-                    $result.prepend("<strong>(CUSTOM):</strong> ");
+                    $result.prepend("<strong>(Enter your own):</strong> ");
                 }
 
                 return $result;
