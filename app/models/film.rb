@@ -8,10 +8,9 @@ class Film < ActiveRecord::Base
     acts_as_taggable_on :directors, :cast_members, :genres
     mount_uploader :cover, FilmCoverUploader
 
-    validates :film_type, :mpaa_rating, presence: true
+    validates :film_type, :mpaa_rating, :audio_languages, presence: true
     validates :year, :length, numericality: { only_integer: true }
     validate :validate_title
-    validate :validate_audio_languages
     validates_associated :digitized_versions
     
     # Languages is an array which will always have an empty element, so get rid of it
@@ -70,10 +69,5 @@ class Film < ActiveRecord::Base
             errors.add(:foreign_title, "Foreign title and transliterated foreign title must not be blank")
             errors.add(:transliterated_foreign_title, "Foreign title and transliterated foreign title must not be blank")
         end
-    end
-
-    def validate_audio_languages
-        error = Language.validate_languages(audio_languages)
-        errors.add(:audio_languages, error) if error
     end
 end
