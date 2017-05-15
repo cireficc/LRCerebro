@@ -15,7 +15,7 @@ class ConvertStandardReservationActivityToString < ActiveRecord::Migration
     # Convert the old enum ints to their new string representation
     StandardReservation.all.each do |sr|
       int = sr[:activity].to_i
-      sr.update_attributes(activity: standard_reservation_activities[int])
+      sr.update_columns(activity: standard_reservation_activities[int])
     end
   end
 end
