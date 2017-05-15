@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509175509) do
+ActiveRecord::Schema.define(version: 20170515151435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20170509175509) do
     t.integer  "course_id"
     t.string   "name"
     t.text     "description"
-    t.integer  "category"
+    t.string   "category"
     t.integer  "group_size"
     t.datetime "script_due"
     t.datetime "due"
