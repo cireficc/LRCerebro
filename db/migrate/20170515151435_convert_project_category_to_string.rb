@@ -1,4 +1,4 @@
-class ConvertIntEnumListToString < ActiveRecord::Migration
+class ConvertProjectCategoryToString < ActiveRecord::Migration
   def change
     change_column :projects, :category, :string
 
