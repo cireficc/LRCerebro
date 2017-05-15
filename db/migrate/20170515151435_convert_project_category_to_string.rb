@@ -17,7 +17,7 @@ class ConvertProjectCategoryToString < ActiveRecord::Migration
     # Convert the old enum ints to their new string representation
     Project.all.each do |p|
       int = p[:category].to_i
-      p.update_attributes(category: project_categories[int])
+      p.update_columns(category: project_categories[int])
     end
   end
 end
