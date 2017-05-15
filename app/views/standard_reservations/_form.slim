@@ -14,6 +14,7 @@
                             .col-md-9
                                 - @courses = current_user.active_courses
                                 = f.input :course_id,
+                                    disabled: disabled,
                                     collection: @courses.collect { |c| [c.name, c.id] },
                                     prompt: "Select a course"
                         .row
@@ -21,13 +22,16 @@
                                 h4 Activity
                             .col-md-9
                                 = f.input :activity,
-                                    collection: StandardReservation.activities.collect { |a, i| [a.titleize, a] },
-                                    prompt: "Select an activity type"
+                                    disabled: disabled,
+                                    input_html: {data: {other: true}},
+                                    collection: StandardReservation::ACTIVITIES.clone.push(f.object.activity).uniq,
+                                    prompt: "Select an activity type or type your own"
                         .row
                             .col-md-3
                                 h4 Walkthrough
                             .col-md-9
                                 = f.input :walkthrough,
+                                    disabled: disabled,
                                     as: :select,
                                     prompt: "Can students walk through the lab?"
                         .row
@@ -35,6 +39,7 @@
                                 h4 Utilities
                             .col-md-9
                                 = f.input :utilities,
+                                    disabled: disabled,
                                     collection: StandardReservation.utilities.collect { |u, i| [u.titleize, u] },
                                     as: :check_boxes
                         .row
@@ -42,6 +47,7 @@
                                 h4 Assistance
                             .col-md-9
                                 = f.input :assistances,
+                                    disabled: disabled,
                                     collection: StandardReservation.assistances.collect { |a, i| [a.titleize, a] },
                                     as: :check_boxes
             #reservation-calendar.col-md-6 style="position: fixed; left: 0; bottom: 10rem;"
