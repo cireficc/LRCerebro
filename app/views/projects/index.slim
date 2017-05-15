@@ -25,7 +25,7 @@ table#projects.table.table-hover
                 td
                     span.label.label-warning #{project.course.decorate.short_name}
                 td
-                    span.label.label-danger #{project.category.titleize}
+                    span.label.label-danger #{project.category}
                 td #{project.script_due}
                 td #{project.first_training.start if project.first_training}
                 td #{project.last_editing.start if project.last_editing}

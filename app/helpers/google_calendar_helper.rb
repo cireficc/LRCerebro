@@ -49,7 +49,7 @@ module GoogleCalendarHelper
         @event_title =
             "#{'HOLD: ' if !@project.approved?}"\
             "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@project.category.titleize} #{@res.category.titleize} #{@index + 1} of #{@total})"
+            " (#{@project.category} #{@res.category.titleize} #{@index + 1} of #{@total})"
 
         if (@res.subtype)
             @event_title = @event_title + " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
@@ -106,7 +106,7 @@ module GoogleCalendarHelper
         @end_time = @project.viewable_by
 
         # e.g. "Publishing: (Camtasia) Ward FRE 101-01"
-        @event_title = "Publishing: (#{@project.category.titleize}) #{@instructor.last_name} #{@course.decorate.short_name}"
+        @event_title = "Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
 
         # Change the time zone of the reservation start/end from UTC without affecting the time value
         @start_time = ApplicationHelper.local_to_utc(@start_time)
@@ -159,7 +159,7 @@ module GoogleCalendarHelper
         # "FRE 101-01, Ward, 24 (Dill Paired Recordings [Walkthrough: YES])"
         @event_title =
             "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@res.activity.titleize} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
+            " (#{@res.activity} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
         
         # Change the time zone of the reservation start/end from UTC without affecting the time value
         @start_time = ApplicationHelper.local_to_utc(@res.start)
