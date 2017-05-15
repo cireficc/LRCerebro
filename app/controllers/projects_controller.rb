@@ -54,11 +54,6 @@ class ProjectsController < ApplicationController
     def new
         @project = Project.new
         authorize @project
-        @num_training = Project::CATEGORY_TRAINING_EVENTS.values[0]
-        @num_editing = Project::CATEGORY_EDITING_EVENTS.values[0]
-        
-        @num_training.times { @project.project_reservations.build :category => ProjectReservation.categories[:training] }
-        @num_editing.times { @project.project_reservations.build :category => ProjectReservation.categories[:editing] }
         
         # Check to see if the form is offline and act appropriately
         @config = ApplicationConfiguration.last
