@@ -8,7 +8,7 @@
         .col-md-4
             h4 Activity
             = select_tag :activity,
-                options_for_select(StandardReservation.activities.map { |a, i| [a.titleize, a] }, params[:activity]), {class: "form-control", multiple: true}
+                options_for_select(StandardReservation::ACTIVITIES.map { |a, i| [a, a] }, params[:activity]), {class: "form-control", multiple: true}
         .col-md-2
             h4 From
             .input-group.date

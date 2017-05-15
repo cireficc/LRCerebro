@@ -10,21 +10,24 @@ class StandardReservation < ActiveRecord::Base
     after_create :create_or_update_calendar_event, :unless => :seeding_development_database
     after_update :create_or_update_calendar_event
     before_destroy :delete_calendar_event
-    
+
     # Standard activity types
-    # :dill_paired_recordings - DiLL recordings where students are paired together to record
-    # :dill_individual_recordings - DiLL recordings where students record individually
-    # :writing_or_web_research - Students write papers or do web research
-    # :film_viewing - Film viewing
-    # :other - Other activities may include: MLPA-CoLa testing, Skype session, etc. 
-    enum activity: {
-        dill_paired_recordings: 0,
-        dill_individual_recordings: 1,
-        writing_or_web_research: 2,
-        film_viewing: 3,
-        lrc_orientation: 5,
-        other: 4
-    }
+    # DiLL Paired (Synchronous) Recordings - DiLL recordings where students are paired together to record
+    # DiLL Individual (Asynchronous) Recordings - DiLL recordings where students record individually
+    # Writing or Web Research - Students write papers or do web research
+    # Film Viewing - Film viewing
+    # MLPA-CoLa Testing - MLPA-CoLa Test session
+    # Skype Session - Skype session with a remote person
+    # LRC Orientation - Freshman orientation or orientation for low-level MLL courses
+    ACTIVITIES = [
+        "DiLL Paired (Synchronous) Recordings",
+        "DiLL Individual (Asynchronous) Recordings",
+        "Writing or Web Research",
+        "Film Viewing",
+        "MLPA-CoLa Testing",
+        "Skype Session",
+        "LRC Orientation"
+    ]
     
     # Standard utility types
     # :roaming_support - Provide roaming support

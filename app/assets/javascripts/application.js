@@ -76,14 +76,15 @@ var initialize = function() {
 	// Initialize all Bootstrap toolips and popovers
 	$("[data-toggle='tooltip']").tooltip();
 	$("[data-toggle='popover']").popover({ trigger: "focus", container: "body", html: true });
-	
-	// Initialize all acts-as-taggable-on + select2 tag inputs
+
+    $.fn.select2.defaults.set("theme", "bootstrap");
+    $.fn.select2.defaults.set("width", "100%");
+
+    // Initialize all acts-as-taggable-on + select2 tag inputs
 	$("*[data-taggable='true']").each(function() {
         console.log("Taggable: " + $(this).attr('id') + "; initializing select2");
         $(this).select2({
             tags: true,
-            theme: "bootstrap",
-            width: "100%",
             tokenSeparators: [','],
             minimumInputLength: 2,
             ajax: {
@@ -122,10 +123,35 @@ var initialize = function() {
             }
         });
     });
+
+    // Initialize all select2 "Other"-enabled inputs
+    $("select[data-other='true']").each(function() {
+        $(this).select2({
+            tags: true,
+            createTag: function (params) {
+                return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                }
+            },
+            templateResult: function (data) {
+                var $result = $("<span></span>");
+
+                $result.text(data.text);
+
+                if (data.newOption) {
+                    $result.prepend("<strong>(Enter your own):</strong> ");
+                }
+
+                return $result;
+            }
+        });
+    });
         
-    // Initialze all selects (that aren't for tags) with Select2
-    $("select:not([data-taggable='true'])").each(function(index){  
-        $(this).select2({theme: "bootstrap", width: "100%"});
+    // Initialze all selects (that aren't for tags or "Other" selects) with Select2
+    $("select:not([data-taggable='true'], [data-other='true'])").each(function(index){ 
+        $(this).select2();
     });
 }
 

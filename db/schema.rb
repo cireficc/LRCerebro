@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508215804) do
+ActiveRecord::Schema.define(version: 20170515181914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20170508215804) do
     t.integer  "course_id"
     t.string   "name"
     t.text     "description"
-    t.integer  "category"
+    t.string   "category"
     t.integer  "group_size"
     t.datetime "script_due"
     t.datetime "due"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20170508215804) do
 
   create_table "standard_reservations", force: :cascade do |t|
     t.integer  "course_id"
-    t.integer  "activity"
+    t.string   "activity"
     t.datetime "start"
     t.datetime "end"
     t.integer  "lab"

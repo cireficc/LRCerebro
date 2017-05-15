@@ -26,12 +26,11 @@
                         .col-md-4
                             h4 Project type
                         .col-md-8
-                            - @train = Project::CATEGORY_TRAINING_EVENTS
-                            - @edit = Project::CATEGORY_EDITING_EVENTS
                             = f.input :category,
-                                disabled: true,
-                                collection: Project.categories.collect { |c, i| [c.titleize, c, :data => {:default_training => @train[c.to_sym], :default_editing => @edit[c.to_sym] }] },
-                                prompt: "Select a project type"
+                                    disabled: true,
+                                    input_html: {data: {other: true}},
+                                    collection: Project::CATEGORIES.clone.push(f.object.category).uniq,
+                                    prompt: "Select a project type or type your own"
                             div#other_warning.small.text-warning.hidden
                                 | You are not doing a typical project. Please describe your project in the <em><u>Project Pescription</em></u> field.
                     .row
