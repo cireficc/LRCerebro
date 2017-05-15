@@ -81,7 +81,7 @@
                                         span.label.label-primary #{d.audio_language.titleize}
                                         ' 
                                         | / S: 
-                                        span.label.label-primary #{d.subtitle_language.titleize}
+                                        span.label.label-primary #{d.subtitle_language.titleize if d.subtitle_language}
                         .tab-content
                             - @film.digitized_versions.each_with_index do |d, i|
                                 .tab-pane class="#{'active' if i == 0}" id="version#{i}"
