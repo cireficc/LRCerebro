@@ -21,7 +21,7 @@ module GoogleCalendarHelper
     @calendar = Google::Apis::CalendarV3::CalendarService.new
     @calendar.authorization = Google::Auth.get_application_default(GoogleApiHelper::SCOPES)
    
-    def get_calendar
+    def self.get_calendar
         @calendar
     end
     
