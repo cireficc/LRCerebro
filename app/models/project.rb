@@ -36,6 +36,14 @@ class Project < ActiveRecord::Base
       "Blog",
       "Pages"
     ]
+
+    # Publishing options
+    # :web_archive - Publish project to the LRC's web archive
+    # :google_drive_link_sent_to_you - Send the faculty a Google Drive link to their class/project folder
+    enum publish_method: {
+        web_archive: 0,
+        google_drive_link_sent_to_you: 1
+    }
     
     def search_data
         

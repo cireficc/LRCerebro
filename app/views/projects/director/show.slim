@@ -78,6 +78,14 @@
                                 input_html: { checked: @project.present == "1" ? true : false }
                     div#publish_by_hidden
                         .row
+                            .col-md-3
+                                h4 Publish method
+                            .col-md-9
+                                = f.input :publish_methods,
+                                        disabled: true,
+                                        collection: Project.publish_methods.collect { |m, i| [m.titleize, m] },
+                                        as: :check_boxes
+                        .row
                             .col-md-4
                                 h4 Projects ready by
                             .col-md-8
