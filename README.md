@@ -29,5 +29,9 @@ Then just launch with `lunchy start postgres` and `lunchy start elasticsearch`.
 ## Environment Variables (development)
 
 - `export GOOGLE_APPLICATION_CREDENTIALS=/PATH/TO/LRCerebro/config/GOOGLE_API_SERVICE_DEVELOPMENT.json`
+- `export GOOGLE_CALENDAR_RESERVATION_CAL_ID=7niit4bglqaq74la04jee8ddc4@group.calendar.google.com`
+- `export GOOGLE_CALENDAR_PROJECT_PUBLISHING_CAL_ID=knk6vm0gs72glbt1smh03t0pp0@group.calendar.google.com`
+- `export GOOGLE_CALENDAR_VIDCAM_CAL_ID=igtb6hfuheekma5vmdmk2niius@group.calendar.google.com`
 
 in `~/.bash_profile`. `GOOGLE_API_SERVICE_DEVELOPMENT.json` is a JSON credential file that needs to be obtained before running the app.
+The other exports are the calendars used in development mode, separate from the production calendars.
