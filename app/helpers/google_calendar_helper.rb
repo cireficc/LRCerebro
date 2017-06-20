@@ -102,8 +102,8 @@ module GoogleCalendarHelper
         @project = project
         @course = @project.course
         @instructor = @course.instructor
-        @start_time = @project.viewable_by - 2.hours
-        @end_time = @project.viewable_by
+        @start_time = @project.publish_by - 2.hours
+        @end_time = @project.publish_by
 
         # e.g. "Publishing: (Camtasia) Ward FRE 101-01"
         @event_title = "Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"

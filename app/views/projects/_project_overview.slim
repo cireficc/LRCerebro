@@ -44,8 +44,8 @@
                                     .col-md-4
                                         h4 Publish by
                                     .col-md-8
-                                        - if p.viewable_by
-                                            .well.well-sm #{p.viewable_by}
+                                        - if p.publish_by
+                                            .well.well-sm #{p.publish_by}
                     - @training = p.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
                     .col-md-8
                         .panel.panel-danger

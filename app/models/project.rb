@@ -89,7 +89,7 @@ class Project < ActiveRecord::Base
 
     # Schedule project publish event
     def create_or_update_publishing_event
-        return if self.viewable_by.nil?
+        return if self.publish_by.nil?
         method = self.google_calendar_publish_event_id.blank? ? :create : :update
         GoogleCalendarHelper.schedule_project_publish_event(self, method)
     end

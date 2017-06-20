@@ -30,7 +30,7 @@ table#projects.table.table-hover
                 td #{project.first_training.start if project.first_training}
                 td #{project.last_editing.start if project.last_editing}
                 td #{project.due}
-                td #{project.viewable_by}
+                td #{project.publish_by}
                 td #{project.created_at}
                 td
                     - if project.approved?
