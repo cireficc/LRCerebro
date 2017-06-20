@@ -30,7 +30,7 @@ class StandardReservationsController < ApplicationController
 
         @standard_reservations = StandardReservationDecorator.decorate_collection(StandardReservation.search(
                 "*",
-                include: @includes,
+                includes: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))

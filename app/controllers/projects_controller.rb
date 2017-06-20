@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
         if params[:search].present?
             @projects = ProjectDecorator.decorate_collection(Project.search(
                 params[:search],
-                include: @includes,
+                includes: @includes,
                 fields: [
                     :name,
                     :description
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
         else
             @projects = ProjectDecorator.decorate_collection(Project.search(
                 "*",
-                include: @includes,
+                includes: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))

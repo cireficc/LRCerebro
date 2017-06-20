@@ -1,5 +1,5 @@
 class Film < ActiveRecord::Base
-    searchkick autocomplete: [:english_title, :foreign_title, :transliterated_foreign_title, :catalog_number]
+    searchkick word_start: [:english_title, :foreign_title, :transliterated_foreign_title, :catalog_number]
 
     has_one :inventory_item, as: :inventoriable, dependent: :destroy
     has_many :digitized_versions, dependent: :destroy

@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
         if params[:search].present?
             @courses = CourseDecorator.decorate_collection(Course.search(
                 params[:search],
-                include: @includes,
+                includes: @includes,
                 fields: [
                     :name
                 ],
@@ -28,7 +28,7 @@ class CoursesController < ApplicationController
         else
             @courses = CourseDecorator.decorate_collection(Course.search(
                 "*",
-                include: @includes,
+                includes: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))

@@ -102,12 +102,12 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
-    elasticsearch (1.0.17)
-      elasticsearch-api (= 1.0.17)
-      elasticsearch-transport (= 1.0.17)
-    elasticsearch-api (1.0.17)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
       multi_json
-    elasticsearch-transport (1.0.17)
+    elasticsearch-transport (5.0.4)
       faraday
       multi_json
     erubis (2.7.0)
@@ -138,7 +138,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
-    hashie (3.4.4)
+    hashie (3.5.5)
     hike (1.2.3)
     httpclient (2.8.0)
     hurley (0.2)
@@ -265,8 +265,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    searchkick (1.3.0)
-      activemodel
+    searchkick (2.3.0)
+      activemodel (>= 4.1)
       elasticsearch (>= 1)
       hashie
     select2-rails (4.0.3)
@@ -331,6 +331,7 @@ DEPENDENCIES
   database_cleaner
   devise (~> 4.2)
   draper (~> 2.1)
+  elasticsearch (~> 5.0.4)
   factory_girl
   figaro
   google-api-client (~> 0.9)
@@ -348,7 +349,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  searchkick (~> 1.3)
+  searchkick (~> 2.3.0)
   select2-rails (~> 4.0.3)
   simple_form (~> 3.2, >= 3.2.1)
   slim (>= 3.0.3)
@@ -357,4 +358,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.13.7
+   1.14.6

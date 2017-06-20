@@ -3,10 +3,13 @@ class FilmsController < ApplicationController
 
     # GET /films/autocomplete
     def autocomplete
-        @films = FilmDecorator.decorate_collection(Film.search(params[:search],
-                            autocomplete: true,
-                            limit: 5,
-                            order: { catalog_number: :asc }))
+        @films = FilmDecorator.decorate_collection(
+            Film.search(params[:search],
+                        match: :word_start,
+                        fields: [:english_title, :foreign_title, :transliterated_foreign_title, :catalog_number],
+                        misspellings: {below: 1},
+                        limit: 5,
+                        order: { catalog_number: :asc }))
         render json: @films, each_serializer: FilmAutocompleteSerializer
     end
 
@@ -31,20 +34,21 @@ class FilmsController < ApplicationController
         if params[:search].present?
             @films = FilmDecorator.decorate_collection(Film.search(
                 params[:search],
-                include: @includes,
+                includes: @includes,
                 fields: [
                     :english_title,
                     :foreign_title,
                     :description,
                     {catalog_number: :exact }
                 ],
+                misspellings: {below: 1},
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))
         else
             @films = FilmDecorator.decorate_collection(Film.search(
                 "*",
-                include: @includes,
+                includes: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))
