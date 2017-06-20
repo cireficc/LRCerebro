@@ -32,7 +32,8 @@ gem 'acts-as-taggable-on', '~> 3.5'
 # Use Select2 for tag multi-select
 gem 'select2-rails', '~> 4.0.3'
 # Use Searchkick (+ ElasticSearch) to complex searching
-gem 'searchkick', '~> 1.3'
+gem 'searchkick', '~> 2.3.0'
+gem 'elasticsearch', '~> 5.0.4'
 # Use Kaminari to paginate large result sets
 gem 'kaminari', '~> 0.17.0'
 # Use ActiveModelSerializers to succinctly customize JSON output

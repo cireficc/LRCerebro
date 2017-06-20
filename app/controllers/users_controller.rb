@@ -19,7 +19,7 @@ class UsersController < ApplicationController
         if params[:search].present?
             @users = UserDecorator.decorate_collection(User.search(
                 params[:search],
-                include: @includes,
+                includes: @includes,
                 fields: [
                     :username,
                     :first_name,
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         else
             @users = UserDecorator.decorate_collection(User.search(
                 "*",
-                include: @includes,
+                includes: @includes,
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))
