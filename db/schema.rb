@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 20170620203435) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "google_calendar_publish_event_id"
-    t.text     "publish_method",                   default: [],    array: true
+    t.text     "publish_methods",                  default: [],    array: true
   end
 
   create_table "standard_reservations", force: :cascade do |t|
