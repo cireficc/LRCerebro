@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515181914) do
+ActiveRecord::Schema.define(version: 20170620203435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,12 +147,13 @@ ActiveRecord::Schema.define(version: 20170515181914) do
     t.integer  "group_size"
     t.datetime "script_due"
     t.datetime "due"
-    t.datetime "viewable_by"
+    t.datetime "publish_by"
     t.boolean  "approved",                         default: false
     t.string   "publish_link"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "google_calendar_publish_event_id"
+    t.text     "publish_method",                   default: [],    array: true
   end
 
   create_table "standard_reservations", force: :cascade do |t|
