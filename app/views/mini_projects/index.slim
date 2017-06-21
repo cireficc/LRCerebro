@@ -1,0 +1,45 @@
+= render 'search'
+hr
+table#mini_projects.table.table-hover
+    thead
+        tr
+            th Instructor
+            th Course
+            th Resources
+            th Supplemental Materials
+            th Start Date
+            th Due Date
+            th # Students
+            th Publish By
+            th Publish Method
+            th Submitted
+            th.no-sort
+            th.no-sort
+    tbody
+        - @mini_projects.each do |mini|
+            tr
+                td
+                    span.label.label-info #{mini.course.instructor.decorate.full_name}
+                    '
+                td
+                    span.label.label-warning #{mini.course.decorate.short_name}
+                td
+                    span.label.label-danger #{mini.stringified_resources}
+                td #{mini.supplemental_materials_string}
+                td #{mini.start_date}
+                td #{mini.due_date}
+                td #{mini.course.students.count}
+                td #{mini.publish_by}
+                td #{mini.stringified_publish_methods}
+                td #{mini.created_at}
+                td
+                    - if policy(mini).show?
+                        = link_to 'Details', mini_project_path(mini), :target => '_blank', class: 'btn btn-xs btn-default'
+                td
+                    - if policy(mini).edit?
+                        = link_to 'Edit', edit_mini_project_path(mini), :target => '_blank', class: 'btn btn-xs btn-default'
+.text-center
+    = paginate @mini_projects
+
+javascript:
+    $("#mini_projects").DataTable(dataTableDefaults);

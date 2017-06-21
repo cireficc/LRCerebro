@@ -1,0 +1,2 @@
+module MiniProjectsHelper
+end
