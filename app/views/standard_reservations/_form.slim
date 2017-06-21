@@ -31,7 +31,6 @@
                                 h4 Walkthrough
                             .col-md-9
                                 = f.input :walkthrough,
-                                    disabled: disabled,
                                     as: :select,
                                     prompt: "Can students walk through the lab?"
                         .row
@@ -80,6 +79,7 @@
                                 h4 Lab
                             .col-md-9
                                 = f.input :lab,
+                                    disabled: disabled,
                                     collection: Lab.locations.collect { |l, i| [Lab.with_workstations(l), l, :data => {:workstations => Lab::WORKSTATIONS[l.to_sym] }] },
                                     prompt: "Select a lab"
                         .row
