@@ -7,7 +7,7 @@ class FilmsController < ApplicationController
             Film.search(params[:search],
                         match: :word_start,
                         fields: [:english_title, :foreign_title, :transliterated_foreign_title, :catalog_number],
-                        misspellings: {below: 1},
+                        misspellings: {edit_distance: 2, below: 1},
                         limit: 5,
                         order: { catalog_number: :asc }))
         render json: @films, each_serializer: FilmAutocompleteSerializer
@@ -41,7 +41,7 @@ class FilmsController < ApplicationController
                     :description,
                     {catalog_number: :exact }
                 ],
-                misspellings: {below: 1},
+                misspellings: {edit_distance: 2, below: 1},
                 where: @where,
                 order: @order, page: params[:page], per_page: @limit
             ))
