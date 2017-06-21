@@ -50,6 +50,13 @@ en:
                 success: "Your project, %{name}, was successfully updated."
             destroy:
                 success: "%{name} was successfully deleted."
+        mini_project:
+            create:
+                success: "Your mini project for %{course}, using [%{resources}], was successfully submitted. %{submit_another_html}"
+            update:
+                success: "Your mini project for %{course} was successfully updated."
+            destroy:
+                success: "Your mini project for %{course} was successfully deleted."
         film:
             create:
                 success: "%{title} has been added to the catalog with the catalog number %{catalog_number}."
