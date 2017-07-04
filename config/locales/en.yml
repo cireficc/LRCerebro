@@ -57,6 +57,13 @@ en:
                 success: "Your mini project for %{course} was successfully updated."
             destroy:
                 success: "Your mini project for %{course} was successfully deleted."
+        film_digitization:
+            create:
+                success: "Your film digitization request for %{film_title} was successfully submitted."
+            update:
+                success: "Your film digitization request for %{film_title} was successfully updated."
+            destroy:
+                success: "Your film digitization request for %{film_title} was successfully deleted."
         film:
             create:
                 success: "%{title} has been added to the catalog with the catalog number %{catalog_number}."

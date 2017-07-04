@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :projects
   resources :mini_projects
   resources :standard_reservations
+  resources :film_digitizations
   resources :films do
     collection do
       get :autocomplete
