@@ -93,6 +93,14 @@ en:
             edit?: 'edit that project.'
             update?: 'update that project.'
             destroy?: 'delete that project.'
+        mini_project_policy:
+            index?: 'view mini projects.'
+            new?: 'create new mini projects.'
+            create?: 'create new mini projects.'
+            show?: 'view that mini project.'
+            edit?: 'edit that mini project.'
+            update?: 'update that mini project.'
+            destroy?: 'delete that mini project.'
         course_policy:
             index?: 'view courses.'
             new?: 'create new courses.'
@@ -109,6 +117,14 @@ en:
             edit?: 'edit that reservation.'
             update?: 'update that reservation.'
             destroy?: 'delete that reservation.'
+        film_digitization_policy:
+            index?: 'view film digitization requests.'
+            new?: 'create new film digitization requests.'
+            create?: 'create new film digitization requests.'
+            show?: 'view that film digitization request.'
+            edit?: 'edit that film digitization request.'
+            update?: 'update that film digitization request.'
+            destroy?: 'delete that film digitization request.'
         application_configuration_policy:
             edit?: 'edit application configuration.'
             update?: 'update application configuration.'
