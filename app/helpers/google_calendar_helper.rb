@@ -94,19 +94,24 @@ module GoogleCalendarHelper
         end
     end
 
-    # Schedule project publish event in Google Calendar based on the ActiveRecord callback on a Project:
-    # :create - create project publish event
-    # :update - update project publish event
+    # Schedule project or mini project publish event in Google Calendar
+    # action = :create - create a publish event
+    # action = :update - update a publish event
     def self.schedule_project_publish_event(project, action)
 
-        @project = project
+        @project = project.decorate
         @course = @project.course
         @instructor = @course.instructor
         @start_time = @project.publish_by - 2.hours
         @end_time = @project.publish_by
-
-        # e.g. "Publishing: (Camtasia) Ward FRE 101-01"
-        @event_title = "Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
+        
+        if project.instance_of? Project
+            # e.g. "Project Publishing: (Camtasia) Ward FRE 101-01"
+            @event_title = "Project Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
+        else
+            # e.g. "MiniProject Publishing: (Camtasia) Ward FRE 101-01"
+            @event_title = "Mini Project Publishing: (#{@project.stringified_resources}) #{@instructor.last_name} #{@course.decorate.short_name}"
+        end
 
         # Change the time zone of the reservation start/end from UTC without affecting the time value
         @start_time = ApplicationHelper.local_to_utc(@start_time)
