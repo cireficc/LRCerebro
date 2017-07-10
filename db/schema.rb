@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703150656) do
+ActiveRecord::Schema.define(version: 20170710211713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,15 +138,16 @@ ActiveRecord::Schema.define(version: 20170703150656) do
 
   create_table "mini_projects", force: :cascade do |t|
     t.integer  "course_id"
-    t.text     "resources",              default: [],              array: true
+    t.text     "resources",                        default: [],              array: true
     t.text     "description"
     t.boolean  "supplemental_materials"
     t.datetime "start_date"
     t.datetime "due_date"
     t.datetime "publish_by"
-    t.text     "publish_methods",        default: [],              array: true
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.text     "publish_methods",                  default: [],              array: true
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "google_calendar_publish_event_id"
   end
 
   create_table "project_reservations", force: :cascade do |t|
