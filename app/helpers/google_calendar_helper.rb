@@ -109,9 +109,14 @@ module GoogleCalendarHelper
         if project.instance_of? Project
             # e.g. "Project Publishing: (Camtasia) Ward FRE 101-01"
             @event_title = "Project Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
+            @event_description = "Publish according to project type."
         else
             # e.g. "MiniProject Publishing: (Camtasia) Ward FRE 101-01"
             @event_title = "Mini Project Publishing: (#{@project.stringified_resources}) #{@instructor.last_name} #{@course.decorate.short_name}"
+            @event_description =
+                "Publish: #{@project.stringified_publish_methods}\n"\
+                "Resources: #{@project.stringified_resources}\n\n"\
+                "#{@project.description}"
         end
 
         # Change the time zone of the reservation start/end from UTC without affecting the time value
@@ -120,6 +125,7 @@ module GoogleCalendarHelper
         
         @g_cal_event = Google::Apis::CalendarV3::Event.new({
            summary: @event_title,
+           description: @event_description,
            start: {
                date_time: @start_time.to_datetime,
                time_zone: LOCAL_TIME_ZONE
