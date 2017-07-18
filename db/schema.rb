@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710211713) do
+ActiveRecord::Schema.define(version: 20170718175257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,19 @@ ActiveRecord::Schema.define(version: 20170710211713) do
     t.string   "last_name"
     t.integer  "role"
     t.boolean  "registered"
+  end
+
+  create_table "vidcams", force: :cascade do |t|
+    t.integer  "course_id"
+    t.string   "location"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "publish_by"
+    t.boolean  "upload_to_ensemble"
+    t.text     "publish_methods",         default: [],              array: true
+    t.text     "additional_instructions"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
 end
