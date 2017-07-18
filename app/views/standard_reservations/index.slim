@@ -42,10 +42,10 @@ table#standard_reservations.table.table-hover
                     = render partial: "reservation_overview", locals: { r: reservation }
                 td
                     - if policy(reservation).show?
-                        = link_to 'Details', standard_reservation_path(reservation), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Details', standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
                 td
                     - if policy(reservation).edit?
-                        = link_to 'Edit', edit_standard_reservation_path(reservation), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Edit', edit_standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
 .text-center
     = paginate @standard_reservations
 

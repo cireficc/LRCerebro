@@ -42,10 +42,10 @@ table#projects.table.table-hover
                     = render partial: "project_overview", locals: { p: project }
                 td
                     - if policy(project).show?
-                        = link_to 'Details', project_path(project), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Details', project_path(project), class: 'btn btn-xs btn-default'
                 td
                     - if policy(project).edit?
-                        = link_to 'Edit', edit_project_path(project), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
 .text-center
     = paginate @projects
 

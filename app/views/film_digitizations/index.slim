@@ -23,7 +23,7 @@ table#film_digitizations.table.table-hover
                     span.label.label-warning #{digitization.course.decorate.short_name}
                 td #{digitization.media_source}
                 - if digitization.film.present?
-                    td #{link_to image_tag(digitization.film.cover_url(:thumb)), film_path(digitization.film), :target => '_blank' if digitization.film.cover_url(:thumb)}
+                    td #{link_to image_tag(digitization.film.cover_url(:thumb)), film_path(digitization.film) if digitization.film.cover_url(:thumb)}
                 - else
                     td #{digitization.film_title}
                 td #{digitization.audio_language.titleize}
@@ -32,10 +32,10 @@ table#film_digitizations.table.table-hover
                 td #{digitization.created_at}
                 td
                     - if policy(digitization).show?
-                        = link_to 'Details', film_digitization_path(digitization), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Details', film_digitization_path(digitization), class: 'btn btn-xs btn-default'
                 td
                     - if policy(digitization).edit?
-                        = link_to 'Edit', edit_film_digitization_path(digitization), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Edit', edit_film_digitization_path(digitization), class: 'btn btn-xs btn-default'
 .text-center
     = paginate @film_digitizations
 

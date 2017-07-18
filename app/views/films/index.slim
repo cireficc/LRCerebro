@@ -21,7 +21,7 @@ table#films.table.table-hover
             tr
                 td #{film.inventory_item.catalog_number}
                 td
-                    = link_to image_tag(film.cover_url(:thumb)), film_path(film), :target => '_blank' if film.cover_url(:thumb)
+                    = link_to image_tag(film.cover_url(:thumb)), film_path(film) if film.cover_url(:thumb)
                 td #{film.english_title}
                 - if (film.audio_languages & ["arabic", "chinese", "japanese", "russian"]).any?
                     td #{film.foreign_title} (#{film.transliterated_foreign_title})
@@ -40,7 +40,7 @@ table#films.table.table-hover
                 - else
                     td No
                 td
-                    = link_to 'Details', film_path(film), :target => '_blank', class: 'btn btn-xs btn-default pull-right'
+                    = link_to 'Details', film_path(film), class: 'btn btn-xs btn-default pull-right'
 .text-center
     = paginate @films
 

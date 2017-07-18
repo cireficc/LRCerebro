@@ -34,10 +34,10 @@ table#mini_projects.table.table-hover
                 td #{mini.created_at}
                 td
                     - if policy(mini).show?
-                        = link_to 'Details', mini_project_path(mini), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Details', mini_project_path(mini), class: 'btn btn-xs btn-default'
                 td
                     - if policy(mini).edit?
-                        = link_to 'Edit', edit_mini_project_path(mini), :target => '_blank', class: 'btn btn-xs btn-default'
+                        = link_to 'Edit', edit_mini_project_path(mini), class: 'btn btn-xs btn-default'
 .text-center
     = paginate @mini_projects
 
