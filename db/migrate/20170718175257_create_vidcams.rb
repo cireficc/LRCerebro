@@ -9,6 +9,8 @@ class CreateVidcams < ActiveRecord::Migration
       t.boolean :upload_to_ensemble
       t.text :publish_methods, array: true, default: []
       t.text :additional_instructions
+      t.string :google_calendar_filming_event_id
+      t.string :google_calendar_publishing_event_id
       t.timestamps null: false
     end
   end

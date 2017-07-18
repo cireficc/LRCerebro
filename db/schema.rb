@@ -238,10 +238,12 @@ ActiveRecord::Schema.define(version: 20170718175257) do
     t.datetime "end"
     t.datetime "publish_by"
     t.boolean  "upload_to_ensemble"
-    t.text     "publish_methods",         default: [],              array: true
+    t.text     "publish_methods",                     default: [],              array: true
     t.text     "additional_instructions"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "google_calendar_filming_event_id"
+    t.string   "google_calendar_publishing_event_id"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
 end
