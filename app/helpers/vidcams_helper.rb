@@ -1,0 +1,2 @@
+module VidcamsHelper
+end

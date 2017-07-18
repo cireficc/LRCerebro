@@ -1,0 +1,85 @@
+= simple_form_for @vidcam do |f|
+    // Disable the form fields if in the 'show' action
+    - disabled = action_name == "show"
+    fieldset disabled = disabled
+        .row
+            .col-md-6
+                .panel.panel-info
+                    .panel-heading
+                        h3.panel-title Event Information
+                    .panel-body
+                        .row
+                            .col-md-3
+                                h4 Course
+                            .col-md-9
+                                - @courses = current_user.active_courses
+                                = f.input :course_id,
+                                    disabled: disabled,
+                                    collection: @courses.collect { |c| [c.name, c.id] },
+                                    prompt: "Select a course"
+                        .row
+                            .col-md-3
+                                h4 Location
+                            .col-md-9
+                                = f.input :location,
+                                    input_html: { placeholder: "Building, classroom, etc." }
+                        .row
+                            .col-md-3
+                                h4 Start Time
+                            .col-md-9
+                                = f.input :start, wrapper: :vertical_input_group_date
+                                    = f.input_field :start,
+                                        as: :string,
+                                        class: "form-control"
+                        .row
+                            .col-md-3
+                                h4 End Time 
+                            .col-md-9
+                                = f.input :end, wrapper: :vertical_input_group_date
+                                    = f.input_field :end,
+                                        as: :string,
+                                        class: "form-control"
+            .col-md-6
+                .panel.panel-warning
+                    .panel-heading
+                        h3.panel-title Publishing Information
+                    .panel-body
+                        .row
+                            .col-md-3
+                                h4 Ready By
+                            .col-md-9
+                                = f.input :publish_by, wrapper: :vertical_input_group_date
+                                    = f.input_field :publish_by,
+                                        as: :string,
+                                        class: "form-control"
+                        .row
+                            .col-md-3
+                                h4 Ensemble Upload
+                            .col-md-9
+                                = f.input :upload_to_ensemble,
+                                      as: :select,
+                                      prompt: "Upload recording to Ensemble?"
+                        .row
+                            .col-md-3
+                                h4 Copy for Personal Use
+                            .col-md-9
+                                = f.input :publish_methods,
+                                    collection: Project.publish_methods.collect { |m, i| [m.titleize, m] },
+                                    as: :check_boxes
+                        .row
+                            .col-md-3
+                                h4 Additional Instructions
+                            .col-md-9
+                                = f.input :additional_instructions,
+                                        input_html: {placeholder: "Any additional information that you need us to know", rows: 5, maxlength: 2500}
+    - if action_name == "new" || action_name == "create"
+        = f.submit "Submit Vidcam Request", class: "btn btn-info pull-right"
+    - elsif action_name == "show"
+        - if policy(@vidcam).destroy?
+            = link_to "Delete Vidcam Request", vidcam_path(@vidcam), data: { confirm: 'Are you sure you want to delete this vidcam request?' }, :method => :delete, class: 'btn btn-danger pull-left'
+        - if policy(@vidcam).edit?
+            = link_to "Edit Vidcam Request", edit_vidcam_url(@vidcam), {class: 'btn btn-info pull-right'}
+    - else
+        - if policy(@vidcam).destroy?
+            = link_to "Delete Vidcam Request", vidcam_path(@vidcam), data: { confirm: 'Are you sure you want to delete this vidcam request?' }, :method => :delete, class: 'btn btn-danger pull-left'
+        = f.submit "Update Vidcam Request", class: "btn btn-info pull-right"

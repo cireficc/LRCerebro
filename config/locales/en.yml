@@ -64,6 +64,13 @@ en:
                 success: "Your film digitization request for %{film_title} was successfully updated."
             destroy:
                 success: "Your film digitization request for %{film_title} was successfully deleted."
+        vidcam:
+            create:
+                success: "Your vidcam request for %{course} in %{location} at %{start} was successfully submitted."
+            update:
+                success: "Your vidcam request for %{course} in %{location} at %{start} was successfully updated."
+            destroy:
+                success: "Your vidcam request for %{course} in %{location} at %{start} was successfully deleted."
         film:
             create:
                 success: "%{title} has been added to the catalog with the catalog number %{catalog_number}."
@@ -125,6 +132,14 @@ en:
             edit?: 'edit that film digitization request.'
             update?: 'update that film digitization request.'
             destroy?: 'delete that film digitization request.'
+        vidcam_policy:
+            index?: 'view vidcam requests.'
+            new?: 'create new vidcam requests.'
+            create?: 'create new vidcam requests.'
+            show?: 'view that vidcam request.'
+            edit?: 'edit that vidcam request.'
+            update?: 'update that vidcam request.'
+            destroy?: 'delete that vidcam request.'
         application_configuration_policy:
             edit?: 'edit application configuration.'
             update?: 'update application configuration.'

@@ -1,0 +1,42 @@
+= render 'search'
+hr
+table#vidcams.table.table-hover
+    thead
+        tr
+            th Instructor
+            th Course
+            th Location
+            th Start Time
+            th End Time
+            th Publish By
+            th Publish Method
+            th Upload to Ensemble?
+            th Submitted
+            th.no-sort
+            th.no-sort
+    tbody
+        - @vidcams.each do |vidcam|
+            tr
+                td
+                    span.label.label-info #{vidcam.course.instructor.decorate.full_name}
+                    '
+                td
+                    span.label.label-warning #{vidcam.course.decorate.short_name}
+                td #{vidcam.location}
+                td #{vidcam.start}
+                td #{vidcam.end}
+                td #{vidcam.publish_by}
+                td #{vidcam.stringified_publish_methods}
+                td #{vidcam.upload_to_ensemble_string}
+                td #{vidcam.created_at}
+                td
+                    - if policy(vidcam).show?
+                        = link_to 'Details', vidcam_path(vidcam), class: 'btn btn-xs btn-default'
+                td
+                    - if policy(vidcam).edit?
+                        = link_to 'Edit', edit_vidcam_path(vidcam), class: 'btn btn-xs btn-default'
+.text-center
+    = paginate @vidcams
+
+javascript:
+    $("#vidcams").DataTable(dataTableDefaults);
