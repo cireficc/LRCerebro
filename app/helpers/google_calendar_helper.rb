@@ -17,6 +17,7 @@ module GoogleCalendarHelper
     SECONDS_PER_DAY = 60 * 60 * 24
     RESERVATION_CALENDAR_ID = Rails.application.secrets.google_calendar_reservation_cal
     PROJECT_PUBLISHING_CALENDAR_ID = Rails.application.secrets.google_calendar_project_publishing_cal
+    VIDCAM_CALENDAR_ID = Rails.application.secrets.google_calendar_vidcam_cal
    
     @calendar = Google::Apis::CalendarV3::CalendarService.new
     @calendar.authorization = Google::Auth.get_application_default(GoogleApiHelper::SCOPES)
@@ -200,6 +201,116 @@ module GoogleCalendarHelper
     def self.delete_standard_reservation(standard_reservation)
         begin
             @calendar.delete_event(RESERVATION_CALENDAR_ID, standard_reservation.google_calendar_event_id)
+        rescue Google::Apis::ClientError
+            puts "Event no longer exists, ignore trying to delete it"
+        end
+    end
+
+    # Schedule a vidcam filming event in Google Calendar based on the ActiveRecord callback on a Vidcam:
+    # :create - create filming event
+    # :update - update filming event
+    def self.schedule_vidcam_filming_event(vidcam, action)
+        
+        @vidcam = vidcam
+        @course = @vidcam.course
+        @instructor = @course.instructor
+        @last_name = @instructor.last_name
+
+        # e.g. "Filming: FRE 101-01, Ward, MAK D-2-221"
+        @event_title = "Filming: #{@course.decorate.short_name}, #{@instructor.last_name}, #{@vidcam.location}"
+
+        # Change the time zone of the reservation start/end from UTC without affecting the time value
+        @start_time = ApplicationHelper.local_to_utc(@vidcam.start)
+        @end_time = ApplicationHelper.local_to_utc(@vidcam.end)
+
+        @g_cal_event = Google::Apis::CalendarV3::Event.new({
+           summary: @event_title,
+           location: @vidcam.location,
+           description: @vidcam.additional_instructions,
+           start: {
+               date_time: @start_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           },
+           end: {
+               date_time: @end_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           },
+           attendees: [
+               {email: "shultzd@gvsu.edu"},
+               {email: "clappve@gvsu.edu"},
+               {email: "#{@instructor.username}@gvsu.edu"}
+           ]
+        })
+
+        if action == :create
+            @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
+            @vidcam.update_columns(google_calendar_filming_event_id: @event.id)
+        elsif action == :update
+            @calendar.patch_event(VIDCAM_CALENDAR_ID, @vidcam.google_calendar_filming_event_id, @g_cal_event)
+        end
+    end
+
+    def self.delete_vidcam_filming_event(vidcam)
+        begin
+            @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id)
+        rescue Google::Apis::ClientError
+            puts "Event no longer exists, ignore trying to delete it"
+        end
+    end
+
+    # Schedule a vidcam publishing event in Google Calendar based on the ActiveRecord callback on a Vidcam:
+    # :create - create publishing event
+    # :update - update publishing event
+    def self.schedule_vidcam_publishing_event(vidcam, action)
+
+        @vidcam = vidcam.decorate
+        @course = @vidcam.course
+        @instructor = @course.instructor
+        @last_name = @instructor.last_name
+        @start_time = @vidcam.publish_by - 2.hours
+        @end_time = @vidcam.publish_by
+
+        # e.g. "Publishing: FRE 101-01, Ward, MAK D-2-221"
+        @event_title = "Publishing: #{@course.decorate.short_name}, #{@instructor.last_name}, #{@vidcam.location}"
+        @event_description =
+            "Publish: #{@vidcam.stringified_publish_methods}\n"\
+            "Upload to Ensemble? #{@vidcam.upload_to_ensemble_string}\n\n"\
+            "#{@vidcam.additional_instructions}"
+
+        # Change the time zone of the reservation start/end from UTC without affecting the time value
+        @start_time = ApplicationHelper.local_to_utc(@start_time)
+        @end_time = ApplicationHelper.local_to_utc(@end_time)
+
+        @g_cal_event = Google::Apis::CalendarV3::Event.new({
+           summary: @event_title,
+           location: @vidcam.location,
+           description: @event_description,
+           start: {
+               date_time: @start_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           },
+           end: {
+               date_time: @end_time.to_datetime,
+               time_zone: LOCAL_TIME_ZONE
+           },
+           attendees: [
+               {email: "shultzd@gvsu.edu"},
+               {email: "clappve@gvsu.edu"},
+               {email: "#{@instructor.username}@gvsu.edu"}
+           ]
+        })
+
+        if action == :create
+            @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
+            @vidcam.update_columns(google_calendar_publishing_event_id: @event.id)
+        elsif action == :update
+            @calendar.patch_event(VIDCAM_CALENDAR_ID, @vidcam.google_calendar_publishing_event_id, @g_cal_event)
+        end
+    end
+
+    def self.delete_vidcam_publish_event(vidcam)
+        begin
+            @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id)
         rescue Google::Apis::ClientError
             puts "Event no longer exists, ignore trying to delete it"
         end

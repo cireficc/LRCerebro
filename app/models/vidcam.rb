@@ -9,9 +9,9 @@ class Vidcam < ActiveRecord::Base
   validates :upload_to_ensemble, inclusion: [true, false]
   validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
 
-  # after_create :create_or_update_filming_event, :create_or_update_publishing_event, :unless => :seeding_development_database
-  # after_update :create_or_update_publishing_event
-  # before_destroy :delete_filming_event, :delete_publishing_event
+  after_create :create_or_update_filming_event, :create_or_update_publishing_event, :unless => :seeding_development_database
+  after_update :create_or_update_publishing_event
+  before_destroy :delete_filming_event, :delete_publishing_event
 
   def search_data
     {
