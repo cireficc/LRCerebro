@@ -1,0 +1,34 @@
+= render 'search'
+hr
+table#works.table.table-hover
+    thead
+        tr
+            th Instructor
+            th Course
+            th Due Date
+            th Instructions
+            th Submitted
+            th.no-sort
+            th.no-sort
+    tbody
+        - @works.each do |work|
+            tr
+                td
+                    span.label.label-info #{work.course.instructor.decorate.full_name}
+                    '
+                td
+                    span.label.label-warning #{work.course.decorate.short_name}
+                td #{work.due_date}
+                td #{work.instructions.truncate(400)}
+                td #{work.created_at}
+                td
+                    - if policy(work).show?
+                        = link_to 'Details', work_path(work), class: 'btn btn-xs btn-default'
+                td
+                    - if policy(work).edit?
+                        = link_to 'Edit', edit_work_path(work), class: 'btn btn-xs btn-default'
+.text-center
+    = paginate @works
+
+javascript:
+    $("#works").DataTable(dataTableDefaults);

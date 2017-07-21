@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :standard_reservations
   resources :film_digitizations
   resources :vidcams
+  resources :works
   resources :films do
     collection do
       get :autocomplete

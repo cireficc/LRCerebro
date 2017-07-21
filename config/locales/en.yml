@@ -71,6 +71,13 @@ en:
                 success: "Your vidcam request for %{course} in %{location} at %{start} was successfully updated."
             destroy:
                 success: "Your vidcam request for %{course} in %{location} at %{start} was successfully deleted."
+        work:
+            create:
+                success: "Your work request for %{course} was successfully submitted."
+            update:
+                success: "Your work request for %{course} was successfully updated."
+            destroy:
+                success: "Your work request for %{course} was successfully deleted."
         film:
             create:
                 success: "%{title} has been added to the catalog with the catalog number %{catalog_number}."
@@ -140,6 +147,14 @@ en:
             edit?: 'edit that vidcam request.'
             update?: 'update that vidcam request.'
             destroy?: 'delete that vidcam request.'
+        vidcam_policy:
+            index?: 'view work requests.'
+            new?: 'create new work requests.'
+            create?: 'create new work requests.'
+            show?: 'view that work request.'
+            edit?: 'edit that work request.'
+            update?: 'update that work request.'
+            destroy?: 'delete that work request.'
         application_configuration_policy:
             edit?: 'edit application configuration.'
             update?: 'update application configuration.'

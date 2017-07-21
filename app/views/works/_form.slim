@@ -1,0 +1,46 @@
+= simple_form_for @work do |f|
+    // Disable the form fields if in the 'show' action
+    - disabled = action_name == "show"
+    fieldset disabled = disabled
+        .row
+            .col-md-6.col-md-offset-3
+                .panel.panel-info
+                    .panel-heading
+                        h3.panel-title General Information
+                    .panel-body
+                        .row
+                            .col-md-3
+                                h4 Course
+                            .col-md-9
+                                - courses = current_user.active_courses
+                                = f.input :course_id,
+                                    disabled: disabled,
+                                    collection: courses.collect { |c| [c.name, c.id] },
+                                    prompt: "Select a course"
+                        .row
+                            .col-md-3
+                                h4 Due date
+                            .col-md-9
+                                = f.input :due_date, wrapper: :vertical_input_group_date
+                                    = f.input_field :due_date,
+                                        as: :string,
+                                        class: "form-control"
+                        .row
+                            .col-md-3
+                                h4 Instructions
+                            .col-md-9
+                                = f.input :instructions,
+                                    input_html: {placeholder: "Please be as specific as possible in describing what you would like us to help you with", rows: 15, maxlength: 5000}
+    .row
+        .col-md-6.col-md-offset-3
+            - if action_name == "new" || action_name == "create"
+                = f.submit "Submit Work Request", class: "btn btn-info pull-right"
+            - elsif action_name == "show"
+                - if policy(@work).destroy?
+                    = link_to "Delete Work Request", work_path(@work), data: { confirm: 'Are you sure you want to delete this work request?' }, :method => :delete, class: 'btn btn-danger pull-left'
+                - if policy(@work).edit?
+                    = link_to "Edit Work Request", edit_work_url(@work), {class: 'btn btn-info pull-right'}
+            - else
+                - if policy(@work).destroy?
+                    = link_to "Delete Work Request", work_path(@work), data: { confirm: 'Are you sure you want to delete this work request?' }, :method => :delete, class: 'btn btn-danger pull-left'
+                = f.submit "Update Work Request", class: "btn btn-info pull-right"
