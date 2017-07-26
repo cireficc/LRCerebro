@@ -47,18 +47,18 @@
               h4 Script due
             .col-md-8
               = f.input :script_due, wrapper: :vertical_input_group_date
-              = f.input_field :script_due,
-                      as: :string,
-                      class: "form-control",
-                      input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
+                = f.input_field :script_due,
+                        as: :string,
+                        class: "form-control",
+                        input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
           .row
             .col-md-4
               h4 Project due
             .col-md-8
               = f.input :due, wrapper: :vertical_input_group_date
-              = f.input_field :due,
-                      as: :string,
-                      class: "form-control"
+                = f.input_field :due,
+                        as: :string,
+                        class: "form-control"
           .row
             .col-md-12
               = f.input :present,
@@ -79,10 +79,10 @@
                 h4 Projects ready by
               .col-md-8
                 = f.input :publish_by, wrapper: :vertical_input_group_date
-                = f.input_field :publish_by,
-                        as: :string,
-                        class: "form-control",
-                        input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
+                  = f.input_field :publish_by,
+                          as: :string,
+                          class: "form-control",
+                          input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
   - reservation_partial = "#{@view_path}/edit_project_reservation_fields"
   .panel.panel-primary
     .panel-heading

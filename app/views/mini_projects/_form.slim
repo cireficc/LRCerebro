@@ -51,17 +51,17 @@
                 h4 Start date
               .col-md-9
                 = f.input :start_date, wrapper: :vertical_input_group_date
-                = f.input_field :start_date,
-                        as: :string,
-                        class: "form-control"
+                  = f.input_field :start_date,
+                          as: :string,
+                          class: "form-control"
             .row
               .col-md-3
                 h4 Due date
               .col-md-9
                 = f.input :due_date, wrapper: :vertical_input_group_date
-                = f.input_field :due_date,
-                        as: :string,
-                        class: "form-control"
+                  = f.input_field :due_date,
+                          as: :string,
+                          class: "form-control"
             .row
               .col-md-12
                 = f.input :present,
@@ -82,10 +82,10 @@
                   h4 Publish by
                 .col-md-9
                   = f.input :publish_by, wrapper: :vertical_input_group_date
-                  = f.input_field :publish_by,
-                          as: :string,
-                          class: "form-control",
-                          input_html: {data: {toggle: "tooltip", html: true}, title: "LRC staff will make projects available to you and your students by this date"}
+                    = f.input_field :publish_by,
+                            as: :string,
+                            class: "form-control",
+                            input_html: {data: {toggle: "tooltip", html: true}, title: "LRC staff will make projects available to you and your students by this date"}
   - if action_name == "new" || action_name == "create"
     = f.submit "Submit Mini Project", class: "btn btn-info pull-right"
   - elsif action_name == "show"
