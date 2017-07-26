@@ -1,98 +1,83 @@
 nav.navbar.navbar-default
-	.container-fluid
-		.navbar-header
-			button.navbar-toggle.collapsed data-target="#nav-collapse" data-toggle="collapse" type="button" 
-		        span.sr-only Toggle navigation
-		        span.icon-bar
-		        span.icon-bar
-		        span.icon-bar
-			a.navbar-brand href="/"  LRCerebro
-		div#nav-collapse.collapse.navbar-collapse
-            ul.nav.navbar-nav
-                li
-                    = link_to "Site Configuration", configuration_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-                        | Project Manager
-                        span.caret
-                    ul.dropdown-menu role="menu"
-                        li
-                            = link_to "Current Projects", projects_path
-                        li.divider
-                        li
-                            = link_to "Add a Project", new_project_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-                        | Mini Projects
-                        span.caret
-                    ul.dropdown-menu role="menu"
-                        li
-                            = link_to "All Mini Projects", mini_projects_path
-                        li.divider
-                        li
-                            = link_to "Add a Mini Project", new_mini_project_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
-                        | Standard Reservations
-                        span.caret
-                    ul.dropdown-menu role="menu"
-                        li
-                            = link_to "All Reservations", standard_reservations_path
-                        li.divider
-                        li
-                            = link_to "Schedule a Reservation", new_standard_reservation_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
-                        | Requests (Web Forms)
-                        span.caret
-                    ul.dropdown-menu role="menu"
-                        li
-                            = link_to "Film Digitization Requests", film_digitizations_path
-                            = link_to "New Film Digitization Request", new_film_digitization_path
-                        li.divider
-                        li
-                            = link_to "All Vidcam Requests", vidcams_path
-                            = link_to "New Film Digitization Request", new_vidcam_path
-                        li.divider
-                            li
-                                = link_to "All Work Requests", works_path
-                                = link_to "New Work Request", new_work_path
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
-                        | Enrollment Manager
-                        span.caret
-                    ul.dropdown-menu.multi-level role="menu"
-                        li.dropdown-submenu
-                            a href="#" Users
-                            ul.dropdown-menu
-                                li
-                                    = link_to "Index", users_path
-                                li
-                                    = link_to "Create", new_user_path
-                        li.dropdown-submenu
-                            a href="#" Courses
-                            ul.dropdown-menu
-                                li
-                                    = link_to "Index", courses_path
-                                li
-                                    = link_to "Create", new_course_path
-            ul.nav.navbar-nav.navbar-right
-                li.dropdown
-                    a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
-                        | LRC Media
-                        span.caret
-                    ul.dropdown-menu.multi-level role="menu"
-                        li.dropdown-submenu
-                            a href="#" Films
-                            ul.dropdown-menu
-                                li
-                                    = link_to "Film Catalog", films_path
-                                li
-                                    = link_to "Add a Film", new_film_path
-                        li.disabled.not-active
-                            a href="#" Games
-                        li.disabled.not-active
-                            a href="#" Music
-                li
-                    a href="https://lrcerebro.mll.gvsu.edu/time" target="_blank" TimeTracker
-                = render 'partials/account_dropdown'
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed data-target="#nav-collapse" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="/"  LRCerebro
+    div#nav-collapse.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+            | Site Configuration
+            span.caret
+          ul.dropdown-menu role="menu"
+            li
+              = link_to "Site Configuration", configuration_path
+            li.divider
+            li
+              = link_to "All Users", users_path
+            li
+              = link_to "Create User", new_user_path
+            li.divider
+            li
+              = link_to "All Courses", courses_path
+            li
+              = link_to "Create Course", new_course_path
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+            | Project Manager
+            span.caret
+          ul.dropdown-menu role="menu"
+            li
+              = link_to "Current Class Projects", projects_path
+            li
+              = link_to "Add a Class Project", new_project_path
+            li.divider
+            li
+              = link_to "Current Mini Projects", mini_projects_path
+            li
+              = link_to "Add a Mini Project", new_mini_project_path
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button" 
+            | Standard Reservations
+            span.caret
+          ul.dropdown-menu role="menu"
+            li
+              = link_to "All Reservations", standard_reservations_path
+            li.divider
+            li
+              = link_to "Schedule a Reservation", new_standard_reservation_path
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+            | Requests (Web Forms)
+            span.caret
+          ul.dropdown-menu role="menu"
+            li
+              = link_to "All Film Digitization Requests", film_digitizations_path
+              = link_to "New Film Digitization Request", new_film_digitization_path
+            li.divider
+            li
+              = link_to "All Vidcam Requests", vidcams_path
+              = link_to "New Vidcam Request", new_vidcam_path
+            li.divider
+              li
+                = link_to "All Work Requests", works_path
+                = link_to "New Work Request", new_work_path
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+            | Films
+            span.caret
+          ul.dropdown-menu role="menu"
+            li
+              = link_to "Films", films_path
+            li
+              = link_to "Add a Film", new_film_path
+        li
+          = link_to "Music", "https://www.gvsu.edu/lrc/lrc-music-collection-140.htm", target: :_blank
+        li
+          = link_to "TimeTracker", "https://lrcerebro.mll.gvsu.edu/time", target: :_blank
+        = render 'partials/account_dropdown'
