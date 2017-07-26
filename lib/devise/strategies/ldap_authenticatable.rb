@@ -15,11 +15,11 @@ class Devise::Strategies::LdapAuthenticatable < Devise::Strategies::Authenticata
     end
 
     results =
-      Cerebro.ldap.bind_as({
-        base:     "OU=GVSU,DC=ROOTLDS",
-        filter:   Net::LDAP::Filter.eq("DisplayName", username),
-        password: password,
-      })
+        Cerebro.ldap.bind_as({
+                                 base:     "OU=GVSU,DC=ROOTLDS",
+                                 filter:   Net::LDAP::Filter.eq("DisplayName", username),
+                                 password: password,
+                             })
 
     if results
       user = User.find_by(username: username)
