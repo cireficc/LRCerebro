@@ -1,85 +1,85 @@
 h3 Viewing course
 
 = simple_form_for @course do |f|
-    .panel.panel-info
-        .panel-heading
-            h3.panel-title Course Information
-        .panel-body
-            .row
-                .col-md-6
-                    .form-group
-                        .col-md-5
-                            h4 Name
-                        .col-md-7
-                            = f.input :name, disabled: true
-                    .form-group
-                        .col-md-5
-                            h4 Department
-                        .col-md-7
-                            = f.input :department,
-                                collection: Course.departments.collect { |d, i| [d.titleize, d] },
-                                selected: @course.department,
-                                disabled: true
-                    .form-group
-                        .col-md-5
-                            h4 Course
-                        .col-md-7
-                            = f.input :course, disabled: true
-                .col-md-6
-                    .form-group
-                        .col-md-5
-                            h4 Section
-                        .col-md-7
-                            = f.input :section, disabled: true
-                    .form-group
-                        .col-md-5
-                            h4 Year
-                        .col-md-7
-                            = f.input :year, disabled: true
-                    .form-group
-                        .col-md-5
-                            h4 Semester
-                        .col-md-7
-                            = f.input :semester,
-                                collection: Course.semesters.collect { |s, i| [s.titleize, s] },
-                                selected: @course.semester,
-                                disabled: true
-    .panel.panel-warning
-        .panel-heading
-            h3.panel-title Enrollment Information
-        .panel-body
-            table.table.table-hover
-                thead
-                    tr
-                        th
-                            h3 Last Name
-                        th
-                            h3 First Name
-                        th
-                            h3 Username
-                tbody
-                    - instructor = @course.instructor
-                    - if instructor
-                        tr.danger
-                            td #{instructor.last_name}
-                            td #{instructor.first_name}
-                            td #{instructor.username}
-                    - @course.students.order(:last_name).each do |user|
-                        tr
-                            td #{user.last_name}
-                            td #{user.first_name}
-                            td #{user.username}
-            br
-            .row
-                .col-md-2
-                    h3 Enrolled users
-                .col-md-4
-                    = f.association :users,
-                        collection: UserDecorator.decorate_collection(User.all.order(:last_name)).collect { |u| ["#{u.full_name_with_username}", u.id] },
-                        selected: @course.users.collect { |u| u.id },
-                        :input_html => { multiple: true, size: 20},
-                        disabled: true
-    - if policy(@course).destroy?
-        = link_to "Delete Course", course_path(@course), data: { confirm: 'Are you sure you want to delete this course and its enrollment data?' }, :method => :delete, class: 'btn btn-danger pull-left'
-    - if policy(@course).edit?
-        = link_to "Edit Course", edit_course_path(@course), class: "btn btn-info pull-right"
+  .panel.panel-info
+    .panel-heading
+      h3.panel-title Course Information
+    .panel-body
+      .row
+        .col-md-6
+          .form-group
+            .col-md-5
+              h4 Name
+            .col-md-7
+              = f.input :name, disabled: true
+          .form-group
+            .col-md-5
+              h4 Department
+            .col-md-7
+              = f.input :department,
+                      collection: Course.departments.collect { |d, i| [d.titleize, d] },
+                      selected: @course.department,
+                      disabled: true
+          .form-group
+            .col-md-5
+              h4 Course
+            .col-md-7
+              = f.input :course, disabled: true
+        .col-md-6
+          .form-group
+            .col-md-5
+              h4 Section
+            .col-md-7
+              = f.input :section, disabled: true
+          .form-group
+            .col-md-5
+              h4 Year
+            .col-md-7
+              = f.input :year, disabled: true
+          .form-group
+            .col-md-5
+              h4 Semester
+            .col-md-7
+              = f.input :semester,
+                      collection: Course.semesters.collect { |s, i| [s.titleize, s] },
+                      selected: @course.semester,
+                      disabled: true
+  .panel.panel-warning
+    .panel-heading
+      h3.panel-title Enrollment Information
+    .panel-body
+      table.table.table-hover
+        thead
+          tr
+            th
+              h3 Last Name
+            th
+              h3 First Name
+            th
+              h3 Username
+        tbody
+          - instructor = @course.instructor
+          - if instructor
+            tr.danger
+              td #{instructor.last_name}
+              td #{instructor.first_name}
+              td #{instructor.username}
+          - @course.students.order(:last_name).each do |user|
+            tr
+              td #{user.last_name}
+              td #{user.first_name}
+              td #{user.username}
+      br
+      .row
+        .col-md-2
+          h3 Enrolled users
+        .col-md-4
+          = f.association :users,
+                  collection: UserDecorator.decorate_collection(User.all.order(:last_name)).collect { |u| ["#{u.full_name_with_username}", u.id] },
+                  selected: @course.users.collect { |u| u.id },
+                  :input_html => { multiple: true, size: 20},
+                  disabled: true
+  - if policy(@course).destroy?
+    = link_to "Delete Course", course_path(@course), data: { confirm: 'Are you sure you want to delete this course and its enrollment data?' }, :method => :delete, class: 'btn btn-danger pull-left'
+  - if policy(@course).edit?
+    = link_to "Edit Course", edit_course_path(@course), class: "btn btn-info pull-right"

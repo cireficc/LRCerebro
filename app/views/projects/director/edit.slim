@@ -1,118 +1,118 @@
 = render 'projects/project_reservation_calendar'
 = simple_form_for @project do |f|
-    .panel.panel-info
-        .panel-heading
-            h3.panel-title Project Information
-        .panel-body
+  .panel.panel-info
+    .panel-heading
+      h3.panel-title Project Information
+    .panel-body
+      .row
+        .col-md-6
+          .row
+            .col-md-4
+              h4 Course
+            .col-md-8
+              - @courses = current_user.active_courses.order(:name)
+              = f.input :course_id,
+                      collection: @courses.collect { |c| [c.name, c.id] },
+                      prompt: "Select a course"
+          .row
+            .col-md-4
+              h4 Project type
+            .col-md-8
+              = f.input :category,
+                      input_html: {data: {other: true}},
+                      collection: Project::CATEGORIES.clone.push(f.object.category).uniq,
+                      prompt: "Select a project type or type your own"
+              div#other_warning.small.text-warning.hidden
+                | You are not doing a typical project. Please describe your project in the <em><u>Project Description</em></u> field.
+          .row
+            .col-md-4
+              h4 Project name
+            .col-md-8
+              = f.input :name,
+                      input_html: { placeholder: "e.g. Roman Photo", maxlength: 100 }
+          .row
+            .col-md-4
+              h4 Project description
+            .col-md-8
+              = f.input :description,
+                      input_html: { placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500 }
+        .col-md-6
+          .row
+            .col-md-4
+              h4 Student Group Size
+            .col-md-8
+              = f.input :group_size, input_html: { min: 1, max: 4 }
+          .row
+            .col-md-4
+              h4 Script due
+            .col-md-8
+              = f.input :script_due, wrapper: :vertical_input_group_date
+              = f.input_field :script_due,
+                      as: :string,
+                      class: "form-control",
+                      input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
+          .row
+            .col-md-4
+              h4 Project due
+            .col-md-8
+              = f.input :due, wrapper: :vertical_input_group_date
+              = f.input_field :due,
+                      as: :string,
+                      class: "form-control"
+          .row
+            .col-md-12
+              = f.input :present,
+                      required: false,
+                      as: :boolean,
+                      label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
+                      input_html: { checked: @project.present == "1" ? true : false }
+          div#publish_by_hidden
             .row
-                .col-md-6
-                    .row
-                        .col-md-4
-                            h4 Course
-                        .col-md-8
-                            - @courses = current_user.active_courses.order(:name)
-                            = f.input :course_id,
-                                collection: @courses.collect { |c| [c.name, c.id] },
-                                prompt: "Select a course"
-                    .row
-                        .col-md-4
-                            h4 Project type
-                        .col-md-8
-                            = f.input :category,
-                                    input_html: {data: {other: true}},
-                                    collection: Project::CATEGORIES.clone.push(f.object.category).uniq,
-                                    prompt: "Select a project type or type your own"
-                            div#other_warning.small.text-warning.hidden
-                                | You are not doing a typical project. Please describe your project in the <em><u>Project Description</em></u> field.
-                    .row
-                        .col-md-4
-                            h4 Project name
-                        .col-md-8
-                            = f.input :name,
-                                input_html: { placeholder: "e.g. Roman Photo", maxlength: 100 }
-                    .row
-                        .col-md-4
-                            h4 Project description
-                        .col-md-8
-                            = f.input :description,
-                                input_html: { placeholder: "In my project, students will use what they learned about culture and society to...", rows: 5, maxlength: 2500 }
-                .col-md-6
-                    .row
-                        .col-md-4
-                            h4 Student Group Size
-                        .col-md-8
-                            = f.input :group_size, input_html: { min: 1, max: 4 }
-                    .row
-                        .col-md-4
-                            h4 Script due
-                        .col-md-8
-                            = f.input :script_due, wrapper: :vertical_input_group_date
-                                = f.input_field :script_due,
-                                    as: :string,
-                                    class: "form-control",
-                                    input_html: { data: { toggle: "tooltip", html: true }, title: "Corrected, final versions of scripts must be returned to students <em><u>prior</em></u> to training" }
-                    .row
-                        .col-md-4
-                            h4 Project due
-                        .col-md-8
-                            = f.input :due, wrapper: :vertical_input_group_date
-                                = f.input_field :due,
-                                    as: :string,
-                                    class: "form-control"
-                    .row
-                        .col-md-12
-                            = f.input :present,
-                                required: false,
-                                as: :boolean,
-                                label: "Do your students’ finished projects need to be visible on the LRC’s web archive?",
-                                input_html: { checked: @project.present == "1" ? true : false }
-                    div#publish_by_hidden
-                        .row
-                            .col-md-3
-                                h4 Publish method
-                            .col-md-9
-                                = f.input :publish_methods,
-                                        collection: Project.publish_methods.collect { |m, i| [m.titleize, m] },
-                                        as: :check_boxes
-                        .row
-                            .col-md-4
-                                h4 Projects ready by
-                            .col-md-8
-                                = f.input :publish_by, wrapper: :vertical_input_group_date
-                                    = f.input_field :publish_by,
-                                        as: :string,
-                                        class: "form-control",
-                                        input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
-    - reservation_partial = "#{@view_path}/edit_project_reservation_fields"
-    .panel.panel-primary
-        .panel-heading
-            h3.panel-title Training Reservations
-        .panel-body
-            - category = "training"
-            div#training-reservations
-                = f.simple_fields_for :project_reservations do |builder|
-                    = render reservation_partial, f: builder if builder.object.category == category
-            div#add-training-reservations
-                = link_to_add_association 'Add a training reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: {category: category}}, class: 'btn btn-info'}
-    .panel.panel-primary
-        .panel-heading
-            h3.panel-title Editing Reservations
-        .panel-body
-            - category = "editing"
-            div#editing-reservations
-                = f.simple_fields_for :project_reservations do |builder|
-                    = render reservation_partial, f: builder if builder.object.category == category
-            div#add-editing-reservations
-                = link_to_add_association 'Add an editing reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: {category: category}}, class: 'btn btn-info'}
-    .row
-        .col-md-1
-            = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
-        .col-md-1.col-md-offset-7
-            h4 Approved?
-        .col-md-2
-            = f.input :approved,
-                as: :select,
-                prompt: "Is this project approved?"
-        .col-md-1.pull-right
-            = f.submit "Save Project", class: "btn btn-info pull-right"
-    br
+              .col-md-3
+                h4 Publish method
+              .col-md-9
+                = f.input :publish_methods,
+                        collection: Project.publish_methods.collect { |m, i| [m.titleize, m] },
+                        as: :check_boxes
+            .row
+              .col-md-4
+                h4 Projects ready by
+              .col-md-8
+                = f.input :publish_by, wrapper: :vertical_input_group_date
+                = f.input_field :publish_by,
+                        as: :string,
+                        class: "form-control",
+                        input_html: { data: { toggle: "tooltip", html: true }, title: "LRC staff will make projects available to you and your students by this date" }
+  - reservation_partial = "#{@view_path}/edit_project_reservation_fields"
+  .panel.panel-primary
+    .panel-heading
+      h3.panel-title Training Reservations
+    .panel-body
+      - category = "training"
+      div#training-reservations
+        = f.simple_fields_for :project_reservations do |builder|
+          = render reservation_partial, f: builder if builder.object.category == category
+      div#add-training-reservations
+        = link_to_add_association 'Add a training reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: {category: category}}, class: 'btn btn-info'}
+  .panel.panel-primary
+    .panel-heading
+      h3.panel-title Editing Reservations
+    .panel-body
+      - category = "editing"
+      div#editing-reservations
+        = f.simple_fields_for :project_reservations do |builder|
+          = render reservation_partial, f: builder if builder.object.category == category
+      div#add-editing-reservations
+        = link_to_add_association 'Add an editing reservation', f, :project_reservations, {partial: reservation_partial, render_options: {locals: {category: category}}, class: 'btn btn-info'}
+  .row
+    .col-md-1
+      = link_to "Delete Project", project_path(@project), data: { confirm: 'Are you sure you want to delete this project and its reservations?' }, :method => :delete, class: 'btn btn-danger'
+    .col-md-1.col-md-offset-7
+      h4 Approved?
+    .col-md-2
+      = f.input :approved,
+              as: :select,
+              prompt: "Is this project approved?"
+    .col-md-1.pull-right
+      = f.submit "Save Project", class: "btn btn-info pull-right"
+  br

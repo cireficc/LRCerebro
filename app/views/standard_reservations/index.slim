@@ -1,53 +1,53 @@
 = render 'search'
 hr
 table#standard_reservations.table.table-hover
-    thead
-        tr
-            th Instructor
-            th Course
-            th Activity
-            th Start
-            th End
-            th Lab
-            th # Students
-            th Walkthrough
-            th Submitted
-            th Last Updated
-            th.no-sort
-            th.no-sort
-            th.no-sort
-    tbody
-        - @standard_reservations.each do |reservation|
-            tr
-                td
-                    span.label.label-info #{reservation.course.instructor.decorate.full_name}
-                    '
-                td
-                    span.label.label-warning #{reservation.course.decorate.short_name}
-                td
-                    span.label.label-danger #{reservation.activity}
-                td #{reservation.start}
-                td #{reservation.end}
-                td #{reservation.lab.titleize}
-                td #{reservation.course.students.count}
-                td
-                    - if reservation.walkthrough?
-                        span.label.label-success Yes
-                    - else
-                        span.label.label-danger No
-                td #{reservation.created_at}
-                td #{reservation.updated_at}
-                td
-                    a.glyphicon.glyphicon-info-sign data-target="##{reservation.id}" data-toggle="modal" role="button" title="Preview this reservation"
-                    = render partial: "reservation_overview", locals: { r: reservation }
-                td
-                    - if policy(reservation).show?
-                        = link_to 'Details', standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
-                td
-                    - if policy(reservation).edit?
-                        = link_to 'Edit', edit_standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
+  thead
+    tr
+      th Instructor
+      th Course
+      th Activity
+      th Start
+      th End
+      th Lab
+      th # Students
+      th Walkthrough
+      th Submitted
+      th Last Updated
+      th.no-sort
+      th.no-sort
+      th.no-sort
+  tbody
+    - @standard_reservations.each do |reservation|
+      tr
+        td
+          span.label.label-info #{reservation.course.instructor.decorate.full_name}
+          '
+        td
+          span.label.label-warning #{reservation.course.decorate.short_name}
+        td
+          span.label.label-danger #{reservation.activity}
+        td #{reservation.start}
+        td #{reservation.end}
+        td #{reservation.lab.titleize}
+        td #{reservation.course.students.count}
+        td
+          - if reservation.walkthrough?
+            span.label.label-success Yes
+          - else
+            span.label.label-danger No
+        td #{reservation.created_at}
+        td #{reservation.updated_at}
+        td
+          a.glyphicon.glyphicon-info-sign data-target="##{reservation.id}" data-toggle="modal" role="button" title="Preview this reservation"
+          = render partial: "reservation_overview", locals: { r: reservation }
+        td
+          - if policy(reservation).show?
+            = link_to 'Details', standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
+        td
+          - if policy(reservation).edit?
+            = link_to 'Edit', edit_standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
 .text-center
-    = paginate @standard_reservations
+  = paginate @standard_reservations
 
 javascript:
     $("#standard_reservations").DataTable(dataTableDefaults);

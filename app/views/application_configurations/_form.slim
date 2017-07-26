@@ -1,87 +1,87 @@
 = simple_form_for @configuration, :url => '/configuration' do |f|
-    fieldset
-        .row
-            .col-md-6
-                .panel.panel-info
-                        .panel-heading
-                            h3.panel-title Enrollment/Academic Calendar
-                        .panel-body
-                            .row
-                                .col-md-3
-                                    h4 Enrollment Data Update Message
-                                .col-md-9
-                                    = f.input :enrollment_update_message,
-                                        input_html: { rows: 2 }
-                            .row
-                                .col-md-3
-                                    h4 Enrollment Data Last Updated
-                                .col-md-9
-                                     = f.input :enrollment_last_updated, wrapper: :vertical_input_group_date
-                                        = f.input_field :enrollment_last_updated,
-                                            as: :string,
-                                            class: "form-control"
-                            .row
-                                .col-md-3
-                                    h4 Current Semester Start Date
-                                .col-md-9
-                                     = f.input :current_semester_start, wrapper: :vertical_input_group_date
-                                        = f.input_field :current_semester_start,
-                                            as: :string,
-                                            class: "form-control"
-                            .row
-                                .col-md-3
-                                    h4 Current Semester End Date
-                                .col-md-9
-                                     = f.input :current_semester_end, wrapper: :vertical_input_group_date
-                                        = f.input_field :current_semester_end,
-                                            as: :string,
-                                            class: "form-control"
-                            .row
-                                .col-md-3
-                                    h4 Current Semester Year
-                                .col-md-9
-                                    = f.input :current_semester_year
-                            .row
-                                .col-md-3
-                                    h4 Current Semester
-                                .col-md-9
-                                    = f.input :current_semester,
-                                        collection: ApplicationConfiguration.current_semesters.collect { |s, i| [s.titleize, s] },
-                                        selected: @configuration.current_semester
-            .col-md-6
-                fieldset disabled = current_user.labasst?
-                    .panel.panel-info
-                            .panel-heading
-                                h3.panel-title Project
-                            .panel-body
-                                .row
-                                    .col-md-3
-                                        h4 Submission Start
-                                    .col-md-9
-                                         = f.input :class_project_submission_start, wrapper: :vertical_input_group_date
-                                            = f.input_field :class_project_submission_start,
-                                                as: :string,
-                                                class: "form-control"
-                                .row
-                                    .col-md-3
-                                        h4 Submission End
-                                    .col-md-9
-                                         = f.input :class_project_submission_end, wrapper: :vertical_input_group_date
-                                            = f.input_field :class_project_submission_end,
-                                                as: :string,
-                                                class: "form-control"
-                                .row
-                                    .col-md-3
-                                        h4 Deadline Upcoming Message
-                                    .col-md-9
-                                        = f.input :class_project_before_deadline_message,
-                                            input_html: { placeholder: "A message to show faculty when the deadline for submitting projects is approaching.", rows: 3, maxlength: 1000 }
-    
-                                .row
-                                    .col-md-3
-                                        h4 Deadline Passed Message
-                                    .col-md-9
-                                        = f.input :class_project_after_deadline_message,
-                                            input_html: { placeholder: "A message to show faculty when the deadline for submitting projects has passed.", rows: 3, maxlength: 1000 }
-    
-    = f.submit "Update Configuration", class: "btn btn-info pull-right"
+  fieldset
+    .row
+      .col-md-6
+        .panel.panel-info
+          .panel-heading
+            h3.panel-title Enrollment/Academic Calendar
+          .panel-body
+            .row
+              .col-md-3
+                h4 Enrollment Data Update Message
+              .col-md-9
+                = f.input :enrollment_update_message,
+                        input_html: { rows: 2 }
+            .row
+              .col-md-3
+                h4 Enrollment Data Last Updated
+              .col-md-9
+                = f.input :enrollment_last_updated, wrapper: :vertical_input_group_date
+                = f.input_field :enrollment_last_updated,
+                        as: :string,
+                        class: "form-control"
+            .row
+              .col-md-3
+                h4 Current Semester Start Date
+              .col-md-9
+                = f.input :current_semester_start, wrapper: :vertical_input_group_date
+                = f.input_field :current_semester_start,
+                        as: :string,
+                        class: "form-control"
+            .row
+              .col-md-3
+                h4 Current Semester End Date
+              .col-md-9
+                = f.input :current_semester_end, wrapper: :vertical_input_group_date
+                = f.input_field :current_semester_end,
+                        as: :string,
+                        class: "form-control"
+            .row
+              .col-md-3
+                h4 Current Semester Year
+              .col-md-9
+                = f.input :current_semester_year
+            .row
+              .col-md-3
+                h4 Current Semester
+              .col-md-9
+                = f.input :current_semester,
+                        collection: ApplicationConfiguration.current_semesters.collect { |s, i| [s.titleize, s] },
+                        selected: @configuration.current_semester
+      .col-md-6
+        fieldset disabled = current_user.labasst?
+          .panel.panel-info
+            .panel-heading
+              h3.panel-title Project
+            .panel-body
+              .row
+                .col-md-3
+                  h4 Submission Start
+                .col-md-9
+                  = f.input :class_project_submission_start, wrapper: :vertical_input_group_date
+                  = f.input_field :class_project_submission_start,
+                          as: :string,
+                          class: "form-control"
+              .row
+                .col-md-3
+                  h4 Submission End
+                .col-md-9
+                  = f.input :class_project_submission_end, wrapper: :vertical_input_group_date
+                  = f.input_field :class_project_submission_end,
+                          as: :string,
+                          class: "form-control"
+              .row
+                .col-md-3
+                  h4 Deadline Upcoming Message
+                .col-md-9
+                  = f.input :class_project_before_deadline_message,
+                          input_html: { placeholder: "A message to show faculty when the deadline for submitting projects is approaching.", rows: 3, maxlength: 1000 }
+
+              .row
+                .col-md-3
+                  h4 Deadline Passed Message
+                .col-md-9
+                  = f.input :class_project_after_deadline_message,
+                          input_html: { placeholder: "A message to show faculty when the deadline for submitting projects has passed.", rows: 3, maxlength: 1000 }
+
+  = f.submit "Update Configuration", class: "btn btn-info pull-right"

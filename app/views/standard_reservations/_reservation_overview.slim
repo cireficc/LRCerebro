@@ -1,80 +1,80 @@
 .modal.fade role="dialog" id="#{r.id}"
-    .modal-dialog.modal-lg
-        .modal-content
-            .modal-header
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        .row
+          .col-md-4
+            | <i>Submitted: <b>#{r.created_at}</b></i>
+          .col-md-4
+            | <i>Updated: <b>#{r.updated_at}</b></i>
+          .col-md-3
+            = link_to 'View on Google Calendar', r.google_calendar_html_link, :target => '_blank', class: 'btn btn-xs btn-default'
+          .col-md-1
+            button.close data-dismiss="modal" type="button"  &times;
+      .modal-body
+        .row
+          .col-md-6
+            .panel.panel-info
+              .panel-heading
+                h4.panel-title General Information
+              .panel-body
                 .row
-                    .col-md-4
-                        | <i>Submitted: <b>#{r.created_at}</b></i>
-                    .col-md-4
-                        | <i>Updated: <b>#{r.updated_at}</b></i>
-                    .col-md-3
-                        = link_to 'View on Google Calendar', r.google_calendar_html_link, :target => '_blank', class: 'btn btn-xs btn-default'
-                    .col-md-1
-                        button.close data-dismiss="modal" type="button"  &times;
-            .modal-body
+                  .col-md-4
+                    h4 Instructor
+                  .col-md-8
+                    .well.well-sm #{r.course.instructor.decorate.full_name}
                 .row
-                    .col-md-6
-                        .panel.panel-info
-                            .panel-heading
-                                h4.panel-title General Information
-                            .panel-body
-                                .row
-                                    .col-md-4
-                                        h4 Instructor
-                                    .col-md-8
-                                        .well.well-sm #{r.course.instructor.decorate.full_name}
-                                .row
-                                    .col-md-4
-                                        h4 Course
-                                    .col-md-8
-                                        .well.well-sm #{r.course.decorate.short_name}
-                                .row
-                                    .col-md-4
-                                        h4 # Students
-                                    .col-md-8
-                                        .well.well-sm #{r.course.students.count}
-                                .row
-                                    .col-md-4
-                                        h4 Walkthrough
-                                    .col-md-8
-                                        .well.well-sm #{r.walkthrough? ? "Yes" : "No"}
-                                .row
-                                    .col-md-4
-                                        h4 Utilities
-                                    .col-md-8
-                                        - if r.utilities.reject(&:blank?).any?
-                                            .well.well-sm #{r.utilities.reject!(&:blank?).map { |u| u.titleize }.join(", ")}
-                                .row
-                                    .col-md-4
-                                        h4 Asistance
-                                    .col-md-8
-                                        - if r.assistances.reject(&:blank?).any?
-                                            .well.well-sm #{r.assistances.reject!(&:blank?).map { |a| a.titleize }.join(", ")}
-                    .col-md-6
-                        .panel.panel-warning
-                            .panel-heading
-                                h4.panel-title Date, Time and Instructions
-                            .panel-body
-                                .row
-                                    .col-md-4
-                                        h4 Start Time
-                                    .col-md-8
-                                        .well.well-sm #{r.start}
-                                .row
-                                    .col-md-4
-                                        h4 End Time
-                                    .col-md-8
-                                        .well.well-sm #{r.end}
-                                .row
-                                    .col-md-4
-                                        h4 Lab
-                                    .col-md-8
-                                        .well.well-sm #{r.lab.titleize}
-                                .row
-                                    .col-md-4
-                                        h4 Instructions
-                                    .col-md-8
-                                        - if r.additional_instructions.present?
-                                            .well.well-sm #{r.additional_instructions}
-            .modal-footer
-                button.btn.btn-default data-dismiss="modal" type="button" Close
+                  .col-md-4
+                    h4 Course
+                  .col-md-8
+                    .well.well-sm #{r.course.decorate.short_name}
+                .row
+                  .col-md-4
+                    h4 # Students
+                  .col-md-8
+                    .well.well-sm #{r.course.students.count}
+                .row
+                  .col-md-4
+                    h4 Walkthrough
+                  .col-md-8
+                    .well.well-sm #{r.walkthrough? ? "Yes" : "No"}
+                .row
+                  .col-md-4
+                    h4 Utilities
+                  .col-md-8
+                    - if r.utilities.reject(&:blank?).any?
+                      .well.well-sm #{r.utilities.reject!(&:blank?).map { |u| u.titleize }.join(", ")}
+                .row
+                  .col-md-4
+                    h4 Asistance
+                  .col-md-8
+                    - if r.assistances.reject(&:blank?).any?
+                      .well.well-sm #{r.assistances.reject!(&:blank?).map { |a| a.titleize }.join(", ")}
+          .col-md-6
+            .panel.panel-warning
+              .panel-heading
+                h4.panel-title Date, Time and Instructions
+              .panel-body
+                .row
+                  .col-md-4
+                    h4 Start Time
+                  .col-md-8
+                    .well.well-sm #{r.start}
+                .row
+                  .col-md-4
+                    h4 End Time
+                  .col-md-8
+                    .well.well-sm #{r.end}
+                .row
+                  .col-md-4
+                    h4 Lab
+                  .col-md-8
+                    .well.well-sm #{r.lab.titleize}
+                .row
+                  .col-md-4
+                    h4 Instructions
+                  .col-md-8
+                    - if r.additional_instructions.present?
+                      .well.well-sm #{r.additional_instructions}
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button" Close

@@ -14,24 +14,24 @@ html lang="en"
     title #{@title} - LRCerebro
   body
     - if current_user
-        == render "partials/#{current_user.role}/nav"
+      == render "partials/#{current_user.role}/nav"
     - else
-        == render "partials/nav"
+      == render "partials/nav"
 
     .container-fluid
       == render 'partials/flash'
       / Have a loding GIF for turbolinks while a page is still loading
       / Show and hide it with JavaScript
       div#loading.vertical-center
-          = image_tag("loading.gif", alt: "Loading...")
+        = image_tag("loading.gif", alt: "Loading...")
       javascript:
-        $(document).on('page:fetch', function() {
-          $("#content").hide();
-          $("#loading").show();
-        });
-        $(document).on('page:change', function() {
-          $("#loading").hide();
-          $("#content").show();
-        });
+          $(document).on('page:fetch', function() {
+              $("#content").hide();
+              $("#loading").show();
+          });
+          $(document).on('page:change', function() {
+              $("#loading").hide();
+              $("#content").show();
+          });
       div#content
         == yield

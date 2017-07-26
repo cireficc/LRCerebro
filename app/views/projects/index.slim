@@ -1,53 +1,53 @@
 = render 'search'
 hr
 table#projects.table.table-hover
-    thead
-        tr
-            th Instructor
-            th Course
-            th Category
-            th Script Due
-            th First Training
-            th Last Editing
-            th Due
-            th Published By
-            th Submitted
-            th Status
-            th.no-sort
-            th.no-sort
-            th.no-sort
-    tbody
-        - @projects.each do |project|
-            tr
-                td
-                    span.label.label-info #{project.course.instructor.decorate.full_name}
-                    ' 
-                td
-                    span.label.label-warning #{project.course.decorate.short_name}
-                td
-                    span.label.label-danger #{project.category}
-                td #{project.script_due}
-                td #{project.first_training.start if project.first_training}
-                td #{project.last_editing.start if project.last_editing}
-                td #{project.due}
-                td #{project.publish_by}
-                td #{project.created_at}
-                td
-                    - if project.approved?
-                        span.label.label-success Approved
-                    - else
-                        span.label.label-danger Pending
-                td
-                    a.glyphicon.glyphicon-info-sign data-target="##{project.id}" data-toggle="modal" role="button" title="Preview this project"
-                    = render partial: "project_overview", locals: { p: project }
-                td
-                    - if policy(project).show?
-                        = link_to 'Details', project_path(project), class: 'btn btn-xs btn-default'
-                td
-                    - if policy(project).edit?
-                        = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
+  thead
+    tr
+      th Instructor
+      th Course
+      th Category
+      th Script Due
+      th First Training
+      th Last Editing
+      th Due
+      th Published By
+      th Submitted
+      th Status
+      th.no-sort
+      th.no-sort
+      th.no-sort
+  tbody
+    - @projects.each do |project|
+      tr
+        td
+          span.label.label-info #{project.course.instructor.decorate.full_name}
+          ' 
+        td
+          span.label.label-warning #{project.course.decorate.short_name}
+        td
+          span.label.label-danger #{project.category}
+        td #{project.script_due}
+        td #{project.first_training.start if project.first_training}
+        td #{project.last_editing.start if project.last_editing}
+        td #{project.due}
+        td #{project.publish_by}
+        td #{project.created_at}
+        td
+          - if project.approved?
+            span.label.label-success Approved
+          - else
+            span.label.label-danger Pending
+        td
+          a.glyphicon.glyphicon-info-sign data-target="##{project.id}" data-toggle="modal" role="button" title="Preview this project"
+          = render partial: "project_overview", locals: { p: project }
+        td
+          - if policy(project).show?
+            = link_to 'Details', project_path(project), class: 'btn btn-xs btn-default'
+        td
+          - if policy(project).edit?
+            = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
 .text-center
-    = paginate @projects
+  = paginate @projects
 
 javascript:
     $("#projects").DataTable(dataTableDefaults);

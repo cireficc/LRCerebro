@@ -4,8 +4,8 @@
       | Log in using your Blackboard credentials.
   .row
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        = f.label :username, required: false
-        = f.input :username, required: false, autofocus: true
-        = f.label :password
-        = f.input :password, required: false
-        = f.button :submit, "Log in", class: "btn-primary"
+      = f.label :username, required: false
+      = f.input :username, required: false, autofocus: true
+      = f.label :password
+      = f.input :password, required: false
+      = f.button :submit, "Log in", class: "btn-primary"
