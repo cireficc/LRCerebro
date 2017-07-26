@@ -12,7 +12,7 @@ class MiniProjectDecorator < Draper::Decorator
   def stringified_publish_methods
     publish_methods.map(&:titleize).join(", ")
   end
-  
+
   def supplemental_materials_string
     supplemental_materials ? "Yes" : "No"
   end

@@ -16,5 +16,5 @@ class CourseDecorator < Draper::Decorator
   def full_name
     "#{name} (#{semester.titleize} #{year})"
   end
-  
+
 end

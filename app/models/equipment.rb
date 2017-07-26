@@ -1,3 +1,3 @@
 class Equipment < ActiveRecord::Base
-    has_one :inventory_item, as: :inventoriable, dependent: :destroy
+  has_one :inventory_item, as: :inventoriable, dependent: :destroy
 end

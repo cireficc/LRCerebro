@@ -8,11 +8,11 @@ class ProjectReservationDecorator < Draper::Decorator
       in_class_shoot: "In-cl Shoot",
       screen_final_project: "ScreenProj"
   }
-  
+
   def subtype_shorthand
     SUBTYPES_SHORTHAND[subtype.to_sym]
   end
-  
+
   def short_date(date)
     date.to_s[10..-1]
   end

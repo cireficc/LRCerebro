@@ -5,7 +5,7 @@ class UserDecorator < Draper::Decorator
   def self.collection_decorator_class
     PaginatingDecorator
   end
-  
+
   def full_name_reverse
     "#{last_name}, #{first_name}"
   end

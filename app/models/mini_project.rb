@@ -12,7 +12,7 @@ class MiniProject < ActiveRecord::Base
   after_create :create_or_update_publishing_event, :unless => :seeding_development_database
   after_update :create_or_update_publishing_event
   before_destroy :delete_publish_calendar_event
-  
+
   RESOURCES = [
       "Plex Music",
       "Films",

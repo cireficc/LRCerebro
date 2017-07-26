@@ -1,7 +1,7 @@
 class Language < ActiveRecord::Base
-    self.abstract_class = true
+  self.abstract_class = true
 
-    LANGUAGES = %w(
+  LANGUAGES = %w(
         Arabic
         Chinese
         English

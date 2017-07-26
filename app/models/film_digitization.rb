@@ -20,7 +20,7 @@ class FilmDigitization < ActiveRecord::Base
         archived: !active?
     }
   end
-  
+
   def film_or_title_present
     if film_id.blank? && film_title.blank?
       errors.add(:film_id, "Link to an existing film, or specify the film's title")
