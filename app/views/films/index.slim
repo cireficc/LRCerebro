@@ -27,12 +27,12 @@ table#films.table.table-hover
           td #{film.foreign_title} (#{film.transliterated_foreign_title})
         - else
           td #{film.foreign_title}
-        td #{film.audio_languages.map { |l| l.titleize }.join(", ")}
-        td #{film.subtitle_languages.map { |l| l.titleize }.join(", ")}
+        td #{film.stringified_audio_languages}
+        td #{film.stringified_subtitle_languages}
         td #{film.short_description}
-        td #{film.directors.map { |g| g.name.titleize }.join(", ")}
-        td #{film.cast_members.map { |g| g.name.titleize }.join(", ")}
-        td #{film.genres.map { |g| g.name.titleize }.join(", ")}
+        td #{film.stringified_directors}
+        td #{film.stringified_cast_members}
+        td #{film.stringified_genres}
         td #{film.year}
         - streamable = film.digitized_versions.select { |d| d.embed_code.present? }
         - if streamable.count > 0
