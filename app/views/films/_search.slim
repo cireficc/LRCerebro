@@ -1,6 +1,6 @@
 = form_tag films_path, id: "film_search_form", method: :get do |f|
   .row
-    .col-md-4
+    .col-md-3
       h4 Keyword
       .input-group
         = search_field_tag :search, params[:search], placeholder: "Search by catalog number, title, or description", class: "form-control", autocomplete: "off"
@@ -15,7 +15,7 @@
       h4 Subtitle Languages
       = select_tag :subtitle_languages,
               options_for_select(Language::LANGUAGES.map { |l, i| [l, l] }, params[:subtitle_languages]), {class: "form-control", multiple: true}
-    .col-md-4
+    .col-md-3
       h4 Directors, Cast Members and Genres
       = hidden_field_tag :tag_list, params[:tag_list]
       // Convert the tag list from CSV string to an array so that is shows up in the select2 input
@@ -27,6 +27,9 @@
                       multiple: true,
                       data: { taggable: true, taggable_type: "Film"},
                       class: "form-control"}
+    .col-md-2
+      h4 Export
+      = link_to "Export search to Excel", films_path(params.merge(format: 'xls', all_records: true)), target: :blank, class: 'btn btn-info'
 javascript:
     $(document).ready(function() {
 

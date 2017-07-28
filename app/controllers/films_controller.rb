@@ -16,7 +16,8 @@ class FilmsController < ApplicationController
   # GET /films
   def index
 
-    @limit = 25
+    # For exports, get all records, otherwise, paginate at 25 per page
+    @limit = params[:all_records] ? Film.count : 25
     @order = { catalog_number: :asc }
     @includes = [:inventory_item, :genres, :directors, :cast_members, :digitized_versions]
 
@@ -52,6 +53,15 @@ class FilmsController < ApplicationController
           where: @where,
           order: @order, page: params[:page], per_page: @limit
       ))
+    end
+    
+    respond_to do |format|
+      format.html
+      format.xls do
+        response.headers['Content-Type'] = 'text/xls; charset=UTF-8; header=present'
+        response.headers['Content-Disposition'] = 'attachment; filename=LRC film export.xls'
+        render 'index', layout: false
+      end
     end
   end
 

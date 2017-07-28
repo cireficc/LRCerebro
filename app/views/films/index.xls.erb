@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Films">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Catalog Number</Data></Cell>
+        <Cell><Data ss:Type="String">English Title</Data></Cell>
+        <Cell><Data ss:Type="String">Foreign Title</Data></Cell>
+        <Cell><Data ss:Type="String">Transliterated Foreign Title</Data></Cell>
+        <Cell><Data ss:Type="String">Audio Languages</Data></Cell>
+        <Cell><Data ss:Type="String">Subtitle Languages</Data></Cell>
+        <Cell><Data ss:Type="String">Film Type</Data></Cell>
+        <Cell><Data ss:Type="String">Year</Data></Cell>
+        <Cell><Data ss:Type="String">Length (minutes)</Data></Cell>
+        <Cell><Data ss:Type="String">MPAA Rating</Data></Cell>
+        <Cell><Data ss:Type="String">Description</Data></Cell>
+        <Cell><Data ss:Type="String">More Info Link</Data></Cell>
+        <Cell><Data ss:Type="String">Added to Collection</Data></Cell>
+        <Cell><Data ss:Type="String">Record Last Updated</Data></Cell>
+      </Row>
+      <% @films.each do |film| %>
+          <Row>
+            <Cell><Data ss:Type="Number"><%= film.id %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.inventory_item.catalog_number %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.english_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.foreign_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.transliterated_foreign_title %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.stringified_audio_languages %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.stringified_subtitle_languages %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.film_type.titleize %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= film.year %></Data></Cell>
+            <Cell><Data ss:Type="Number"><%= film.length %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.mpaa_rating.titleize %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.description %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.more_info_link %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.created_at %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.updated_at %></Data></Cell>
+          </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
