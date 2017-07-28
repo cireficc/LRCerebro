@@ -214,20 +214,25 @@ $(document).on('click', '.reservation-calendar-toggle', function (event) {
 
 $(document).on('click', '.input-group-addon .glyphicon-calendar', function (event) {
 
+    var cal = $(".reservation-calendar");
+    var toggle = $(".reservation-calendar-toggle").first();
     var panelBody = $(this).closest('.panel-body');
     var startText = $(panelBody).find('input[id$="_start"]').val();
-
-    if (startText.length != 0) updateGoogleCalendarIframe(new Date(startText));
+    var endText = $(panelBody).find('input[id$="_end"]').val();
+    
+    // If this is a reservation start or end field, update the iframe and show the calendar if it is hidden
+    if (startText || endText) {
+        
+        if (cal.hasClass('hidden')) { toggle.click(); }
+        
+        if (startText.length != 0) {
+            updateGoogleCalendarIframe(new Date(startText));
+        }
+    }
 });
 
 function updateGoogleCalendarIframe(newTimestamp) {
-
-    var cal = $(".reservation-calendar");
-    var toggle = $(".reservation-calendar-toggle").first();
-
-    // If the reservation calendar is hidden, make it calendar visible
-    if (cal.hasClass('hidden')) { toggle.click(); }
-
+    
     var newDate = new Date(newTimestamp);
     var now = new Date();
     var datesSame = (currentGoogleCalendarIframeDate.toDateString() === newDate.toDateString());
