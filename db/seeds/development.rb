@@ -1,10 +1,11 @@
 puts "Seeding development..."
 
 IMAGE_PATH = Rails.root.join( 'db', 'seeds', 'images')
+YEAR = Time.now.year
 
 # Seed for the site configuration
 ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enrollment_last_updated: Date.yesterday,
-                                 current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days, current_semester_year: 2016, current_semester: 0,
+                                 current_semester_start: 3.days.ago, current_semester_end: Time.now + 20.days, current_semester_year: YEAR, current_semester: 0,
                                  class_project_submission_start: 2.days.ago, class_project_submission_end: Time.now + 10.days,
                                  class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
 
@@ -18,22 +19,22 @@ fuchsk = User.create(username: 'fuchsk', pitm: 'FUCHSK', first_name: 'Kevin', la
 cireficc = User.create(username: 'cireficc', pitm: 'CIREFICC', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
 
 # Create a few courses for users to be enrolled in
-spa = Course.create(year: 2015, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
+spa = Course.create(year: YEAR, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
 spa.id = 12754
 spa.save!
-spa2 = Course.create(year: 2015, semester: 0, department: 7, course: 102, section: 03, name: 'SPA 102 03 - Elementary Spanish II')
+spa2 = Course.create(year: YEAR, semester: 0, department: 7, course: 102, section: 03, name: 'SPA 102 03 - Elementary Spanish II')
 spa2.id = 12755
 spa2.save!
-fre = Course.create(year: 2015, semester: 0, department: 2, course: 101, section: 01, name: 'FRE 101 01 - Elementary French I')
+fre = Course.create(year: YEAR, semester: 0, department: 2, course: 101, section: 01, name: 'FRE 101 01 - Elementary French I')
 fre.id = 12775
 fre.save!
-fre2 = Course.create(year: 2015, semester: 0, department: 2, course: 202, section: 02, name: 'FRE 202 02 - Intermediate French II')
+fre2 = Course.create(year: YEAR, semester: 0, department: 2, course: 202, section: 02, name: 'FRE 202 02 - Intermediate French II')
 fre2.id = 12776
 fre2.save!
-fre3 = Course.create(year: 2015, semester: 0, department: 2, course: 307, section: 01, name: 'FRE 307 01 - Advanced French Grammar')
+fre3 = Course.create(year: YEAR, semester: 0, department: 2, course: 307, section: 01, name: 'FRE 307 01 - Advanced French Grammar')
 fre3.id = 12777
 fre3.save!
-lrc = Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
+lrc = Course.create(year: YEAR, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
 
 # Create the enrollments for users in courses
 Enrollment.create!(user: faculty, course: spa, role: Enrollment.roles[:instructor])
@@ -49,83 +50,83 @@ Enrollment.create!(user: labasst, course: lrc, role: Enrollment.roles[:student])
 
 # Create a few projects to assign to courses
 spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: "Camtasia", group_size: 3,
-                                script_due: DateTime.new(2015,8,15,7,0,0,'-5'), due: DateTime.new(2015,8,25,16,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,27,13,0,0,'-5'), approved: false)
+                                script_due: DateTime.new(YEAR,8,15,7,0,0,'-5'), due: DateTime.new(YEAR,8,25,16,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,27,13,0,0,'-5'), approved: false)
 spa_project_2 = Project.create!(course: spa2, name: "Bienvenido", description: "Some type of Garage Band project", category: "Garage Band", group_size: 2,
-                                script_due: DateTime.new(2015,8,17,7,0,0,'-5'), due: DateTime.new(2015,8,29,18,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: true)
+                                script_due: DateTime.new(YEAR,8,17,7,0,0,'-5'), due: DateTime.new(YEAR,8,29,18,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,30,13,0,0,'-5'), approved: true)
 spa_project_3 = Project.create!(course: spa2, name: "Muy Caliente", description: "Pixton project", category: "Pixton", group_size: 3,
-                                script_due: DateTime.new(2015,8,11,7,0,0,'-5'), due: DateTime.new(2015,8,24,16,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,26,13,0,0,'-5'), approved: false)
+                                script_due: DateTime.new(YEAR,8,11,7,0,0,'-5'), due: DateTime.new(YEAR,8,24,16,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,26,13,0,0,'-5'), approved: false)
 fre_project_1 = Project.create!(course: fre, name: "FRE Project 1", description: "Garage Band description", category: "Garage Band", group_size: 1,
-                                script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: false)
+                                script_due: DateTime.new(YEAR,8,13,7,0,0,'-5'), due: DateTime.new(YEAR,8,23,16,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,25,13,0,0,'-5'), approved: false)
 fre_project_2 = Project.create!(course: fre2, name: "FRE Project 2", description: "Pixton description", category: "Pixton", group_size: 2,
-                                script_due: DateTime.new(2015,8,13,7,0,0,'-5'), due: DateTime.new(2015,8,23,16,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,25,13,0,0,'-5'), approved: true)
+                                script_due: DateTime.new(YEAR,8,13,7,0,0,'-5'), due: DateTime.new(YEAR,8,23,16,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,25,13,0,0,'-5'), approved: true)
 fre_project_3 = Project.create!(course: fre3, name: "FRE Project 3", description: "Camtasia awesomeness", category: "Camtasia", group_size: 2,
-                                script_due: DateTime.new(2015,8,5,7,0,0,'-5'), due: DateTime.new(2015,8,29,16,0,0,'-5'),
-                                publish_by: DateTime.new(2015,8,30,13,0,0,'-5'), approved: false)
+                                script_due: DateTime.new(YEAR,8,5,7,0,0,'-5'), due: DateTime.new(YEAR,8,29,16,0,0,'-5'),
+                                publish_by: DateTime.new(YEAR,8,30,13,0,0,'-5'), approved: false)
 
 # Create some reservations for a project
-training_1 = ProjectReservation.create!(start: DateTime.new(2015,8,17,7,0,0,'-5'), end: DateTime.new(2015,8,17,7,50,0,'-5'),
+training_1 = ProjectReservation.create!(start: DateTime.new(YEAR,8,17,7,0,0,'-5'), end: DateTime.new(YEAR,8,17,7,50,0,'-5'),
                                         lab: Lab.locations[:a], category: ProjectReservation.categories[:training],
                                         subtype: ProjectReservation.subtypes[:project_introduction],
                                         staff_notes: "Set up Google Drive mini-presentation.", faculty_notes: "Help me with Google Drive please!")
-training_2 = ProjectReservation.create!(start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
+training_2 = ProjectReservation.create!(start: DateTime.new(YEAR,8,18,7,0,0,'-5'), end: DateTime.new(YEAR,8,18,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         subtype: ProjectReservation.subtypes[:camera_training],
                                         staff_notes: "Reserve a camera and tripod 1 hour before reservation.", faculty_notes: "Camera training necessary.")
-training_3 = ProjectReservation.create!(start: DateTime.new(2015,8,19,6,0,0,'-5'), end: DateTime.new(2015,8,19,6,50,0,'-5'),
+training_3 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,6,0,0,'-5'), end: DateTime.new(YEAR,8,19,6,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         staff_notes: "Make sure Pixton accounts are set up", faculty_notes: "Intro to Pixton")
-training_4 = ProjectReservation.create!(start: DateTime.new(2015,8,19,7,0,0,'-5'), end: DateTime.new(2015,8,19,8,15,0,'-5'),
+training_4 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,7,0,0,'-5'), end: DateTime.new(YEAR,8,19,8,15,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         faculty_notes: "Intro to Garage Band")
-training_5 = ProjectReservation.create!(start: DateTime.new(2015,8,7,7,0,0,'-5'), end: DateTime.new(2015,8,7,7,50,0,'-5'),
+training_5 = ProjectReservation.create!(start: DateTime.new(YEAR,8,7,7,0,0,'-5'), end: DateTime.new(YEAR,8,7,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training])
-training_6 = ProjectReservation.create!(start: DateTime.new(2015,8,9,7,0,0,'-5'), end: DateTime.new(2015,8,9,7,50,0,'-5'),
+training_6 = ProjectReservation.create!(start: DateTime.new(YEAR,8,9,7,0,0,'-5'), end: DateTime.new(YEAR,8,9,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         staff_notes: "No students have experience with Camtasia", faculty_notes: "Complete how-to is necessary.")
-training_7 = ProjectReservation.create!(start: DateTime.new(2015,8,17,7,0,0,'-5'), end: DateTime.new(2015,8,17,7,50,0,'-5'),
+training_7 = ProjectReservation.create!(start: DateTime.new(YEAR,8,17,7,0,0,'-5'), end: DateTime.new(YEAR,8,17,7,50,0,'-5'),
                                         lab: Lab.locations[:a], category: ProjectReservation.categories[:training],
                                         subtype: ProjectReservation.subtypes[:project_introduction],
                                         staff_notes: "Set up Google Drive mini-presentation.", faculty_notes: "Help me with Google Drive please!")
-training_8 = ProjectReservation.create!(start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
+training_8 = ProjectReservation.create!(start: DateTime.new(YEAR,8,18,7,0,0,'-5'), end: DateTime.new(YEAR,8,18,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         subtype: ProjectReservation.subtypes[:camera_training],
                                         staff_notes: "Reserve a camera and tripod 1 hour before reservation.", faculty_notes: "Camera training necessary.")
-training_9 = ProjectReservation.create!(start: DateTime.new(2015,8,19,6,0,0,'-5'), end: DateTime.new(2015,8,19,6,50,0,'-5'),
+training_9 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,6,0,0,'-5'), end: DateTime.new(YEAR,8,19,6,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                         staff_notes: "Make sure Pixton accounts are set up", faculty_notes: "Intro to Pixton")
-training_10 = ProjectReservation.create!(start: DateTime.new(2015,8,19,7,0,0,'-5'), end: DateTime.new(2015,8,19,8,15,0,'-5'),
+training_10 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,7,0,0,'-5'), end: DateTime.new(YEAR,8,19,8,15,0,'-5'),
                                          lab: Lab.locations[:b], category: ProjectReservation.categories[:training],
                                          faculty_notes: "Intro to Garage Band")
-training_11 = ProjectReservation.create!(start: DateTime.new(2015,8,7,7,0,0,'-5'), end: DateTime.new(2015,8,7,7,50,0,'-5'),
+training_11 = ProjectReservation.create!(start: DateTime.new(YEAR,8,7,7,0,0,'-5'), end: DateTime.new(YEAR,8,7,7,50,0,'-5'),
                                          lab: Lab.locations[:b], category: ProjectReservation.categories[:training])
-editing_1 = ProjectReservation.create!(start: DateTime.new(2015,8,19,7,0,0,'-5'), end: DateTime.new(2015,8,19,7,50,0,'-5'),
+editing_1 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,7,0,0,'-5'), end: DateTime.new(YEAR,8,19,7,50,0,'-5'),
                                        lab: Lab.locations[:a], category: ProjectReservation.categories[:editing])
-editing_2 = ProjectReservation.create!(start: DateTime.new(2015,8,20,7,0,0,'-5'), end: DateTime.new(2015,8,20,7,50,0,'-5'),
+editing_2 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,7,0,0,'-5'), end: DateTime.new(YEAR,8,20,7,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_3 = ProjectReservation.create!(start: DateTime.new(2015,8,20,6,0,0,'-5'), end: DateTime.new(2015,8,20,6,50,0,'-5'),
+editing_3 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,6,0,0,'-5'), end: DateTime.new(YEAR,8,20,6,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_4 = ProjectReservation.create!(start: DateTime.new(2015,8,20,5,0,0,'-5'), end: DateTime.new(2015,8,20,5,50,0,'-5'),
+editing_4 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,5,0,0,'-5'), end: DateTime.new(YEAR,8,20,5,50,0,'-5'),
                                        lab: Lab.locations[:a], category: ProjectReservation.categories[:editing])
-editing_5 = ProjectReservation.create!(start: DateTime.new(2015,8,21,7,0,0,'-5'), end: DateTime.new(2015,8,21,7,50,0,'-5'),
+editing_5 = ProjectReservation.create!(start: DateTime.new(YEAR,8,21,7,0,0,'-5'), end: DateTime.new(YEAR,8,21,7,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_6 = ProjectReservation.create!(start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
+editing_6 = ProjectReservation.create!(start: DateTime.new(YEAR,8,18,7,0,0,'-5'), end: DateTime.new(YEAR,8,18,7,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_7 = ProjectReservation.create!(start: DateTime.new(2015,8,19,7,0,0,'-5'), end: DateTime.new(2015,8,19,7,50,0,'-5'),
+editing_7 = ProjectReservation.create!(start: DateTime.new(YEAR,8,19,7,0,0,'-5'), end: DateTime.new(YEAR,8,19,7,50,0,'-5'),
                                        lab: Lab.locations[:a], category: ProjectReservation.categories[:editing])
-editing_8 = ProjectReservation.create!(start: DateTime.new(2015,8,20,7,0,0,'-5'), end: DateTime.new(2015,8,20,7,50,0,'-5'),
+editing_8 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,7,0,0,'-5'), end: DateTime.new(YEAR,8,20,7,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_9 = ProjectReservation.create!(start: DateTime.new(2015,8,20,6,0,0,'-5'), end: DateTime.new(2015,8,20,6,50,0,'-5'),
+editing_9 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,6,0,0,'-5'), end: DateTime.new(YEAR,8,20,6,50,0,'-5'),
                                        lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_10 = ProjectReservation.create!(start: DateTime.new(2015,8,20,5,0,0,'-5'), end: DateTime.new(2015,8,20,5,50,0,'-5'),
+editing_10 = ProjectReservation.create!(start: DateTime.new(YEAR,8,20,5,0,0,'-5'), end: DateTime.new(YEAR,8,20,5,50,0,'-5'),
                                         lab: Lab.locations[:a], category: ProjectReservation.categories[:editing])
-editing_11 = ProjectReservation.create!(start: DateTime.new(2015,8,21,7,0,0,'-5'), end: DateTime.new(2015,8,21,7,50,0,'-5'),
+editing_11 = ProjectReservation.create!(start: DateTime.new(YEAR,8,21,7,0,0,'-5'), end: DateTime.new(YEAR,8,21,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
-editing_12 = ProjectReservation.create!(start: DateTime.new(2015,8,18,7,0,0,'-5'), end: DateTime.new(2015,8,18,7,50,0,'-5'),
+editing_12 = ProjectReservation.create!(start: DateTime.new(YEAR,8,18,7,0,0,'-5'), end: DateTime.new(YEAR,8,18,7,50,0,'-5'),
                                         lab: Lab.locations[:b], category: ProjectReservation.categories[:editing])
 
 # Assign the reservations to the projects
@@ -181,6 +182,7 @@ film9 = Film.create!(film_type: 2, english_title: "Knife in the Water", foreign_
                      audio_languages: ["english", "other"], subtitle_languages: ["english", "other"], year: 1962, length: 94, mpaa_rating: 5,
                      director_list: ["Roman Polanski"], cast_member_list: ["Leon Niemczyk", "Jolanta Umecka", "Zygmunt Malanowicz"], genre_list: ["Drama", "Thriller"],
                      cover: File.open(File.join(IMAGE_PATH, 'Noz w wodzie.jpg')), more_info_link: "http://www.imdb.com/title/tt0056291/")
+
 InventoryItem.create!(status: 0, inventoriable: film1)
 InventoryItem.create!(status: 0, inventoriable: film2)
 InventoryItem.create!(status: 0, inventoriable: film3)
