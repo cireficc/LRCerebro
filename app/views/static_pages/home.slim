@@ -20,12 +20,12 @@
     .col-md-6
       h1
         em The LRC is the place to be!
-      p The Language Resource Center is a media-centric workplace for students taking foreign languages, where they can study in a comfortable, relaxing environment while enjoying our large media collection to better practice their language.
+      p The Language Resource Center is a media-centric workplace for students studying foreign languages, where they can hone their craft in a comfortable, relaxing environment while enjoying our large media collection to better practice their languages.
     .col-md-6
       h1
         em What is this site's purpose?
       p This site is meant to make it easier for faculty, students and staff to interact with the LRC's resources.
-      p Our resources include class project management, lab reservations, media access (films and music), media requests (digitization, duplication, and video recordings), equipment checkouts, and general work orders.
+      p Our resources include class project management, lab reservation scheduling, media access (films and music), media requests (digitization and event/class session recordings), equipment checkouts, and general work orders.
 hr
 .row.text-center
   .col-lg-12
@@ -38,11 +38,15 @@ hr
       .panel-body
         .bs-callout.bs-callout-primary
           h4
-            = link_to "Watch movies", films_path
+            = link_to films_path do
+              .glyphicon.glyphicon-film
+              |  Watch movies
           | Browse thousands of films and view them online if they're available.
         .bs-callout.bs-callout-primary
           h4
-            = link_to "Listen to music", "https://www.gvsu.edu/lrc/lrc-music-collection-140.htm", target: :_blank
+            = link_to "https://www.gvsu.edu/lrc/lrc-music-collection-140.htm", target: :_blank do
+              .glyphicon.glyphicon-music
+              |  Listen to music
           | Stream our Subsonic music colleciton while you do workbook exercises.
   .col-md-4
     .panel class = (is_student? ? "panel-warning" : "panel-default")
@@ -51,15 +55,21 @@ hr
       .panel-body
         .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            = link_to "TimeTracker", "https://lrcerebro.mll.gvsu.edu/time", target: :_blank
+            = link_to "https://lrcerebro.mll.gvsu.edu/time", target: :_blank do
+              .glyphicon.glyphicon-time
+              |  View your TimeTracker hours
           | Stay on track by viewing all of your LRC sessions as well as your total hours.
         .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            = link_to "Access textbook audio", "http://www.gvsu.edu/lrc/textbook-workbook-and-lab-manual-audio-video-4.htm", target: :_blank
+            = link_to "http://www.gvsu.edu/lrc/textbook-workbook-and-lab-manual-audio-video-4.htm", target: :_blank do
+              .glyphicon.glyphicon-headphones
+              |  Access textbook audio
           | Listen to textbook audio without needing a CD!
         .bs-callout class = (is_student? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            = link_to "Access textbook answer keys", "https://drive.google.com/drive/u/1/folders/0BwIdKixvWmU4UjRJQ3Vsb3RmTFU", target: :blank
+            = link_to "https://drive.google.com/drive/u/1/folders/0BwIdKixvWmU4UjRJQ3Vsb3RmTFU", target: :_blank do
+              .glyphicon.glyphicon-ok
+              |  Access textbook answer keys
           | Check your workbook answers with the answer keys to several books.
   .col-md-4
     .panel class = (is_faculty? ? "panel-warning" : "panel-default")
@@ -68,16 +78,20 @@ hr
       .panel-body
         .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            = link_to "Manage TimeTracker", "https://lrcerebro.mll.gvsu.edu/time", target: :_blank
+            = link_to "https://lrcerebro.mll.gvsu.edu/time", target: :_blank do
+              .glyphicon.glyphicon-time
+              |  Manage TimeTracker
           | View each students' sessions in the LRC as well as their totals for the semester.
         .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            a.disabled.not-active href="#" Submit various forms
+            a.disabled.not-active href="#"
+              .glyphicon.glyphicon-folder-open
+              | &nbsp Submit various forms
           = link_to "Submit a class project proposal", new_project_path
           |  or a 
           = link_to "mini project", new_mini_project_path
           | , 
-          = link_to "reserve the LRC for varios in-class activities", new_standard_reservation_path
+          = link_to "reserve the LRC for various in-class activities", new_standard_reservation_path
           | , or 
           = link_to "ask us to digitize a film", new_film_digitization_path
           | , 
@@ -87,5 +101,8 @@ hr
           | if none of the above forms suits your needs.
         .bs-callout class = (is_faculty? ? "bs-callout-warning" : "bs-callout-default")
           h4
-            = link_to "View your class projects", projects_path
-          | View the status of your class projects, and the lab reservations that are tied to them.
+            = link_to search_path do
+              .glyphicon.glyphicon-folder-open
+              | &nbsp View/edit your LRC form submissions
+          p Search through all of your form submissions - class projects, mini projects, standard reservations, film digitization requests, vidcam requests, and work requests - in a single location.
+          p You can then view and edit your form submissions if you need to update your requests.
