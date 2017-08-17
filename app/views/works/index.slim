@@ -1,7 +1,5 @@
-- site_wide_search = controller_name.eql? 'search'
-- if !site_wide_search
-  = render 'film_digitizations/search'
-  hr
+= render 'works/search'
+hr
 table#works.table.table-hover
   thead
     tr
@@ -29,7 +27,7 @@ table#works.table.table-hover
         td
           - if policy(work).edit?
             = link_to 'Edit', edit_work_path(work), class: 'btn btn-xs btn-default'
-- if !site_wide_search
+- if !site_wide_search?
   .text-center
     = paginate @works
   

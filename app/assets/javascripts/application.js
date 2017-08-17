@@ -233,8 +233,7 @@ $(document).on('click', '.input-group-addon .glyphicon-calendar', function (even
 
 $(document).on('click', '#search_fields_toggle', function(event) {
 
-    console.log("Search fields toggle clicked");
-    var sf = $('#search_fields');
+    var sf = $(this).siblings('div[id$="_search_fields"]').first();
     sf.toggleClass('hidden');
     text = sf.hasClass('hidden') ? 'Show search fields' : 'Hide search fields';
     $(this).text(text);

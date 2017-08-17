@@ -1,7 +1,5 @@
-- site_wide_search = controller_name.eql? 'search'
-- if !site_wide_search
-  = render 'projects/search'
-  hr
+= render 'projects/search'
+hr
 table#projects.table.table-hover
   thead
     tr
@@ -48,7 +46,7 @@ table#projects.table.table-hover
         td
           - if policy(project).edit?
             = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
-- if !site_wide_search
+- if !site_wide_search?
   .text-center
     = paginate @projects
   

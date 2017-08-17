@@ -1,7 +1,7 @@
 a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
 br
-div#search_fields class = (search_performed? ? '' : 'hidden')
-  = form_tag mini_projects_path, id: "mini_project_search_form", method: :get do |f|
+div#mini_project_search_fields class = (search_performed? ? '' : 'hidden')
+  = form_tag mini_projects_path, id: "mini_project_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
     .row
       .col-md-3
         h4 Course

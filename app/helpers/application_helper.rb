@@ -34,4 +34,8 @@ module ApplicationHelper
   def search_performed?
     params[:utf8].present?
   end
+  
+  def site_wide_search?
+    controller_name.eql? 'search'
+  end
 end

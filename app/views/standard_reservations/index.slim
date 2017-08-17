@@ -1,7 +1,5 @@
-- site_wide_search = controller_name.eql? 'search'
-- if !site_wide_search
-  = render 'standard_reservations/search'
-  hr
+= render 'standard_reservations/search'
+hr
 table#standard_reservations.table.table-hover
   thead
     tr
@@ -48,7 +46,7 @@ table#standard_reservations.table.table-hover
         td
           - if policy(reservation).edit?
             = link_to 'Edit', edit_standard_reservation_path(reservation), class: 'btn btn-xs btn-default'
-- if !site_wide_search
+- if !site_wide_search?
   .text-center
     = paginate @standard_reservations
   
