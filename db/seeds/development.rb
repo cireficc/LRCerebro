@@ -9,11 +9,10 @@ ApplicationConfiguration.create!(enrollment_update_message: "Enrollment", enroll
                                  class_project_before_deadline_message: "Project deadline approaching", class_project_after_deadline_message: "Project deadline passed")
 
 # Create a few users to log in with and view/manipulate content with
-User.create(username: 'director', pitm: 'DIRECTOR', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
-User.create(username: 'labasst', pitm: 'LABASST', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
+director = User.create(username: 'director', pitm: 'DIRECTOR', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
+labasst = User.create(username: 'labasst', pitm: 'LABASST', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)
 faculty = User.create(username: 'faculty', pitm: 'FACULTY', password: 'faculty', first_name: 'Faculty', last_name: 'MLL', role: User.roles[:faculty], registered: true)
 student = User.create(username: 'student', pitm: 'STUDENT', password: 'student', first_name: 'Student', last_name: 'MLL', role: User.roles[:student], registered: true)
-User.create(username: 'unregistered', pitm: 'UNREGISTERED', first_name: 'Unregistered', last_name: 'MLL', role: User.roles[:student], registered: false)
 wardse = User.create(username: 'wardse', pitm: 'WARDSE', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
 fuchsk = User.create(username: 'fuchsk', pitm: 'FUCHSK', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
 cireficc = User.create(username: 'cireficc', pitm: 'CIREFICC', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
@@ -34,7 +33,19 @@ fre2.save!
 fre3 = Course.create(year: 2015, semester: 0, department: 2, course: 307, section: 01, name: 'FRE 307 01 - Advanced French Grammar')
 fre3.id = 12777
 fre3.save!
-Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
+lrc = Course.create(year: 2015, semester: 0, department: 8, course: 100, section: 00, name: 'LRC 100 00 - Intro to LRC')
+
+# Create the enrollments for users in courses
+Enrollment.create!(user: faculty, course: spa, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: faculty, course: fre, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: student, course: spa, role: Enrollment.roles[:student])
+Enrollment.create!(user: student, course: fre, role: Enrollment.roles[:student])
+Enrollment.create!(user: wardse, course: fre2, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: wardse, course: fre3, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: fuchsk, course: spa2, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: cireficc, course: fre3, role: Enrollment.roles[:student])
+Enrollment.create!(user: director, course: lrc, role: Enrollment.roles[:instructor])
+Enrollment.create!(user: labasst, course: lrc, role: Enrollment.roles[:student])
 
 # Create a few projects to assign to courses
 spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: "Camtasia", group_size: 3,
@@ -124,16 +135,6 @@ spa_project_3.project_reservations << training_7 << training_9 << editing_7 << e
 fre_project_1.project_reservations << training_8 << training_10 << editing_3 << editing_9
 fre_project_2.project_reservations << training_11 << editing_4 << editing_10
 fre_project_3.project_reservations << training_5 << training_6 << editing_11 << editing_12
-
-# Create the enrollments for users in courses
-Enrollment.create!(user: faculty, course: spa, role: Enrollment.roles[:instructor])
-Enrollment.create!(user: faculty, course: fre, role: Enrollment.roles[:instructor])
-Enrollment.create!(user: student, course: spa, role: Enrollment.roles[:student])
-Enrollment.create!(user: student, course: fre, role: Enrollment.roles[:student])
-Enrollment.create!(user: wardse, course: fre2, role: Enrollment.roles[:instructor])
-Enrollment.create!(user: wardse, course: fre3, role: Enrollment.roles[:instructor])
-Enrollment.create!(user: fuchsk, course: spa2, role: Enrollment.roles[:instructor])
-Enrollment.create!(user: cireficc, course: fre3, role: Enrollment.roles[:student])
 
 film1 = Film.create!(film_type: 2, english_title: "Alice in Wonderland", foreign_title: "Alice au pays des merveilles", transliterated_foreign_title: "Alice au pays des merveilles",
                      description: "Alice stumbles into the world of Wonderland. Will she get home? Not if the Queen of Hearts has her way.",
