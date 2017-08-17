@@ -31,8 +31,9 @@ module ApplicationHelper
     ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).utc_to_local(time)
   end
   
+  # If doing a site-wide search, hide resource-specific search fields
   def search_performed?
-    params[:utf8].present?
+    params[:utf8].present? && !controller_name.eql?('search')
   end
   
   def site_wide_search?
