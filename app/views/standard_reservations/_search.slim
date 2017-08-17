@@ -1,44 +1,47 @@
-= form_tag standard_reservations_path, id: "standard_reservation_search_form", method: :get do |f|
-  .row
-    .col-md-3
-      h4 Course
-      = select_tag :course,
-              options_for_select(StandardReservation.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
-                      params[:course]), {class: "form-control", multiple: true}
-    .col-md-4
-      h4 Activity
-      = select_tag :activity,
-              options_for_select(StandardReservation::ACTIVITIES.map { |a, i| [a, a] }, params[:activity]), {class: "form-control", multiple: true}
-    .col-md-2
-      h4 From
-      .input-group.date
-        = text_field_tag :start, params[:start], class: "form-control"
-        span.input-group-btn
-          button.btn.btn-primary(type="button")
-            .glyphicon.glyphicon-calendar
-  .row
-    .col-md-3
-      h4 Submitted By
-      = select_tag :submitted_by,
-              options_for_select(StandardReservation.all.map { |s| o = s.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
-                      params[:submitted_by]), {class: "form-control", multiple: true}
-    .col-md-2
-      h4 Lab
-      = select_tag :lab,
-              options_for_select(Lab.locations.map { |l, i| [l.titleize, l] }, params[:lab]), {class: "form-control", multiple: true}
-    .col-md-2
-      h4 Archived?
-      = select_tag :archived,
-              options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
-    .col-md-2
-      h4 To
-      .input-group.date
-        = text_field_tag :end, params[:end], class: "form-control"
-        span.input-group-btn
-          button.btn.btn-primary(type="button")
-            .glyphicon.glyphicon-calendar
-    .col-md-2
-      h4 &nbsp
-      button.btn.btn-primary.col-md-6(type="submit")
-        .glyphicon.glyphicon-search
-        |  Search
+a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
+br
+div#search_fields class = (search_performed? ? '' : 'hidden')
+  = form_tag standard_reservations_path, id: "standard_reservation_search_form", method: :get do |f|
+    .row
+      .col-md-3
+        h4 Course
+        = select_tag :course,
+                options_for_select(StandardReservation.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
+                        params[:course]), {class: "form-control", multiple: true}
+      .col-md-4
+        h4 Activity
+        = select_tag :activity,
+                options_for_select(StandardReservation::ACTIVITIES.map { |a, i| [a, a] }, params[:activity]), {class: "form-control", multiple: true}
+      .col-md-2
+        h4 From
+        .input-group.date
+          = text_field_tag :start, params[:start], class: "form-control"
+          span.input-group-btn
+            button.btn.btn-primary(type="button")
+              .glyphicon.glyphicon-calendar
+    .row
+      .col-md-3
+        h4 Submitted By
+        = select_tag :submitted_by,
+                options_for_select(StandardReservation.all.map { |s| o = s.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
+                        params[:submitted_by]), {class: "form-control", multiple: true}
+      .col-md-2
+        h4 Lab
+        = select_tag :lab,
+                options_for_select(Lab.locations.map { |l, i| [l.titleize, l] }, params[:lab]), {class: "form-control", multiple: true}
+      .col-md-2
+        h4 Archived?
+        = select_tag :archived,
+                options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
+      .col-md-2
+        h4 To
+        .input-group.date
+          = text_field_tag :end, params[:end], class: "form-control"
+          span.input-group-btn
+            button.btn.btn-primary(type="button")
+              .glyphicon.glyphicon-calendar
+      .col-md-2
+        h4 &nbsp
+        button.btn.btn-primary.col-md-6(type="submit")
+          .glyphicon.glyphicon-search
+          |  Search

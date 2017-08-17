@@ -30,4 +30,8 @@ module ApplicationHelper
   def self.utc_to_local(time)
     ActiveSupport::TimeZone.new(LOCAL_TIME_ZONE).utc_to_local(time)
   end
+  
+  def search_performed?
+    params[:utf8].present?
+  end
 end

@@ -231,6 +231,16 @@ $(document).on('click', '.input-group-addon .glyphicon-calendar', function (even
     }
 });
 
+$(document).on('click', '#search_fields_toggle', function(event) {
+
+    console.log("Search fields toggle clicked");
+    var sf = $('#search_fields');
+    sf.toggleClass('hidden');
+    text = sf.hasClass('hidden') ? 'Show search fields' : 'Hide search fields';
+    $(this).text(text);
+    
+});
+
 function updateGoogleCalendarIframe(newTimestamp) {
     
     var newDate = new Date(newTimestamp);
