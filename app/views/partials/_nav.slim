@@ -10,10 +10,16 @@ nav.navbar.navbar-default
     div#nav-collapse.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li
-          = link_to "Films", films_path
+          = link_to films_path do
+            .glyphicon.glyphicon-list
+            |  Films
         li
-          = link_to "Music", "https://www.gvsu.edu/lrc/lrc-music-collection-140.htm", target: :_blank
-        li
-          = link_to "TimeTracker", "https://lrcerebro.mll.gvsu.edu/time", target: :_blank
+          = link_to "https://www.gvsu.edu/lrc/lrc-music-collection-140.htm", target: :_blank do
+            .glyphicon.glyphicon-music
+            |  Music
+          li
+            = link_to "https://lrcerebro.mll.gvsu.edu/time", target: :_blank do
+              .glyphicon.glyphicon-time
+              |  TimeTracker
         li
           = link_to "Log In", new_user_session_path
