@@ -41,6 +41,13 @@
                         readonly: disabled,
                         as: :select,
                         prompt: "Do you need supplemental materials (handouts/videos)?"
+            div#mini_supplemental_materials_description_hidden
+              .row
+                .col-md-3
+                  h4 Supplemental materials description
+                .col-md-9
+                  = f.input :supplemental_materials_description,
+                          input_html: {placeholder: "Please describe what kind of supplemental materials you would like the LRC to provide to your students", rows: 5, maxlength: 2500}
       .col-md-6
         .panel.panel-warning
           .panel-heading

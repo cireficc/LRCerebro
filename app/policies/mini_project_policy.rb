@@ -23,13 +23,13 @@ class MiniProjectPolicy
   end
 
   def create_attributes
-    [:course_id, :description, :supplemental_materials, :start_date, :due_date, :present, :publish_by,
-     publish_methods: [], resources: []]
+    [:course_id, :description, :supplemental_materials, :supplemental_materials_description, :start_date, :due_date,
+     :present, :publish_by, publish_methods: [], resources: []]
   end
 
   def update_attributes
-    [:course_id, :description, :supplemental_materials, :start_date, :due_date, :present, :publish_by,
-     publish_methods: [], resources: []]
+    [:course_id, :description, :supplemental_materials, :supplemental_materials_description, :start_date, :due_date,
+     :present, :publish_by, publish_methods: [], resources: []]
   end
 
   def new?
