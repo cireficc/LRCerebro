@@ -158,6 +158,8 @@ en:
         application_configuration_policy:
             edit?: 'edit application configuration.'
             update?: 'update application configuration.'
+        search_policy:
+            index?: 'access site-wide search.'
         film_policy:
             index?: 'view films.'
             new?: 'create new films.'

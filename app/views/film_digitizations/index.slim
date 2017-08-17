@@ -1,5 +1,7 @@
-= render 'search'
-hr
+- site_wide_search = controller_name.eql? 'search'
+- if !site_wide_search
+  = render 'film_digitizations/search'
+  hr
 table#film_digitizations.table.table-hover
   thead
     tr
@@ -36,8 +38,9 @@ table#film_digitizations.table.table-hover
         td
           - if policy(digitization).edit?
             = link_to 'Edit', edit_film_digitization_path(digitization), class: 'btn btn-xs btn-default'
-.text-center
-  = paginate @film_digitizations
-
-javascript:
-    $("#film_digitizations").DataTable(dataTableDefaults);
+- if !site_wide_search
+  .text-center
+    = paginate @film_digitizations
+  
+  javascript:
+      $("#film_digitizations").DataTable(dataTableDefaults);

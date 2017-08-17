@@ -1,5 +1,7 @@
-= render 'search'
-hr
+- site_wide_search = controller_name.eql? 'search'
+- if !site_wide_search
+  = render 'projects/search'
+  hr
 table#projects.table.table-hover
   thead
     tr
@@ -38,16 +40,17 @@ table#projects.table.table-hover
           - else
             span.label.label-danger Pending
         td
-          a.glyphicon.glyphicon-info-sign data-target="##{project.id}" data-toggle="modal" role="button" title="Preview this project"
-          = render partial: "project_overview", locals: { p: project }
+          a.glyphicon.glyphicon-info-sign data-target="#project_modal_#{project.id}" data-toggle="modal" role="button" title="Preview this project"
+          = render partial: "projects/project_overview", locals: { p: project }
         td
           - if policy(project).show?
             = link_to 'Details', project_path(project), class: 'btn btn-xs btn-default'
         td
           - if policy(project).edit?
             = link_to 'Edit', edit_project_path(project), class: 'btn btn-xs btn-default'
-.text-center
-  = paginate @projects
-
-javascript:
-    $("#projects").DataTable(dataTableDefaults);
+- if !site_wide_search
+  .text-center
+    = paginate @projects
+  
+  javascript:
+      $("#projects").DataTable(dataTableDefaults);

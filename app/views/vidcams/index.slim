@@ -1,5 +1,7 @@
-= render 'search'
-hr
+- site_wide_search = controller_name.eql? 'search'
+- if !site_wide_search
+  = render 'vidcams/search'
+  hr
 table#vidcams.table.table-hover
   thead
     tr
@@ -35,8 +37,9 @@ table#vidcams.table.table-hover
         td
           - if policy(vidcam).edit?
             = link_to 'Edit', edit_vidcam_path(vidcam), class: 'btn btn-xs btn-default'
-.text-center
-  = paginate @vidcams
-
-javascript:
-    $("#vidcams").DataTable(dataTableDefaults);
+- if !site_wide_search
+  .text-center
+    = paginate @vidcams
+  
+  javascript:
+      $("#vidcams").DataTable(dataTableDefaults);

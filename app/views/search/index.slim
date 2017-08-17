@@ -1,0 +1,35 @@
+= render 'search'
+br
+
+ul.nav.nav-pills.nav-justified
+  li.active
+    a data-toggle="tab" href="#projects" (#{@projects.count}) Projects
+  li
+    a data-toggle="tab" href="#mini_projects" (#{@mini_projects.count}) Mini Projects
+  li
+    a data-toggle="tab" href="#standard_reservations" (#{@standard_reservations.count}) Standard Reservations
+  li
+    a data-toggle="tab" href="#film_digitizations" (#{@film_digitizations.count}) Film Digitization Requests
+  li
+    a data-toggle="tab" href="#vidcams" (#{@vidcams.count}) Vidcam Requests
+  li
+    a data-toggle="tab" href="#works" (#{@works.count}) Work Requests
+.tab-content.text-center
+  #projects.tab-pane.fade.in.active
+    h3 Projects
+    = render file: 'projects/index'
+  #mini_projects.tab-pane.fade
+    h3 Mini Projects
+    = render file: 'mini_projects/index'
+  #standard_reservations.tab-pane.fade
+    h3 Standard Reservations
+    = render file: 'standard_reservations/index'
+  #film_digitizations.tab-pane.fade
+    h3 Film Digitization Requests
+    = render file: 'film_digitizations/index'
+  #vidcams.tab-pane.fade
+    h3 Vidcam Requests
+    = render file: 'vidcams/index'
+  #works.tab-pane.fade
+    h3 Work Requests
+    = render file: 'works/index'

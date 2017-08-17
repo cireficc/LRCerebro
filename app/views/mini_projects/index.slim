@@ -1,5 +1,7 @@
-= render 'search'
-hr
+- site_wide_search = controller_name.eql? 'search'
+- if !site_wide_search
+  = render 'mini_projects/search'
+  hr
 table#mini_projects.table.table-hover
   thead
     tr
@@ -38,8 +40,9 @@ table#mini_projects.table.table-hover
         td
           - if policy(mini).edit?
             = link_to 'Edit', edit_mini_project_path(mini), class: 'btn btn-xs btn-default'
-.text-center
-  = paginate @mini_projects
-
-javascript:
-    $("#mini_projects").DataTable(dataTableDefaults);
+- if !site_wide_search
+  .text-center
+    = paginate @mini_projects
+  
+  javascript:
+      $("#mini_projects").DataTable(dataTableDefaults);

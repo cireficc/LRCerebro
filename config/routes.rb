@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     end
   end
   resources :tags
+
+  # Multi-resource searching
+  get 'search' => 'search#index'
   
   # App live configuration
   get 'configuration' => 'application_configurations#edit'
