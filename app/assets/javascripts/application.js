@@ -38,7 +38,7 @@ var dataTableDefaults = {
         paging: false,
         info : false,
         language: {
-          search: "Filter records:"
+          search: false
         }
 }
 
