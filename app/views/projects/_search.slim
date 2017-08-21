@@ -10,11 +10,12 @@ div#project_search_fields class = (search_performed? ? '' : 'hidden')
           span.input-group-btn
             button.btn.btn-primary(type="submit")
               .glyphicon.glyphicon-search
-      .col-md-3
-        h4 Submitted By
-        = select_tag :submitted_by,
-                options_for_select(Project.all.map { |p| o = p.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
-                        params[:submitted_by]), {class: "form-control", multiple: true}
+      - if current_user.director? || current_user.labasst?
+        .col-md-3
+          h4 Submitted By
+          = select_tag :submitted_by,
+                  options_for_select(Project.all.map { |p| o = p.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
+                          params[:submitted_by]), {class: "form-control", multiple: true}
       .col-md-2
         h4 Status
         = select_tag :approved,
