@@ -107,7 +107,7 @@ class Course < ActiveRecord::Base
   end
 
   def instructor
-    User.includes(:enrollment).where(enrollments: {course_id: self, role: Enrollment.roles[:instructor]}).first
+    User.includes(:enrollment).where(enrollments: {course_id: self, role: Enrollment.roles[:instructor]}).first || User.find_by_username('instructor_tbd')
   end
 
   def students
