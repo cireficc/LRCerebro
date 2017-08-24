@@ -42,14 +42,16 @@
                   .col-md-4
                     h4 Utilities
                   .col-md-8
-                    - if r.utilities.reject(&:blank?).any?
-                      .well.well-sm #{r.utilities.reject!(&:blank?).map { |u| u.titleize }.join(", ")}
+                    - utilities = r.utilities.reject(&:blank?)
+                    - if utilities.any?
+                      .well.well-sm #{utilities.map { |u| u.titleize }.join(", ")}
                 .row
                   .col-md-4
                     h4 Asistance
                   .col-md-8
-                    - if r.assistances.reject(&:blank?).any?
-                      .well.well-sm #{r.assistances.reject!(&:blank?).map { |a| a.titleize }.join(", ")}
+                    - assistances = r.assistances.reject(&:blank?)
+                    - if assistances.any?
+                      .well.well-sm #{assistances.map { |a| a.titleize }.join(", ")}
           .col-md-6
             .panel.panel-warning
               .panel-heading
