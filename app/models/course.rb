@@ -7,7 +7,11 @@ class Course < ActiveRecord::Base
 
   accepts_nested_attributes_for :users
   has_many :projects
+  has_many :mini_projects
   has_many :standard_reservations
+  has_many :film_digitizations
+  has_many :vidcams
+  has_many :works
 
   validates :name, :department, :course, :section, :year, :semester, presence: true
 
@@ -93,7 +97,11 @@ class Course < ActiveRecord::Base
   def reindex_associations
     users.each { |u| u.reindex }
     projects.each { |p| p.reindex }
+    mini_projects.each { |mp| mp.reindex }
     standard_reservations.each { |sr| sr.reindex }
+    film_digitizations.each { |fd| fd.reindex }
+    vidcams.each { |vc| vc.reindex }
+    works.each { |w| w.reindex }
   end
 
   def active?
