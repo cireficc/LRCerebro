@@ -30,6 +30,10 @@ class FilmDigitizationPolicy
     [:course_id, :film_id, :due_date, :media_source, :film_title, :audio_language, :subtitle_language, :additional_instructions]
   end
 
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
+
   def new?
     @user.director? || @user.labasst? || @user.faculty?
   end

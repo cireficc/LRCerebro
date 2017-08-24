@@ -30,6 +30,10 @@ class StandardReservationPolicy
     [:course_id, :activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: []]
   end
 
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
+
   def new?
     @user.director? || @user.labasst? || @user.faculty?
   end

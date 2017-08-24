@@ -30,6 +30,10 @@ class VidcamPolicy
     [:course_id, :location, :start, :end, :publish_by, :upload_to_ensemble, :additional_instructions, publish_methods: []]
   end
 
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
+
   def new?
     @user.director? || @user.labasst? || @user.faculty?
   end

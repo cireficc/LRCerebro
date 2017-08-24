@@ -32,6 +32,10 @@ class MiniProjectPolicy
      :present, :publish_by, publish_methods: [], resources: []]
   end
 
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
+
   def new?
     @user.director? || @user.labasst? || @user.faculty?
   end

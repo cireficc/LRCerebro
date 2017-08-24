@@ -30,6 +30,10 @@ class WorkPolicy
     [:course_id, :due_date, :instructions]
   end
 
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
+
   def new?
     @user.director? || @user.labasst? || @user.faculty?
   end

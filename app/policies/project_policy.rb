@@ -41,6 +41,10 @@ class ProjectPolicy
        publish_methods: [], project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
     end
   end
+  
+  def index?
+    @user.director? || @user.labasst? || @user.faculty?
+  end
 
   def new?
     @user.director? || @user.faculty?
