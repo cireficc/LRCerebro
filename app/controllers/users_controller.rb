@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /users
   def index
+    
     authorize User
+    
     @limit = 50
     @order = { last_name: :asc }
     @includes = [:courses]

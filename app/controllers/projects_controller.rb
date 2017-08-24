@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
 
   def index
+    
+    authorize Project
+    
     @limit = 50
     @order = { created_at: :desc }
     @includes = [:course, :project_reservations]

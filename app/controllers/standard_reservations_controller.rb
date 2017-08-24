@@ -4,6 +4,8 @@ class StandardReservationsController < ApplicationController
 
   def index
 
+    authorize StandardReservation
+
     @limit = 25
     @order = { reservation_start: :desc }
     @includes = [:course]

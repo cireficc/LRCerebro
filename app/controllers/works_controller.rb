@@ -4,6 +4,8 @@ class WorksController < ApplicationController
 
   def index
 
+    authorize Work
+
     @limit = 25
     @order = { due_date: :desc }
     @includes = [:course]

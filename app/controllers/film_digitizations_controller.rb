@@ -4,6 +4,8 @@ class FilmDigitizationsController < ApplicationController
 
   def index
 
+    authorize FilmDigitization
+
     @limit = 25
     @order = { due_date: :desc }
     @includes = [:course, :film]

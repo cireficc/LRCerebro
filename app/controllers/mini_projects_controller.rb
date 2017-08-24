@@ -1,6 +1,9 @@
 class MiniProjectsController < ApplicationController
 
   def index
+
+    authorize MiniProject
+    
     @limit = 50
     @order = { start_date: :desc }
     @includes = [:course]

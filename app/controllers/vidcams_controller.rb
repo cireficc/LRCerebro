@@ -1,6 +1,9 @@
 class VidcamsController < ApplicationController
 
   def index
+
+    authorize Vidcam
+    
     @limit = 50
     @order = { start: :desc }
     @includes = [:course]
