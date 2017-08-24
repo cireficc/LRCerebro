@@ -1,64 +1,65 @@
-a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
-br
-div#project_search_fields class = (search_performed? ? '' : 'hidden')
-  = form_tag projects_path, id: "project_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
-    .row
-      .col-md-3
-        h4 Keyword
-        .input-group
-          = search_field_tag :search, params[:search], placeholder: "Search by name or description", class: "form-control", autocomplete: "off"
-          span.input-group-btn
-            button.btn.btn-primary(type="submit")
-              .glyphicon.glyphicon-search
-      - if current_user.director? || current_user.labasst?
+#search.text-center
+  a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
+  br
+  div#project_search_fields class = (search_performed? ? '' : 'hidden')
+    = form_tag projects_path, id: "project_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
+      .row
         .col-md-3
-          h4 Submitted By
-          = select_tag :submitted_by,
-                  options_for_select(Project.all.map { |p| o = p.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
-                          params[:submitted_by]), {class: "form-control", multiple: true}
-      .col-md-2
-        h4 Status
-        = select_tag :approved,
-                options_for_select({"Pending": false, "Approved": true}, params[:approved]), {class: "form-control", prompt: "Select a status"}
-      .col-md-2
-        h4 Script Due (Before)
-        .input-group.date
-          = text_field_tag :script_due, params[:script_due], class: "form-control"
-          span.input-group-btn
-            button.btn.btn-primary(type="button")
-              .glyphicon.glyphicon-calendar
-      .col-md-2
-        h4 Project Due (Before)
-        .input-group.date
-          = text_field_tag :due, params[:due], class: "form-control"
-          span.input-group-btn
-            button.btn.btn-primary(type="button")
-              .glyphicon.glyphicon-calendar
-    .row
-      .col-md-3
-        h4 Category
-        = select_tag :category,
-                options_for_select(Project::CATEGORIES.map { |c, i| [c, c] }, params[:category]), {class: "form-control", multiple: true}
-      .col-md-3
-        h4 Course
-        = select_tag :course,
-                options_for_select(Project.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
-                        params[:course]), {class: "form-control", multiple: true}
-      .col-md-2
-        h4 Archived?
-        = select_tag :archived,
-                options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
-      .col-md-2
-        h4 First Training (Before)
-        .input-group.date
-          = text_field_tag :first_training, params[:first_training], class: "form-control"
-          span.input-group-btn
-            button.btn.btn-primary(type="button")
-              .glyphicon.glyphicon-calendar
-      .col-md-2
-        h4 Last Editing (Before)
-        .input-group.date
-          = text_field_tag :last_editing, params[:last_editing], class: "form-control"
-          span.input-group-btn
-            button.btn.btn-primary(type="button")
-              .glyphicon.glyphicon-calendar
+          h4 Keyword
+          .input-group
+            = search_field_tag :search, params[:search], placeholder: "Search by name or description", class: "form-control", autocomplete: "off"
+            span.input-group-btn
+              button.btn.btn-primary(type="submit")
+                .glyphicon.glyphicon-search
+        - if current_user.director? || current_user.labasst?
+          .col-md-3
+            h4 Submitted By
+            = select_tag :submitted_by,
+                    options_for_select(Project.all.map { |p| o = p.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
+                            params[:submitted_by]), {class: "form-control", multiple: true}
+        .col-md-2
+          h4 Status
+          = select_tag :approved,
+                  options_for_select({"Pending": false, "Approved": true}, params[:approved]), {class: "form-control", prompt: "Select a status"}
+        .col-md-2
+          h4 Script Due (Before)
+          .input-group.date
+            = text_field_tag :script_due, params[:script_due], class: "form-control"
+            span.input-group-btn
+              button.btn.btn-primary(type="button")
+                .glyphicon.glyphicon-calendar
+        .col-md-2
+          h4 Project Due (Before)
+          .input-group.date
+            = text_field_tag :due, params[:due], class: "form-control"
+            span.input-group-btn
+              button.btn.btn-primary(type="button")
+                .glyphicon.glyphicon-calendar
+      .row
+        .col-md-3
+          h4 Category
+          = select_tag :category,
+                  options_for_select(Project::CATEGORIES.map { |c, i| [c, c] }, params[:category]), {class: "form-control", multiple: true}
+        .col-md-3
+          h4 Course
+          = select_tag :course,
+                  options_for_select(Project.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
+                          params[:course]), {class: "form-control", multiple: true}
+        .col-md-2
+          h4 Archived?
+          = select_tag :archived,
+                  options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
+        .col-md-2
+          h4 First Training (Before)
+          .input-group.date
+            = text_field_tag :first_training, params[:first_training], class: "form-control"
+            span.input-group-btn
+              button.btn.btn-primary(type="button")
+                .glyphicon.glyphicon-calendar
+        .col-md-2
+          h4 Last Editing (Before)
+          .input-group.date
+            = text_field_tag :last_editing, params[:last_editing], class: "form-control"
+            span.input-group-btn
+              button.btn.btn-primary(type="button")
+                .glyphicon.glyphicon-calendar

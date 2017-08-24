@@ -1,25 +1,26 @@
-a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
-br
-div#mini_project_search_fields class = (search_performed? ? '' : 'hidden')
-  = form_tag mini_projects_path, id: "mini_project_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
-    .row
-      .col-md-3
-        h4 Course
-        = select_tag :course,
-                options_for_select(MiniProject.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
-                        params[:course]), {class: "form-control", multiple: true}
-      - if current_user.director? || current_user.labasst?
+#search.text-center
+  a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
+  br
+  div#mini_project_search_fields class = (search_performed? ? '' : 'hidden')
+    = form_tag mini_projects_path, id: "mini_project_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
+      .row
         .col-md-3
-          h4 Submitted By
-          = select_tag :submitted_by,
-                  options_for_select(MiniProject.all.map { |s| o = s.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
-                          params[:submitted_by]), {class: "form-control", multiple: true}
-      .col-md-2
-        h4 Archived?
-        = select_tag :archived,
-                options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
-      .col-md-2
-        h4 &nbsp
-        button.btn.btn-primary.col-md-6(type="submit")
-          .glyphicon.glyphicon-search
-          |  Search
+          h4 Course
+          = select_tag :course,
+                  options_for_select(MiniProject.all.map { |p| [p.course.name, p.course.id] }.uniq.sort!,
+                          params[:course]), {class: "form-control", multiple: true}
+        - if current_user.director? || current_user.labasst?
+          .col-md-3
+            h4 Submitted By
+            = select_tag :submitted_by,
+                    options_for_select(MiniProject.all.map { |s| o = s.course.instructor.decorate; [o.full_name_with_username, o.id] }.uniq.sort!,
+                            params[:submitted_by]), {class: "form-control", multiple: true}
+        .col-md-2
+          h4 Archived?
+          = select_tag :archived,
+                  options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
+        .col-md-2
+          h4 &nbsp
+          button.btn.btn-primary.col-md-6(type="submit")
+            .glyphicon.glyphicon-search
+            |  Search

@@ -16,22 +16,22 @@ ul.nav.nav-pills.nav-justified
     a data-toggle="tab" href="#vidcams" (#{@vidcams.count}) Vidcam Requests
   li
     a data-toggle="tab" href="#works" (#{@works.count}) Work Requests
-.tab-content.text-center
+.tab-content
   #projects.tab-pane.fade.in.active
-    h3 Projects
+    h3.text-center Projects
     = render file: 'projects/index'
   #mini_projects.tab-pane.fade
-    h3 Mini Projects
+    h3.text-center Mini Projects
     = render file: 'mini_projects/index'
   #standard_reservations.tab-pane.fade
-    h3 Standard Reservations
+    h3.text-center Standard Reservations
     = render file: 'standard_reservations/index'
   #film_digitizations.tab-pane.fade
-    h3 Film Digitization Requests
+    h3.text-center Film Digitization Requests
     = render file: 'film_digitizations/index'
   #vidcams.tab-pane.fade
-    h3 Vidcam Requests
+    h3.text-center Vidcam Requests
     = render file: 'vidcams/index'
   #works.tab-pane.fade
-    h3 Work Requests
+    h3.text-center Work Requests
     = render file: 'works/index'
