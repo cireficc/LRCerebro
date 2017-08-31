@@ -6,10 +6,12 @@ html lang="en"
     / Use a CDN for the Bootstrap theme and JavaScript, though the CSS is overwritten partially via
     / a custom CSS file generated using the Bootstrap Customizer (stylesheets/bootstrap.css)
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css' rel='stylesheet')
     = stylesheet_link_tag('application', media: 'all', 'data-turbolinks-track' => true)
     = javascript_include_tag('application', 'data-turbolinks-track' => true)
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/0.11.1/typeahead.bundle.min.js")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js')
     = csrf_meta_tags
     title #{@title} - LRCerebro
   body

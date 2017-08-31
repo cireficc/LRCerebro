@@ -23,11 +23,11 @@ class WorkPolicy
   end
 
   def create_attributes
-    [:course_id, :due_date, :instructions]
+    [:course_id, :due_date, :instructions, :added_to_producteev]
   end
 
   def update_attributes
-    [:course_id, :due_date, :instructions]
+    [:course_id, :due_date, :instructions, :added_to_producteev]
   end
 
   def index?

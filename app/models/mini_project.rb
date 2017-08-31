@@ -7,6 +7,7 @@ class MiniProject < ActiveRecord::Base
   belongs_to :course
   validates :course_id, :resources, :description, :start_date, :due_date, presence: true
   validates :supplemental_materials, inclusion: [true, false]
+  validates :added_to_producteev, inclusion: [true, false]
   validates_presence_of :supplemental_materials_description, if: :supplemental_materials?
   before_validation :reject_empty_resources
 

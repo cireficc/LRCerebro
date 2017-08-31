@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817144143) do
+ActiveRecord::Schema.define(version: 20170831153527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170817144143) do
     t.text     "additional_instructions"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "added_to_producteev"
   end
 
   create_table "films", force: :cascade do |t|
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 20170817144143) do
     t.datetime "updated_at",                                      null: false
     t.string   "google_calendar_publish_event_id"
     t.text     "supplemental_materials_description"
+    t.boolean  "added_to_producteev"
   end
 
   create_table "project_reservations", force: :cascade do |t|
@@ -245,14 +247,16 @@ ActiveRecord::Schema.define(version: 20170817144143) do
     t.string   "google_calendar_publishing_event_id"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
+    t.boolean  "added_to_producteev"
   end
 
   create_table "works", force: :cascade do |t|
     t.integer  "course_id"
     t.datetime "due_date"
     t.text     "instructions"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.boolean  "added_to_producteev"
   end
 
 end

@@ -24,12 +24,12 @@ class MiniProjectPolicy
 
   def create_attributes
     [:course_id, :description, :supplemental_materials, :supplemental_materials_description, :start_date, :due_date,
-     :present, :publish_by, publish_methods: [], resources: []]
+     :present, :publish_by, :added_to_producteev, publish_methods: [], resources: []]
   end
 
   def update_attributes
     [:course_id, :description, :supplemental_materials, :supplemental_materials_description, :start_date, :due_date,
-     :present, :publish_by, publish_methods: [], resources: []]
+     :present, :publish_by, :added_to_producteev, publish_methods: [], resources: []]
   end
 
   def index?

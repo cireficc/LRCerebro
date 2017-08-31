@@ -8,6 +8,7 @@ table#works.table.table-hover
       th Due Date
       th Instructions
       th Submitted
+      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
@@ -21,6 +22,11 @@ table#works.table.table-hover
         td #{work.due_date}
         td #{work.instructions.truncate(400)}
         td #{work.created_at}
+        td
+          - if work.added_to_producteev
+            span.label.label-success Yes
+          - else
+            span.label.label-danger No
         td
           - if policy(work).show?
             = link_to 'Details', work_path(work), class: 'btn btn-xs btn-default'

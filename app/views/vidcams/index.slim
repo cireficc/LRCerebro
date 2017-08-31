@@ -12,6 +12,7 @@ table#vidcams.table.table-hover
       th Publish Method
       th Upload to Ensemble?
       th Submitted
+      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
@@ -29,6 +30,11 @@ table#vidcams.table.table-hover
         td #{vidcam.stringified_publish_methods}
         td #{vidcam.upload_to_ensemble_string}
         td #{vidcam.created_at}
+        td
+          - if vidcam.added_to_producteev
+            span.label.label-success Yes
+          - else
+            span.label.label-danger No
         td
           - if policy(vidcam).show?
             = link_to 'Details', vidcam_path(vidcam), class: 'btn btn-xs btn-default'

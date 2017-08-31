@@ -23,11 +23,11 @@ class VidcamPolicy
   end
 
   def create_attributes
-    [:course_id, :location, :start, :end, :publish_by, :upload_to_ensemble, :additional_instructions, publish_methods: []]
+    [:course_id, :location, :start, :end, :publish_by, :upload_to_ensemble, :additional_instructions, :added_to_producteev, publish_methods: []]
   end
 
   def update_attributes
-    [:course_id, :location, :start, :end, :publish_by, :upload_to_ensemble, :additional_instructions, publish_methods: []]
+    [:course_id, :location, :start, :end, :publish_by, :upload_to_ensemble, :additional_instructions, :added_to_producteev, publish_methods: []]
   end
 
   def index?

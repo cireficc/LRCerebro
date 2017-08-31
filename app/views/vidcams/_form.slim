@@ -2,6 +2,12 @@
   // Disable the form fields if in the 'show' action
   - disabled = action_name == "show"
   fieldset disabled = disabled
+    - if action_name != 'new' && (current_user.director? || current_user.labasst?)
+      .row
+        = f.input :added_to_producteev,
+                label: false,
+                input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
+                        on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
     .row
       .col-md-6
         .panel.panel-info
@@ -83,3 +89,6 @@
     - if policy(@vidcam).destroy?
       = link_to "Delete Vidcam Request", vidcam_path(@vidcam), data: { confirm: 'Are you sure you want to delete this vidcam request?' }, :method => :delete, class: 'btn btn-danger pull-left'
     = f.submit "Update Vidcam Request", class: "btn btn-info pull-right"
+
+javascript:
+    $('#vidcam_added_to_producteev').bootstrapSwitch();

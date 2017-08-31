@@ -23,11 +23,11 @@ class FilmDigitizationPolicy
   end
 
   def create_attributes
-    [:course_id, :film_id, :due_date, :media_source, :film_title, :audio_language, :subtitle_language, :additional_instructions]
+    [:course_id, :film_id, :due_date, :media_source, :film_title, :audio_language, :subtitle_language, :additional_instructions, :added_to_producteev]
   end
 
   def update_attributes
-    [:course_id, :film_id, :due_date, :media_source, :film_title, :audio_language, :subtitle_language, :additional_instructions]
+    [:course_id, :film_id, :due_date, :media_source, :film_title, :audio_language, :subtitle_language, :additional_instructions, :added_to_producteev]
   end
 
   def index?
