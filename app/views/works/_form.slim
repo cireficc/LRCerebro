@@ -2,13 +2,40 @@
   // Disable the form fields if in the 'show' action
   - disabled = action_name == "show"
   fieldset disabled = disabled
-    - if action_name != 'new' && (current_user.director? || current_user.labasst?)
+    - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
       .row
-        .col-md-offset-3
+        .col-md-1.col-md-offset-3
+          button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
+        .col-md-3
           = f.input :added_to_producteev,
                   label: false,
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
+      - if action_name == 'edit'
+        .row
+          .col-md-6.col-md-offset-3
+            #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
+              .panel-heading
+                .row
+                  .col-md-10
+                    | Work Request Producteev Overview
+                  .col-md-2
+                    button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
+                      span.glyphicon.glyphicon-copy
+                      |  Copy
+              .panel-body
+                #producteev_overview_body
+                  - instructor = @work.course.instructor.decorate
+                  p
+                    | Instructor: #{instructor.full_name} (#{instructor.username}@gvsu.edu)
+                    br
+                    | Course: #{@work.course.decorate.short_name}
+                  p
+                    | Due Date: #{@work.due_date}
+                    br
+                    | Instructions: #{@work.instructions}
+                  p
+                    | Submitted: #{@work.created_at}
     .row
       .col-md-6.col-md-offset-3
         .panel.panel-info
@@ -54,3 +81,9 @@
 
 javascript:
     $('#work_added_to_producteev').bootstrapSwitch();
+    var c = new Clipboard('#producteev_overview_body_copy');
+    c.on('success', function (e) {
+        copy = $('#producteev_overview_body_copy');
+        copy.html(copy.html().replace('Copy', 'Copied!'));
+        e.clearSelection();
+    });

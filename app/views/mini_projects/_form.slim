@@ -2,12 +2,50 @@
   // Disable the form fields if in the 'show' action
   - disabled = action_name == "show"
   fieldset disabled = disabled
-    - if action_name != 'new' && (current_user.director? || current_user.labasst?)
+    - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
       .row
-        = f.input :added_to_producteev,
-                label: false,
-                input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
-                                    on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
+        .col-md-1.col-md-offset-4
+          button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
+        .col-md-3
+          = f.input :added_to_producteev,
+                  label: false,
+                  input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
+                          on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
+    - if action_name == 'edit'
+      .row
+        .col-md-6.col-md-offset-3
+          #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
+            .panel-heading
+              .row
+                .col-md-10
+                  | Mini Project Producteev Overview
+                .col-md-2
+                  button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy
+            .panel-body
+              #producteev_overview_body
+                - instructor = @mini_project.course.instructor.decorate
+                p
+                  | Instructor: #{instructor.full_name} (#{instructor.username}@gvsu.edu)
+                  br
+                  | Course: #{@mini_project.course.decorate.short_name}
+                p
+                  | Resources: #{@mini_project.stringified_resources}
+                  br
+                  | Description: #{@mini_project.description}
+                  - if @mini_project.supplemental_materials
+                    | Supplemental Materials: #{@mini_project.supplemental_materials_description}
+                    br
+                  | Start Date: #{@mini_project.start_date}
+                  br
+                  | Due Date: #{@mini_project.due_date}
+                  br
+                  | Publish By: #{@mini_project.publish_by}
+                  br
+                  | Publish Method(s): #{@mini_project.stringified_publish_methods}
+                p
+                  | Submitted: #{@mini_project.created_at}
     .row
       .col-md-6
         .panel.panel-info
@@ -113,3 +151,9 @@
 
 javascript:
     $('#mini_project_added_to_producteev').bootstrapSwitch();
+    var c = new Clipboard('#producteev_overview_body_copy');
+    c.on('success', function (e) {
+        copy = $('#producteev_overview_body_copy');
+        copy.html(copy.html().replace('Copy', 'Copied!'));
+        e.clearSelection();
+    });

@@ -2,13 +2,49 @@
   // Disable the form fields if in the 'show' action
   - disabled = action_name == "show"
   fieldset disabled = disabled
-    - if action_name != 'new' && (current_user.director? || current_user.labasst?)
+    - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
       .row
-        .col-md-offset-3
+        .col-md-1.col-md-offset-4
+          button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
+        .col-md-3
           = f.input :added_to_producteev,
                   label: false,
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
+    - if action_name == 'edit'
+      .row
+        .col-md-6.col-md-offset-3
+          #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
+            .panel-heading
+              .row
+                .col-md-10
+                  | Film Digitization Request Producteev Overview
+                .col-md-2
+                  button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy
+            .panel-body
+              #producteev_overview_body
+                - instructor = @film_digitization.course.instructor.decorate
+                p
+                  | Instructor: #{instructor.full_name} (#{instructor.username}@gvsu.edu)
+                  br
+                  | Course: #{@film_digitization.course.decorate.short_name}
+                p
+                  | Film Source: #{@film_digitization.media_source}
+                  br
+                  - if @film_digitization.film.present?
+                    | Film: #{@film_digitization.film.decorate.full_title_with_catalog_number}
+                  - else
+                    | Film: #{@film_digitization.film_title}
+                  br
+                  | Audio Language: #{@film_digitization.audio_language.titleize}
+                  br
+                  | Subtitle Language: #{@film_digitization.subtitle_language.titleize}
+                  br
+                  | Due Date: #{@film_digitization.due_date}
+                p
+                  | Submitted: #{@film_digitization.created_at}
     .row
       .col-md-6.col-md-offset-3
         .panel.panel-info
@@ -88,3 +124,9 @@
 
 javascript:
     $('#film_digitization_added_to_producteev').bootstrapSwitch();
+    var c = new Clipboard('#producteev_overview_body_copy');
+    c.on('success', function (e) {
+        copy = $('#producteev_overview_body_copy');
+        copy.html(copy.html().replace('Copy', 'Copied!'));
+        e.clearSelection();
+    });
