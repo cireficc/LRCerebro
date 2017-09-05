@@ -7,7 +7,7 @@ class Vidcam < ActiveRecord::Base
   belongs_to :course
   validates :course_id, :location, :start, :end, :publish_by, presence: true
   validates :upload_to_ensemble, inclusion: [true, false]
-  validates :added_to_producteev, inclusion: [true, false]
+  validates :added_to_producteev, inclusion: [true, false], unless: :new_record?
   validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
 
   after_create :create_or_update_filming_event, :create_or_update_publishing_event, :unless => :seeding_development_database

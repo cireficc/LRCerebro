@@ -3,7 +3,7 @@ class Work < ActiveRecord::Base
 
   belongs_to :course
   validates :course_id, :due_date, :instructions, presence: true
-  validates :added_to_producteev, inclusion: [true, false]
+  validates :added_to_producteev, inclusion: [true, false], unless: :new_record?
 
   def search_data
     {

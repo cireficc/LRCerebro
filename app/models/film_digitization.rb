@@ -4,7 +4,7 @@ class FilmDigitization < ActiveRecord::Base
   belongs_to :course
   belongs_to :film
   validates :course_id, :due_date, :media_source, :audio_language, :subtitle_language, presence: true
-  validates :added_to_producteev, inclusion: [true, false]
+  validates :added_to_producteev, inclusion: [true, false], unless: :new_record?
   validate :film_or_title_present
 
   MEDIA_SOURCES = [
