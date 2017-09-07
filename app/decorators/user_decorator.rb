@@ -17,5 +17,9 @@ class UserDecorator < Draper::Decorator
   def full_name_with_username
     "#{last_name}, #{first_name} (#{username})"
   end
+  
+  def email_address
+	  email = (student? || labasst?) ? "#{username}@mail.gvsu.edu" : "#{username}@gvsu.edu"
+  end
 
 end
