@@ -37,9 +37,7 @@ var dataTableDefaults = {
         ],
         paging: false,
         info : false,
-        language: {
-          search: false
-        }
+        bFilter: false
 }
 
 var currentGoogleCalendarIframeDate = new Date();
