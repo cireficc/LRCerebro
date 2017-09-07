@@ -12,24 +12,26 @@
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
     - if action_name == 'edit'
+      - instructor = @vidcam.course.instructor.decorate
+      - email = instructor.email_address
+      - course = @vidcam.course.decorate.short_name
       .row
         .col-md-6.col-md-offset-3
           #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
             .panel-heading
               .row
                 .col-md-10
-                  | Film Digitization Request Producteev Overview
+                  h5#producteev_overview_title ##{instructor.last_name} ##{course} Vidcam Request: #{@vidcam.location}
                 .col-md-2
                   button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
                     span.glyphicon.glyphicon-copy
                     |  Copy
             .panel-body
               #producteev_overview_body
-                - instructor = @vidcam.course.instructor.decorate
                 p
-                  | Instructor: #{instructor.full_name} (#{instructor.username}@gvsu.edu)
+                  | Instructor: #{instructor.full_name} (#{email})
                   br
-                  | Course: #{@vidcam.course.decorate.short_name}
+                  | Course: #{course}
                 p
                   | Location: #{@vidcam.location}
                   br

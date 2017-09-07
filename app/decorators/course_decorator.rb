@@ -10,7 +10,7 @@ class CourseDecorator < Draper::Decorator
     department_code = Course::DEPARTMENT_CODES.key(Course.departments[department])
     sektion = "%02d" % section
 
-    "#{department_code} #{course}-#{sektion}"
+    "#{department_code}-#{course}-#{sektion}"
   end
 
   def full_name

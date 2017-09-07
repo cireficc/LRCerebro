@@ -12,31 +12,31 @@
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
     - if action_name == 'edit'
+      - instructor = @film_digitization.course.instructor.decorate
+      - email = instructor.email_address
+      - course = @film_digitization.course.decorate.short_name
+      - film_title = @film_digitization.decorate.full_title
       .row
         .col-md-6.col-md-offset-3
           #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
             .panel-heading
               .row
                 .col-md-10
-                  | Film Digitization Request Producteev Overview
+                  h5#producteev_overview_title ##{instructor.last_name} ##{course} Film Digitization Request: #{film_title}
                 .col-md-2
                   button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
                     span.glyphicon.glyphicon-copy
                     |  Copy
             .panel-body
               #producteev_overview_body
-                - instructor = @film_digitization.course.instructor.decorate
                 p
-                  | Instructor: #{instructor.full_name} (#{instructor.username}@gvsu.edu)
+                  | Instructor: #{instructor.full_name} (#{email})
                   br
-                  | Course: #{@film_digitization.course.decorate.short_name}
+                  | Course: #{course}
                 p
                   | Film Source: #{@film_digitization.media_source}
                   br
-                  - if @film_digitization.film.present?
-                    | Film: #{@film_digitization.film.decorate.full_title_with_catalog_number}
-                  - else
-                    | Film: #{@film_digitization.film_title}
+                  | Film: #{film_title}
                   br
                   | Audio Language: #{@film_digitization.audio_language.titleize}
                   br
