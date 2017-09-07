@@ -20,14 +20,18 @@
           #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
             .panel-heading
               .row
+                .col-md-2
+                  button#producteev_overview_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_title" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy title
                 .col-md-10
                   h5#producteev_overview_title ##{instructor.last_name} ##{course} Vidcam Request: #{@vidcam.location}
-                .col-md-2
-                  button#producteev_overview_body_copy.btn.btn-success data-clipboard-target="#producteev_overview_body" type="button"
-                    span.glyphicon.glyphicon-copy
-                    |  Copy
             .panel-body
               #producteev_overview_body
+                p
+                  button#producteev_overview_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_body" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy body
                 p
                   | Instructor: #{instructor.full_name} (#{email})
                   br
@@ -132,9 +136,17 @@
 
 javascript:
     $('#vidcam_added_to_producteev').bootstrapSwitch();
-    var c = new Clipboard('#producteev_overview_body_copy');
-    c.on('success', function (e) {
+    
+    var title = new Clipboard('#producteev_overview_title_copy');
+    title.on('success', function (e) {
+        copy = $('#producteev_overview_title_copy');
+        copy.html(copy.html().replace('Copy title', 'Title copied!'));
+        e.clearSelection();
+    });
+    
+    var body = new Clipboard('#producteev_overview_body_copy');
+    body.on('success', function (e) {
         copy = $('#producteev_overview_body_copy');
-        copy.html(copy.html().replace('Copy', 'Copied!'));
+        copy.html(copy.html().replace('Copy body', 'Body copied!'));
         e.clearSelection();
     });
