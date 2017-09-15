@@ -13,7 +13,8 @@ table#works.table.table-hover
       th.no-sort
   tbody
     - @works.each do |work|
-      tr
+      - hidden = work.added_to_producteev?
+      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
         td
           span.label.label-info #{work.course.instructor.decorate.full_name}
           '
@@ -36,6 +37,3 @@ table#works.table.table-hover
 - if !site_wide_search?
   .text-center
     = paginate @works
-  
-  javascript:
-      $("#works").DataTable(dataTableDefaults);

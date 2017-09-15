@@ -43,6 +43,3 @@ table#films.table.table-hover
           = link_to 'Details', film_path(film), class: 'btn btn-xs btn-default pull-right'
 .text-center
   = paginate @films
-
-javascript:
-    $("#films").DataTable(dataTableDefaults);

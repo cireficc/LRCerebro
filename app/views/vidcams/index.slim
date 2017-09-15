@@ -17,7 +17,8 @@ table#vidcams.table.table-hover
       th.no-sort
   tbody
     - @vidcams.each do |vidcam|
-      tr
+      - hidden = vidcam.added_to_producteev?
+      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
         td
           span.label.label-info #{vidcam.course.instructor.decorate.full_name}
           '
@@ -44,6 +45,3 @@ table#vidcams.table.table-hover
 - if !site_wide_search?
   .text-center
     = paginate @vidcams
-  
-  javascript:
-      $("#vidcams").DataTable(dataTableDefaults);

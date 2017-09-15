@@ -27,7 +27,7 @@ var dtpDefaults = {
 	format: "YYYY-MM-DD h:mm A", // 2015-08-10 5:30 PM; Rails-friendly DateTime format
 	sideBySide: true,
 	viewMode: "months"
-}
+};
 
 // Default options for DataTables
 var dataTableDefaults = {
@@ -38,7 +38,7 @@ var dataTableDefaults = {
         paging: false,
         info : false,
         bFilter: false
-}
+};
 
 var currentGoogleCalendarIframeDate = new Date();
 
@@ -151,7 +151,12 @@ var initialize = function() {
     $("select:not([data-taggable='true'], [data-other='true'])").each(function(index){ 
         $(this).select2();
     });
-}
+    
+    // Initialize all <table> as DataTables
+    $('table').each(function(index){
+        $(this).DataTable(dataTableDefaults);
+    });
+};
 
 $(document).ready(initialize);
 
@@ -231,11 +236,38 @@ $(document).on('click', '.input-group-addon .glyphicon-calendar', function (even
 
 $(document).on('click', '#search_fields_toggle', function(event) {
 
-    var sf = $(this).siblings('div[id$="_search_fields"]').first();
+    var search = $(this).parents('#search').first();
+    var sf = search.find('div[id$="_search_fields"]').first();
     sf.toggleClass('hidden');
-    text = sf.hasClass('hidden') ? 'Show search fields' : 'Hide search fields';
+    var text = sf.hasClass('hidden') ? 'Show search fields' : 'Hide search fields';
     $(this).text(text);
     
+});
+
+$(document).on('click', '#producteev_toggle', function(event) {
+    
+    var state = $(this).data('state');
+    var search = $(this).parents('#search').first();
+    var table = search.next().find('table');
+    var column_index = 0;
+    
+    table.find('th').each(function(index){
+        if($(this).text() === 'Added to Producteev?')
+            column_index = index;
+    });
+    
+    table.find('tr').filter(function () {
+        console.log("data-producteev: " + $(this).data('producteev'));
+        return $(this).data('producteev') == true;
+    }).toggle('slow');
+    
+    if (state == 'hidden') {
+        $(this).data('state', 'visible');
+        $(this).text('Hide Producteev-ified rows');
+    } else {
+        $(this).data('state', 'hidden');
+        $(this).text('Show Producteev-ified rows');
+    }
 });
 
 function updateGoogleCalendarIframe(newTimestamp) {

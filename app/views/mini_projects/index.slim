@@ -18,7 +18,8 @@ table#mini_projects.table.table-hover
       th.no-sort
   tbody
     - @mini_projects.each do |mini|
-      tr
+      - hidden = mini.added_to_producteev?
+      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
         td
           span.label.label-info #{mini.course.instructor.decorate.full_name}
           '
@@ -47,6 +48,3 @@ table#mini_projects.table.table-hover
 - if !site_wide_search?
   .text-center
     = paginate @mini_projects
-  
-  javascript:
-      $("#mini_projects").DataTable(dataTableDefaults);

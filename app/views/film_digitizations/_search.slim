@@ -1,6 +1,9 @@
 #search.text-center
-  a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
-  br
+  .row
+    .col-md-2.col-md-offset-4
+      a#search_fields_toggle.btn.btn-sm.btn-success href="#" #{search_performed? ? 'Hide search fields' : 'Show search fields' }
+    .col-md-2
+      = render 'partials/toggle_producteev_button'
   div#film_digitization_search_fields class = (search_performed? ? '' : 'hidden')
     = form_tag film_digitizations_path, id: "film_digitization_search_form", method: :get, target: "#{site_wide_search? ? '_blank' : ''}" do |f|
       .row

@@ -16,7 +16,8 @@ table#film_digitizations.table.table-hover
       th.no-sort
   tbody
     - @film_digitizations.each do |digitization|
-      tr
+      - hidden = digitization.added_to_producteev?
+      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
         td
           span.label.label-info #{digitization.course.instructor.decorate.full_name}
           '
@@ -45,6 +46,3 @@ table#film_digitizations.table.table-hover
 - if !site_wide_search?
   .text-center
     = paginate @film_digitizations
-  
-  javascript:
-      $("#film_digitizations").DataTable(dataTableDefaults);
