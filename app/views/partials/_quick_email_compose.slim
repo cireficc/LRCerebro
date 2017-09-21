@@ -1,0 +1,29 @@
+- model = controller_name.singularize
+- case controller
+  - when StandardReservationsController
+    - object = @standard_reservation.decorate
+    - model_specific_body = t model, scope: 'emails.body', date: object.start
+  - when MiniProjectsController
+    - object = @mini_project.decorate
+    - model_specific_body = t model, scope: 'emails.body', resources: object.stringified_resources
+  - when FilmDigitizationsController
+    - object = @film_digitization.decorate
+    - model_specific_body = t model, scope: 'emails.body', film_title: object.full_title
+  - when VidcamsController
+    - object = @vidcam.decorate
+    - model_specific_body = t model, scope: 'emails.body', location: object.location, date: object.start
+  - when WorksController
+    - object = @work.decorate
+    - model_specific_body = t model, scope: 'emails.body'
+
+- subject = t model, scope: 'emails.subject', course: object.course.decorate.short_name
+- instructor = object.course.instructor.decorate
+- opening = t 'emails.body.opening', instructor: instructor.last_name
+- resource_link = t 'emails.body.resource_link', link: request.original_url
+- body = t 'emails.body.body'
+- closing = t 'emails.body.closing', current_user: current_user.decorate.full_name
+- body = "#{opening}#{model_specific_body}#{resource_link}#{body}#{closing}"
+
+= link_to "https://mail.google.com/mail?view=cm&to=#{instructor.email_address}&su=#{subject}&body=#{URI.encode(body)}", class: 'btn btn-info', target: :_blank do
+  .glyphicon.glyphicon-inbox
+  |  Email #{instructor.full_name}

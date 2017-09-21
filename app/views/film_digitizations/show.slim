@@ -1,4 +1,7 @@
 .row
+  .col-md-2.col-md-offset-3
+    = render partial: 'partials/quick_email_compose'
+.row
   .col-md-6.col-md-offset-3
     h3 Viewing film digitization request for: #{@film_digitization.decorate.full_title}
 

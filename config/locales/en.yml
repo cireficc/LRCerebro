@@ -88,6 +88,23 @@ en:
         application_configuration:
             update:
                 success: "The configuration was successfully updated."
+    emails:
+        subject:
+          standard_reservation: "Standard Reservation for %{course}"
+          mini_project: "Mini Project for %{course}"
+          film_digitization: "Film Digitization for %{course}"
+          vidcam: "Vidcam Request for %{course}"
+          work: "Work Request for %{course}"
+        body:
+          opening: "Hello professor %{instructor},\n\n"
+          resource_link: "Link: %{link}."
+          body: "\n\nTYPE_MESSAGE_HERE\n\n"
+          closing: "Thank you,\n    %{current_user}"
+          standard_reservation: "I have a question about your lab reservation on %{date}. "
+          mini_project: "I have a question about your mini project using %{resources}. "
+          film_digitization: "I have a question about your film digitization for %{film_title}. "
+          vidcam: "I have a question about your vidcam request in %{location} on %{date}. "
+          work: "I have a question about your work request. "
     pundit:
         not_authorized_intro: 'You do not have permission to'
         default: 'You must be logged in to perform that action.'
