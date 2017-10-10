@@ -9,7 +9,6 @@ require 'google/apis/calendar_v3'
 # methods to take a Project object and schedule its events on the calendar via a
 # batch request: https://developers.google.com/api-client-library/ruby/guide/batch.
 module GoogleCalendarHelper
-
   include ApplicationHelper
 
   HOURS_PER_DAY = 24
@@ -30,7 +29,6 @@ module GoogleCalendarHelper
   # :create - create project event
   # :update - update project event
   def self.schedule_project_event(res, action)
-
     @res = res
     @project = @res.project
     @training = @project.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
@@ -48,36 +46,34 @@ module GoogleCalendarHelper
     # (not approved) "HOLD: FRE 101-01, Ward, 24 (Camtasia Training 1 of 2) - ProjIntro"
     # (approved) "FRE 101-01, Ward, 24 (Camtasia Editing 1 of 3) - In-cl Shoot"
     @event_title =
-        "#{'HOLD: ' if !@project.approved?}"\
-            "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@project.category} #{@res.category.titleize} #{@index + 1} of #{@total})"
+      "#{'HOLD: ' unless @project.approved?}"\
+          "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
+          " (#{@project.category} #{@res.category.titleize} #{@index + 1} of #{@total})"
 
-    if (@res.subtype)
-      @event_title = @event_title + " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
+    if @res.subtype
+      @event_title += " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
     end
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
     @start_time = ApplicationHelper.local_to_utc(@res.start)
     @end_time = ApplicationHelper.local_to_utc(@res.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new({
-                                                           summary: @event_title,
-                                                           location: @lab,
-                                                           description: @project.description,
-                                                           start: {
-                                                               date_time: @start_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           end: {
-                                                               date_time: @end_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           attendees: [
-                                                               {email: "shultzd@gvsu.edu"},
-                                                               {email: "clappve@gvsu.edu"},
-                                                               {email: "#{@instructor.username}@gvsu.edu"}
-                                                           ]
-                                                       })
+    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
+                                                       location: @lab,
+                                                       description: @project.description,
+                                                       start: {
+                                                         date_time: @start_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       end: {
+                                                         date_time: @end_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       attendees: [
+                                                         { email: 'shultzd@gvsu.edu' },
+                                                         { email: 'clappve@gvsu.edu' },
+                                                         { email: "#{@instructor.username}@gvsu.edu" }
+                                                       ])
 
     if action == :create
       @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, @g_cal_event)
@@ -88,18 +84,15 @@ module GoogleCalendarHelper
   end
 
   def self.delete_project_event(project_reservation)
-    begin
-      @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
-    rescue Google::Apis::ClientError
-      puts "Event no longer exists, ignore trying to delete it"
-    end
+    @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
+  rescue Google::Apis::ClientError
+    puts 'Event no longer exists, ignore trying to delete it'
   end
 
   # Schedule project or mini project publish event in Google Calendar
   # action = :create - create a publish event
   # action = :update - update a publish event
   def self.schedule_project_publish_event(project, action)
-
     @project = project.decorate
     @course = @project.course
     @instructor = @course.instructor
@@ -109,31 +102,29 @@ module GoogleCalendarHelper
     if project.instance_of? Project
       # e.g. "Project Publishing: (Camtasia) Ward FRE 101-01"
       @event_title = "Project Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
-      @event_description = "Publish according to project type."
+      @event_description = 'Publish according to project type.'
     else
       # e.g. "MiniProject Publishing: (Camtasia) Ward FRE 101-01"
       @event_title = "Mini Project Publishing: (#{@project.stringified_resources}) #{@instructor.last_name} #{@course.decorate.short_name}"
       @event_description =
-          "Publish: #{@project.stringified_publish_methods}\n"\
-                "Resources: #{@project.stringified_resources}\n\n"\
-                "#{@project.description}"
+        "Publish: #{@project.stringified_publish_methods}\n"\
+              "Resources: #{@project.stringified_resources}\n\n"\
+              "#{@project.description}"
     end
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
     @start_time = ApplicationHelper.local_to_utc(@start_time)
     @end_time = ApplicationHelper.local_to_utc(@end_time)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new({
-                                                           summary: @event_title,
-                                                           description: @event_description,
-                                                           start: {
-                                                               date_time: @start_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           end: {
-                                                               date_time: @end_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           }
+    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
+                                                       description: @event_description,
+                                                       start: {
+                                                         date_time: @start_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       end: {
+                                                         date_time: @end_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
                                                        })
 
     if action == :create
@@ -145,19 +136,16 @@ module GoogleCalendarHelper
   end
 
   def self.delete_project_publish_event(project)
-    begin
-      @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id)
-    rescue Google::Apis::ClientError
-      puts "Event no longer exists, ignore trying to delete it"
-    end
+    @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id)
+  rescue Google::Apis::ClientError
+    puts 'Event no longer exists, ignore trying to delete it'
   end
 
   # Schedule standard reservation in Google Calendar based on the ActiveRecord callback on a StandardReservation:
   # :create - create standard reservation
   # :update - update standard reservation
   def self.schedule_standard_reservation(res, action)
-
-    #[:course_id, :activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: []]
+    # [:course_id, :activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: []]
 
     @res = res
 
@@ -170,31 +158,29 @@ module GoogleCalendarHelper
     # e.g.
     # "FRE 101-01, Ward, 24 (Dill Paired Recordings [Walkthrough: YES])"
     @event_title =
-        "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-            " (#{@res.activity} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
+      "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
+          " (#{@res.activity} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
     @start_time = ApplicationHelper.local_to_utc(@res.start)
     @end_time = ApplicationHelper.local_to_utc(@res.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new({
-                                                           summary: @event_title,
-                                                           location: @lab,
-                                                           description: @res.additional_instructions,
-                                                           start: {
-                                                               date_time: @start_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           end: {
-                                                               date_time: @end_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           attendees: [
-                                                               {email: "shultzd@gvsu.edu"},
-                                                               {email: "clappve@gvsu.edu"},
-                                                               {email: "#{@instructor.username}@gvsu.edu"}
-                                                           ]
-                                                       })
+    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
+                                                       location: @lab,
+                                                       description: @res.additional_instructions,
+                                                       start: {
+                                                         date_time: @start_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       end: {
+                                                         date_time: @end_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       attendees: [
+                                                         { email: 'shultzd@gvsu.edu' },
+                                                         { email: 'clappve@gvsu.edu' },
+                                                         { email: "#{@instructor.username}@gvsu.edu" }
+                                                       ])
 
     if action == :create
       @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, @g_cal_event)
@@ -205,18 +191,15 @@ module GoogleCalendarHelper
   end
 
   def self.delete_standard_reservation(standard_reservation)
-    begin
-      @calendar.delete_event(RESERVATION_CALENDAR_ID, standard_reservation.google_calendar_event_id)
-    rescue Google::Apis::ClientError
-      puts "Event no longer exists, ignore trying to delete it"
-    end
+    @calendar.delete_event(RESERVATION_CALENDAR_ID, standard_reservation.google_calendar_event_id)
+  rescue Google::Apis::ClientError
+    puts 'Event no longer exists, ignore trying to delete it'
   end
 
   # Schedule a vidcam filming event in Google Calendar based on the ActiveRecord callback on a Vidcam:
   # :create - create filming event
   # :update - update filming event
   def self.schedule_vidcam_filming_event(vidcam, action)
-
     @vidcam = vidcam
     @course = @vidcam.course
     @instructor = @course.instructor
@@ -229,24 +212,22 @@ module GoogleCalendarHelper
     @start_time = ApplicationHelper.local_to_utc(@vidcam.start)
     @end_time = ApplicationHelper.local_to_utc(@vidcam.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new({
-                                                           summary: @event_title,
-                                                           location: @vidcam.location,
-                                                           description: @vidcam.additional_instructions,
-                                                           start: {
-                                                               date_time: @start_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           end: {
-                                                               date_time: @end_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           attendees: [
-                                                               {email: "shultzd@gvsu.edu"},
-                                                               {email: "clappve@gvsu.edu"},
-                                                               {email: "#{@instructor.username}@gvsu.edu"}
-                                                           ]
-                                                       })
+    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
+                                                       location: @vidcam.location,
+                                                       description: @vidcam.additional_instructions,
+                                                       start: {
+                                                         date_time: @start_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       end: {
+                                                         date_time: @end_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       attendees: [
+                                                         { email: 'shultzd@gvsu.edu' },
+                                                         { email: 'clappve@gvsu.edu' },
+                                                         { email: "#{@instructor.username}@gvsu.edu" }
+                                                       ])
 
     if action == :create
       @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
@@ -257,18 +238,15 @@ module GoogleCalendarHelper
   end
 
   def self.delete_vidcam_filming_event(vidcam)
-    begin
-      @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id)
-    rescue Google::Apis::ClientError
-      puts "Event no longer exists, ignore trying to delete it"
-    end
+    @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id)
+  rescue Google::Apis::ClientError
+    puts 'Event no longer exists, ignore trying to delete it'
   end
 
   # Schedule a vidcam publishing event in Google Calendar based on the ActiveRecord callback on a Vidcam:
   # :create - create publishing event
   # :update - update publishing event
   def self.schedule_vidcam_publishing_event(vidcam, action)
-
     @vidcam = vidcam.decorate
     @course = @vidcam.course
     @instructor = @course.instructor
@@ -279,32 +257,30 @@ module GoogleCalendarHelper
     # e.g. "Publishing: FRE 101-01, Ward, MAK D-2-221"
     @event_title = "Publishing: #{@course.decorate.short_name}, #{@instructor.last_name}, #{@vidcam.location}"
     @event_description =
-        "Publish: #{@vidcam.stringified_publish_methods}\n"\
-            "Upload to Ensemble? #{@vidcam.upload_to_ensemble_string}\n\n"\
-            "#{@vidcam.additional_instructions}"
+      "Publish: #{@vidcam.stringified_publish_methods}\n"\
+          "Upload to Ensemble? #{@vidcam.upload_to_ensemble_string}\n\n"\
+          "#{@vidcam.additional_instructions}"
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
     @start_time = ApplicationHelper.local_to_utc(@start_time)
     @end_time = ApplicationHelper.local_to_utc(@end_time)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new({
-                                                           summary: @event_title,
-                                                           location: @vidcam.location,
-                                                           description: @event_description,
-                                                           start: {
-                                                               date_time: @start_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           end: {
-                                                               date_time: @end_time.to_datetime,
-                                                               time_zone: LOCAL_TIME_ZONE
-                                                           },
-                                                           attendees: [
-                                                               {email: "shultzd@gvsu.edu"},
-                                                               {email: "clappve@gvsu.edu"},
-                                                               {email: "#{@instructor.username}@gvsu.edu"}
-                                                           ]
-                                                       })
+    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
+                                                       location: @vidcam.location,
+                                                       description: @event_description,
+                                                       start: {
+                                                         date_time: @start_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       end: {
+                                                         date_time: @end_time.to_datetime,
+                                                         time_zone: LOCAL_TIME_ZONE
+                                                       },
+                                                       attendees: [
+                                                         { email: 'shultzd@gvsu.edu' },
+                                                         { email: 'clappve@gvsu.edu' },
+                                                         { email: "#{@instructor.username}@gvsu.edu" }
+                                                       ])
 
     if action == :create
       @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
@@ -315,10 +291,8 @@ module GoogleCalendarHelper
   end
 
   def self.delete_vidcam_publish_event(vidcam)
-    begin
-      @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id)
-    rescue Google::Apis::ClientError
-      puts "Event no longer exists, ignore trying to delete it"
-    end
+    @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id)
+  rescue Google::Apis::ClientError
+    puts 'Event no longer exists, ignore trying to delete it'
   end
 end
