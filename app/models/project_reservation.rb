@@ -1,5 +1,4 @@
 class ProjectReservation < ActiveRecord::Base
-
   belongs_to :project
   validates :start, :end, presence: true
   validate :start_time_before_end_time
@@ -12,8 +11,8 @@ class ProjectReservation < ActiveRecord::Base
   # :training - This is for training the students (project overview, teaching software, etc.)
   # :editing - This is for editing the projects
   enum category: {
-      training: 0,
-      editing: 1
+    training: 0,
+    editing: 1
   }
 
   # Project reservation categories
@@ -23,11 +22,13 @@ class ProjectReservation < ActiveRecord::Base
   # :in_class_shoot - Students film during their class meeting time
   # :screen_final_project - Students screen their final projects
   enum subtype: {
-      project_introduction: 0,
-      camera_training: 1,
-      camtasia_training: 2,
-      in_class_shoot: 3,
-      screen_final_project: 4
+    project_introduction: 0,
+    script_writing: 5,
+    camera_training: 1,
+    camtasia_training: 2,
+    in_class_shoot: 3,
+    in_class_editing: 6,
+    screen_final_project: 4
   }
 
   # In order for form submissions to assign this property correctly, this enum has to be present
@@ -35,9 +36,9 @@ class ProjectReservation < ActiveRecord::Base
   enum lab: Lab.locations
 
   def start_time_before_end_time
-    if self.start > self.end
-      self.errors.add(:start, "reservation start time must be earlier than end time")
-      self.errors.add(:end, "reservation start time must be earlier than end time")
+    if start > self.end
+      errors.add(:start, 'reservation start time must be earlier than end time')
+      errors.add(:end, 'reservation start time must be earlier than end time')
     end
   end
 
