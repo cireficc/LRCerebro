@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use Moment.js and Date-time picker for date/time selectors
 gem 'momentjs-rails', '>= 2.9.0'
 # https://github.com/TrevorS/bootstrap3-datetimepicker-rails
-gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
 gem 'google-api-client', '~> 0.9'
 # Use Simple Form for forms instead of building complex forms by hand
