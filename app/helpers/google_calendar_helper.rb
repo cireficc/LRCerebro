@@ -50,6 +50,12 @@ module GoogleCalendarHelper
           "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
           " (#{@project.category} #{@res.category.titleize} #{@index + 1} of #{@total})"
 
+    @event_description =
+      "Staff notes: #{@res.staff_notes}\n\n"\
+		    "Faculty notes: #{@res.faculty_notes}\n"\
+		    "-------------------------\n"\
+		    "Project description: #{@project.description}"
+
     if @res.subtype
       @event_title += " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
     end
@@ -60,7 +66,7 @@ module GoogleCalendarHelper
 
     @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
                                                        location: @lab,
-                                                       description: @project.description,
+                                                       description: @event_description,
                                                        start: {
                                                          date_time: @start_time.to_datetime,
                                                          time_zone: LOCAL_TIME_ZONE
