@@ -58,16 +58,19 @@ var initialize = function() {
 	    }
 	});
 
-	// If a DTP start time is changed, update the end time to match it, and update the
-    // Google Calendar iframe
-	$('.input-group').on('dp.change', function(e) {
-
-        if ($(this).find('input[type="text"]').attr('id').endsWith("start")) {
-            var panelBody = $(this).closest('.panel-body');
-            var endInput = $(panelBody).find('input[id$="_end"]');
-            endInput.closest('.input-group').data("DateTimePicker").date(e.date);
-        }
+	// If a DTP start time is changed, update the end time to match it
+	$('.input-group').on('click', function() {
         
+        var panelBody = $(this).closest('.panel-body');
+        var startInput = $(panelBody).find('input[id$="_start"]');
+        var endInput = $(panelBody).find('input[id$="_end"]');
+        var startDate = startInput.closest('.input-group').data("DateTimePicker").date();
+
+        endInput.closest('.input-group').data("DateTimePicker").date(startDate);
+
+    });
+
+    $('.input-group').on('dp.change', function(e) {
         // If the reservation calendar is present on the page, update its view
         if ($("#reservation-calendar").length || $(".reservation-calendar").length) {
             updateGoogleCalendarIframe(e.date);
