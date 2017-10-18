@@ -4,34 +4,37 @@
   fieldset disabled = disabled
     - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
       .row
-        .col-md-1.col-md-offset-4
-          button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
+        .col-md-1.col-md-offset-3
+          button.btn-sm.btn-primary data-target='#producteev_filming_overview_collapse' data-toggle='collapse' type='button' Producteev Filming Overview
+        .col-md-1
+          button.btn-sm.btn-primary data-target='#producteev_publishing_overview_collapse' data-toggle='collapse' type='button' Producteev Publishing Overview
         .col-md-3
           = f.input :added_to_producteev,
                   label: false,
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
+      br
     - if action_name == 'edit'
       - instructor = @vidcam.course.instructor.decorate
       - email = instructor.email_address
       - course = @vidcam.course.decorate.short_name
       .row
         .col-md-6.col-md-offset-3
-          #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
+          #producteev_filming_overview_collapse.panel.panel-primary.panel-collapse.collapse
             .panel-heading
               .row
-                .col-md-2
-                  button#producteev_overview_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_title" type="button"
+                .col-md-3
+                  button#producteev_overview_filming_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_filming_title" type="button"
                     span.glyphicon.glyphicon-copy
-                    |  Copy title
-                .col-md-10
-                  h5#producteev_overview_title ##{instructor.last_name} ##{course} Vidcam Request: #{@vidcam.location}
+                    |  Copy filming title
+                .col-md-9
+                  h5#producteev_overview_filming_title ##{instructor.last_name} ##{course} Vidcam Filming: #{@vidcam.location}
             .panel-body
-              #producteev_overview_body
+              #producteev_overview_filming_body
                 p
-                  button#producteev_overview_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_body" type="button"
+                  button#producteev_overview_filming_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_filming_body" type="button"
                     span.glyphicon.glyphicon-copy
-                    |  Copy body
+                    |  Copy filming body
                 p
                   | Instructor: #{instructor.full_name} (#{email})
                   br
@@ -43,6 +46,31 @@
                   br
                   | End: #{@vidcam.end}
                   br
+                  | Additional Instructions: #{@vidcam.additional_instructions}
+                p
+                  | Submitted: #{@vidcam.created_at}
+      .row
+        .col-md-6.col-md-offset-3
+          #producteev_publishing_overview_collapse.panel.panel-primary.panel-collapse.collapse
+            .panel-heading
+              .row
+                .col-md-3
+                  button#producteev_overview_publishing_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_publishing_title" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy publishing title
+                .col-md-9
+                  h5#producteev_overview_publishing_title ##{instructor.last_name} ##{course} Vidcam Publishing: #{@vidcam.location}
+            .panel-body
+              #producteev_overview_publishing_body
+                p
+                  button#producteev_overview_publishing_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_publishing_body" type="button"
+                    span.glyphicon.glyphicon-copy
+                    |  Copy publishing body
+                p
+                  | Instructor: #{instructor.full_name} (#{email})
+                  br
+                  | Course: #{course}
+                p
                   | Additional Instructions: #{@vidcam.additional_instructions}
                   br
                   | Publish By: #{@vidcam.publish_by}
@@ -137,16 +165,30 @@
 javascript:
     $('#vidcam_added_to_producteev').bootstrapSwitch();
     
-    var title = new Clipboard('#producteev_overview_title_copy');
-    title.on('success', function (e) {
-        copy = $('#producteev_overview_title_copy');
-        copy.html(copy.html().replace('Copy title', 'Title copied!'));
+    var filmingTitle = new Clipboard('#producteev_overview_filming_title_copy');
+    filmingTitle.on('success', function (e) {
+        copy = $('#producteev_overview_filming_title_copy');
+        copy.html(copy.html().replace('Copy filming title', 'Filming title copied!'));
         e.clearSelection();
     });
     
-    var body = new Clipboard('#producteev_overview_body_copy');
-    body.on('success', function (e) {
-        copy = $('#producteev_overview_body_copy');
-        copy.html(copy.html().replace('Copy body', 'Body copied!'));
+    var filmingBody = new Clipboard('#producteev_overview_filming_body_copy');
+    filmingBody.on('success', function (e) {
+        copy = $('#producteev_overview_filming_body_copy');
+        copy.html(copy.html().replace('Copy filming body', 'Filming body copied!'));
+        e.clearSelection();
+    });
+
+    var publishingTitle = new Clipboard('#producteev_overview_publishing_title_copy');
+    publishingTitle.on('success', function (e) {
+        copy = $('#producteev_overview_publishing_title_copy');
+        copy.html(copy.html().replace('Copy publishing title', 'Publishing title copied!'));
+        e.clearSelection();
+    });
+
+    var publishingBody = new Clipboard('#producteev_overview_publishing_body_copy');
+    publishingBody.on('success', function (e) {
+        copy = $('#producteev_overview_publishing_body_copy');
+        copy.html(copy.html().replace('Copy publishing body', 'Publishing body copied!'));
         e.clearSelection();
     });
