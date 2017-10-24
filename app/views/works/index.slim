@@ -21,7 +21,7 @@ table#works.table.table-hover
         td
           span.label.label-warning #{work.course.decorate.short_name}
         td #{work.due_date}
-        td #{work.instructions.truncate(400)}
+        td #{work.instructions.truncate(200)}
         td #{work.created_at}
         td
           - if work.added_to_producteev
