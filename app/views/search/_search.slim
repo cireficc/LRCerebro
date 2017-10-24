@@ -1,21 +1,27 @@
 = form_tag search_path, id: "sitewide_search_form", method: :get do |f|
   - courses = current_user.faculty? ? current_user.active_courses.order(:name) : Course.all
   .row
+    .col-md-3
+      h4 Course
+      = select_tag :course,
+              options_for_select(courses.map {|c| [c.name, c.id]}.uniq.sort!,
+                      params[:course]), {class: "form-control", multiple: true}
     - if current_user.director? || current_user.labasst?
       .col-md-3
         h4 Submitted By
         = select_tag :submitted_by,
           options_for_select(courses.map {|c| i = c.instructor.decorate; [i.full_name_with_username, i.id]}.uniq.sort!,
           params[:submitted_by]), {class: "form-control", multiple: true}
-    .col-md-3
-      h4 Course
-      = select_tag :course,
-        options_for_select(courses.map {|c| [c.name, c.id]}.uniq.sort!,
-        params[:course]), {class: "form-control", multiple: true}
     .col-md-2
-      h4 Archived?
-      = select_tag :archived,
-        options_for_select({"Yes": true, "No": false}, params[:archived]), {class: "form-control", prompt: "Select a status"}
+      h4 Year
+      = select_tag :year,
+              options_for_select(Course.all.map {|c| [c.year]}.uniq.sort!,
+                      params[:year]), {class: "form-control"}
+    .col-md-2
+      h4 Semester
+      = select_tag :semester,
+              options_for_select(Course.semesters.map {|s| [s[0].titleize, s[0]]}.uniq.sort!,
+                      params[:semester]), {class: "form-control"}
     .col-md-2
       h4 &nbsp
       button.btn.btn-primary.col-md-6(type="submit")

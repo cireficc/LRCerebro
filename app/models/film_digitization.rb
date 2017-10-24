@@ -17,7 +17,8 @@ class FilmDigitization < ActiveRecord::Base
         due_date: due_date,
         submitted_by: course.instructor.id,
         members: course.users.collect(&:id),
-        archived: !active?
+        year: course.year,
+        semester: course.semester
     }
   end
 

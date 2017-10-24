@@ -62,7 +62,8 @@ class StandardReservation < ActiveRecord::Base
         reservation_start: start,
         lab: lab,
         members: course.users.collect(&:id),
-        archived: !active?
+        year: course.year,
+        semester: course.semester
     }
   end
 

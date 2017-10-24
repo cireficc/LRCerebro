@@ -10,9 +10,11 @@ class SearchController < ApplicationController
     @where = {}
     @where[:submitted_by] = params[:submitted_by] if params[:submitted_by].present?
     @where[:course] = params[:course] if params[:course].present?
-    # Default archived to false if it hasn't been selected out yet
-    params[:archived] = false if params[:archived].blank?
-    @where[:archived] = params[:archived]
+    # Default year and semester if they haven't been selected yet
+    params[:year] = ApplicationConfiguration.last.current_semester_year if params[:year].blank?
+    @where[:year] = params[:year]
+    params[:semester] = ApplicationConfiguration.last.current_semester if params[:semester].blank?
+    @where[:semester] = params[:semester]
 
     # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
     # Director/labasst have full access to all resources, faculty only to their own

@@ -19,7 +19,8 @@ class Vidcam < ActiveRecord::Base
         start: start,
         submitted_by: course.instructor.id,
         members: course.users.collect(&:id),
-        archived: !active?
+        year: course.year,
+        semester: course.semester
     }
   end
 

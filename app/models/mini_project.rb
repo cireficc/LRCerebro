@@ -32,7 +32,8 @@ class MiniProject < ActiveRecord::Base
         start_date: start_date,
         submitted_by: course.instructor.id,
         members: course.users.collect(&:id),
-        archived: !active?
+        year: course.year,
+        semester: course.semester
     }
   end
 

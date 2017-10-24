@@ -17,9 +17,11 @@ class WorksController < ApplicationController
     # Hack Elasticsearch to gain back the functionality that we had with Pundit scoping
     # Director/labasst have full access to all standard reservations, faculty/students only to their own
     @where[:members] = current_user.id if (current_user && (current_user.faculty? || current_user.student?))
-    # Default archived to false if it hasn't been selected out yet
-    params[:archived] = false if params[:archived].blank?
-    @where[:archived] = params[:archived]
+    # Default year and semester if they haven't been selected yet
+    params[:year] = ApplicationConfiguration.last.current_semester_year if params[:year].blank?
+    @where[:year] = params[:year]
+    params[:semester] = ApplicationConfiguration.last.current_semester if params[:semester].blank?
+    @where[:semester] = params[:semester]
 
     @works = WorkDecorator.decorate_collection(Work.search(
         "*",
