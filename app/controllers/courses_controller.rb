@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
 
     if @course.update(course_params)
       flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @course.name
-      redirect_to course_path(@course)
+      redirect_to courses_path
     else
       render :edit
     end
@@ -98,6 +98,6 @@ class CoursesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def course_params
-    params[:course].permit(:year, :semester, :department, :course, :section, :name, user_ids: [])
+    params[:course].permit(:year, :semester, :department, :course, :section, :name, :user_ids, enrollment_attributes: [:id, :user_id, :role, :_destroy])
   end
 end

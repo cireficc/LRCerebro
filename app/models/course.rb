@@ -5,7 +5,9 @@ class Course < ActiveRecord::Base
   has_many :enrollment
   has_many :users, :through => :enrollment
 
-  accepts_nested_attributes_for :users
+  accepts_nested_attributes_for :enrollment,
+                                :allow_destroy => true,
+                                :reject_if     => :all_blank
   has_many :projects
   has_many :mini_projects
   has_many :standard_reservations
@@ -14,6 +16,7 @@ class Course < ActiveRecord::Base
   has_many :works
 
   validates :name, :department, :course, :section, :year, :semester, presence: true
+  validates_associated :enrollment
 
   after_commit :reindex_associations
 

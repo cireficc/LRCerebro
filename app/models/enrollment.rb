@@ -3,6 +3,8 @@ class Enrollment < ActiveRecord::Base
   belongs_to :course
   belongs_to :user, foreign_key: :user_id, primary_key: :pitm
 
+  validates :course, :user_id, :role, presence: true
+
   # User roles in the MLL department and the LRC:
   # :instructor - Faculty in the MLL department who teach courses
   # :student - Students in the MLL department who enroll in courses
