@@ -35,10 +35,7 @@ table#mini_projects.table.table-hover
         td #{mini.stringified_publish_methods}
         td #{mini.created_at}
         td
-          - if mini.added_to_producteev
-            span.label.label-success Yes
-          - else
-            span.label.label-danger No
+          = mini.producteevified
         td
           - if policy(mini).show?
             = link_to 'Details', mini_project_path(mini), class: 'btn btn-xs btn-default'

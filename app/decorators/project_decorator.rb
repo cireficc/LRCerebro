@@ -24,5 +24,4 @@ class ProjectDecorator < Draper::Decorator
   def stringified_publish_methods
     publish_methods.map(&:titleize).join(", ")
   end
-
 end

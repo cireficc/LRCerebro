@@ -32,10 +32,7 @@ table#vidcams.table.table-hover
         td #{vidcam.upload_to_ensemble_string}
         td #{vidcam.created_at}
         td
-          - if vidcam.added_to_producteev
-            span.label.label-success Yes
-          - else
-            span.label.label-danger No
+          = vidcam.producteevified
         td
           - if policy(vidcam).show?
             = link_to 'Details', vidcam_path(vidcam), class: 'btn btn-xs btn-default'

@@ -24,10 +24,7 @@ table#works.table.table-hover
         td #{work.instructions.truncate(200)}
         td #{work.created_at}
         td
-          - if work.added_to_producteev
-            span.label.label-success Yes
-          - else
-            span.label.label-danger No
+          = work.producteevified
         td
           - if policy(work).show?
             = link_to 'Details', work_path(work), class: 'btn btn-xs btn-default'

@@ -33,10 +33,7 @@ table#film_digitizations.table.table-hover
         td #{digitization.due_date}
         td #{digitization.created_at}
         td
-          - if digitization.added_to_producteev
-            span.label.label-success Yes
-          - else
-            span.label.label-danger No
+          = digitization.producteevified
         td
           - if policy(digitization).show?
             = link_to 'Details', film_digitization_path(digitization), class: 'btn btn-xs btn-default'
