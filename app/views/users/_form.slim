@@ -8,39 +8,44 @@
           .panel-heading
             h3.panel-title User Information
           .panel-body
-            // Never show this data, only allow creating it
-            - if action_name == "new"
             .row
-              .col-md-3
-                h4 Username
-              .col-md-9
-                = f.input :username
+              .col-md-6
+                .col-md-3
+                  h4 First Name
+                .col-md-9
+                  = f.input :first_name
+              .col-md-6
+                .col-md-3
+                  h4 Last Name
+                .col-md-9
+                  = f.input :last_name
             .row
-              .col-md-3
-                h4 First Name
-              .col-md-9
-                = f.input :first_name
+              .col-md-6
+                .col-md-3
+                  h4 Username
+                .col-md-9
+                  = f.input :username
+              .col-md-6
+                .col-md-3
+                  h4 Role
+                .col-md-9
+                  = f.input :role,
+                          collection: User.roles.collect {|r, i| [r.titleize, r]},
+                          prompt: "Select a role",
+                          input_html: {disabled: disabled}
+        .panel.panel-warning
+          .panel-heading
+            h3.panel-title Enrollment Information
+          .panel-body
             .row
-              .col-md-3
-                h4 Last Name
-              .col-md-9
-                = f.input :last_name
-            .row
-              .col-md-3
-                h4 Role
-              .col-md-9
-                = f.input :role,
-                        collection: User.roles.collect { |r, i| [r.titleize, r] },
-                        prompt: "Select a role",
-                        input_html: { disabled: disabled }
-            .row
-              .col-md-3
-                h4 Enrolled in
-              .col-md-9
-                = f.association :courses,
-                        collection: CourseDecorator.decorate_collection(Course.all.order(:name)).collect { |c| ["#{c.full_name}", c.id] },
-                        selected: @user.courses.collect { |c| c.id },
-                        input_html: { multiple: true, disabled: disabled }
+              .col-md-2
+                h4 Enrolled courses
+            div#enrolled_courses
+              - enrollment_partial = 'enrolled_course_partial'
+              = f.simple_fields_for :enrollment do |enrollment|
+                = render enrollment_partial, f: enrollment
+            div
+              = link_to_add_association 'Add a course', f, :enrollment, {partial: enrollment_partial, class: 'btn btn-info'}   
 
   - if action_name == "new" || action_name == "create"
     = f.submit "Create User", class: "btn btn-info pull-right"

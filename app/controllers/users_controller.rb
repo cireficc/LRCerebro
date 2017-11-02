@@ -100,6 +100,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params[:user].permit(:username, :first_name, :last_name, :role, :registered, course_ids: [])
+    params[:user].permit(:username, :first_name, :last_name, :role, :registered, enrollment_attributes: [:id, :course_id, :role, :_destroy])
   end
 end

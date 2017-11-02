@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
   has_many :enrollment, foreign_key: :user_id, primary_key: :pitm
   has_many :courses, :through => :enrollment
 
-  accepts_nested_attributes_for :courses
+  accepts_nested_attributes_for :enrollment,
+                                :allow_destroy => true,
+                                :reject_if     => :all_blank
 
   validates :username, :first_name, :last_name, :role, presence: true
 
