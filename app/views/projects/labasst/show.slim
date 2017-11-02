@@ -105,3 +105,6 @@
       div#editing_reservations
         = f.simple_fields_for :project_reservations, @project.project_reservations.ordered_start do |builder|
           = render reservation_partial, f: builder if builder.object.category == "editing"
+- if policy(@project).edit?
+  = link_to "Edit Project", edit_project_url(@project), {class: 'btn btn-info pull-right'}
+  br

@@ -23,7 +23,7 @@ class ProjectPolicy
   end
 
   def create_attributes
-    if @user.director?
+    if @user.director? || @user.labasst?
       [:course_id, :category, :name, :description, :script_due, :due, :present, :publish_by, :group_size,
        publish_methods: [], project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
     else
@@ -33,11 +33,11 @@ class ProjectPolicy
   end
 
   def update_attributes
-    if @user.director?
-      [:course_id, :category, :name, :description, :script_due, :due, :present, :publish_by, :approved, :archived, :group_size,
+    if @user.director? || @user.labasst?
+      [:course_id, :category, :name, :description, :script_due, :due, :present, :publish_by, :approved, :archived, :group_size, :added_to_producteev,
        publish_methods: [], project_reservations_attributes: [:id, :category, :start, :end, :lab, :subtype, :staff_notes, :_destroy]]
     else
-      [:course_id, :category, :name, :description, :script_due, :due, :present, :publish_by, :group_size,
+      [:course_id, :category, :name, :description, :script_due, :due, :present, :publish_by, :group_size, :added_to_producteev,
        publish_methods: [], project_reservations_attributes: [:id, :start, :end, :faculty_notes]]
     end
   end
@@ -59,11 +59,11 @@ class ProjectPolicy
   end
 
   def edit?
-    @user.director? || owns_project
+    @user.director? || @user.labasst? || owns_project
   end
 
   def update?
-    @user.director? || owns_project
+    @user.director? || @user.labasst? || owns_project
   end
 
   def destroy?
