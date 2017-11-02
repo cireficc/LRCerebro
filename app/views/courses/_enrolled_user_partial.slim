@@ -3,7 +3,7 @@
   .row
     .col-md-4
       = f.input :user_id,
-              collection: User.all.collect { |u, i| [u.decorate.full_name_with_username, u.pitm]},
+              collection: users.collect { |u, i| [u.decorate.full_name_with_username, u.pitm]},
               prompt: 'Select the enrolled user'
     .col-md-2
       = f.input :role,

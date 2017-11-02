@@ -42,10 +42,11 @@
                 h4 Enrolled courses
             div#enrolled_courses
               - enrollment_partial = 'enrolled_course_partial'
+              - active_courses = Course.active
               = f.simple_fields_for :enrollment do |enrollment|
-                = render enrollment_partial, f: enrollment
+                = render partial: enrollment_partial, locals: {f: enrollment, courses: active_courses}
             div
-              = link_to_add_association 'Add a course', f, :enrollment, {partial: enrollment_partial, class: 'btn btn-info'}   
+              = link_to_add_association 'Add a course', f, :enrollment, {partial: enrollment_partial, render_options: {locals: { courses: active_courses }}, class: 'btn btn-info'}   
 
   - if action_name == "new" || action_name == "create"
     = f.submit "Create User", class: "btn btn-info pull-right"

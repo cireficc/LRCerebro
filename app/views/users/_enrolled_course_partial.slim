@@ -3,7 +3,7 @@
   .row
     .col-md-4
       = f.input :course_id,
-              collection: Course.all.collect { |c, i| [c.decorate.full_name, c.id]},
+              collection: courses.collect { |c, i| [c.decorate.full_name, c.id]},
               prompt: 'Select the enrolled course'
     .col-md-2
       = f.input :role,

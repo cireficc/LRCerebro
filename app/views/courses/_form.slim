@@ -54,10 +54,11 @@
             h4 Enrolled users
         div#enrolled_users
           - enrollment_partial = 'enrolled_user_partial'
+          - active_users = UserDecorator.decorate_collection(User.search("*", where: { archived: false }, order: { last_name: :asc }))
           = f.simple_fields_for :enrollment do |enrollment|
-            = render enrollment_partial, f: enrollment
-        div
-          = link_to_add_association 'Add a user', f, :enrollment, {partial: enrollment_partial, class: 'btn btn-info'}
+            = render partial: enrollment_partial, locals: {f: enrollment, users: active_users}
+          div
+          = link_to_add_association 'Add a user', f, :enrollment, {partial: enrollment_partial, render_options: {locals: {users: active_users}}, class: 'btn btn-info'}
   - if action_name == "new" || action_name == "create"
     = f.submit "Create Course", class: "btn btn-info pull-right"
   - else
