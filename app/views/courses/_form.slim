@@ -58,7 +58,7 @@
           = f.simple_fields_for :enrollment do |enrollment|
             = render partial: enrollment_partial, locals: {f: enrollment, users: active_users}
           div
-          = link_to_add_association 'Add a user', f, :enrollment, {partial: enrollment_partial, render_options: {locals: {users: active_users}}, class: 'btn btn-info'}
+            = link_to_add_association 'Add a user', f, :enrollment, {partial: enrollment_partial, render_options: {locals: {users: active_users}}, class: 'btn btn-info'}
   - if action_name == "new" || action_name == "create"
     = f.submit "Create Course", class: "btn btn-info pull-right"
   - else
