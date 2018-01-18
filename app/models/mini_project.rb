@@ -19,6 +19,7 @@ class MiniProject < ActiveRecord::Base
       "Films",
       "Delicast streaming TV",
       "DiLL",
+      "Puppet Show",
       "Photobooth",
       "GarageBand",
       "Camtasia",
