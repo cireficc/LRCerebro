@@ -23,6 +23,7 @@ class MiniProject < ActiveRecord::Base
       "Photobooth",
       "GarageBand",
       "Camtasia",
+      "Video Camera",
       "Project Server",
       "Google Drive/Docs"
   ]
