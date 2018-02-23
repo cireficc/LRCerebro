@@ -113,6 +113,11 @@ Enrollment.create!(user: cireficc, course: fre3, role: Enrollment.roles[:student
 Enrollment.create!(user: director, course: lrc, role: Enrollment.roles[:instructor])
 Enrollment.create!(user: labasst, course: lrc, role: Enrollment.roles[:student])
 
+3000.times do |i|
+	u = User.create(username: i, pitm: i, first_name: "asdf #{i}", last_name: 'ghjk', role: User.roles[:student], registered: false)
+	Enrollment.create(course: lrc, user: u, role: Enrollment.roles[:student])
+end
+
 # Create a few projects to assign to courses
 spa_project_1 = Project.create!(course: spa, name: "SPA Project", description: "Camtasia description", category: "Camtasia", group_size: 3,
                                 script_due: DateTime.new(YEAR,8,15,7,0,0,'-5'), due: DateTime.new(YEAR,8,25,16,0,0,'-5'),

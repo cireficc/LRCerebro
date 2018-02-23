@@ -21,12 +21,12 @@ class Course < ActiveRecord::Base
   after_commit :reindex_associations
 
   scope :active, -> {
-    config = ApplicationConfiguration.last;
+    config = ApplicationConfiguration.last
     # Enums don't work in where clauses < Rails 5: https://github.com/rails/rails/issues/19964#issuecomment-98591859
     where(year: config.current_semester_year, semester: Course.semesters[config.current_semester])
   }
   scope :archived, -> {
-    config = ApplicationConfiguration.last;
+    config = ApplicationConfiguration.last
     # Enums don't work in where clauses < Rails 5: https://github.com/rails/rails/issues/19964#issuecomment-98591859
     where("year != ? OR semester != ?", config.current_semester_year, Course.semesters[config.current_semester])
 
@@ -62,6 +62,7 @@ class Course < ActiveRecord::Base
       spanish: 7,
       lrc: 8,
       mll: 10,
+      honors: 11,
       other: 9
   }
 
@@ -83,6 +84,7 @@ class Course < ActiveRecord::Base
       "SPA" => departments[:spanish],
       "LRC" => departments[:lrc],
       "MLL" => departments[:mll],
+      "HNR" => departments[:honors],
       "OTH" => departments[:other]
   }
 
