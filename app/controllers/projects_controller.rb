@@ -62,10 +62,13 @@ class ProjectsController < ApplicationController
 
     # Check to see if the form is offline and act appropriately
     @config = ApplicationConfiguration.last
-    @online = Time.now > @config.class_project_submission_start && Time.now < @config.class_project_submission_end
+    # The date in the database is in UTC, but this is in local time. So we need to make sure they are both in UTC otherwise
+    # the date comparisons are off by whatever the difference is between local time and UTC
+    now = Time.now.asctime.in_time_zone('UTC')
+    @online = now > @config.class_project_submission_start && now < @config.class_project_submission_end
 
     # Director can use the form even if it is offline
-    if (@online || current_user.director?)
+    if @online || current_user.director?
       flash.now[:warning] = @config.class_project_before_deadline_message
       render "#{@view_path}/new"
     else
