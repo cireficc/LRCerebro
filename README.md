@@ -35,3 +35,13 @@ Then just launch with `lunchy start postgres` and `lunchy start elasticsearch`.
 
 in `~/.bash_profile`. `GOOGLE_API_SERVICE_DEVELOPMENT.json` is a JSON credential file that needs to be obtained before running the app.
 The other exports are the calendars used in development mode, separate from the production calendars.
+
+### Import new MLL data
+
+1. `mkdir current/db/MLL_data`
+2. `cp ../lrc-feed/lrc_ppl.txt current/db/MLL_data/`
+3. `cp ../lrc-feed/lrc_crs.txt current/db/MLL_data/`
+4. `cp ../lrc-feed/lrc_enr.txt current/db/MLL_data/`
+5. `vim` each of the lrc_*.txt documents and remove empty lines at the end of the file
+5. `cd current`
+6. `bundle exec rake db:seed`
