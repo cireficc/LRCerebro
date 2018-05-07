@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
 # Use PostgreSQL as the database for ActiveRecord
-gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 1.0.0'
 # Use Devise as an authentication solution
 gem 'devise', '~> 4.2'
 # Use Bcrypt to encrypt passwords in the database
@@ -32,8 +32,8 @@ gem 'acts-as-taggable-on', '~> 3.5'
 # Use Select2 for tag multi-select
 gem 'select2-rails', '~> 4.0.3'
 # Use Searchkick (+ ElasticSearch) to complex searching
-gem 'searchkick', '~> 2.3.0'
-gem 'elasticsearch', '~> 5.0.4'
+gem 'searchkick', '~> 3.0.2'
+gem 'elasticsearch', '~> 6.0.2'
 # Use Kaminari to paginate large result sets
 gem 'kaminari', '~> 0.17.0'
 # Use ActiveModelSerializers to succinctly customize JSON output

@@ -158,8 +158,8 @@
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.2.5, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="draper (v2.1.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="elasticsearch (v5.0.4, RVM: ruby-2.3.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="elasticsearch-api (v5.0.4, RVM: ruby-2.3.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="elasticsearch-transport (v5.0.4, RVM: ruby-2.3.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="elasticsearch-api (v6.0.2, RVM: ruby-2.3.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="elasticsearch-transport (v6.0.2, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.6.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_girl (v4.7.0, RVM: ruby-2.3.1) [gem]" level="application" />
@@ -168,7 +168,7 @@
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.3.6, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="google-api-client (v0.9.6, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="googleauth (v0.5.1, RVM: ruby-2.3.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="hashie (v3.5.5, RVM: ruby-2.3.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="hashie (v3.5.7, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.3, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httpclient (v2.8.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hurley (v0.2, RVM: ruby-2.3.1) [gem]" level="application" />
@@ -201,7 +201,7 @@
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.6.7.2, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="os (v0.9.6, RVM: ruby-2.3.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v0.18.4, RVM: ruby-2.3.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pg (v1.0.0, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pundit (v1.0.1, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.6.4, RVM: ruby-2.3.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.3, RVM: ruby-2.3.1) [gem]" level="application" />
