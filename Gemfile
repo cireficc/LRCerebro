@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
 # Use PostgreSQL as the database for ActiveRecord
-gem 'pg', '~> 1.0.0'
+gem 'pg', '~> 0.18.4'
 # Use Devise as an authentication solution
 gem 'devise', '~> 4.2'
 # Use Bcrypt to encrypt passwords in the database
