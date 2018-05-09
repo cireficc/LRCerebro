@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.2'
+gem 'rails', '5.2.0'
 # Use PostgreSQL as the database for ActiveRecord
-gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 1.0.0'
 # Use Devise as an authentication solution
 gem 'devise', '~> 4.2'
 # Use Bcrypt to encrypt passwords in the database
@@ -14,11 +14,11 @@ gem 'pundit', '~> 1.0.1'
 # Use Slim as the view templating engine (similar to Jade)
 gem 'slim', '>= 3.0.3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2.2'
 # Use Moment.js and Date-time picker for date/time selectors
 gem 'momentjs-rails', '>= 2.9.0'
 # https://github.com/TrevorS/bootstrap3-datetimepicker-rails
@@ -26,9 +26,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
 gem 'google-api-client', '~> 0.9'
 # Use Simple Form for forms instead of building complex forms by hand
-gem 'simple_form', '~> 3.2', '>= 3.2.1'
+gem 'simple_form', '~> 4.0.0'
 # Use Acts-As-Taggable-On for tagging models
-gem 'acts-as-taggable-on', '~> 3.5'
+gem 'acts-as-taggable-on', '~> 5.0.0'
 # Use Select2 for tag multi-select
 gem 'select2-rails', '~> 4.0.3'
 # Use Searchkick (+ ElasticSearch) to complex searching
@@ -37,7 +37,7 @@ gem 'elasticsearch', '~> 6.0.2'
 # Use Kaminari to paginate large result sets
 gem 'kaminari', '~> 0.17.0'
 # Use ActiveModelSerializers to succinctly customize JSON output
-gem 'active_model_serializers', '~> 0.10.0'
+gem 'active_model_serializers', '~> 0.10.7'
 # Use CarrierWave to do image attachments and processing, and Cloudinary to host them
 gem 'carrierwave', '~> 0.11.2'
 gem 'cloudinary', '~> 1.2'
@@ -47,12 +47,12 @@ gem 'net-ldap'
 # Use Cocoon for dynamic nested forms
 gem 'cocoon', '~> 1.2.9'
 # Use Draper for view-models (keep view code out of models)
-gem 'draper', '~> 2.1'
+gem 'draper', '~> 3.0.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 # User Jquery-turbolinks to fix event binding problems for document ready
 gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -74,7 +74,7 @@ end
 
 group :development, :test do
   gem "rspec-rails"
-  gem "factory_girl"
+  gem "factory_bot"
   gem "database_cleaner"
 end
 

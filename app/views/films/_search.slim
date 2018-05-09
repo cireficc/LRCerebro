@@ -29,7 +29,7 @@
                       class: "form-control"}
     .col-md-2
       h4 Export
-      = link_to "Export search to Excel", films_path(params.merge(format: 'xls', all_records: true)), target: :blank, class: 'btn btn-info'
+      = link_to "Export search to Excel", films_path(params.merge(format: 'xls', all_records: true).permit!), target: :blank, class: 'btn btn-info'
 javascript:
     $(document).ready(function() {
 

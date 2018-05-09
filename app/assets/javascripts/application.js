@@ -164,7 +164,10 @@ var initialize = function() {
     });
 };
 
-$(document).ready(initialize);
+// $(document).ready(initialize);
+$(document).on('turbolinks:load', function() {
+    initialize();
+});
 
 /*
 * When any taggable input changes, get the value from the select2 input and
@@ -241,6 +244,8 @@ $(document).on('click', '.input-group-addon .glyphicon-calendar', function (even
 });
 
 $(document).on('click', '#search_fields_toggle', function(event) {
+    
+    event.preventDefault();
 
     var search = $(this).parents('#search').first();
     var sf = search.find('div[id$="_search_fields"]').first();
@@ -251,6 +256,8 @@ $(document).on('click', '#search_fields_toggle', function(event) {
 });
 
 $(document).on('click', '#producteev_toggle', function(event) {
+
+    event.preventDefault();
     
     var state = $(this).data('state');
     var search = $(this).parents('#search').first();
