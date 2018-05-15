@@ -85,3 +85,5 @@ group :staging, :production do
   # V8 JavaScript Runtime for the server
   gem "therubyracer"
 end
+
+ruby '2.5.1'
