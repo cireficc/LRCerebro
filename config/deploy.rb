@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.5.0"
+lock "3.10.2"
 
 set :application, "lrcerebro"
 set :repo_url, "git@github.com:cireficc/LRCerebro.git"
