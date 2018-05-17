@@ -9,7 +9,7 @@
         - else
           h2 #{@film.foreign_title}
       .col-md-2
-        h2 #{@film.inventory_item.catalog_number}
+        h2 #{@film.catalog_number}
     .row
       .col-md-12
         h4 #{@film.film_type.titleize} | Released in #{@film.year} | Runtime: #{@film.length}m | Rated #{@film.mpaa_rating.titleize}

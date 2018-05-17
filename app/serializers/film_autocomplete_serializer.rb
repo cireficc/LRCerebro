@@ -21,7 +21,7 @@ class FilmAutocompleteSerializer < ActiveModel::Serializer
   end
 
   def catalog_number
-    object.inventory_item.catalog_number
+    object.catalog_number
   end
 
   def cover_thumb

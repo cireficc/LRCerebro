@@ -55,25 +55,6 @@ film9 = Film.create!(film_type: 2, english_title: "Knife in the Water", foreign_
                      director_list: ["Roman Polanski"], cast_member_list: ["Leon Niemczyk", "Jolanta Umecka", "Zygmunt Malanowicz"], genre_list: ["Drama", "Thriller"],
                      cover: File.open(File.join(IMAGE_PATH, 'Noz w wodzie.jpg')), more_info_link: "http://www.imdb.com/title/tt0056291/")
 
-InventoryItem.create!(status: 0, inventoriable: film1)
-InventoryItem.create!(status: 0, inventoriable: film2)
-InventoryItem.create!(status: 0, inventoriable: film3)
-InventoryItem.create!(status: 0, inventoriable: film4)
-InventoryItem.create!(status: 0, inventoriable: film5)
-InventoryItem.create!(status: 0, inventoriable: film6)
-InventoryItem.create!(status: 0, inventoriable: film7)
-InventoryItem.create!(status: 0, inventoriable: film8)
-InventoryItem.create!(status: 0, inventoriable: film9)
-
-game = Game.create!(english_title: "Assassin's Creed Unity", foreign_title: "Assassin's Creed Unity",
-                    audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], platform: 0, year: 2014)
-InventoryItem.create!(status: 0, inventoriable: game)
-
-InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 0))
-InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 1))
-InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 2))
-InventoryItem.create!(status: 0, inventoriable: Equipment.create(equipment_type: 3))
-
 # Create a few users to log in with and view/manipulate content with
 director = User.create(username: 'director', pitm: 'DIRECTOR', password: 'director', first_name: 'Director', last_name: 'MLL', role: User.roles[:director], registered: true)
 labasst = User.create(username: 'labasst', pitm: 'LABASST', password: 'labasst', first_name: 'Labasst', last_name: 'MLL', role: User.roles[:labasst], registered: true)

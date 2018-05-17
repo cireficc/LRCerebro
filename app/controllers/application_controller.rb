@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  def inventory_item_params
-    params[:inventory_item].permit(:catalog_number, :catalog_code, :status, :status_description, :notes)
-  end
-
   private
 
   # Set the view directory path based on the controller and the user's role.

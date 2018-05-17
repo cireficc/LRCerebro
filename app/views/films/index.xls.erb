@@ -26,7 +26,7 @@
       <% @films.each do |film| %>
           <Row>
             <Cell><Data ss:Type="Number"><%= film.id %></Data></Cell>
-            <Cell><Data ss:Type="String"><%= film.inventory_item.catalog_number %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= film.catalog_number %></Data></Cell>
             <Cell><Data ss:Type="String"><%= film.english_title %></Data></Cell>
             <Cell><Data ss:Type="String"><%= film.foreign_title %></Data></Cell>
             <Cell><Data ss:Type="String"><%= film.transliterated_foreign_title %></Data></Cell>

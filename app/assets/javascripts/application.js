@@ -180,7 +180,7 @@ $(document).on('select2:select select2:unselect', "*[data-taggable='true']", fun
 	var taggable_id = $(this).attr('id');
 	// genre_list_select2 --> genre_list
     var hidden_id = taggable_id.replace("_select2", "");
-    // inventory_item_film_*genre_list* ($= jQuery selectors ends with)
+    // film_*genre_list* ($= jQuery selectors ends with)
     var hidden = $("[id$=" + hidden_id + "]");
     // Select2 either has elements selected or it doesn't, in which case use []
     var joined = ($(this).val() || []).join(",");

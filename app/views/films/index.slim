@@ -19,7 +19,7 @@ table#films.table.table-hover
   tbody
     - @films.each do |film|
       tr
-        td #{film.inventory_item.catalog_number}
+        td #{film.catalog_number}
         td
           = link_to image_tag(film.cover_url(:thumb)), film_path(film) if film.cover_url(:thumb)
         td #{film.english_title}

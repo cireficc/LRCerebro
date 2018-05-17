@@ -1,155 +1,157 @@
-- form_url = (action_name == "new" || action_name == "create") ? films_path : film_path(@film)
+- form_url = (action_name.eql?('new') || action_name.eql?('create')) ? films_path : film_path(@film)
 // Disable the form fields if in the 'show' action
-- disabled = action_name == "show"
-= simple_form_for(@inventory_item, url: form_url, html: {multipart: true}) do |i|
+- disabled = action_name.eql?('show')
+= simple_form_for(@film, url: form_url, html: {multipart: true}) do |f|
   .row
     .col-md-6
-      = i.simple_fields_for @film do |f|
-        fieldset disabled = disabled
-          .panel.panel-info
-            .panel-heading
-              h3.panel-title Film Information
-            .panel-body
-              .row
-                .col-md-3
-                  h4
-                    | More Info 
-                    = info_popover("films/more_info_link", "More Info Link")
-                .col-md-9
-                  = f.input :more_info_link
-              .row
-                .col-md-3
-                  h4 Film Type
-                .col-md-9
-                  = f.input :film_type,
-                          collection: Film.film_types.collect { |a, i| [a.titleize, a] },
-                          prompt: "Select a film type"
-              .row
-                .col-md-3
-                  h4
-                    | Foreign Title 
-                    = info_popover("films/foreign_title", "Foreign Title")
-                .col-md-9
-                  = f.input :foreign_title
-              .row
-                .col-md-3
-                  h4
-                    | Transliterated Title 
-                    = info_popover("films/transliterated_foreign_title", "Transliterated Foreign Title")
-                .col-md-9
-                  = f.input :transliterated_foreign_title
-              .row
-                .col-md-3
-                  h4
-                    | English Title 
-                    = info_popover("films/english_title", "English Title")
-                .col-md-9
-                  = f.input :english_title
-              .row
-                .col-md-3
-                  h4 Description
-                .col-md-9
-                  = f.input :description,
-                          input_html: { rows: 5}
-              .row
-                .col-md-6
-                  h4
-                    | Audio Languages 
-                    = info_popover("films/audio_languages", "Audio Languages")
-                  = f.input :audio_languages,
-                          input_html: {multiple: true, data: {other: true}},
-                          collection: Language::LANGUAGES.clone.push(*f.object.audio_languages).uniq,
-                          prompt: "Select a language or type your own"
-                .col-md-6
-                  h4 Subtitle Languages
-                  = f.input :subtitle_languages,
-                          input_html: {multiple: true, data: {other: true}},
-                          collection: Language::LANGUAGES.clone.push(*f.object.subtitle_languages).uniq,
-                          prompt: "Select a language or type your own"
-              .row
-                .col-md-3
-                  h4 Directors
-                .col-md-9
-                  = f.hidden_field :director_list, value: @film.director_list.to_s
-                  = f.input :director_list,
-                          input_html: { id: "director_list_select2",
-                                  name: "director_list_select2",
-                                  multiple: true,
-                                  data: { taggable: true, taggable_type: "Film", context: "directors" } },
-                          collection: @film.director_list
-              .row
-                .col-md-3
-                  h4 Cast Members
-                .col-md-9
-                  = f.hidden_field :cast_member_list, value: @film.cast_member_list.to_s
-                  = f.input :cast_member_list,
-                          input_html: { id: "cast_member_list_select2",
-                                  name: "cast_member_list_select2",
-                                  multiple: true,
-                                  data: { taggable: true, taggable_type: "Film", context: "cast_members" } },
-                          collection: @film.cast_member_list
-              .row
-                .col-md-3
-                  h4 Genres
-                .col-md-9
-                  = f.hidden_field :genre_list, value: @film.genre_list.to_s
-                  = f.input :genre_list,
-                          input_html: { id: "genre_list_select2",
-                                  name: "genre_list_select2",
-                                  multiple: true,
-                                  data: { taggable: true, taggable_type: "Film", context: "genres" } },
-                          collection: @film.genre_list
-              .row
-                .col-md-4
-                  h4 Year
-                  = f.input :year
-                .col-md-4
-                  h4 Length (min)
-                  = f.input :length
-                .col-md-4
-                  h4 MPAA Rating
-                  = f.input :mpaa_rating,
-                          collection: Film.mpaa_ratings.collect { |a, i| [a.titleize, a] },
-                          prompt: "Select an MPAA rating"
-              .row
-                .col-md-12
-                  = image_tag(@film.cover_url(:display), class: "img-responsive") if @film.cover_url(:display)
-                  h4 Change Cover
-                  h5 File Upload
-                  = f.input :cover, type: :file
-                  = f.hidden_field :cover_cache
-                  h5 or Image Link
-                  = f.input :remote_cover_url
-    .col-md-6
-      = i.simple_fields_for @film do |f|
-        .panel.panel-primary
+      fieldset disabled = disabled
+        .panel.panel-info
           .panel-heading
-            h3.panel-title Digitized Versions
+            h3.panel-title Film Information
           .panel-body
-            - digitized_versions_partial = "digitized_version_fields"
-            div#digitized-versions
-              = f.simple_fields_for :digitized_versions do |builder|
-                = render digitized_versions_partial, f: builder
-            div#add-digitized-versions
-              = link_to_add_association 'Add a digitized version', f, :digitized_versions, {partial: digitized_versions_partial, class: 'btn btn-info'}
+            .row
+              .col-md-3
+                h4
+                  | More Info 
+                  = info_popover('films/more_info_link', 'More Info Link')
+              .col-md-9
+                = f.input :more_info_link
+            .row
+              .col-md-3
+                h4 Film Type
+              .col-md-9
+                = f.input :film_type,
+                        collection: Film.film_types.collect {|a, i| [a.titleize, a]},
+                        prompt: 'Select a film type'
+            .row
+              .col-md-3
+                h4
+                  | Foreign Title 
+                  = info_popover('films/foreign_title', 'Foreign Title')
+              .col-md-9
+                = f.input :foreign_title
+            .row
+              .col-md-3
+                h4
+                  | Transliterated Title 
+                  = info_popover('films/transliterated_foreign_title', 'Transliterated Foreign Title')
+              .col-md-9
+                = f.input :transliterated_foreign_title
+            .row
+              .col-md-3
+                h4
+                  | English Title 
+                  = info_popover('films/english_title', 'English Title')
+              .col-md-9
+                = f.input :english_title
+            .row
+              .col-md-3
+                h4 Description
+              .col-md-9
+                = f.input :description,
+                        input_html: {rows: 5}
+            .row
+              .col-md-6
+                h4
+                  | Audio Languages 
+                  = info_popover('films/audio_languages', 'Audio Languages')
+                = f.input :audio_languages,
+                        input_html: {multiple: true, data: {other: true}},
+                        collection: Language::LANGUAGES.clone.push(*f.object.audio_languages).uniq,
+                        prompt: 'Select a language or type your own'
+              .col-md-6
+                h4 Subtitle Languages
+                = f.input :subtitle_languages,
+                        input_html: {multiple: true, data: {other: true}},
+                        collection: Language::LANGUAGES.clone.push(*f.object.subtitle_languages).uniq,
+                        prompt: 'Select a language or type your own'
+            .row
+              .col-md-3
+                h4 Directors
+              .col-md-9
+                = f.hidden_field :director_list, value: @film.director_list.to_s
+                = f.input :director_list,
+                        input_html: {id: 'director_list_select2',
+                                name: 'director_list_select2',
+                                multiple: true,
+                                data: {taggable: true, taggable_type: 'Film', context: 'directors'}},
+                        collection: @film.director_list
+            .row
+              .col-md-3
+                h4 Cast Members
+              .col-md-9
+                = f.hidden_field :cast_member_list, value: @film.cast_member_list.to_s
+                = f.input :cast_member_list,
+                        input_html: {id: 'cast_member_list_select2',
+                                name: 'cast_member_list_select2',
+                                multiple: true,
+                                data: {taggable: true, taggable_type: 'Film', context: 'cast_members'}},
+                        collection: @film.cast_member_list
+            .row
+              .col-md-3
+                h4 Genres
+              .col-md-9
+                = f.hidden_field :genre_list, value: @film.genre_list.to_s
+                = f.input :genre_list,
+                        input_html: {id: 'genre_list_select2',
+                                name: 'genre_list_select2',
+                                multiple: true,
+                                data: {taggable: true, taggable_type: 'Film', context: 'genres'}},
+                        collection: @film.genre_list
+            .row
+              .col-md-4
+                h4 Year
+                = f.input :year
+              .col-md-4
+                h4 Length (min)
+                = f.input :length
+              .col-md-4
+                h4 MPAA Rating
+                = f.input :mpaa_rating,
+                        collection: Film.mpaa_ratings.collect {|a, i| [a.titleize, a]},
+                        prompt: 'Select an MPAA rating'
+            .row
+              .col-md-12
+                = image_tag(@film.cover_url(:display), class: 'img-responsive') if @film.cover_url(:display)
+                h4 Change Cover
+                h5 File Upload
+                = f.input :cover, type: :file
+                = f.hidden_field :cover_cache
+                h5 or Image Link
+                = f.input :remote_cover_url
+            - if !action_name.eql? 'new'
+              .row
+                .col-md-3
+                  h4 Catalog # 
+                .col-md-9
+                  = f.input :catalog_number
     .col-md-6
-      = render "inventory_items/inventory_item_fields", form: i, disabled: disabled
+      .panel.panel-primary
+        .panel-heading
+          h3.panel-title Digitized Versions
+        .panel-body
+          - digitized_versions_partial = 'digitized_version_fields'
+          div#digitized-versions
+            = f.simple_fields_for :digitized_versions do |builder|
+              = render digitized_versions_partial, f: builder
+          div#add-digitized-versions
+            = link_to_add_association 'Add a digitized version', f, :digitized_versions, {partial: digitized_versions_partial, class: 'btn btn-info'}
 
-  - if action_name == "new" || action_name == "create"
-    = i.submit "Create Film", class: "btn btn-info pull-right"
+  - if action_name.eql?('new') || action_name.eql?('create')
+    = f.submit 'Create Film', class: 'btn btn-info pull-right'
   - else
     - if policy(@film).destroy?
-      = link_to "Delete Film", film_path(@film), data: { confirm: 'Are you sure you want to delete this film?' }, :method => :delete, class: 'btn btn-danger pull-left'
-    = i.submit "Update Film", class: "btn btn-info pull-right"
+      = link_to 'Delete Film', film_path(@film), data: {confirm: 'Are you sure you want to delete this film?'}, :method => :delete, class: 'btn btn-danger pull-left'
+    = f.submit 'Update Film', class: 'btn btn-info pull-right'
 
 javascript:
     // If any form input changes, update the generated digitized version filename
-    $("form").on('input change', function() {
+    $("form").on('input change', function () {
         var catalog_number = $("form").find("input[id$=catalog_number]").val();
         var foreign_title = $("form").find("input[id$=foreign_title]").val();
         var english_title = $("form").find("input[id$=english_title]").val();
 
-        $("p.bg-info").each(function() {
+        $("p.bg-info").each(function () {
             var panel = $(this).closest(".panel-body");
             var audio = panel.find("select[id$=audio_language]").val();
             var subtitles = panel.find("select[id$=subtitle_language]").val();
@@ -177,7 +179,9 @@ javascript:
             }
 
             filename += " (Audio; " + audio;
-            if (subtitles) { filename +=  ", Subtitles; " + subtitles + ")"}
+            if (subtitles) {
+                filename += ", Subtitles; " + subtitles + ")"
+            }
             else filename += ")";
             $(this).text(filename);
         });

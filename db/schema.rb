@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_182908) do
+ActiveRecord::Schema.define(version: 2018_05_17_201858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,16 +28,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_182908) do
     t.datetime "updated_at", null: false
     t.integer "current_semester_year"
     t.integer "current_semester"
-  end
-
-  create_table "cds", id: :serial, force: :cascade do |t|
-    t.integer "language"
-    t.string "artist"
-    t.string "album"
-    t.integer "year"
-    t.text "tracks"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "courses", id: :serial, force: :cascade do |t|
@@ -73,12 +63,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_182908) do
     t.index ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id"
   end
 
-  create_table "equipment", id: :serial, force: :cascade do |t|
-    t.integer "equipment_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "film_digitizations", id: :serial, force: :cascade do |t|
     t.integer "course_id"
     t.integer "film_id"
@@ -109,30 +93,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_182908) do
     t.string "cover"
     t.string "more_info_link"
     t.string "catalog_number"
-  end
-
-  create_table "games", id: :serial, force: :cascade do |t|
-    t.string "english_title"
-    t.string "foreign_title"
-    t.text "audio_languages", default: [], array: true
-    t.text "subtitle_languages", default: [], array: true
-    t.integer "platform"
-    t.integer "year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "inventory_items", id: :serial, force: :cascade do |t|
-    t.string "catalog_number"
-    t.string "catalog_code"
-    t.integer "status"
-    t.text "status_description"
-    t.text "notes"
-    t.string "inventoriable_type"
-    t.integer "inventoriable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["inventoriable_id", "inventoriable_type"], name: "inventory_items_polymorphic_association_index"
   end
 
   create_table "mini_projects", id: :serial, force: :cascade do |t|

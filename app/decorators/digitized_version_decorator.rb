@@ -2,9 +2,9 @@ class DigitizedVersionDecorator < Draper::Decorator
   delegate_all
 
   def generated_filename
-    return "" if film.nil?
+    return '' if film.nil?
 
-    filename = film.inventory_item.catalog_number
+    filename = film.catalog_number || ''
     filename += " #{film.foreign_title}"
     filename += " (#{film.english_title})" if film.english_title.present?
     filename += " [#{full_title}]" if full_title
@@ -13,7 +13,7 @@ class DigitizedVersionDecorator < Draper::Decorator
     if (subtitle_language.present?)
       filename +=  ", Subtitles; #{subtitle_language})"
     else
-      filename += ")";
+      filename += ')';
     end
   end
 
