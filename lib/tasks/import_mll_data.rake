@@ -27,6 +27,7 @@ namespace :db do
 
 			# Format: pitm|username|first_name|last_name|role
 			# e.g. 12345678|cireficc|Chris|Cirefice|STUDENT
+			next if row[0].nil?
 
 			pitm = row[0]
 			username = row[1]
@@ -56,7 +57,8 @@ namespace :db do
 
 			# Format: course_id|semester_code|identifier|name
 			# e.g. 00000|201610|FRE100.01|FRE 100 01 - Imaginary French Course
-
+			next if row[0].nil?
+			
 			course_id = row[0]
 			semester_code = row[1]
 			identifier = row[2]
@@ -93,6 +95,8 @@ namespace :db do
 
 		# Iterate through all of the MLL enrollment data
 		CSV.foreach(lrc_enr, col_sep: '|', headers: false).each_with_index do |row, i|
+			
+			next if row[0].nil?
 
 			course_id = row[0].to_i
 			pitm = row[1]
