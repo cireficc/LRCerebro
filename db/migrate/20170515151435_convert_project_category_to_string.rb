@@ -1,5 +1,6 @@
-class ConvertProjectCategoryToString < ActiveRecord::Migration
-  def change
+class ConvertProjectCategoryToString < ActiveRecord::Migration[4.2]
+
+def change
     change_column :projects, :category, :string
 
     # Mapping for int enum values to string representation

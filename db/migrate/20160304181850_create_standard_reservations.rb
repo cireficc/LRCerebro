@@ -1,5 +1,6 @@
-class CreateStandardReservations < ActiveRecord::Migration
-    def change
+class CreateStandardReservations < ActiveRecord::Migration[4.2]
+
+def change
         create_table :standard_reservations do |t|
             t.belongs_to :course
             t.integer :activity

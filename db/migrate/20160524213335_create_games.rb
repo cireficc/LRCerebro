@@ -1,5 +1,6 @@
-class CreateGames < ActiveRecord::Migration
-  def change
+class CreateGames < ActiveRecord::Migration[4.2]
+
+def change
     create_table :games do |t|
       t.string :english_title
       t.string :foreign_title

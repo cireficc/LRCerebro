@@ -1,5 +1,6 @@
-class CreateCds < ActiveRecord::Migration
-  def change
+class CreateCds < ActiveRecord::Migration[4.2]
+
+def change
     create_table :cds do |t|
       t.integer :language
       t.string :artist

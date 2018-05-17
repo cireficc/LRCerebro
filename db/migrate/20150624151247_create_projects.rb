@@ -1,5 +1,6 @@
-class CreateProjects < ActiveRecord::Migration
-  def change
+class CreateProjects < ActiveRecord::Migration[4.2]
+
+def change
     create_table :projects do |t|
       t.belongs_to :course
       t.string :name

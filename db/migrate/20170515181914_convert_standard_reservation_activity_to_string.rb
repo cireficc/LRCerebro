@@ -1,5 +1,6 @@
-class ConvertStandardReservationActivityToString < ActiveRecord::Migration
-  def change
+class ConvertStandardReservationActivityToString < ActiveRecord::Migration[4.2]
+
+def change
     change_column :standard_reservations, :activity, :string
 
     # Mapping for int enum values to string representation

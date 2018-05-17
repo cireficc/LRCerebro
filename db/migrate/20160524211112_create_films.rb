@@ -1,5 +1,6 @@
-class CreateFilms < ActiveRecord::Migration
-  def change
+class CreateFilms < ActiveRecord::Migration[4.2]
+
+def change
     create_table :films do |t|
       t.integer :film_type
       t.string :english_title

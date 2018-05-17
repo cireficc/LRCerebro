@@ -1,5 +1,6 @@
-class RenameCoursesUsersTable < ActiveRecord::Migration
-    def self.up
+class RenameCoursesUsersTable < ActiveRecord::Migration[4.2]
+
+def self.up
         rename_table :courses_users, :enrollments
     end
   

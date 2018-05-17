@@ -1,5 +1,6 @@
-class CreateInventoryItems < ActiveRecord::Migration
-  def change
+class CreateInventoryItems < ActiveRecord::Migration[4.2]
+
+def change
     create_table :inventory_items do |t|
       t.string :catalog_number
       t.string :catalog_code

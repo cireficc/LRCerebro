@@ -1,5 +1,6 @@
-class CreateProjectReservations < ActiveRecord::Migration
-  def change
+class CreateProjectReservations < ActiveRecord::Migration[4.2]
+
+def change
     create_table :project_reservations do |t|
       t.belongs_to :project
       t.integer :category

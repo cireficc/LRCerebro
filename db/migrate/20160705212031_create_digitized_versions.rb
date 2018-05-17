@@ -1,5 +1,6 @@
-class CreateDigitizedVersions < ActiveRecord::Migration
-  def change
+class CreateDigitizedVersions < ActiveRecord::Migration[4.2]
+
+def change
     create_table :digitized_versions do |t|
       t.belongs_to :film
       t.string :audio_language

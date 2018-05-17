@@ -1,5 +1,6 @@
-class ChangeEnrollmentsColumnType < ActiveRecord::Migration
-  def self.up
+class ChangeEnrollmentsColumnType < ActiveRecord::Migration[4.2]
+
+def self.up
         change_column :enrollments, :user_id, :string
     end
   

@@ -1,5 +1,6 @@
-class CreateMiniProjects < ActiveRecord::Migration
-  def change
+class CreateMiniProjects < ActiveRecord::Migration[4.2]
+
+def change
     create_table :mini_projects do |t|
       t.belongs_to :course
       t.text :resources, array: true, default: []

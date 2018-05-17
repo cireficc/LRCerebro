@@ -1,5 +1,6 @@
-class CreateVidcams < ActiveRecord::Migration
-  def change
+class CreateVidcams < ActiveRecord::Migration[4.2]
+
+def change
     create_table :vidcams do |t|
       t.belongs_to :course
       t.string :location

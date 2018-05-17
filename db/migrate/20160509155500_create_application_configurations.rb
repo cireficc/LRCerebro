@@ -1,5 +1,6 @@
-class CreateApplicationConfigurations < ActiveRecord::Migration
-  def change
+class CreateApplicationConfigurations < ActiveRecord::Migration[4.2]
+
+def change
     create_table :application_configurations do |t|
       t.text :enrollment_update_message
       t.datetime :enrollment_last_updated

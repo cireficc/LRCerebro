@@ -1,5 +1,6 @@
-class CreateFilmDigitizations < ActiveRecord::Migration
-  def change
+class CreateFilmDigitizations < ActiveRecord::Migration[4.2]
+
+def change
     create_table :film_digitizations do |t|
       t.belongs_to :course
       t.belongs_to :film

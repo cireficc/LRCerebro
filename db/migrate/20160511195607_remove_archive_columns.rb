@@ -1,5 +1,6 @@
-class RemoveArchiveColumns < ActiveRecord::Migration
-  def change
+class RemoveArchiveColumns < ActiveRecord::Migration[4.2]
+
+def change
     remove_column :users, :archived
     remove_column :courses, :archived
     remove_column :enrollments, :archived
