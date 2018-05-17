@@ -3,7 +3,8 @@ require 'csv'
 namespace :db do
 	desc 'Imports MLL enrollment data from the Blackboard feed'
 	task import_mll_data: :environment do
-		mll_data_directory = Rails.root.join('..', 'lrc-feed')
+		# /app/lrcerebro/releases/CURRENT_RELEASE to /app/lrc-feed/MLL_FILES
+		mll_data_directory = Rails.root.join('..', '..', '..', 'lrc-feed')
 		lrc_ppl = mll_data_directory.join('lrc_ppl.txt')
 		lrc_crs = mll_data_directory.join('lrc_crs.txt')
 		lrc_enr = mll_data_directory.join('lrc_enr.txt')
