@@ -37,6 +37,7 @@ en:
             destroy:
                 success: "%{name} was successfully deleted."
         standard_reservation:
+            offline: "Lab reservation scheduling is disabled until the start of the new semester."
             create:
                 success: "Your reservation was successfully scheduled for %{start} in Lab %{lab}. %{schedule_another_html}"
             update:
@@ -44,6 +45,7 @@ en:
             destroy:
                 success: "Your reservation for %{start} was successfully cancelled."
         project:
+            offline: "The deadline for project proposal submissions was %{deadline}."
             create:
                 success: "Your project, %{name}, was successfully submitted. %{submit_another_html}"
             update:
@@ -51,6 +53,7 @@ en:
             destroy:
                 success: "%{name} was successfully deleted."
         mini_project:
+            offline: "Mini project submissions are disabled until the start of the new semester."
             create:
                 success: "Your mini project for %{course}, using [%{resources}], was successfully submitted. %{submit_another_html}"
             update:
@@ -58,6 +61,7 @@ en:
             destroy:
                 success: "Your mini project for %{course} was successfully deleted."
         film_digitization:
+            offline: "Film digitization requests are disabled until the start of the new semester."
             create:
                 success: "Your film digitization request for %{film_title} was successfully submitted."
             update:
@@ -65,6 +69,7 @@ en:
             destroy:
                 success: "Your film digitization request for %{film_title} was successfully deleted."
         vidcam:
+            offline: "Vidcam request submissions are disabled until the start of the new semester."
             create:
                 success: "Your vidcam request for %{course} in %{location} at %{start} was successfully submitted."
             update:
@@ -72,6 +77,7 @@ en:
             destroy:
                 success: "Your vidcam request for %{course} in %{location} at %{start} was successfully deleted."
         work:
+            offline: "Work request submissions are disabled until the start of the new semester."
             create:
                 success: "Your work request for %{course} was successfully submitted."
             update:

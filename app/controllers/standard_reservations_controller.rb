@@ -47,6 +47,13 @@ class StandardReservationsController < ApplicationController
 
     @standard_reservation = StandardReservation.new
     authorize @standard_reservation
+
+    # Director can use the form even if it is offline
+    if form_submission_allowed? || current_user.director?
+      render 'new'
+    else
+      render 'partials/_form_offline'
+    end
   end
 
   def create

@@ -1,8 +1,0 @@
-h2
-  | Form offline
-h4.text-warning The deadline for project proposal submissions was #{@config.class_project_submission_end}
-h4
-  | If you believe this is an error, please email 
-  = mail_to "shultzd@gvsu.edu", "David Shultz", {subject: "LRCerebro - Form Offline", cc: "cireficc@mail.gvsu.edu"}
-  | .
-input type= "button" onclick="history.back();" value="Back" class= "btn btn-primary"

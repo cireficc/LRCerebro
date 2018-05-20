@@ -1,0 +1,20 @@
+- form_type = controller_name.singularize
+- offline_path = "#{form_type}.offline"
+- project = controller_name.eql?('projects')
+.text-center
+  h2 #{form_type.titleize} form offline
+  h4
+    - if project
+      = t offline_path, scope: 'forms', deadline: @config.class_project_submission_end
+    - else
+      = t offline_path, scope: 'forms'
+  - if !project
+    h4
+      | Please consult the 
+      = link_to 'GVSU academic calendar', 'https://www.gvsu.edu/registrar/academiccalendar.htm', target: :blank
+      |  for the next semester's start date when <em>classes begin</em>.
+  h4
+    | If you believe this is an error, please email 
+    = mail_to 'shultzd@gvsu.edu', 'David Shultz', {subject: 'LRCerebro - Form Offline', cc: 'cireficesystems@gmail.com'}
+    | .
+  button onclick='history.back();' class= 'btn btn-primary' Back

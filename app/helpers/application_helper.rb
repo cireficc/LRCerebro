@@ -39,4 +39,10 @@ module ApplicationHelper
   def site_wide_search?
     controller_name.eql? 'search'
   end
+  
+  def form_submission_allowed?
+    config = ApplicationConfiguration.last
+    now = Time.now.asctime.in_time_zone('UTC')
+    now >= config.current_semester_start && now <= config.current_semester_end
+  end
 end

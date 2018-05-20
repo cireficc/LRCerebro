@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
       render "#{@view_path}/new"
     else
       flash.now[:danger] = @config.class_project_after_deadline_message
-      render 'form_offline'
+      render 'partials/_form_offline'
     end
   end
 

@@ -35,6 +35,13 @@ class FilmDigitizationsController < ApplicationController
 
     @film_digitization = FilmDigitization.new
     authorize @film_digitization
+
+    # Director can use the form even if it is offline
+    if form_submission_allowed? || current_user.director?
+      render 'new'
+    else
+      render 'partials/_form_offline'
+    end
   end
 
   def create

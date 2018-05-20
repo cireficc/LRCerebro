@@ -33,6 +33,13 @@ class MiniProjectsController < ApplicationController
 
     @mini_project = MiniProject.new
     authorize @mini_project
+
+    # Director can use the form even if it is offline
+    if form_submission_allowed? || current_user.director?
+      render 'new'
+    else
+      render 'partials/_form_offline'
+    end
   end
 
   def create
