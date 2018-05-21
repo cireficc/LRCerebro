@@ -8,7 +8,7 @@ gem 'pg', '~> 1.0.0'
 # Use Devise as an authentication solution
 gem 'devise', '~> 4.2'
 # Use Bcrypt to encrypt passwords in the database
-gem 'bcrypt', '~> 3.1.10'
+gem 'bcrypt', '~> 3.1.12'
 # Use Pundit as a role-based resource restriction mechanism
 gem 'pundit', '~> 1.0.1'
 # Use Slim as the view templating engine (similar to Jade)
@@ -24,9 +24,9 @@ gem 'momentjs-rails', '>= 2.9.0'
 # https://github.com/TrevorS/bootstrap3-datetimepicker-rails
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
-gem 'google-api-client', '~> 0.9'
+gem 'google-api-client', '~> 0.21.2'
 # Use Simple Form for forms instead of building complex forms by hand
-gem 'simple_form', '~> 4.0.0'
+gem 'simple_form', '~> 4.0.1'
 # Use Acts-As-Taggable-On for tagging models
 # gem 'acts-as-taggable-on', '~> 5.0.0'
 gem 'acts-as-taggable-on', git: 'https://github.com/Fodoj/acts-as-taggable-on.git', branch: 'rails-5.2'
