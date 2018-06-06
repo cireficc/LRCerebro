@@ -63,6 +63,7 @@ student = User.create(username: 'student', pitm: 'STUDENT', password: 'student',
 wardse = User.create(username: 'wardse', pitm: 'WARDSE', first_name: 'Séverine', last_name: 'Ward', role: User.roles[:faculty], registered: false)
 fuchsk = User.create(username: 'fuchsk', pitm: 'FUCHSK', first_name: 'Kevin', last_name: 'Fuchs', role: User.roles[:faculty], registered: true)
 cireficc = User.create(username: 'cireficc', pitm: 'CIREFICC', first_name: 'Chris', last_name: 'Cirefice', role: User.roles[:student], registered: false)
+instructor_tbd = User.create(username: 'instructor_tbd', pitm: 'INSTRUCTOR_TBD', first_name: 'Instructor', last_name: 'TBD', role: User.roles[:faculty])
 
 # Create a few courses for users to be enrolled in
 spa = Course.create(year: YEAR, semester: 0, department: 7, course: 101, section: 01, name: 'SPA 101 01 - Elementary Spanish I')
