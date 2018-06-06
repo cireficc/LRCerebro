@@ -49,6 +49,8 @@ gem 'net-ldap'
 gem 'cocoon', '~> 1.2.9'
 # Use Draper for view-models (keep view code out of models)
 gem 'draper', '~> 3.0.1'
+# Use Asana for task management API access
+gem 'asana', '~> 0.6.3'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
