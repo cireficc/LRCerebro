@@ -1,11 +1,9 @@
 GIT
-  remote: https://github.com/Fodoj/acts-as-taggable-on.git
-  revision: eee01af2fa01563f353627fa2e775cdab8026164
-  branch: rails-5.2
+  remote: https://github.com/mbleigh/acts-as-taggable-on.git
+  revision: a1d0d30bf5d545e3b639a0a43336e341a9a17167
   specs:
     acts-as-taggable-on (5.0.0)
-      activerecord (>= 5.0)
-      rake
+      activerecord (~> 5.0)
 
 GEM
   remote: https://rubygems.org/
