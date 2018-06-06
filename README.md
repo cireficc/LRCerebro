@@ -44,4 +44,4 @@ The other exports are the calendars used in development mode, separate from the 
 4. `cp ../lrc-feed/lrc_enr.txt current/db/MLL_data/`
 5. `vim` each of the lrc_*.txt documents and remove empty lines at the end of the file
 5. `cd current`
-6. `bundle exec rake db:seed`
+6. `bundle exec rake db:import_mll_data`
