@@ -19,7 +19,7 @@ module AsanaHelper
 		tag_task = @client.tasks.find_by_id(TAG_TASK_ID)
 		puts "Tag task: #{tag_task.inspect}"
 
-		tags = tag_task.tags(per_page: 100)
+		tags = get_all_workspace_tags
 		puts "Existing tag task tags: #{tags.count}"
 
 		tag_names = tags.collect(&:name)
@@ -30,11 +30,21 @@ module AsanaHelper
 
 		to_create.each do |tag|
 			puts "Adding tag ##{tag} to tag task"
-			t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag)
-			tag_task.add_tag(tag: t.id)
+			t = create_and_attach_tag(tag_task, tag)
 			puts t
 		end
 	end
+	
+	def self.create_and_attach_tag(task, tag_name)
+		t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag_name)
+		task.add_tag(tag: t.id)
+		t
+	end
+	def self.get_all_workspace_tags
+		tags = @client.tags.find_all(workspace: LRC_WORKSPACE_ID)
+		tags.sort_by(&:name)
+	end
+	
 
 	# Show all projects for a workspace
 	# projects = client.projects.find_all(workspace: LRC_WORKSPACE_ID)
