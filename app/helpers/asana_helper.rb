@@ -25,7 +25,7 @@ module AsanaHelper
 		puts "Tag task: #{tag_task.inspect}"
 
 		tags = get_all_workspace_tags
-		puts "Existing tag task tags: #{tags.count}"
+		puts "Existing workspace tags: #{tags.count}"
 
 		tag_names = tags.collect(&:name)
 		faculty = User.where(role: :faculty)
