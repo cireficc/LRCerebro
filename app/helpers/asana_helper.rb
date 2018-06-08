@@ -53,11 +53,24 @@ module AsanaHelper
 		matching.first if matching.any?
 	end
 
+	def self.show_all_workspaces
+		ws = @client.workspaces.find_all
+		ws.each do |w|
+			puts w.inspect
+		end
+	end
+
+	def self.show_all_tasks
+		tasks = @client.tasks.find_all(project: LRCEREBRO_PROJECT_ID, completed_since: 'now')
+		tasks.each do |t|
+			t = @client.tasks.find_by_id(t.id)
+		end
+	end
+
 	def self.get_all_workspace_tags
 		tags = @client.tags.find_all(workspace: LRC_WORKSPACE_ID)
 		tags.sort_by(&:name)
 	end
-	
 
 	# Show all projects for a workspace
 	# projects = client.projects.find_all(workspace: LRC_WORKSPACE_ID)
