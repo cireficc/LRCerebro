@@ -21,13 +21,13 @@ module AsanaHelper
 		rescue Asana::Errors::NotFound
 			tag_task = @client.tasks.create(TAG_TASK_CREATE_DATA)
 		end
-		
+
 		puts "Tag task: #{tag_task.inspect}"
 
-		tags = get_all_workspace_tags
-		puts "Existing workspace tags: #{tags.count}"
+		existing_tags = get_all_workspace_tags
+		puts "Existing workspace tags: #{existing_tags.count}"
 
-		tag_names = tags.collect(&:name)
+		tag_names = existing_tags.collect(&:name)
 		faculty = User.where(role: :faculty)
 		courses = Course.active.decorate
 		faculty_course_tags = (faculty.collect(&:last_name) + courses.collect(&:short_name))
@@ -35,16 +35,24 @@ module AsanaHelper
 
 		to_create.each do |tag|
 			puts "Adding tag ##{tag} to tag task"
-			t = create_and_attach_tag(tag_task, tag)
+			t = create_and_attach_tag(existing_tags, tag_task, tag)
 			puts t
 		end
 	end
 
-	def self.create_and_attach_tag(task, tag_name)
-		t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag_name)
+	def self.create_and_attach_tag(existing_tags, task, tag_name)
+
+		t = get_tag_by_name(existing_tags, tag_name)
+		t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag_name) if t.nil?
+
 		task.add_tag(tag: t.id)
-		t
 	end
+
+	def self.get_tag_by_name(existing_tags, tag_name)
+		matching = existing_tags.select {|t| t.name.casecmp?(tag_name)}
+		matching.first if matching.any?
+	end
+
 	def self.get_all_workspace_tags
 		tags = @client.tags.find_all(workspace: LRC_WORKSPACE_ID)
 		tags.sort_by(&:name)
