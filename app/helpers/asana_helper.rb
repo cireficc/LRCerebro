@@ -70,10 +70,4 @@ module AsanaHelper
 	# tasks.each do |t|
 	# 	puts t.inspect
 	# end
-
-	# # Get all tags for the workspace
-	# tags = client.tags.find_all(workspace: lrc.id)
-	# tags.each do |t|
-	# 	puts t.inspect
-	# end
 end
