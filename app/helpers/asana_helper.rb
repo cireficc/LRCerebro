@@ -15,6 +15,45 @@ module AsanaHelper
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
 
+	def self.create_vidcam_task(vidcam)
+		
+		vidcam = vidcam.decorate
+		
+		filming_notes = "Location: #{vidcam.location}
+Start: #{vidcam.start}
+End: #{vidcam.end}
+Additional Instructions: #{vidcam.additional_instructions}
+Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
+		
+		filming_task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: "Vidcam Filming: #{vidcam.location}",
+				due_at: ApplicationHelper.local_to_utc(vidcam.publish_by),
+				notes: filming_notes
+		}
+
+		publishing_notes = "Additional Instructions: #{vidcam.additional_instructions}
+Publish By: #{vidcam.publish_by}
+Upload to Ensemble: #{vidcam.upload_to_ensemble_string}
+Publish Methods: #{vidcam.stringified_publish_methods}
+Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
+
+		publishing_task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: "Vidcam Publishing: #{vidcam.location}",
+				due_at: ApplicationHelper.local_to_utc(vidcam.publish_by),
+				notes: publishing_notes
+		}
+
+		filming_task = @client.tasks.create(filming_task_data)
+		publishing_task = @client.tasks.create(publishing_task_data)
+		existing_tags = get_all_workspace_tags
+		create_and_attach_tag(existing_tags, filming_task, vidcam.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, filming_task, vidcam.course.instructor.last_name)
+		create_and_attach_tag(existing_tags, publishing_task, vidcam.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, publishing_task, vidcam.course.instructor.last_name)
+	end
+
 	def self.create_work_task(work)
 		
 		task_data = {
