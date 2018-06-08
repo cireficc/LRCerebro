@@ -11,7 +11,6 @@ table#film_digitizations.table.table-hover
       th Subtitle Language
       th Due Date
       th Submitted
-      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
@@ -32,8 +31,6 @@ table#film_digitizations.table.table-hover
         td #{digitization.subtitle_language.titleize}
         td #{digitization.due_date}
         td #{digitization.created_at}
-        td
-          = digitization.producteevified
         td
           - if policy(digitization).show?
             = link_to 'Details', film_digitization_path(digitization), class: 'btn btn-xs btn-default'

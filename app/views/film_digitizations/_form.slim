@@ -11,44 +11,6 @@
                   label: false,
                   input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
                           on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
-    - if action_name == 'edit'
-      - instructor = @film_digitization.course.instructor.decorate
-      - email = instructor.email_address
-      - course = @film_digitization.course.decorate.short_name
-      - film_title = @film_digitization.decorate.full_title
-      .row
-        .col-md-6.col-md-offset-3
-          #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
-            .panel-heading
-              .row
-                .col-md-2
-                  button#producteev_overview_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_title" type="button"
-                    span.glyphicon.glyphicon-copy
-                    |  Copy title
-                .col-md-10
-                  h5#producteev_overview_title ##{instructor.last_name} ##{course} Film Digitization Request: #{film_title}
-            .panel-body
-              #producteev_overview_body
-                p
-                  button#producteev_overview_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_body" type="button"
-                    span.glyphicon.glyphicon-copy
-                    |  Copy body
-                p
-                  | Instructor: #{instructor.full_name} (#{email})
-                  br
-                  | Course: #{course}
-                p
-                  | Film Source: #{@film_digitization.media_source}
-                  br
-                  | Film: #{film_title}
-                  br
-                  | Audio Language: #{@film_digitization.audio_language.titleize}
-                  br
-                  | Subtitle Language: #{@film_digitization.subtitle_language.titleize}
-                  br
-                  | Due Date: #{@film_digitization.due_date}
-                p
-                  | Submitted: #{@film_digitization.created_at}
     .row
       .col-md-6.col-md-offset-3
         .panel.panel-info
