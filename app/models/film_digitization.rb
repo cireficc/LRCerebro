@@ -5,6 +5,8 @@ class FilmDigitization < ActiveRecord::Base
   belongs_to :film
   validates :course_id, :due_date, :media_source, :audio_language, :subtitle_language, presence: true
   validate :film_or_title_present
+  
+  after_create :create_film_digitization_task, unless: :seeding_development_database
 
   MEDIA_SOURCES = [
       "LRC film collection",
@@ -31,5 +33,13 @@ class FilmDigitization < ActiveRecord::Base
 
   def active?
     self.course.active?
+  end
+
+  def create_film_digitization_task
+    AsanaHelper.create_film_digitization_task(self)
+  end
+
+  def seeding_development_database
+    Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
 end

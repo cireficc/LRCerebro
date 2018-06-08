@@ -15,6 +15,29 @@ module AsanaHelper
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
 
+	def self.create_film_digitization_task(film_digitization)
+		
+		film_digitization = film_digitization.decorate
+		
+		notes = "Film Source: #{film_digitization.media_source}
+Film: #{film_digitization.full_title}
+Audio Language: #{film_digitization.audio_language.titleize}
+Subtitle Language: #{film_digitization.subtitle_language.titleize}
+Submitted: #{ApplicationHelper.utc_to_local(film_digitization.created_at)}"
+
+		task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: "Film Digitization Request: #{film_digitization.full_title}",
+				due_at: ApplicationHelper.local_to_utc(film_digitization.due_date),
+				notes: notes
+		}
+
+		task = @client.tasks.create(task_data)
+		existing_tags = get_all_workspace_tags
+		create_and_attach_tag(existing_tags, task, film_digitization.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, task, film_digitization.course.instructor.last_name)
+	end
+
 	def self.create_vidcam_task(vidcam)
 		
 		vidcam = vidcam.decorate
