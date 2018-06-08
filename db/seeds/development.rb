@@ -24,7 +24,7 @@ Film.create!(film_type: 2, english_title: "The Lion King", foreign_title: "El Re
              audio_languages: ["english", "spanish"], subtitle_languages: ["english", "spanish"], year: 1994, length: 89, mpaa_rating: 0,
              director_list: ["Roger Allers", "Rob Minkoff"], cast_member_list: ["Matthew Broderick", "Jeremy Irons", "James Earl Jones"], genre_list: ["Animation", "Adventure", "Drama"],
              cover: File.open(File.join(IMAGE_PATH, 'El Rey Leon.jpg')), more_info_link: "http://www.imdb.com/title/tt0110357/")
-Film.create!(film_type: 2, english_title: "Life Is Beautiful", foreign_title: "La vita è bella", transliterated_foreign_title: "La vita e bella",
+el_rey_leon = Film.create!(film_type: 2, english_title: "Life Is Beautiful", foreign_title: "La vita è bella", transliterated_foreign_title: "La vita e bella",
              description: "When an open-minded Jewish librarian and his son become victims of the Holocaust, he uses a perfect mixture of will, humor and imagination to protect his son from the dangers around their camp.",
              audio_languages: ["english", "italian"], subtitle_languages: ["english", "italian"], year: 1997, length: 116, mpaa_rating: 2,
              director_list: ["Roberto Benigni"], cast_member_list: ["Roberto Benigni", "Nicoletta Braschi", "Giorgio Cantarini"], genre_list: ["Comedy", "Drama", "Romance"],
@@ -201,7 +201,7 @@ StandardReservation.create!(course: spa, activity: 'DiLL Paired (Synchronous) Re
 StandardReservation.create!(course: fre, activity: 'Writing or Web Research', start: DateTime.new(YEAR, 9, 6, 6, 0, 0, '-5'), end: DateTime.new(YEAR, 9, 6, 6, 50, 0, '-5'), lab: Lab.locations[:b],
                             walkthrough: true, utilities: ['projector'])
 
-FilmDigitization.create!(course: spa, film: film3, due_date: DateTime.new(YEAR, 10, 17, 5, 0, 0, '-5'), media_source: 'LRC film collection', audio_language: 'Spanish', subtitle_language: 'English')
+FilmDigitization.create!(course: spa, film: el_rey_leon, due_date: DateTime.new(YEAR, 10, 17, 5, 0, 0, '-5'), media_source: 'LRC film collection', audio_language: 'Spanish', subtitle_language: 'English')
 FilmDigitization.create!(course: fre, due_date: DateTime.new(YEAR, 10, 28, 5, 0, 0, '-5'), media_source: 'Drop off at LRC Help Desk', film_title: 'Amélie', audio_language: 'French', subtitle_language: 'French')
 
 Vidcam.create!(course: spa, location: 'Au Sable Hall 334', start: DateTime.new(YEAR, 9, 15, 5, 0, 0, '-5'), end: DateTime.new(YEAR, 9, 15, 5, 50, 0, '-5'), publish_by: DateTime.new(YEAR, 9, 20, 5, 0, 0, '-5'),

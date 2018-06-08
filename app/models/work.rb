@@ -3,7 +3,7 @@ class Work < ActiveRecord::Base
 
   belongs_to :course
   validates :course_id, :due_date, :instructions, presence: true
-  after_create :create_work_task
+  after_create :create_work_task, unless: :seeding_development_database
 
   def search_data
     {
@@ -22,5 +22,9 @@ class Work < ActiveRecord::Base
   
   def create_work_task
     AsanaHelper.create_work_task(self)
+  end
+
+  def seeding_development_database
+    Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
 end
