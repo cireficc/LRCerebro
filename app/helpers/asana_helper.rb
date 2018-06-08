@@ -8,7 +8,7 @@ module AsanaHelper
 	TAG_TASK_CREATE_DATA = {
 			projects: [LRCEREBRO_PROJECT_ID],
 			name: '[DO NOT MODIFY/DELETE] Tag Task',
-			notes: 'This task is created and maintained by LRCerebro. Do not modify or delete this task, or tags will stop working in Asana!'
+			notes: 'This task is created and maintained by LRCerebro. Do not modify or delete this task, or course/instructor tags will stop working properly in Asana!'
 	}
 
 	@client = Asana::Client.new do |c|
