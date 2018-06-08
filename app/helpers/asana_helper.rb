@@ -78,6 +78,7 @@ module AsanaHelper
 		tasks = @client.tasks.find_all(project: LRCEREBRO_PROJECT_ID, completed_since: 'now')
 		tasks.each do |t|
 			t = @client.tasks.find_by_id(t.id)
+			puts t.inspect
 		end
 	end
 
