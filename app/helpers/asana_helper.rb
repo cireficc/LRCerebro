@@ -10,13 +10,18 @@ module AsanaHelper
 			name: '[DO NOT MODIFY/DELETE] Tag Task',
 			notes: 'This task is created and maintained by LRCerebro. Do not modify or delete this task, or tags will stop working in Asana!'
 	}
-	
+
 	@client = Asana::Client.new do |c|
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
 	
 	def self.update_tags
-		tag_task = @client.tasks.find_by_id(TAG_TASK_ID)
+		begin
+			tag_task = @client.tasks.find_by_id(TAG_TASK_ID)
+		rescue Asana::Errors::NotFound
+			tag_task = @client.tasks.create(TAG_TASK_CREATE_DATA)
+		end
+		
 		puts "Tag task: #{tag_task.inspect}"
 
 		tags = get_all_workspace_tags
@@ -34,7 +39,7 @@ module AsanaHelper
 			puts t
 		end
 	end
-	
+
 	def self.create_and_attach_tag(task, tag_name)
 		t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag_name)
 		task.add_tag(tag: t.id)
