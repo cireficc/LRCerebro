@@ -3,6 +3,7 @@ class Work < ActiveRecord::Base
 
   belongs_to :course
   validates :course_id, :due_date, :instructions, presence: true
+  after_create :create_work_task
 
   def search_data
     {
@@ -17,5 +18,9 @@ class Work < ActiveRecord::Base
 
   def active?
     self.course.active?
+  end
+  
+  def create_work_task
+    AsanaHelper.create_work_task(self)
   end
 end

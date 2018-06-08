@@ -14,7 +14,21 @@ module AsanaHelper
 	@client = Asana::Client.new do |c|
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
-	
+
+	def self.create_work_task(work)
+		task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: 'Work Request',
+				due_at: ApplicationHelper.local_to_utc(work.due_date),
+				notes: work.instructions
+		}
+
+		task = @client.tasks.create(task_data)
+		existing_tags = get_all_workspace_tags
+		create_and_attach_tag(existing_tags, task, work.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, task, work.course.instructor.last_name)
+	end
+
 	def self.update_tags
 		begin
 			tag_task = @client.tasks.find_by_id(TAG_TASK_ID)
