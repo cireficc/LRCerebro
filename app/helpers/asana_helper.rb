@@ -20,7 +20,7 @@ module AsanaHelper
 				projects: [LRCEREBRO_PROJECT_ID],
 				name: 'Work Request',
 				due_at: ApplicationHelper.local_to_utc(work.due_date),
-				notes: work.instructions
+				notes: "#{work.instructions}\n\nSubmitted: #{ApplicationHelper.utc_to_local(work.created_at)}"
 		}
 
 		task = @client.tasks.create(task_data)
