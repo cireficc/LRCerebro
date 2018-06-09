@@ -2,15 +2,6 @@
   // Disable the form fields if in the 'show' action
   - disabled = action_name == "show"
   fieldset disabled = disabled
-    - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
-      .row
-        .col-md-1.col-md-offset-4
-          button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
-        .col-md-3
-          = f.input :added_to_producteev,
-                  label: false,
-                  input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
-                          on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
     .row
       .col-md-6.col-md-offset-3
         .panel.panel-info
