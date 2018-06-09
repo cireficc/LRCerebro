@@ -1,53 +1,5 @@
 = render 'projects/project_reservation_calendar'
 = simple_form_for @project do |f|
-  - if action_name == 'edit' && (current_user.director? || current_user.labasst?)
-    .row
-      .col-md-1.col-md-offset-4
-        button.btn-sm.btn-primary data-target='#producteev_overview_collapse' data-toggle='collapse' type='button' Producteev Overview
-      .col-md-3
-        = f.input :added_to_producteev,
-                label: false,
-                input_html: {data: {label_text: 'Added to Producteev?', label_width: 150,
-                        on_text: 'Yes', off_text: 'No', on_color: 'success', off_color: 'danger'}}
-  - if action_name == 'edit'
-    - instructor = @project.course.instructor.decorate
-    - email = instructor.email_address
-    - course = @project.course.decorate.short_name
-    .row
-      .col-md-6.col-md-offset-3
-        #producteev_overview_collapse.panel.panel-primary.panel-collapse.collapse
-          .panel-heading
-            .row
-              .col-md-2
-                button#producteev_overview_title_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_title" type="button"
-                  span.glyphicon.glyphicon-copy
-                  |  Copy title
-              .col-md-10
-                h5#producteev_overview_title ##{instructor.last_name} ##{course} Project Publishing: #{@project.category} ("#{@project.name}")
-          .panel-body
-            #producteev_overview_body
-              p
-                button#producteev_overview_body_copy.btn.btn-sm.btn-success data-clipboard-target="#producteev_overview_body" type="button"
-                  span.glyphicon.glyphicon-copy
-                  |  Copy body
-              p
-                | Instructor: #{instructor.full_name} (#{email})
-                br
-                | Course: #{course}
-              p
-                | Type: #{@project.category}
-                br
-                | Name: #{@project.name}
-                br
-                | Description: #{@project.description}
-              p
-                | Due Date: #{@project.due}
-                br
-                | Publish By: #{@project.publish_by}
-                br
-                | Publish Method(s): #{@project.stringified_publish_methods}
-              p
-                | Submitted: #{@project.created_at}
   .panel.panel-info
     .panel-heading
       h3.panel-title
