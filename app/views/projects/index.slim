@@ -13,8 +13,6 @@ table#projects.table.table-hover
       th Published By
       th Submitted
       th Status
-      - if current_user.director? || current_user.labasst?
-        th Added to Producteev?
       th.no-sort
       th.no-sort
       th.no-sort
@@ -36,8 +34,6 @@ table#projects.table.table-hover
         td #{project.created_at}
         td
           = project.status
-        td
-          = project.producteevified
         td
           a.glyphicon.glyphicon-info-sign data-target="#project_modal_#{project.id}" data-toggle="modal" role="button" title="Preview this project"
           = render partial: "projects/project_overview", locals: { p: project }
