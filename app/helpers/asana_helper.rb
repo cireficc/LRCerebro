@@ -15,6 +15,31 @@ module AsanaHelper
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
 
+	def self.create_project_task(project)
+
+		project = project.decorate
+
+		notes = "Type: #{project.category}
+Name: #{project.name}
+Description: #{project.description}
+Due Date: #{project.due}
+Publish By: #{project.publish_by}
+Publish Method(s): #{project.stringified_publish_methods}
+Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
+
+		task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: "Project Publishing: #{project.category} (#{project.name})",
+				due_at: ApplicationHelper.local_to_utc(project.due),
+				notes: notes
+		}
+
+		task = @client.tasks.create(task_data)
+		existing_tags = get_all_workspace_tags
+		create_and_attach_tag(existing_tags, task, project.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, task, project.course.instructor.last_name)
+	end
+
 	def self.create_mini_project_task(mini_project)
 
 		mini_project = mini_project.decorate
