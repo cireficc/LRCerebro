@@ -78,20 +78,3 @@
         - if policy(@film_digitization).destroy?
           = link_to "Delete Film Digitization Request", film_digitization_path(@film_digitization), data: { confirm: 'Are you sure you want to delete this film digitization request?' }, :method => :delete, class: 'btn btn-danger pull-left'
         = f.submit "Update Film Digitization Request", class: "btn btn-info pull-right"
-
-javascript:
-    $('#film_digitization_added_to_producteev').bootstrapSwitch();
-
-    var title = new Clipboard('#producteev_overview_title_copy');
-    title.on('success', function (e) {
-        copy = $('#producteev_overview_title_copy');
-        copy.html(copy.html().replace('Copy title', 'Title copied!'));
-        e.clearSelection();
-    });
-
-    var body = new Clipboard('#producteev_overview_body_copy');
-    body.on('success', function (e) {
-        copy = $('#producteev_overview_body_copy');
-        copy.html(copy.html().replace('Copy body', 'Body copied!'));
-        e.clearSelection();
-    });

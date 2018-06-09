@@ -255,34 +255,6 @@ $(document).on('click', '#search_fields_toggle', function(event) {
     
 });
 
-$(document).on('click', '#producteev_toggle', function(event) {
-
-    event.preventDefault();
-    
-    var state = $(this).data('state');
-    var search = $(this).parents('#search').first();
-    var table = search.next().find('table');
-    var column_index = 0;
-    
-    table.find('th').each(function(index){
-        if($(this).text() === 'Added to Producteev?')
-            column_index = index;
-    });
-    
-    table.find('tr').filter(function () {
-        console.log("data-producteev: " + $(this).data('producteev'));
-        return $(this).data('producteev') == true;
-    }).toggle('slow');
-    
-    if (state == 'hidden') {
-        $(this).data('state', 'visible');
-        $(this).text('Hide Producteev-ified rows');
-    } else {
-        $(this).data('state', 'hidden');
-        $(this).text('Show Producteev-ified rows');
-    }
-});
-
 function updateGoogleCalendarIframe(newTimestamp) {
     
     var newDate = new Date(newTimestamp);

@@ -12,8 +12,7 @@ table#works.table.table-hover
       th.no-sort
   tbody
     - @works.each do |work|
-      - hidden = work.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{work.course.instructor.decorate.full_name}
           '

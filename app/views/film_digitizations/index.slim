@@ -15,8 +15,7 @@ table#film_digitizations.table.table-hover
       th.no-sort
   tbody
     - @film_digitizations.each do |digitization|
-      - hidden = digitization.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{digitization.course.instructor.decorate.full_name}
           '

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_201858) do
+ActiveRecord::Schema.define(version: 2018_06_08_222014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_201858) do
     t.text "additional_instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "added_to_producteev"
   end
 
   create_table "films", id: :serial, force: :cascade do |t|
@@ -108,7 +107,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_201858) do
     t.datetime "updated_at", null: false
     t.string "google_calendar_publish_event_id"
     t.text "supplemental_materials_description"
-    t.boolean "added_to_producteev"
   end
 
   create_table "project_reservations", id: :serial, force: :cascade do |t|
@@ -142,7 +140,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_201858) do
     t.datetime "updated_at"
     t.string "google_calendar_publish_event_id"
     t.text "publish_methods", default: [], array: true
-    t.boolean "added_to_producteev"
   end
 
   create_table "standard_reservations", id: :serial, force: :cascade do |t|
@@ -204,7 +201,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_201858) do
     t.string "google_calendar_publishing_event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "added_to_producteev"
   end
 
   create_table "works", id: :serial, force: :cascade do |t|
@@ -213,7 +209,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_201858) do
     t.text "instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "added_to_producteev"
   end
 
 end

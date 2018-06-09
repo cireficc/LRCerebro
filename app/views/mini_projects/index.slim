@@ -17,8 +17,7 @@ table#mini_projects.table.table-hover
       th.no-sort
   tbody
     - @mini_projects.each do |mini|
-      - hidden = mini.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{mini.course.instructor.decorate.full_name}
           '

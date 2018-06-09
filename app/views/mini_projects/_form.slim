@@ -104,20 +104,3 @@
     - if policy(@mini_project).destroy?
       = link_to "Delete Mini Project", mini_project_path(@mini_project), data: { confirm: 'Are you sure you want to delete this mini project?' }, :method => :delete, class: 'btn btn-danger pull-left'
     = f.submit "Update Mini Project", class: "btn btn-info pull-right"
-
-javascript:
-    $('#mini_project_added_to_producteev').bootstrapSwitch();
-
-    var title = new Clipboard('#producteev_overview_title_copy');
-    title.on('success', function (e) {
-        copy = $('#producteev_overview_title_copy');
-        copy.html(copy.html().replace('Copy title', 'Title copied!'));
-        e.clearSelection();
-    });
-
-    var body = new Clipboard('#producteev_overview_body_copy');
-    body.on('success', function (e) {
-        copy = $('#producteev_overview_body_copy');
-        copy.html(copy.html().replace('Copy body', 'Body copied!'));
-        e.clearSelection();
-    });

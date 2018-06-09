@@ -123,20 +123,3 @@
     .col-md-1.pull-right
       = f.submit "Save Project", class: "btn btn-info pull-right"
   br
-
-javascript:
-    $('#project_added_to_producteev').bootstrapSwitch();
-
-    var title = new Clipboard('#producteev_overview_title_copy');
-    title.on('success', function (e) {
-        copy = $('#producteev_overview_title_copy');
-        copy.html(copy.html().replace('Copy title', 'Title copied!'));
-        e.clearSelection();
-    });
-
-    var body = new Clipboard('#producteev_overview_body_copy');
-    body.on('success', function (e) {
-        copy = $('#producteev_overview_body_copy');
-        copy.html(copy.html().replace('Copy body', 'Body copied!'));
-        e.clearSelection();
-    });
