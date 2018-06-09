@@ -15,6 +15,32 @@ module AsanaHelper
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
 
+	def self.create_mini_project_task(mini_project)
+
+		mini_project = mini_project.decorate
+
+		notes = "Resources: #{mini_project.stringified_resources}
+Description: #{mini_project.description}
+Supplemental Materials: #{mini_project.supplemental_materials_description}
+Start Date: #{mini_project.start_date}
+Due Date: #{mini_project.due_date}
+Publish By: #{mini_project.publish_by}
+Publish Method(s): #{mini_project.stringified_publish_methods}
+Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
+
+		task_data = {
+				projects: [LRCEREBRO_PROJECT_ID],
+				name: "Mini Project: #{mini_project.stringified_resources}",
+				due_at: ApplicationHelper.local_to_utc(mini_project.due_date),
+				notes: notes
+		}
+
+		task = @client.tasks.create(task_data)
+		existing_tags = get_all_workspace_tags
+		create_and_attach_tag(existing_tags, task, mini_project.course.decorate.short_name)
+		create_and_attach_tag(existing_tags, task, mini_project.course.instructor.last_name)
+	end
+
 	def self.create_film_digitization_task(film_digitization)
 		
 		film_digitization = film_digitization.decorate

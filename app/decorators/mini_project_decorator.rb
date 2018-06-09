@@ -14,11 +14,11 @@ class MiniProjectDecorator < Draper::Decorator
   end
 
   def stringified_resources
-    resources.join(", ")
+    resources.reject(&:empty?).join(", ")
   end
 
   def stringified_publish_methods
-    publish_methods.map(&:titleize).join(", ")
+    publish_methods.reject(&:empty?).map(&:titleize).join(", ")
   end
 
   def supplemental_materials_string
