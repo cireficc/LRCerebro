@@ -3,6 +3,13 @@ module AsanaHelper
 
 	LRC_WORKSPACE_ID = Rails.application.secrets.asana_lrc_workspace_id
 	LRCEREBRO_PROJECT_ID = Rails.application.secrets.asana_lrcerebro_project_id
+	PROJECT_PUBLISHING_PROJECT_ID = Rails.application.secrets.asana_project_publishing_project_id
+	MINI_PROJECTS_PROJECT_ID = Rails.application.secrets.asana_mini_projects_project_id
+	FILM_DIGITIZATIONS_PROJECT_ID = Rails.application.secrets.asana_film_digitizations_project_id
+	VIDCAM_FILMING_PROJECT_ID = Rails.application.secrets.asana_vidcam_filming_project_id
+	VIDCAM_PUBLISHING_PROJECT_ID = Rails.application.secrets.asana_vidcam_publishing_project_id
+	WORK_REQUESTS_PROJECT_ID = Rails.application.secrets.asana_work_requests_project_id
+
 	TAG_TASK_ID = Rails.application.secrets.asana_lrcerebro_tag_task_id
 
 	TAG_TASK_CREATE_DATA = {
@@ -28,7 +35,7 @@ Publish Method(s): #{project.stringified_publish_methods}
 Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 
 		task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [PROJECT_PUBLISHING_PROJECT_ID],
 				name: "Project Publishing: #{project.category} (#{project.name})",
 				due_at: ApplicationHelper.local_to_utc(project.publish_by),
 				notes: notes
@@ -54,7 +61,7 @@ Publish Method(s): #{mini_project.stringified_publish_methods}
 Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 
 		task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [MINI_PROJECTS_PROJECT_ID],
 				name: "Mini Project: #{mini_project.stringified_resources}",
 				due_at: ApplicationHelper.local_to_utc(mini_project.publish_by),
 				notes: notes
@@ -77,7 +84,7 @@ Subtitle Language: #{film_digitization.subtitle_language.titleize}
 Submitted: #{ApplicationHelper.utc_to_local(film_digitization.created_at)}"
 
 		task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [FILM_DIGITIZATIONS_PROJECT_ID],
 				name: "Film Digitization Request: #{film_digitization.full_title}",
 				due_at: ApplicationHelper.local_to_utc(film_digitization.due_date),
 				notes: notes
@@ -100,7 +107,7 @@ Additional Instructions: #{vidcam.additional_instructions}
 Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		
 		filming_task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [VIDCAM_FILMING_PROJECT_ID],
 				name: "Vidcam Filming: #{vidcam.location}",
 				due_at: ApplicationHelper.local_to_utc(vidcam.publish_by),
 				notes: filming_notes
@@ -113,7 +120,7 @@ Publish Methods: #{vidcam.stringified_publish_methods}
 Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 
 		publishing_task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [VIDCAM_PUBLISHING_PROJECT_ID],
 				name: "Vidcam Publishing: #{vidcam.location}",
 				due_at: ApplicationHelper.local_to_utc(vidcam.publish_by),
 				notes: publishing_notes
@@ -131,7 +138,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 	def self.create_work_task(work)
 		
 		task_data = {
-				projects: [LRCEREBRO_PROJECT_ID],
+				projects: [WORK_REQUESTS_PROJECT_ID],
 				name: 'Work Request',
 				due_at: ApplicationHelper.local_to_utc(work.due_date),
 				notes: "#{work.instructions}\n\nSubmitted: #{ApplicationHelper.utc_to_local(work.created_at)}"
