@@ -197,8 +197,8 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		projects
 	end
 
-	def self.get_all_tasks
-		tasks = @client.tasks.find_all(project: LRCEREBRO_PROJECT_ID, completed_since: 'now')
+	def self.get_all_tasks(project_id)
+		tasks = @client.tasks.find_all(project: project_id, completed_since: 'now')
 		tasks.each do |t|
 			t = @client.tasks.find_by_id(t.id)
 			puts t.inspect
