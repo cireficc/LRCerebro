@@ -210,16 +210,4 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		tags = @client.tags.find_all(workspace: LRC_WORKSPACE_ID)
 		tags.sort_by(&:name)
 	end
-
-	# Show all projects for a workspace
-	# projects = client.projects.find_all(workspace: LRC_WORKSPACE_ID)
-	# projects.each do |p|
-	# 	puts p.inspect
-	# end
-
-	# Only show open tasks for a specific project
-	# tasks = client.tasks.find_all(project: projects.first.id, completed_since: 'now')
-	# tasks.each do |t|
-	# 	puts t.inspect
-	# end
 end
