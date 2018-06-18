@@ -181,19 +181,21 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		matching.first if matching.any?
 	end
 
-	def self.show_all_workspaces
+	def self.get_all_workspaces
 		ws = @client.workspaces.find_all
 		ws.each do |w|
 			puts w.inspect
 		end
+		ws
 	end
 
-	def self.show_all_tasks
+	def self.get_all_tasks
 		tasks = @client.tasks.find_all(project: LRCEREBRO_PROJECT_ID, completed_since: 'now')
 		tasks.each do |t|
 			t = @client.tasks.find_by_id(t.id)
 			puts t.inspect
 		end
+		tasks
 	end
 
 	def self.get_all_workspace_tags
