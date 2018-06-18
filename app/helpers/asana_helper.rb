@@ -30,7 +30,7 @@ Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 		task_data = {
 				projects: [LRCEREBRO_PROJECT_ID],
 				name: "Project Publishing: #{project.category} (#{project.name})",
-				due_at: ApplicationHelper.local_to_utc(project.due),
+				due_at: ApplicationHelper.local_to_utc(project.publish_by),
 				notes: notes
 		}
 
