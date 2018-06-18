@@ -56,7 +56,7 @@ Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 		task_data = {
 				projects: [LRCEREBRO_PROJECT_ID],
 				name: "Mini Project: #{mini_project.stringified_resources}",
-				due_at: ApplicationHelper.local_to_utc(mini_project.due_date),
+				due_at: ApplicationHelper.local_to_utc(mini_project.publish_by),
 				notes: notes
 		}
 
