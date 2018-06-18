@@ -188,6 +188,14 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		end
 		ws
 	end
+	
+	def self.get_all_projects
+		projects = @client.projects.find_all(workspace: LRC_WORKSPACE_ID)
+		projects.each do |p|
+			puts p.inspect
+		end
+		projects
+	end
 
 	def self.get_all_tasks
 		tasks = @client.tasks.find_all(project: LRCEREBRO_PROJECT_ID, completed_since: 'now')
