@@ -18,6 +18,22 @@ module AsanaHelper
 			notes: 'This task is created and maintained by LRCerebro. Do not modify or delete this task, or course/instructor tags will stop working properly in Asana!'
 	}
 
+	# List all subtasks, but reverse them since Asana lists the most-recently-created on the top of the list
+	FILM_CATALOGING_SUBTASKS = [
+			'Create film entry in LRCerebro',
+			'Rip with MactheRipper',
+			'Convert to mp4 with Handbrake (H.264)',
+			'Add digitized version for the film in LRCerebro',
+			'Rename file with LRCerebro-generated name',
+			'Upload file to Panopto',
+			'Add file to media server',
+			'Email faculty',
+			'Label DVD case with LRCerebro-generated catalog #',
+			'Put DVD in Gem Track'
+	].reverse
+	
+	FILM_DIGITIZATION_SUBTASKS = FILM_CATALOGING_SUBTASKS[2..-2]
+
 	@client = Asana::Client.new do |c|
 		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
 	end
@@ -74,9 +90,9 @@ Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 	end
 
 	def self.create_film_digitization_task(film_digitization)
-		
+
 		film_digitization = film_digitization.decorate
-		
+
 		notes = "Film Source: #{film_digitization.media_source}
 Film: #{film_digitization.full_title}
 Audio Language: #{film_digitization.audio_language.titleize}
@@ -94,18 +110,22 @@ Submitted: #{ApplicationHelper.utc_to_local(film_digitization.created_at)}"
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, task, film_digitization.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, task, film_digitization.course.instructor.last_name)
+
+		FILM_DIGITIZATION_SUBTASKS.each do |subtask|
+			task.add_subtask({name: subtask})
+		end
 	end
 
 	def self.create_vidcam_task(vidcam)
-		
+
 		vidcam = vidcam.decorate
-		
+
 		filming_notes = "Location: #{vidcam.location}
 Start: #{vidcam.start}
 End: #{vidcam.end}
 Additional Instructions: #{vidcam.additional_instructions}
 Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
-		
+
 		filming_task_data = {
 				projects: [VIDCAM_FILMING_PROJECT_ID],
 				name: "Vidcam Filming: #{vidcam.location}",
@@ -136,7 +156,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 	end
 
 	def self.create_work_task(work)
-		
+
 		task_data = {
 				projects: [WORK_REQUESTS_PROJECT_ID],
 				name: 'Work Request',
@@ -195,7 +215,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		end
 		ws
 	end
-	
+
 	def self.get_all_projects
 		projects = @client.projects.find_all(workspace: LRC_WORKSPACE_ID)
 		projects.each do |p|
