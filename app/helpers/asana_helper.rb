@@ -21,7 +21,7 @@ module AsanaHelper
 	# List all subtasks, but reverse them since Asana lists the most-recently-created on the top of the list
 	FILM_CATALOGING_SUBTASKS = [
 			'Create film entry in LRCerebro',
-			'Rip with MactheRipper',
+			'Rip with MacTheRipper',
 			'Convert to mp4 with Handbrake (H.264)',
 			'Add digitized version for the film in LRCerebro',
 			'Rename file with LRCerebro-generated name',
