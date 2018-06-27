@@ -55,6 +55,7 @@ class Vidcam < ActiveRecord::Base
 
   def create_vidcam_task
     AsanaHelper.create_vidcam_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_vidcam_task')
   end
 
   def seeding_development_database

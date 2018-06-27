@@ -22,6 +22,7 @@ class Work < ActiveRecord::Base
   
   def create_work_task
     AsanaHelper.create_work_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_work_task')
   end
 
   def seeding_development_database

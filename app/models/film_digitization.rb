@@ -37,6 +37,7 @@ class FilmDigitization < ActiveRecord::Base
 
   def create_film_digitization_task
     AsanaHelper.create_film_digitization_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_film_digitization_task')
   end
 
   def seeding_development_database

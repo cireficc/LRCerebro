@@ -59,6 +59,7 @@ class MiniProject < ActiveRecord::Base
 
   def create_mini_project_task
     AsanaHelper.create_mini_project_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_mini_project_task')
   end
 
   def seeding_development_database
