@@ -14,9 +14,9 @@ module GoogleCalendarHelper
   HOURS_PER_DAY = 24
   MINUTES_PER_DAY = 60 * 24
   SECONDS_PER_DAY = 60 * 60 * 24
-  RESERVATION_CALENDAR_ID = Rails.application.secrets.google_calendar_reservation_cal
-  PROJECT_PUBLISHING_CALENDAR_ID = Rails.application.secrets.google_calendar_project_publishing_cal
-  VIDCAM_CALENDAR_ID = Rails.application.secrets.google_calendar_vidcam_cal
+  RESERVATION_CALENDAR_ID = Figaro.env.google_calendar_reservation_cal
+  PROJECT_PUBLISHING_CALENDAR_ID = Figaro.env.google_calendar_project_publishing_cal
+  VIDCAM_CALENDAR_ID = Figaro.env.google_calendar_vidcam_cal
 
   @calendar = Google::Apis::CalendarV3::CalendarService.new
   @calendar.authorization = Google::Auth.get_application_default(GoogleApiHelper::SCOPES)
