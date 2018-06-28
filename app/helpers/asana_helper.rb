@@ -35,7 +35,7 @@ module AsanaHelper
 	FILM_DIGITIZATION_SUBTASKS = FILM_CATALOGING_SUBTASKS[2..-2]
 
 	@client = Asana::Client.new do |c|
-		c.authentication :access_token, Rails.application.secrets.asana_personal_access_token
+		c.authentication :access_token, Figaro.env.asana_personal_access_token
 	end
 
 	def self.create_project_task(project)
