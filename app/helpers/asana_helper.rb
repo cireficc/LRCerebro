@@ -1,16 +1,16 @@
 module AsanaHelper
 	include ApplicationHelper
 
-	LRC_WORKSPACE_ID = Rails.application.secrets.asana_lrc_workspace_id
-	LRCEREBRO_PROJECT_ID = Rails.application.secrets.asana_lrcerebro_project_id
-	PROJECT_PUBLISHING_PROJECT_ID = Rails.application.secrets.asana_project_publishing_project_id
-	MINI_PROJECTS_PROJECT_ID = Rails.application.secrets.asana_mini_projects_project_id
-	FILM_DIGITIZATIONS_PROJECT_ID = Rails.application.secrets.asana_film_digitizations_project_id
-	VIDCAM_FILMING_PROJECT_ID = Rails.application.secrets.asana_vidcam_filming_project_id
-	VIDCAM_PUBLISHING_PROJECT_ID = Rails.application.secrets.asana_vidcam_publishing_project_id
-	WORK_REQUESTS_PROJECT_ID = Rails.application.secrets.asana_work_requests_project_id
+	LRC_WORKSPACE_ID = Figaro.env.asana_lrc_workspace_id
+	LRCEREBRO_PROJECT_ID = Figaro.env.asana_lrcerebro_project_id
+	PROJECT_PUBLISHING_PROJECT_ID = Figaro.env.asana_project_publishing_project_id
+	MINI_PROJECTS_PROJECT_ID = Figaro.env.asana_mini_projects_project_id
+	FILM_DIGITIZATIONS_PROJECT_ID = Figaro.env.asana_film_digitizations_project_id
+	VIDCAM_FILMING_PROJECT_ID = Figaro.env.asana_vidcam_filming_project_id
+	VIDCAM_PUBLISHING_PROJECT_ID = Figaro.env.asana_vidcam_publishing_project_id
+	WORK_REQUESTS_PROJECT_ID = Figaro.env.asana_work_requests_project_id
 
-	TAG_TASK_ID = Rails.application.secrets.asana_lrcerebro_tag_task_id
+	TAG_TASK_ID = Figaro.env.asana_lrcerebro_tag_task_id
 
 	TAG_TASK_CREATE_DATA = {
 			projects: [LRCEREBRO_PROJECT_ID],
