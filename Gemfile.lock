@@ -155,7 +155,7 @@ GEM
       thor (~> 0.14)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    google-api-client (0.21.2)
+    google-api-client (0.23.0)
       addressable (~> 2.5, >= 2.5.1)
       googleauth (>= 0.5, < 0.7.0)
       httpclient (>= 2.8.1, < 3.0)
@@ -294,7 +294,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    retriable (3.1.1)
+    retriable (3.1.2)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -403,7 +403,7 @@ DEPENDENCIES
   elasticsearch (~> 6.0.2)
   factory_bot
   figaro
-  google-api-client (~> 0.21.2)
+  google-api-client (~> 0.23.0)
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.4)
   jquery-rails
