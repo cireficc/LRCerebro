@@ -10,7 +10,7 @@ class MiniProject < ActiveRecord::Base
   validates_presence_of :supplemental_materials_description, if: :supplemental_materials?
   before_validation :reject_empty_resources
 
-  after_create :create_or_update_publishing_event, :unless => :seeding_development_database
+  after_create :create_or_update_publishing_event, :create_mini_project_task, unless: :seeding_development_database
   after_update :create_or_update_publishing_event
   before_destroy :delete_publish_calendar_event
 
@@ -55,6 +55,11 @@ class MiniProject < ActiveRecord::Base
 
   def delete_publish_calendar_event
     GoogleCalendarHelper.delete_project_publish_event(self)
+  end
+
+  def create_mini_project_task
+    AsanaHelper.create_mini_project_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_mini_project_task')
   end
 
   def seeding_development_database

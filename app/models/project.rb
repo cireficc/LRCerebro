@@ -14,7 +14,7 @@ class Project < ActiveRecord::Base
   scope :pending, -> { where(approved: false) }
 
   # Create/update Google Calendar events here because (children) ProjectReservation are created before Project
-  after_create :create_or_update_reservation_calendar_events, :create_or_update_publishing_event, :unless => :seeding_development_database
+  after_create :create_or_update_reservation_calendar_events, :create_or_update_publishing_event, :create_project_task, unless: :seeding_development_database
   # ProjectReservations can be created in a Project update action, so check both cases
   after_update :create_or_update_reservation_calendar_events, :create_or_update_publishing_event
   before_destroy :delete_publish_calendar_event
@@ -105,6 +105,11 @@ class Project < ActiveRecord::Base
 
   def delete_publish_calendar_event
     GoogleCalendarHelper.delete_project_publish_event(self)
+  end
+
+  def create_project_task
+    AsanaHelper.create_project_task(self)
+    # CreateAsanaTasksJob.perform_later(self, 'create_project_task')
   end
 
   def seeding_development_database

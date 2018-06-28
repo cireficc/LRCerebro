@@ -13,13 +13,11 @@ table#mini_projects.table.table-hover
       th Publish By
       th Publish Method
       th Submitted
-      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
     - @mini_projects.each do |mini|
-      - hidden = mini.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{mini.course.instructor.decorate.full_name}
           '
@@ -34,8 +32,6 @@ table#mini_projects.table.table-hover
         td #{mini.publish_by}
         td #{mini.stringified_publish_methods}
         td #{mini.created_at}
-        td
-          = mini.producteevified
         td
           - if policy(mini).show?
             = link_to 'Details', mini_project_path(mini), class: 'btn btn-xs btn-default'

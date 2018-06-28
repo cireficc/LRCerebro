@@ -8,13 +8,11 @@ table#works.table.table-hover
       th Due Date
       th Instructions
       th Submitted
-      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
     - @works.each do |work|
-      - hidden = work.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{work.course.instructor.decorate.full_name}
           '
@@ -23,8 +21,6 @@ table#works.table.table-hover
         td #{work.due_date}
         td #{work.instructions.truncate(200)}
         td #{work.created_at}
-        td
-          = work.producteevified
         td
           - if policy(work).show?
             = link_to 'Details', work_path(work), class: 'btn btn-xs btn-default'

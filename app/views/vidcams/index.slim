@@ -12,13 +12,11 @@ table#vidcams.table.table-hover
       th Publish Method
       th Upload to Ensemble?
       th Submitted
-      th Added to Producteev?
       th.no-sort
       th.no-sort
   tbody
     - @vidcams.each do |vidcam|
-      - hidden = vidcam.added_to_producteev?
-      tr data-producteev="#{hidden}" style="#{hidden ? 'display: none;' : ''}"
+      tr
         td
           span.label.label-info #{vidcam.course.instructor.decorate.full_name}
           '
@@ -31,8 +29,6 @@ table#vidcams.table.table-hover
         td #{vidcam.stringified_publish_methods}
         td #{vidcam.upload_to_ensemble_string}
         td #{vidcam.created_at}
-        td
-          = vidcam.producteevified
         td
           - if policy(vidcam).show?
             = link_to 'Details', vidcam_path(vidcam), class: 'btn btn-xs btn-default'
