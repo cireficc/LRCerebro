@@ -301,4 +301,18 @@ module GoogleCalendarHelper
   rescue Google::Apis::ClientError
     puts 'Event no longer exists, ignore trying to delete it'
   end
+  
+  def self.list_events_for_calendar(calendar_id)
+    response = @calendar.list_events(calendar_id,
+                                   max_results: 10,
+                                   single_events: true,
+                                   order_by: 'startTime',
+                                   time_min: 1.month.ago.iso8601)
+    puts "Upcoming events: #{response.items.count}"
+    puts 'No upcoming events found' if response.items.empty?
+    response.items.each do |event|
+      start = event.start.date || event.start.date_time
+      puts "- #{event.summary} (#{start})"
+    end
+  end
 end
