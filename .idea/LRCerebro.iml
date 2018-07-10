@@ -179,7 +179,7 @@
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.9.23, RVM: ruby-2.5.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="figaro (v1.1.1, RVM: ruby-2.5.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.1, RVM: ruby-2.5.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="google-api-client (v0.21.2, RVM: ruby-2.5.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="google-api-client (v0.23.0, RVM: ruby-2.5.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="googleauth (v0.6.2, RVM: ruby-2.5.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v3.5.7, RVM: ruby-2.5.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="http-cookie (v1.0.3, RVM: ruby-2.5.1) [gem]" level="application" />
