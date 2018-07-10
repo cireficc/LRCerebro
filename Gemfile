@@ -51,6 +51,9 @@ gem 'cocoon', '~> 1.2.9'
 gem 'draper', '~> 3.0.1'
 # Use Asana for task management API access
 gem 'asana', '~> 0.6.3'
+# Use DelayedJob and Daemons for job queue processing
+gem 'delayed_job_active_record', '~> 4.1.3'
+gem 'daemons', '~> 1.2.6'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
