@@ -63,9 +63,9 @@ Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 		create_and_attach_tag(existing_tags, task, project.course.instructor.last_name)
 	end
 
-	def self.create_mini_project_task(mini_project)
+	def self.create_mini_project_task(id)
 
-		mini_project = mini_project.decorate
+		mini_project = MiniProject.find(id).decorate
 
 		notes = "Resources: #{mini_project.stringified_resources}
 Description: #{mini_project.description}
