@@ -61,12 +61,10 @@ class MiniProject < ActiveRecord::Base
   end
 
   def create_mini_project_task
-    AsanaHelper.create_mini_project_task(self.id)
+    AsanaHelper.delay.create_mini_project_task(self.id)
   end
 
   def seeding_development_database
     Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
-  
-  handle_asynchronously :create_mini_project_task
 end
