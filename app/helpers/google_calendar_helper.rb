@@ -203,46 +203,53 @@ module GoogleCalendarHelper
 
     @calendar.delete_event(RESERVATION_CALENDAR_ID, google_calendar_event_id)
   end
-
-  # Schedule a vidcam filming event in Google Calendar based on the ActiveRecord callback on a Vidcam:
-  # :create - create filming event
-  # :update - update filming event
-  def self.schedule_vidcam_filming_event(vidcam, action)
-    @vidcam = vidcam
-    @course = @vidcam.course
-    @instructor = @course.instructor
-    @last_name = @instructor.last_name
+  
+  def self.vidcam_filming_calendar_event(vidcam)
+    
+    course = vidcam.course
+    instructor = course.instructor
 
     # e.g. "Filming: FRE 101-01, Ward, MAK D-2-221"
-    @event_title = "Filming: #{@course.decorate.short_name}, #{@instructor.last_name}, #{@vidcam.location}"
+    event_title = "Filming: #{course.decorate.short_name}, #{instructor.last_name}, #{vidcam.location}"
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
-    @start_time = ApplicationHelper.local_to_utc(@vidcam.start)
-    @end_time = ApplicationHelper.local_to_utc(@vidcam.end)
+    start_time = ApplicationHelper.local_to_utc(vidcam.start)
+    end_time = ApplicationHelper.local_to_utc(vidcam.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
-                                                       location: @vidcam.location,
-                                                       description: @vidcam.additional_instructions,
-                                                       start: {
-                                                         date_time: @start_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       end: {
-                                                         date_time: @end_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       attendees: [
-                                                         { email: 'shultzd@gvsu.edu' },
-                                                         { email: 'clappve@gvsu.edu' },
-                                                         { email: "#{@instructor.username}@gvsu.edu" }
-                                                       ])
+    Google::Apis::CalendarV3::Event.new(summary: event_title,
+                                        location: vidcam.location,
+                                        description: vidcam.additional_instructions,
+                                        start: {
+                                            date_time: start_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        end: {
+                                            date_time: end_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        attendees: [
+                                            {email: 'shultzd@gvsu.edu'},
+                                            {email: 'clappve@gvsu.edu'},
+                                            {email: "#{instructor.username}@gvsu.edu"}
+                                        ])
+  end
 
-    if action == :create
-      @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
-      @vidcam.update_columns(google_calendar_filming_event_id: @event.id)
-    elsif action == :update
-      @calendar.patch_event(VIDCAM_CALENDAR_ID, @vidcam.google_calendar_filming_event_id, @g_cal_event)
-    end
+  
+  def self.create_vidcam_filming_event(id)
+    
+    vidcam = Vidcam.find(id)
+    cal_event_data = vidcam_filming_calendar_event(vidcam)
+
+    event = @calendar.insert_event(VIDCAM_CALENDAR_ID, cal_event_data)
+    vidcam.update_columns(google_calendar_filming_event_id: event.id)
+  end
+
+  def self.update_vidcam_filming_event(id)
+
+    vidcam = Vidcam.find(id)
+    cal_event_data = vidcam_filming_calendar_event(vidcam)
+
+    @calendar.patch_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id, cal_event_data)
   end
 
   def self.delete_vidcam_filming_event(vidcam)
