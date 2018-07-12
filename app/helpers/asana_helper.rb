@@ -38,9 +38,9 @@ module AsanaHelper
 		c.authentication :access_token, Figaro.env.asana_personal_access_token
 	end
 
-	def self.create_project_task(project)
+	def self.create_project_task(id)
 
-		project = project.decorate
+		project = Project.find(id).decorate
 
 		notes = "Type: #{project.category}
 Name: #{project.name}
