@@ -43,9 +43,4 @@ namespace :deploy do
       upload!(data, path)
     end
   end
-
-  # Restart DelayedJob after application restart
-  after :restart, :restart_delayed_job do
-    invoke "delayed_job:restart"
-  end
 end
