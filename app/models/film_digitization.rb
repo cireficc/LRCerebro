@@ -36,11 +36,12 @@ class FilmDigitization < ActiveRecord::Base
   end
 
   def create_film_digitization_task
-    AsanaHelper.create_film_digitization_task(self)
-    # CreateAsanaTasksJob.perform_later(self, 'create_film_digitization_task')
+    AsanaHelper.create_film_digitization_task(self.id)
   end
 
   def seeding_development_database
     Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
+
+  handle_asynchronously :create_film_digitization_task
 end

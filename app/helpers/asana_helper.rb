@@ -89,9 +89,9 @@ Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 		create_and_attach_tag(existing_tags, task, mini_project.course.instructor.last_name)
 	end
 
-	def self.create_film_digitization_task(film_digitization)
+	def self.create_film_digitization_task(id)
 
-		film_digitization = film_digitization.decorate
+		film_digitization = FilmDigitization.find(id).decorate
 
 		notes = "Film Source: #{film_digitization.media_source}
 Film: #{film_digitization.full_title}
