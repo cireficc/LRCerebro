@@ -160,15 +160,25 @@ module GoogleCalendarHelper
   end
 
   def self.create_mini_project_publish_event(id)
+    
+    project = MiniProject.find(id)
 
+    cal_event_data = project_publish_calendar_event(project)
+    event = @calendar.insert_event(PROJECT_PUBLISHING_CALENDAR_ID, cal_event_data)
+    project.update_columns(google_calendar_publish_event_id: event.id)
   end
   
   def self.update_mini_project_publish_event(id)
-    
+
+    project = MiniProject.find(id)
+
+    cal_event_data = project_publish_calendar_event(project)
+    @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id, cal_event_data)
   end
   
-  def self.delete_mini_project_publish_event(id)
-    
+  def self.delete_mini_project_publish_event(google_calendar_publish_event_id)
+
+    @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, google_calendar_publish_event_id)
   end
 
   def self.standard_reservation_calendar_event(reservation)
