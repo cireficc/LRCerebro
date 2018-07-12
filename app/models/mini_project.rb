@@ -50,14 +50,14 @@ class MiniProject < ActiveRecord::Base
   def create_or_update_publishing_event
     return if self.publish_by.nil?
     if self.google_calendar_publish_event_id.blank?
-      GoogleCalendarHelper.delay.create_mini_project_publish_event(self.id)
+      GoogleCalendarHelper.delay.create_mini_project_publishing_event(self.id)
     else
-      GoogleCalendarHelper.delay.update_mini_project_publish_event(self.id)
+      GoogleCalendarHelper.delay.update_mini_project_publishing_event(self.id)
     end
   end
 
   def delete_publish_calendar_event
-    GoogleCalendarHelper.delay.delete_mini_project_publish_event(self.google_calendar_publish_event_id)
+    GoogleCalendarHelper.delay.delete_mini_project_publishing_event(self.google_calendar_publish_event_id)
   end
 
   def create_mini_project_task

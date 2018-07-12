@@ -80,15 +80,15 @@ class StandardReservation < ActiveRecord::Base
 
   def create_or_update_calendar_event
     if self.google_calendar_event_id.blank?
-      GoogleCalendarHelper.create_standard_reservation(self.id)
+      GoogleCalendarHelper.create_standard_reservation_event(self.id)
     else
-      GoogleCalendarHelper.update_standard_reservation(self.id)
+      GoogleCalendarHelper.update_standard_reservation_event(self.id)
     end
   end
 
   def delete_calendar_event
     # Use the google_calendar_event_id because the record is deleted before the DelayedJob can run
-    GoogleCalendarHelper.delay.delete_standard_reservation(self.google_calendar_event_id)
+    GoogleCalendarHelper.delay.delete_standard_reservation_event(self.google_calendar_event_id)
   end
 
   def seeding_development_database

@@ -137,7 +137,7 @@ module GoogleCalendarHelper
                                         })
   end
   
-  def self.create_project_publish_event(id)
+  def self.create_project_publishing_event(id)
     
     project = Project.find(id)
     
@@ -146,7 +146,7 @@ module GoogleCalendarHelper
     project.update_columns(google_calendar_publish_event_id: event.id)
   end
 
-  def self.update_project_publish_event(id)
+  def self.update_project_publishing_event(id)
 
     project = Project.find(id)
 
@@ -154,12 +154,12 @@ module GoogleCalendarHelper
     @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id, cal_event_data)
   end
 
-  def self.delete_project_publish_event(google_calendar_publish_event_id)
+  def self.delete_project_publishing_event(google_calendar_publish_event_id)
     
     @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, google_calendar_publish_event_id)
   end
 
-  def self.create_mini_project_publish_event(id)
+  def self.create_mini_project_publishing_event(id)
     
     project = MiniProject.find(id)
 
@@ -168,7 +168,7 @@ module GoogleCalendarHelper
     project.update_columns(google_calendar_publish_event_id: event.id)
   end
   
-  def self.update_mini_project_publish_event(id)
+  def self.update_mini_project_publishing_event(id)
 
     project = MiniProject.find(id)
 
@@ -176,7 +176,7 @@ module GoogleCalendarHelper
     @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id, cal_event_data)
   end
   
-  def self.delete_mini_project_publish_event(google_calendar_publish_event_id)
+  def self.delete_mini_project_publishing_event(google_calendar_publish_event_id)
 
     @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, google_calendar_publish_event_id)
   end
@@ -216,7 +216,7 @@ module GoogleCalendarHelper
                                         ])
   end
   
-  def self.create_standard_reservation(id)
+  def self.create_standard_reservation_event(id)
     
     reservation = StandardReservation.find(id)
 		
@@ -225,7 +225,7 @@ module GoogleCalendarHelper
     reservation.update_columns(google_calendar_event_id: event.id, google_calendar_html_link: event.html_link)
   end
   
-  def self.update_standard_reservation(id)
+  def self.update_standard_reservation_event(id)
 
     reservation = StandardReservation.find(id)
     
@@ -233,7 +233,7 @@ module GoogleCalendarHelper
     @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
   end
 
-  def self.delete_standard_reservation(google_calendar_event_id)
+  def self.delete_standard_reservation_event(google_calendar_event_id)
 
     @calendar.delete_event(RESERVATION_CALENDAR_ID, google_calendar_event_id)
   end
