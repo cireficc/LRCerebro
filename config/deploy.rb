@@ -1,5 +1,3 @@
-require "delayed/recipes"
-
 # config valid only for current version of Capistrano
 lock "3.10.2"
 
@@ -45,9 +43,9 @@ namespace :deploy do
       upload!(data, path)
     end
   end
-end
 
-set :delayed_job_command, "bin/delayed_job"
-after "deploy:start", "delayed_job:start"
-after "deploy:stop", "delayed_job:stop"
-after "deploy:restart", "delayed_job:stop","delayed_job:start"
+  # Restart DelayedJob after application restart
+  after :restart, :restart_delayed_job do
+    invoke "delayed_job:restart"
+  end
+end
