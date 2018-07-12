@@ -80,9 +80,9 @@ class StandardReservation < ActiveRecord::Base
 
   def create_or_update_calendar_event
     if self.google_calendar_event_id.blank?
-      GoogleCalendarHelper.schedule_standard_reservation(self, :create)
+      GoogleCalendarHelper.create_standard_reservation(self)
     else
-      GoogleCalendarHelper.schedule_standard_reservation(self, :update)
+      GoogleCalendarHelper.update_standard_reservation(self)
     end
   end
 
