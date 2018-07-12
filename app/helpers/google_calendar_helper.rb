@@ -199,10 +199,9 @@ module GoogleCalendarHelper
     @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
   end
 
-  def self.delete_standard_reservation(standard_reservation)
-    @calendar.delete_event(RESERVATION_CALENDAR_ID, standard_reservation.google_calendar_event_id)
-  rescue Google::Apis::ClientError
-    puts 'Event no longer exists, ignore trying to delete it'
+  def self.delete_standard_reservation(google_calendar_event_id)
+
+    @calendar.delete_event(RESERVATION_CALENDAR_ID, google_calendar_event_id)
   end
 
   # Schedule a vidcam filming event in Google Calendar based on the ActiveRecord callback on a Vidcam:

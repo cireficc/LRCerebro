@@ -87,7 +87,8 @@ class StandardReservation < ActiveRecord::Base
   end
 
   def delete_calendar_event
-    GoogleCalendarHelper.delete_standard_reservation(self)
+    # Use the google_calendar_event_id because the record is deleted before the DelayedJob can run
+    GoogleCalendarHelper.delay.delete_standard_reservation(self.google_calendar_event_id)
   end
 
   def seeding_development_database
