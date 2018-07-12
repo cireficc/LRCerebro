@@ -99,57 +99,75 @@ module GoogleCalendarHelper
     
     @calendar.delete_event(RESERVATION_CALENDAR_ID, google_calendar_event_id)
   end
+  
+  def self.project_publish_calendar_event(project)
+    project = project.decorate
+    course = project.course
+    instructor = course.instructor
+    start_time = project.publish_by - 2.hours
+    end_time = project.publish_by
 
-  # Schedule project or mini project publish event in Google Calendar
-  # action = :create - create a publish event
-  # action = :update - update a publish event
-  def self.schedule_project_publish_event(project, action)
-    @project = project.decorate
-    @course = @project.course
-    @instructor = @course.instructor
-    @start_time = @project.publish_by - 2.hours
-    @end_time = @project.publish_by
-
+    # project can be an instance of Project or MiniProject; the event title and description change based on the class
     if project.instance_of? Project
       # e.g. "Project Publishing: (Camtasia) Ward FRE 101-01"
-      @event_title = "Project Publishing: (#{@project.category}) #{@instructor.last_name} #{@course.decorate.short_name}"
-      @event_description = 'Publish according to project type.'
+      event_title = "Project Publishing: (#{project.category}) #{instructor.last_name} #{course.decorate.short_name}"
+      event_description = 'Publish according to project type.'
     else
       # e.g. "MiniProject Publishing: (Camtasia) Ward FRE 101-01"
-      @event_title = "Mini Project Publishing: (#{@project.stringified_resources}) #{@instructor.last_name} #{@course.decorate.short_name}"
-      @event_description =
-        "Publish: #{@project.stringified_publish_methods}\n"\
-              "Resources: #{@project.stringified_resources}\n\n"\
-              "#{@project.description}"
+      event_title = "Mini Project Publishing: (#{project.stringified_resources}) #{instructor.last_name} #{course.decorate.short_name}"
+      event_description =
+          "Publish: #{project.stringified_publish_methods}\n"\
+              "Resources: #{project.stringified_resources}\n\n"\
+              "#{project.description}"
     end
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
-    @start_time = ApplicationHelper.local_to_utc(@start_time)
-    @end_time = ApplicationHelper.local_to_utc(@end_time)
+    start_time = ApplicationHelper.local_to_utc(start_time)
+    end_time = ApplicationHelper.local_to_utc(end_time)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
-                                                       description: @event_description,
-                                                       start: {
-                                                         date_time: @start_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       end: {
-                                                         date_time: @end_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       })
-
-    if action == :create
-      @event = @calendar.insert_event(PROJECT_PUBLISHING_CALENDAR_ID, @g_cal_event)
-      @project.update_columns(google_calendar_publish_event_id: @event.id)
-    elsif action == :update
-      @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, @project.google_calendar_publish_event_id, @g_cal_event)
-    end
+    Google::Apis::CalendarV3::Event.new(summary: event_title,
+                                        description: event_description,
+                                        start: {
+                                            date_time: start_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        end: {
+                                            date_time: end_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        })
+  end
+  
+  def self.create_project_publish_event(id)
+    
+    project = Project.find(id)
+    
+    cal_event_data = project_publish_calendar_event(project)
+    event = @calendar.insert_event(PROJECT_PUBLISHING_CALENDAR_ID, cal_event_data)
+    project.update_columns(google_calendar_publish_event_id: event.id)
   end
 
-  def self.delete_project_publish_event(project)
-    @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id)
-  rescue Google::Apis::ClientError
-    puts 'Event no longer exists, ignore trying to delete it'
+  def self.update_project_publish_event(id)
+
+    project = Project.find(id)
+
+    cal_event_data = project_publish_calendar_event(project)
+    @calendar.patch_event(PROJECT_PUBLISHING_CALENDAR_ID, project.google_calendar_publish_event_id, cal_event_data)
+  end
+
+  def self.delete_project_publish_event(google_calendar_publish_event_id)
+    @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, google_calendar_publish_event_id)
+  end
+
+  def self.create_mini_project_publish_event(id)
+
+  end
+  
+  def self.update_mini_project_publish_event(id)
+    
+  end
+  
+  def self.delete_mini_project_publish_event(id)
+    
   end
 
   def self.standard_reservation_calendar_event(reservation)
