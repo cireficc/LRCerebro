@@ -155,7 +155,9 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		create_and_attach_tag(existing_tags, publishing_task, vidcam.course.instructor.last_name)
 	end
 
-	def self.create_work_task(work)
+	def self.create_work_task(id)
+		
+		work = Work.find(id)
 
 		task_data = {
 				projects: [WORK_REQUESTS_PROJECT_ID],

@@ -21,11 +21,12 @@ class Work < ActiveRecord::Base
   end
   
   def create_work_task
-    AsanaHelper.create_work_task(self)
-    # CreateAsanaTasksJob.perform_later(self, 'create_work_task')
+    AsanaHelper.create_work_task(self.id)
   end
 
   def seeding_development_database
     Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
+
+  handle_asynchronously :create_work_task
 end
