@@ -258,51 +258,59 @@ module GoogleCalendarHelper
     puts 'Event no longer exists, ignore trying to delete it'
   end
 
-  # Schedule a vidcam publishing event in Google Calendar based on the ActiveRecord callback on a Vidcam:
-  # :create - create publishing event
-  # :update - update publishing event
-  def self.schedule_vidcam_publishing_event(vidcam, action)
-    @vidcam = vidcam.decorate
-    @course = @vidcam.course
-    @instructor = @course.instructor
-    @last_name = @instructor.last_name
-    @start_time = @vidcam.publish_by - 2.hours
-    @end_time = @vidcam.publish_by
+  def self.vidcam_publishing_calendar_event(vidcam)
+
+    vidcam = vidcam.decorate
+    course = vidcam.course
+    instructor = course.instructor
+    start_time = vidcam.publish_by - 2.hours
+    end_time = vidcam.publish_by
 
     # e.g. "Publishing: FRE 101-01, Ward, MAK D-2-221"
-    @event_title = "Publishing: #{@course.decorate.short_name}, #{@instructor.last_name}, #{@vidcam.location}"
-    @event_description =
-      "Publish: #{@vidcam.stringified_publish_methods}\n"\
-          "Upload to Ensemble? #{@vidcam.upload_to_ensemble_string}\n\n"\
-          "#{@vidcam.additional_instructions}"
+    event_title = "Publishing: #{course.decorate.short_name}, #{instructor.last_name}, #{vidcam.location}"
+    event_description =
+        "Publish: #{vidcam.stringified_publish_methods}\n"\
+          "Upload to Ensemble? #{vidcam.upload_to_ensemble_string}\n\n"\
+          "#{vidcam.additional_instructions}"
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
-    @start_time = ApplicationHelper.local_to_utc(@start_time)
-    @end_time = ApplicationHelper.local_to_utc(@end_time)
+    start_time = ApplicationHelper.local_to_utc(start_time)
+    end_time = ApplicationHelper.local_to_utc(end_time)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
-                                                       location: @vidcam.location,
-                                                       description: @event_description,
-                                                       start: {
-                                                         date_time: @start_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       end: {
-                                                         date_time: @end_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       attendees: [
-                                                         { email: 'shultzd@gvsu.edu' },
-                                                         { email: 'clappve@gvsu.edu' },
-                                                         { email: "#{@instructor.username}@gvsu.edu" }
-                                                       ])
+    Google::Apis::CalendarV3::Event.new(summary: event_title,
+                                        location: vidcam.location,
+                                        description: event_description,
+                                        start: {
+                                            date_time: start_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        end: {
+                                            date_time: end_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        attendees: [
+                                            {email: 'shultzd@gvsu.edu'},
+                                            {email: 'clappve@gvsu.edu'},
+                                            {email: "#{instructor.username}@gvsu.edu"}
+                                        ])
+  end
 
-    if action == :create
-      @event = @calendar.insert_event(VIDCAM_CALENDAR_ID, @g_cal_event)
-      @vidcam.update_columns(google_calendar_publishing_event_id: @event.id)
-    elsif action == :update
-      @calendar.patch_event(VIDCAM_CALENDAR_ID, @vidcam.google_calendar_publishing_event_id, @g_cal_event)
-    end
+
+  def self.create_vidcam_publishing_event(id)
+
+    vidcam = Vidcam.find(id)
+    cal_event_data = vidcam_publishing_calendar_event(vidcam)
+
+    event = @calendar.insert_event(VIDCAM_CALENDAR_ID, cal_event_data)
+    vidcam.update_columns(google_calendar_publishing_event_id: event.id)
+  end
+
+  def self.update_vidcam_publishing_event(id)
+
+    vidcam = Vidcam.find(id)
+    cal_event_data = vidcam_publishing_calendar_event(vidcam)
+
+    @calendar.patch_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id, cal_event_data)
   end
 
   def self.delete_vidcam_publish_event(vidcam)

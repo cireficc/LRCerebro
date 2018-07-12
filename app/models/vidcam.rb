@@ -44,8 +44,11 @@ class Vidcam < ActiveRecord::Base
   end
 
   def create_or_update_publishing_event
-    method = self.google_calendar_publishing_event_id.blank? ? :create : :update
-    GoogleCalendarHelper.schedule_vidcam_publishing_event(self, method)
+    if self.google_calendar_publishing_event_id.blank?
+      GoogleCalendarHelper.delay.create_vidcam_publishing_event(self.id)
+    else
+      GoogleCalendarHelper.delay.update_vidcam_publishing_event(self.id)
+    end
   end
 
   def delete_filming_event
