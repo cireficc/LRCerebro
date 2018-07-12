@@ -150,50 +150,51 @@ module GoogleCalendarHelper
   # Schedule standard reservation in Google Calendar based on the ActiveRecord callback on a StandardReservation:
   # :create - create standard reservation
   # :update - update standard reservation
-  def self.schedule_standard_reservation(res, action)
-    # [:course_id, :activity, :start, :end, :lab, :walkthrough, :additional_instructions, utilities: [], assistances: []]
+  def self.schedule_standard_reservation(reservation, action)
+		
+		cal_event = standard_reservation_calendar_event(reservation)
 
-    @res = res
+    if action == :create
+      @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, cal_event)
+      reservation.update_columns(google_calendar_event_id: @event.id, google_calendar_html_link: @event.html_link)
+    elsif action == :update
+      @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event)
+    end
+  end
+  
+  def self.standard_reservation_calendar_event(reservation)
 
-    @course = @res.course
-    @instructor = @course.instructor
-    @last_name = @instructor.last_name
-    @num_students = @course.students.count
-    @lab = @res.lab.titleize
+    course = reservation.course
+    instructor = course.instructor
+    num_students = course.students.count
+    lab = reservation.lab.titleize
 
     # e.g.
     # "FRE 101-01, Ward, 24 (Dill Paired Recordings [Walkthrough: YES])"
-    @event_title =
-      "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-          " (#{@res.activity} [Walkthrough: #{@res.walkthrough? ? 'YES' : 'NO'}])"
+    event_title =
+        "#{course.decorate.short_name}, #{instructor.last_name}, #{num_students}"\
+          " (#{reservation.activity} [Walkthrough: #{reservation.walkthrough? ? 'YES' : 'NO'}])"
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
-    @start_time = ApplicationHelper.local_to_utc(@res.start)
-    @end_time = ApplicationHelper.local_to_utc(@res.end)
+    start_time = ApplicationHelper.local_to_utc(reservation.start)
+    end_time = ApplicationHelper.local_to_utc(reservation.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
-                                                       location: @lab,
-                                                       description: @res.additional_instructions,
-                                                       start: {
-                                                         date_time: @start_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       end: {
-                                                         date_time: @end_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       attendees: [
-                                                         { email: 'shultzd@gvsu.edu' },
-                                                         { email: 'clappve@gvsu.edu' },
-                                                         { email: "#{@instructor.username}@gvsu.edu" }
-                                                       ])
-
-    if action == :create
-      @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, @g_cal_event)
-      @res.update_columns(google_calendar_event_id: @event.id, google_calendar_html_link: @event.html_link)
-    elsif action == :update
-      @calendar.patch_event(RESERVATION_CALENDAR_ID, @res.google_calendar_event_id, @g_cal_event)
-    end
+    Google::Apis::CalendarV3::Event.new(summary: event_title,
+                                        location: lab,
+                                        description: reservation.additional_instructions,
+                                        start: {
+		                                        date_time: start_time.to_datetime,
+		                                        time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        end: {
+		                                        date_time: end_time.to_datetime,
+		                                        time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        attendees: [
+		                                        {email: 'shultzd@gvsu.edu'},
+		                                        {email: 'clappve@gvsu.edu'},
+		                                        {email: "#{instructor.username}@gvsu.edu"}
+                                        ])
   end
 
   def self.delete_standard_reservation(standard_reservation)
