@@ -24,75 +24,80 @@ module GoogleCalendarHelper
   def self.get_calendar
     @calendar
   end
+  
+  def self.project_reservation_calendar_event(project_reservation)
+    
+    project = project_reservation.project
+    training = project.project_reservations.where(category: :training).order(:start)
+    editing = project.project_reservations.where(category: :editing).order(:start)
 
-  # Schedule project event in Google Calendar based on the ActiveRecord callback on a ProjectReservation:
-  # :create - create project event
-  # :update - update project event
-  def self.schedule_project_event(res, action)
-    @res = res
-    @project = @res.project
-    @training = @project.project_reservations.where(category: ProjectReservation.categories[:training]).order(:start)
-    @editing = @project.project_reservations.where(category: ProjectReservation.categories[:editing]).order(:start)
-
-    @course = @project.course
-    @instructor = @course.instructor
-    @last_name = @instructor.last_name
-    @num_students = @course.students.count
-    @lab = @res.lab.titleize if @res.lab
-    @index = @res.training? ? @training.index(@res) : @editing.index(@res)
-    @total = @res.training? ? @training.length : @editing.length
+    course = project.course
+    instructor = course.instructor
+    num_students = course.students.count
+    lab = project_reservation.lab.titleize if project_reservation.lab
+    index = project_reservation.training? ? training.index(project_reservation) : editing.index(project_reservation)
+    total = project_reservation.training? ? training.length : editing.length
 
     # e.g.
     # (not approved) "HOLD: FRE 101-01, Ward, 24 (Camtasia Training 1 of 2) - ProjIntro"
     # (approved) "FRE 101-01, Ward, 24 (Camtasia Editing 1 of 3) - In-cl Shoot"
-    @event_title =
-      "#{'HOLD: ' unless @project.approved?}"\
-          "#{@course.decorate.short_name}, #{@instructor.last_name}, #{@num_students}"\
-          " (#{@project.category} #{@res.category.titleize} #{@index + 1} of #{@total})"
+    event_title =
+        "#{'HOLD: ' unless project.approved?}"\
+          "#{course.decorate.short_name}, #{instructor.last_name}, #{num_students}"\
+          " (#{project.category} #{project_reservation.category.titleize} #{index + 1} of #{total})"
 
-    @event_description =
-      "Staff notes: #{@res.staff_notes}\n\n"\
-		    "Faculty notes: #{@res.faculty_notes}\n"\
+    event_description =
+        "Staff notes: #{project_reservation.staff_notes}\n\n"\
+		    "Faculty notes: #{project_reservation.faculty_notes}\n"\
 		    "-------------------------\n"\
-		    "Project description: #{@project.description}"
+		    "Project description: #{project.description}"
 
-    if @res.subtype
-      @event_title += " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[@res.subtype.to_sym]}"
+    if project_reservation.subtype
+      event_title += " - #{ProjectReservationDecorator::SUBTYPES_SHORTHAND[project_reservation.subtype.to_sym]}"
     end
 
     # Change the time zone of the reservation start/end from UTC without affecting the time value
-    @start_time = ApplicationHelper.local_to_utc(@res.start)
-    @end_time = ApplicationHelper.local_to_utc(@res.end)
+    start_time = ApplicationHelper.local_to_utc(project_reservation.start)
+    end_time = ApplicationHelper.local_to_utc(project_reservation.end)
 
-    @g_cal_event = Google::Apis::CalendarV3::Event.new(summary: @event_title,
-                                                       location: @lab,
-                                                       description: @event_description,
-                                                       start: {
-                                                         date_time: @start_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       end: {
-                                                         date_time: @end_time.to_datetime,
-                                                         time_zone: LOCAL_TIME_ZONE
-                                                       },
-                                                       attendees: [
-                                                         { email: 'shultzd@gvsu.edu' },
-                                                         { email: 'clappve@gvsu.edu' },
-                                                         { email: "#{@instructor.username}@gvsu.edu" }
-                                                       ])
-
-    if action == :create
-      @event = @calendar.insert_event(RESERVATION_CALENDAR_ID, @g_cal_event)
-      @res.update_columns(google_calendar_event_id: @event.id, google_calendar_html_link: @event.html_link)
-    elsif action == :update
-      @calendar.patch_event(RESERVATION_CALENDAR_ID, @res.google_calendar_event_id, @g_cal_event)
-    end
+    Google::Apis::CalendarV3::Event.new(summary: event_title,
+                                        location: lab,
+                                        description: event_description,
+                                        start: {
+                                            date_time: start_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        end: {
+                                            date_time: end_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
+                                        },
+                                        attendees: [
+                                            {email: 'shultzd@gvsu.edu'},
+                                            {email: 'clappve@gvsu.edu'},
+                                            {email: "#{instructor.username}@gvsu.edu"}
+                                        ])
   end
 
-  def self.delete_project_event(project_reservation)
-    @calendar.delete_event(RESERVATION_CALENDAR_ID, project_reservation.google_calendar_event_id)
-  rescue Google::Apis::ClientError
-    puts 'Event no longer exists, ignore trying to delete it'
+  def self.create_project_reservation_event(id)
+
+    reservation = ProjectReservation.find(id)
+
+    cal_event_data = project_reservation_calendar_event(reservation)
+    event = @calendar.insert_event(RESERVATION_CALENDAR_ID, cal_event_data)
+    reservation.update_columns(google_calendar_event_id: event.id, google_calendar_html_link: event.html_link)
+  end
+  
+  def self.update_project_reservation_event(id)
+
+    reservation = ProjectReservation.find(id)
+
+    cal_event_data = project_reservation_calendar_event(reservation)
+    @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
+  end
+
+  def self.delete_project_reservation_event(google_calendar_event_id)
+    
+    @calendar.delete_event(RESERVATION_CALENDAR_ID, google_calendar_event_id)
   end
 
   # Schedule project or mini project publish event in Google Calendar

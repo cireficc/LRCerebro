@@ -43,14 +43,14 @@ class ProjectReservation < ActiveRecord::Base
   end
 
   def create_calendar_event
-    GoogleCalendarHelper.schedule_project_event(self, :create)
+    GoogleCalendarHelper.delay.create_project_reservation_event(self.id)
   end
 
   def update_calendar_event
-    GoogleCalendarHelper.schedule_project_event(self, :update)
+    GoogleCalendarHelper.delay.update_project_reservation_event(self.id)
   end
 
   def delete_calendar_event
-    GoogleCalendarHelper.delete_project_event(self)
+    GoogleCalendarHelper.delay.delete_project_reservation_event(self.google_calendar_event_id)
   end
 end
