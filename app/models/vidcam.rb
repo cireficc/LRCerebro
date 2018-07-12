@@ -54,11 +54,12 @@ class Vidcam < ActiveRecord::Base
   end
 
   def create_vidcam_task
-    AsanaHelper.create_vidcam_task(self)
-    # CreateAsanaTasksJob.perform_later(self, 'create_vidcam_task')
+    AsanaHelper.create_vidcam_task(self.id)
   end
 
   def seeding_development_database
     Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
+
+  handle_asynchronously :create_vidcam_task
 end

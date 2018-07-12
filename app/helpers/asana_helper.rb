@@ -116,9 +116,9 @@ Submitted: #{ApplicationHelper.utc_to_local(film_digitization.created_at)}"
 		end
 	end
 
-	def self.create_vidcam_task(vidcam)
+	def self.create_vidcam_task(id)
 
-		vidcam = vidcam.decorate
+		vidcam = Vidcam.find(id).decorate
 
 		filming_notes = "Location: #{vidcam.location}
 Start: #{vidcam.start}
