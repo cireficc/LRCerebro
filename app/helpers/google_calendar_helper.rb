@@ -146,24 +146,7 @@ module GoogleCalendarHelper
   rescue Google::Apis::ClientError
     puts 'Event no longer exists, ignore trying to delete it'
   end
-  
-  def self.create_standard_reservation(id)
-    
-    reservation = StandardReservation.find(id)
-		
-		cal_event_data = standard_reservation_calendar_event(reservation)
-    event = @calendar.insert_event(RESERVATION_CALENDAR_ID, cal_event_data)
-    reservation.update_columns(google_calendar_event_id: event.id, google_calendar_html_link: event.html_link)
-  end
-  
-  def self.update_standard_reservation(id)
 
-    reservation = StandardReservation.find(id)
-    
-    cal_event_data = standard_reservation_calendar_event(reservation)
-    @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
-  end
-  
   def self.standard_reservation_calendar_event(reservation)
 
     course = reservation.course
@@ -185,18 +168,35 @@ module GoogleCalendarHelper
                                         location: lab,
                                         description: reservation.additional_instructions,
                                         start: {
-		                                        date_time: start_time.to_datetime,
-		                                        time_zone: LOCAL_TIME_ZONE
+                                            date_time: start_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
                                         },
                                         end: {
-		                                        date_time: end_time.to_datetime,
-		                                        time_zone: LOCAL_TIME_ZONE
+                                            date_time: end_time.to_datetime,
+                                            time_zone: LOCAL_TIME_ZONE
                                         },
                                         attendees: [
-		                                        {email: 'shultzd@gvsu.edu'},
-		                                        {email: 'clappve@gvsu.edu'},
-		                                        {email: "#{instructor.username}@gvsu.edu"}
+                                            {email: 'shultzd@gvsu.edu'},
+                                            {email: 'clappve@gvsu.edu'},
+                                            {email: "#{instructor.username}@gvsu.edu"}
                                         ])
+  end
+  
+  def self.create_standard_reservation(id)
+    
+    reservation = StandardReservation.find(id)
+		
+		cal_event_data = standard_reservation_calendar_event(reservation)
+    event = @calendar.insert_event(RESERVATION_CALENDAR_ID, cal_event_data)
+    reservation.update_columns(google_calendar_event_id: event.id, google_calendar_html_link: event.html_link)
+  end
+  
+  def self.update_standard_reservation(id)
+
+    reservation = StandardReservation.find(id)
+    
+    cal_event_data = standard_reservation_calendar_event(reservation)
+    @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
   end
 
   def self.delete_standard_reservation(standard_reservation)
