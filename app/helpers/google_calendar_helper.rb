@@ -155,6 +155,7 @@ module GoogleCalendarHelper
   end
 
   def self.delete_project_publish_event(google_calendar_publish_event_id)
+    
     @calendar.delete_event(PROJECT_PUBLISHING_CALENDAR_ID, google_calendar_publish_event_id)
   end
 
