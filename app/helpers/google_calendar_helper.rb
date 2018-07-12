@@ -252,10 +252,9 @@ module GoogleCalendarHelper
     @calendar.patch_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id, cal_event_data)
   end
 
-  def self.delete_vidcam_filming_event(vidcam)
-    @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_filming_event_id)
-  rescue Google::Apis::ClientError
-    puts 'Event no longer exists, ignore trying to delete it'
+  def self.delete_vidcam_filming_event(google_calendar_filming_event_id)
+
+    @calendar.delete_event(VIDCAM_CALENDAR_ID, google_calendar_filming_event_id)
   end
 
   def self.vidcam_publishing_calendar_event(vidcam)
@@ -313,10 +312,9 @@ module GoogleCalendarHelper
     @calendar.patch_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id, cal_event_data)
   end
 
-  def self.delete_vidcam_publish_event(vidcam)
-    @calendar.delete_event(VIDCAM_CALENDAR_ID, vidcam.google_calendar_publishing_event_id)
-  rescue Google::Apis::ClientError
-    puts 'Event no longer exists, ignore trying to delete it'
+  def self.delete_vidcam_publishing_event(google_calendar_publishing_event_id)
+
+    @calendar.delete_event(VIDCAM_CALENDAR_ID, google_calendar_publishing_event_id)
   end
   
   def self.list_events_for_calendar(calendar_id)

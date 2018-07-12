@@ -52,11 +52,11 @@ class Vidcam < ActiveRecord::Base
   end
 
   def delete_filming_event
-    GoogleCalendarHelper.delete_vidcam_filming_event(self)
+    GoogleCalendarHelper.delay.delete_vidcam_filming_event(self.google_calendar_filming_event_id)
   end
 
   def delete_publishing_event
-    GoogleCalendarHelper.delete_vidcam_publish_event(self)
+    GoogleCalendarHelper.delay.delete_vidcam_publishing_event(self.google_calendar_publishing_event_id)
   end
 
   def create_vidcam_task
