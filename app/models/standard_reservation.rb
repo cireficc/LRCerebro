@@ -80,9 +80,9 @@ class StandardReservation < ActiveRecord::Base
 
   def create_or_update_calendar_event
     if self.google_calendar_event_id.blank?
-      GoogleCalendarHelper.create_standard_reservation(self)
+      GoogleCalendarHelper.create_standard_reservation(self.id)
     else
-      GoogleCalendarHelper.update_standard_reservation(self)
+      GoogleCalendarHelper.update_standard_reservation(self.id)
     end
   end
 
@@ -93,4 +93,6 @@ class StandardReservation < ActiveRecord::Base
   def seeding_development_database
     Rails.env.development? && ApplicationController::SEEDING_IN_PROGRESS == true
   end
+  
+  handle_asynchronously :create_or_update_calendar_event
 end

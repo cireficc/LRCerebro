@@ -147,18 +147,18 @@ module GoogleCalendarHelper
     puts 'Event no longer exists, ignore trying to delete it'
   end
   
-  def self.create_standard_reservation(reservation)
+  def self.create_standard_reservation(id)
     
-    # reservation = StandardReservation.find(id)
+    reservation = StandardReservation.find(id)
 		
 		cal_event_data = standard_reservation_calendar_event(reservation)
     event = @calendar.insert_event(RESERVATION_CALENDAR_ID, cal_event_data)
     reservation.update_columns(google_calendar_event_id: event.id, google_calendar_html_link: event.html_link)
   end
   
-  def self.update_standard_reservation(reservation)
+  def self.update_standard_reservation(id)
 
-    # reservation = StandardReservation.find(id)
+    reservation = StandardReservation.find(id)
     
     cal_event_data = standard_reservation_calendar_event(reservation)
     @calendar.patch_event(RESERVATION_CALENDAR_ID, reservation.google_calendar_event_id, cal_event_data)
