@@ -12,12 +12,12 @@ class ApplicationConfigurationsController < ApplicationController
     authorize @configuration
 
     if @configuration.update(update_params)
-      flash.now[:success] = t "#{@i18n_path}.success", scope: "forms"
+      flash[:success] = t "#{@i18n_path}.success", scope: "forms"
+      redirect_to root_path
     else
       flash.now[:danger] = t "submission_errors", scope: "forms"
+      render :edit
     end
-
-    render :edit
   end
 
   private

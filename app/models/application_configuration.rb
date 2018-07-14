@@ -34,4 +34,6 @@ class ApplicationConfiguration < ActiveRecord::Base
       self.errors.add(:class_project_submission_end, "project submission start time must be earlier than end time")
     end
   end
+  
+  handle_asynchronously :reindex_associations
 end
