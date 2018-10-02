@@ -22,6 +22,7 @@ class StandardReservation < ActiveRecord::Base
   ACTIVITIES = [
       "DiLL Paired (Synchronous) Recordings",
       "DiLL Individual (Asynchronous) Recordings",
+      "Photo Booth",
       "Writing or Web Research",
       "Film Viewing",
       "MLPA-CoLa Testing",
