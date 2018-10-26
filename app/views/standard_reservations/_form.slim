@@ -23,9 +23,8 @@
               .col-md-9
                 = f.input :activity,
                         disabled: disabled,
-                        input_html: {data: {other: true}},
                         collection: StandardReservation::ACTIVITIES.clone.push(f.object.activity).uniq,
-                        prompt: "Select an activity type or type your own"
+                        prompt: "Select an activity"
             .row
               .col-md-3
                 h4 Walkthrough
