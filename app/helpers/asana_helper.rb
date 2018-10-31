@@ -129,7 +129,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		filming_task_data = {
 				projects: [VIDCAM_FILMING_PROJECT_ID],
 				name: "Vidcam Filming: #{vidcam.location}",
-				due_at: ApplicationHelper.local_to_utc(vidcam.publish_by),
+				due_at: ApplicationHelper.local_to_utc(vidcam.start),
 				notes: filming_notes
 		}
 
