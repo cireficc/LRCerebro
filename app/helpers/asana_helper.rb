@@ -217,6 +217,14 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		end
 		ws
 	end
+	
+	def self.get_all_users
+		users = @client.users.find_all(workspace: LRC_WORKSPACE_ID)
+		users.each do |u|
+			puts u.inspect
+		end
+		users
+	end
 
 	def self.get_all_projects
 		projects = @client.projects.find_all(workspace: LRC_WORKSPACE_ID)
