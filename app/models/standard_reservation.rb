@@ -1,11 +1,15 @@
 class StandardReservation < ActiveRecord::Base
+  
+  attr_accessor :current_user
+  attr_accessor :view_context
 
   searchkick
 
   belongs_to :course
   validates :course_id, :activity, :start, :end, :lab, presence: true
   validates :walkthrough, inclusion: [true, false]
-  validate :start_time_before_end_time, if: lambda { |a| a.start? && a.end? }
+  validate :start_time_before_end_time, if: lambda {|r| r.start? && r.end?}
+  validate :not_same_day_reservation, if: lambda {|r| puts r.inspect; r.current_user.faculty? && r.start? && r.end?}
 
   after_create :create_or_update_calendar_event, :unless => :seeding_development_database
   after_update :create_or_update_calendar_event
@@ -67,11 +71,27 @@ class StandardReservation < ActiveRecord::Base
         semester: course.semester
     }
   end
+  
+  def not_same_day_reservation
+    
+    if self.start >= now.beginning_of_day && self.end <= now.end_of_day
+      now = DateTime.now
+      ds_mailto = view_context.mail_to('shultzd@gvsu.edu', 'David Shultz', {subject: 'LRCerebro - Same-day Lab Reservation'})
+      vc_mailto = view_context.mail_to('clappve@gvsu.edu', 'Veronica Clapp', {subject: 'LRCerebro - Same-day Lab Reservation'})
+      error_message = view_context.t('error_same_day_reservation', scope: 'forms.standard_reservation', today: now.to_date, ds_mailto: ds_mailto, vc_mailto: vc_mailto).html_safe
+      
+      self.errors.add(:start, error_message)
+      self.errors.add(:end, error_message)
+    end
+  end
 
   def start_time_before_end_time
-    if self.start > self.end
-      self.errors.add(:start, "reservation start time must be earlier than end time")
-      self.errors.add(:end, "reservation start time must be earlier than end time")
+
+    if self.start >= self.end
+      error_message = 'reservation start time must be earlier than end time'
+      
+      self.errors.add(:start, error_message)
+      self.errors.add(:end, error_message)
     end
   end
 

@@ -17,6 +17,7 @@ en:
                 success: "%{name} was successfully deleted."
         standard_reservation:
             offline: "Lab reservation scheduling is disabled until the start of the new semester."
+            error_same_day_reservation: "if you want to schedule a reservation for today (%{today}), please contact either %{ds_mailto} or %{vc_mailto}"
             create:
                 success: "Your reservation was successfully scheduled for %{start} in Lab %{lab}. %{schedule_another_html}"
             update:

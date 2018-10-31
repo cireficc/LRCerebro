@@ -60,6 +60,8 @@ class StandardReservationsController < ApplicationController
 
     @standard_reservation = StandardReservation.new(create_params)
     authorize @standard_reservation
+    @standard_reservation.current_user = current_user
+    @standard_reservation.view_context = view_context
 
     if @standard_reservation.save
       @schedule_another_html = view_context.link_to("Schedule another reservation", new_standard_reservation_path, {class: 'btn btn-info'})
@@ -84,6 +86,8 @@ class StandardReservationsController < ApplicationController
   def update
 
     authorize @standard_reservation
+    @standard_reservation.current_user = current_user
+    @standard_reservation.view_context = view_context
 
     if @standard_reservation.update(update_params)
       flash[:success] = t "#{@i18n_path}.success", scope: "forms", start: @standard_reservation.start, lab: @standard_reservation.lab.titleize
