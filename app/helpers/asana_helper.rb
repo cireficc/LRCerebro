@@ -11,6 +11,22 @@ module AsanaHelper
 	WORK_REQUESTS_PROJECT_ID = Figaro.env.asana_work_requests_project_id
 
 	TAG_TASK_ID = Figaro.env.asana_lrcerebro_tag_task_id
+	
+	# The Asana ids for each lab assistant that should follow tasks
+	# Get list using AsanaHelper.get_all_users in console
+	LAB_WORKER_ASANA_IDS = [
+			'676405442040548', # Ashley Salik
+			'676405464343337', # Erin Routledge
+			'677350182974305', # Brittany Moody
+			'714496949127333', # Hannah Yesmunt
+			'793831569382879', # Hanna Hathaway
+			'793831569382891', # Isaac DuBois
+			'793831569382903', # Jillian Huizenga
+			'793831569382927', # Lauren Cooney
+			'793831569382939', # Myesha Dills
+			'796913839855727', # Elyssa Linderman
+			'800220270606287', # Victor Pizarro
+	]
 
 	TAG_TASK_CREATE_DATA = {
 			projects: [LRCEREBRO_PROJECT_ID],
@@ -58,6 +74,7 @@ Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 		}
 
 		task = @client.tasks.create(task_data)
+		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, task, project.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, task, project.course.instructor.last_name)
@@ -84,6 +101,7 @@ Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 		}
 
 		task = @client.tasks.create(task_data)
+		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, task, mini_project.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, task, mini_project.course.instructor.last_name)
@@ -107,6 +125,7 @@ Submitted: #{ApplicationHelper.utc_to_local(film_digitization.created_at)}"
 		}
 
 		task = @client.tasks.create(task_data)
+		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, task, film_digitization.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, task, film_digitization.course.instructor.last_name)
@@ -148,6 +167,8 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 
 		filming_task = @client.tasks.create(filming_task_data)
 		publishing_task = @client.tasks.create(publishing_task_data)
+		filming_task.add_followers(followers: LAB_WORKER_ASANA_IDS)
+		publishing_task.add_followers(followers: LAB_WORKER_ASANA_IDS)
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, filming_task, vidcam.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, filming_task, vidcam.course.instructor.last_name)
@@ -167,6 +188,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		}
 
 		task = @client.tasks.create(task_data)
+		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
 		existing_tags = get_all_workspace_tags
 		create_and_attach_tag(existing_tags, task, work.course.decorate.short_name)
 		create_and_attach_tag(existing_tags, task, work.course.instructor.last_name)
