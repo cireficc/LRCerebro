@@ -2,17 +2,17 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.0'
+gem 'rails', '5.2.1'
 # Use PostgreSQL as the database for ActiveRecord
 gem 'pg', '~> 1.0.0'
 # Use Devise as an authentication solution
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.5.0'
 # Use Bcrypt to encrypt passwords in the database
 gem 'bcrypt', '~> 3.1.12'
 # Use Pundit as a role-based resource restriction mechanism
 gem 'pundit', '~> 1.0.1'
 # Use Slim as the view templating engine (similar to Jade)
-gem 'slim', '>= 3.0.3'
+gem 'slim', '>= 4.0.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,7 +24,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 # https://github.com/TrevorS/bootstrap3-datetimepicker-rails
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
-gem 'google-api-client', '~> 0.23.0'
+gem 'google-api-client', '~> 0.23.9'
 # Use Simple Form for forms instead of building complex forms by hand
 gem 'simple_form', '~> 4.0.1'
 # Use Acts-As-Taggable-On for tagging models
@@ -34,11 +34,11 @@ gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on.
 gem 'select2-rails', '~> 4.0.3'
 # Use Searchkick (+ ElasticSearch) to complex searching
 gem 'searchkick', '~> 3.0.2'
-gem 'elasticsearch', '~> 6.0.2'
+gem 'elasticsearch', '~> 6.0.3'
 # Use Kaminari to paginate large result sets
 gem 'kaminari', '~> 0.17.0'
 # Use ActiveModelSerializers to succinctly customize JSON output
-gem 'active_model_serializers', '~> 0.10.7'
+gem 'active_model_serializers', '~> 0.10.8'
 # Use CarrierWave to do image attachments and processing, and Cloudinary to host them
 gem 'carrierwave', '~> 0.11.2'
 gem 'cloudinary', '~> 1.2'
