@@ -57,21 +57,22 @@ module AsanaHelper
 	def self.create_project_task(id)
 
 		project = Project.find(id).decorate
+		due_date = project.publish_by
 
 		notes = "Type: #{project.category}
 Name: #{project.name}
 Description: #{project.description}
 Due Date: #{project.due}
-Publish By: #{project.publish_by}
+Publish By: #{due_date}
 Publish Method(s): #{project.stringified_publish_methods}
 Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 
 		task_data = {
 				projects: [PROJECT_PUBLISHING_PROJECT_ID],
 				name: "Project Publishing: #{project.category} (#{project.name})",
-				due_at: ApplicationHelper.local_to_utc(project.publish_by),
 				notes: notes
 		}
+		task_data.merge(due_at: ApplicationHelper.local_to_utc(due_date)) if due_date
 
 		task = @client.tasks.create(task_data)
 		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
@@ -83,22 +84,23 @@ Submitted: #{ApplicationHelper.utc_to_local(project.created_at)}"
 	def self.create_mini_project_task(id)
 
 		mini_project = MiniProject.find(id).decorate
+		due_date = mini_project.publish_by
 
 		notes = "Resources: #{mini_project.stringified_resources}
 Description: #{mini_project.description}
 Supplemental Materials: #{mini_project.supplemental_materials_description}
 Start Date: #{mini_project.start_date}
 Due Date: #{mini_project.due_date}
-Publish By: #{mini_project.publish_by}
+Publish By: #{due_date}
 Publish Method(s): #{mini_project.stringified_publish_methods}
 Submitted: #{ApplicationHelper.utc_to_local(mini_project.created_at)}"
 
 		task_data = {
 				projects: [MINI_PROJECTS_PROJECT_ID],
 				name: "Mini Project: #{mini_project.stringified_resources}",
-				due_at: ApplicationHelper.local_to_utc(mini_project.publish_by),
 				notes: notes
 		}
+		task_data.merge(due_at: ApplicationHelper.local_to_utc(due_date)) if due_date
 
 		task = @client.tasks.create(task_data)
 		task.add_followers(followers: LAB_WORKER_ASANA_IDS)
