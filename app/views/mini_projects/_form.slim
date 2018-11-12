@@ -76,7 +76,7 @@
                         as: :boolean,
                         label: "Do you need the final mini projects to be accessible to other people",
                         input_html: { checked: @mini_project.present == "1" ? true : false }
-            div#mini_publish_by_hidden
+            div#mini_publish_by_hidden style="display: none;"
               .row
                 .col-md-3
                   h4 Publish method
