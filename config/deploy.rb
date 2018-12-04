@@ -43,4 +43,12 @@ namespace :deploy do
       upload!(data, path)
     end
   end
+
+  # Delayed Job runs background jobs (like syncing data from Google) and needs
+  # to be restarted after each code deploy.
+  after :restart, :restart_delayed_job do
+    on roles(:all) do
+      execute "sudo /usr/sbin/service lrcerebro-delayed-job restart"
+    end
+  end
 end
