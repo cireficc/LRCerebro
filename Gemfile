@@ -54,8 +54,6 @@ gem 'asana', '~> 0.6.3'
 # Use DelayedJob and Daemons for job queue processing
 gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'daemons', '~> 1.2.6'
-# Use Capistrano/DJ deploy library to properly set up Rake tasks
-gem 'capistrano3-delayed-job', '~> 1.7.5'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -78,6 +76,10 @@ group :development do
   gem "capistrano-bundler",       require: false
   gem "capistrano-passenger",     require: false
   gem "capistrano-rails-console", require: false
+
+  # Support ed25519 ssh keys
+  gem "bcrypt_pbkdf", require: false
+  gem "ed25519",      require: false
 end
 
 group :development, :test do
