@@ -11,7 +11,6 @@ require "capistrano/rails/assets"
 require "capistrano/rails/console"
 require "capistrano/rails/migrations"
 require "capistrano/passenger"
-require "capistrano/delayed_job"
 require "capistrano/scm/git"
 
 install_plugin Capistrano::SCM::Git
