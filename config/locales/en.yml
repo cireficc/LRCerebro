@@ -25,7 +25,7 @@ en:
             destroy:
                 success: "Your reservation for %{start} was successfully cancelled."
         project:
-            offline: "The deadline for project proposal submissions was %{deadline}."
+            offline: "The project proposal submission window is %{start} to %{end}."
             create:
                 success: "Your project, %{name}, was successfully submitted. %{submit_another_html}"
             update:

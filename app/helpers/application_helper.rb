@@ -41,8 +41,9 @@ module ApplicationHelper
   end
   
   def form_submission_allowed?
-    config = ApplicationConfiguration.last
+    # The date in the database is in UTC, but this is in local time. So we need to make sure they are both in UTC otherwise
+    # the date comparisons are off by whatever the difference is between local time and UTC
     now = Time.now.asctime.in_time_zone('UTC')
-    now >= config.current_semester_start && now <= config.current_semester_end
+    now >= @application_configuration.current_semester_start && now <= @application_configuration.current_semester_end
   end
 end

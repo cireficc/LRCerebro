@@ -5,7 +5,9 @@
   h2 #{form_type.titleize} form offline
   h4
     - if project
-      = t offline_path, scope: 'forms', deadline: @config.class_project_submission_end
+      = t offline_path, scope: 'forms',
+              start: @application_configuration.class_project_submission_start.to_date,
+              end: @application_configuration.class_project_submission_end.to_date
     - else
       = t offline_path, scope: 'forms'
   - if !project
@@ -13,6 +15,10 @@
       | Please consult the 
       = link_to 'GVSU academic calendar', 'https://www.gvsu.edu/registrar/academiccalendar.htm', target: :blank
       |  for the next semester's start date when <em>classes begin</em>.
+    h4
+      | LRCerebro configuration will only allow form submissions from
+      |  <strong>#{@application_configuration.current_semester_start.to_date}</strong> to
+      |  <strong>#{@application_configuration.current_semester_end.to_date}</strong>.
   h4
     | If you believe this is an error, please email 
     = mail_to 'shultzd@gvsu.edu', 'David Shultz', {subject: 'LRCerebro - Form Offline', cc: 'cireficesystems@gmail.com'}

@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :set_application_configuration
   before_action :set_view_path
   before_action :set_i18n_path, only: [:create, :update, :destroy]
   after_action :store_last_page
@@ -22,6 +23,10 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
+  
+  def set_application_configuration
+    @application_configuration = ApplicationConfiguration.last
+  end
 
   # Set the view directory path based on the controller and the user's role.
   # This allows us to divide the view folders more explicitly and prevent forms
