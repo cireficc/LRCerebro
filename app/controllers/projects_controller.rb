@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     authorize @project
 
     # Director can use the form even if it is offline
-    if form_submission_allowed? || current_user.director?
+    if project_submission_allowed? || current_user.director?
       flash.now[:warning] = @application_configuration.class_project_before_deadline_message
       render "#{@view_path}/new"
     else

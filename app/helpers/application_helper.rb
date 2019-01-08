@@ -46,4 +46,11 @@ module ApplicationHelper
     now = Time.now.asctime.in_time_zone('UTC')
     now >= @application_configuration.current_semester_start && now <= @application_configuration.current_semester_end
   end
+  
+  def project_submission_allowed?
+    # The date in the database is in UTC, but this is in local time. So we need to make sure they are both in UTC otherwise
+    # the date comparisons are off by whatever the difference is between local time and UTC
+    now = Time.now.asctime.in_time_zone('UTC')
+    now >= @application_configuration.class_project_submission_start && now <= @application_configuration.class_project_submission_end
+  end
 end
