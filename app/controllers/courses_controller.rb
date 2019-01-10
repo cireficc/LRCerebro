@@ -62,6 +62,8 @@ class CoursesController < ApplicationController
       flash[:success] = t "#{@i18n_path}.success", scope: "forms", name: @course.name
       redirect_to courses_path
     else
+      flash[:danger] = t :submission_errors, scope: "forms"
+      puts @course.errors.full_messages
       render :new
     end
   end

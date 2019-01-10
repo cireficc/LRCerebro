@@ -66,6 +66,8 @@ class UsersController < ApplicationController
                           name: "#{@user.first_name} #{@user.last_name}"
       redirect_to users_path
     else
+      flash[:danger] = t :submission_errors, scope: "forms"
+      puts @user.errors.full_messages
       render :new
     end
   end
