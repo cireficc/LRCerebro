@@ -46,6 +46,9 @@ The other exports are the calendars used in development mode, separate from the 
 5. `cd current`
 6. `bundle exec rake db:import_mll_data`
 
-### Start the Delayed::Job daemon
+### Start the Delayed::Job daemon and get jobs working
 
-`RAILS_ENV=production bin/delayed_job start`
+`bundle exec rake jobs:work` will work jobs currently in the queue.
+
+`RAILS_ENV=production bin/delayed_job start` will start the job service locally, 
+`sudo /usr/sbin/service lrcerebro-delayed-job start` will start it on the production server.
