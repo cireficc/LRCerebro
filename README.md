@@ -52,3 +52,7 @@ The other exports are the calendars used in development mode, separate from the 
 
 `RAILS_ENV=production bin/delayed_job start` will start the job service locally, 
 `sudo /usr/sbin/service lrcerebro-delayed-job start` will start it on the production server.
+
+### Start the Elasticsearch service
+
+`sudo /usr/sbin/service elasticsearch start` (`restart` and `stop` also)
