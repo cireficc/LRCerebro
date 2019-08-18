@@ -67,6 +67,11 @@ namespace :db do
 			year = semester_code[0..3].to_i # Year is the first 4 digits of the semester code
 			semester = semester_code[4..5].to_i # Semester is the last 2 digits of the semester code
 			semester = Course::SEMESTER_CODES[semester] # Gives us the actual enum value
+      
+      # If it is Fall semester, set the year back. GVSU considers an "academic calendar year" for course years, i.e.
+      # Fall 2020, Winter 2020, Summer 2020. However, we refer to that as Fall 2019, Winter 2020, Summer 2020 (so consistent
+      # with the year of the actual start of the semester)
+      year -= 1 if semester == Course.semesters[:fall]
 
 			language = identifier[0..2] # Language is the first 3 characters of the identifier
 			department = Course::DEPARTMENT_CODES[language] # Gives us the actual enum value, or nil
