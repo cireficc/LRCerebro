@@ -55,7 +55,9 @@
             h4 Enrolled users
         div#enrolled_users
           - enrollment_partial = 'enrolled_user_partial'
-          - users = show ? @course.users.order(last_name: :asc) : User.search("*", where: { archived: false }, order: { last_name: :asc }, per_page: 10000)
+          - unarchived = User.search("*", where: { archived: false }, order: { last_name: :asc }, per_page: 10000)
+          - currently_enrolled = @course.users
+          - users = show ? @course.users.order(last_name: :asc) : (unarchived + currently_enrolled)
           = f.simple_fields_for :enrollment do |enrollment|
             = render partial: enrollment_partial, locals: {f: enrollment, users: users}
           div
