@@ -25,7 +25,7 @@ class CoursePolicy
   end
 
   def edit?
-    @course.active? && (@user.director? || @user.labasst?)
+    @user.director? || @user.labasst?
   end
 
   def update?
