@@ -12,6 +12,7 @@
 
 development:
   secret_key_base: string_base_64
+  GOOGLE_APPLICATION_CREDENTIALS: "./config/GOOGLE_API_SERVICE_DEVELOPMENT.json"
   google_calendar_reservation_cal_id: calendar_id@group.calendar.google.com
   google_calendar_project_publishing_cal_id: calendar_id@group.calendar.google.com
   google_calendar_vidcam_cal_id: calendar_id@group.calendar.google.com

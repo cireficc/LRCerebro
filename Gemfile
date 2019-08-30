@@ -50,7 +50,7 @@ gem 'cocoon', '~> 1.2.9'
 # Use Draper for view-models (keep view code out of models)
 gem 'draper', '~> 3.0.1'
 # Use Asana for task management API access
-gem 'asana', '~> 0.6.3'
+gem 'asana', '~> 0.9.2'
 # Use DelayedJob and Daemons for job queue processing
 gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'daemons', '~> 1.2.6'

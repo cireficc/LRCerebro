@@ -210,7 +210,7 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 		t = get_tag_by_name(existing_tags, tag_name)
 		t = @client.tags.create_in_workspace(workspace: LRC_WORKSPACE_ID, name: tag_name) if t.nil?
 
-		task.add_tag(tag: t.id)
+		task.add_tag(tag: t.gid)
 	end
 
 	def self.get_tag_by_name(existing_tags, tag_name)
@@ -236,8 +236,8 @@ Submitted: #{ApplicationHelper.utc_to_local(vidcam.created_at)}"
 	
 	def self.get_default_follower_ids
 		# Exclude [0] Veronica Clapp, [1] Chris Cirefice
-		to_exclude = [676414736709690, 680516225581780]
-		get_all_users.collect(&:id) - to_exclude
+		to_exclude = ["676414736709690", "680516225581780"]
+		get_all_users.collect(&:gid) - to_exclude
 	end
 
 	def self.get_all_projects
