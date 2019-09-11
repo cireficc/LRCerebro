@@ -53,10 +53,12 @@ class User < ActiveRecord::Base
   def active_courses
     # Director and labasst will see all non-archived courses
     if (self.director? || self.labasst?)
-      Course.active
+      active = Course.active
       # Faculty and student will see non-archived courses that they are enrolled in
     else
-      self.courses.active
+      active = self.courses.active
     end
+    
+    active.order(:name)
   end
 end

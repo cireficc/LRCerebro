@@ -1,5 +1,5 @@
 = form_tag search_path, id: "sitewide_search_form", method: :get do |f|
-  - courses = current_user.faculty? ? current_user.active_courses.order(:name) : Course.all
+  - courses = current_user.faculty? ? current_user.active_courses : Course.all
   .row
     .col-md-3
       h4 Course

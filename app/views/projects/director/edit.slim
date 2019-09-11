@@ -17,9 +17,8 @@
             .col-md-4
               h4 Course
             .col-md-8
-              - @courses = current_user.active_courses.order(:name)
               = f.input :course_id,
-                      collection: @courses.collect { |c| [c.name, c.id] },
+                      collection: current_user.active_courses.collect { |c| [c.name, c.id] },
                       prompt: "Select a course"
           .row
             .col-md-4
