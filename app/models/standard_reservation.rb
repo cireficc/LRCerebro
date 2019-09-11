@@ -29,7 +29,8 @@ class StandardReservation < ActiveRecord::Base
       "Photo Booth",
       "Writing or Web Research",
       "Film Viewing",
-      "MLPA-CoLa Testing",
+      "STAMP (listening)",
+      "STAMP (reading)",
       "Skype Session",
       "LRC Orientation"
   ]
