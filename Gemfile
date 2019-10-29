@@ -6,7 +6,7 @@ gem 'rails', '5.2.1'
 # Use PostgreSQL as the database for ActiveRecord
 gem 'pg', '~> 1.0.0'
 # Use Devise as an authentication solution
-gem 'devise', '~> 4.5.0'
+gem 'devise', '~> 4.7.1'
 # Use Bcrypt to encrypt passwords in the database
 gem 'bcrypt', '~> 3.1.12'
 # Use Pundit as a role-based resource restriction mechanism
