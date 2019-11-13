@@ -29,6 +29,7 @@ class StandardReservation < ActiveRecord::Base
       "Photo Booth",
       "Writing or Web Research",
       "Film Viewing",
+      "Puppet Theater",
       "STAMP (listening)",
       "STAMP (reading)",
       "Skype Session",
