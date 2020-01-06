@@ -24,6 +24,7 @@ class Project < ActiveRecord::Base
   # Garage Band - A podcast-type project using Garage Band 
   # Pixton - A comic book project using Pixton 
   # Photo Booth - A short video or photo project using Photo Booth 
+  # Puppets - A theater performance using hand-made puppets
   # Storybird - A short story project with artwork using Storybird
   # Blog - A blog project using Google Sites 
   # Pages - A document-based project using Pages 
@@ -32,6 +33,7 @@ class Project < ActiveRecord::Base
       "Garage Band",
       "Pixton",
       "Photo Booth",
+      "Puppets",
       "Storybird",
       "Blog",
       "Pages"
