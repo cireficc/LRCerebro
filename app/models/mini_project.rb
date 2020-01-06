@@ -17,7 +17,6 @@ class MiniProject < ActiveRecord::Base
   RESOURCES = [
       "Plex Music",
       "Films",
-      "Delicast streaming TV",
       "DiLL",
       "Puppet Show",
       "Photobooth",
