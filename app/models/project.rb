@@ -36,7 +36,8 @@ class Project < ActiveRecord::Base
       "Puppets",
       "Storybird",
       "Blog",
-      "Pages"
+      "Pages",
+      "Google Sites"
   ]
 
   # Publishing options
