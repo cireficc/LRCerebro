@@ -26,7 +26,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 # Use Google Client Library for interaction with Google APIs (Calendar, Email, etc)
 gem 'google-api-client', '~> 0.23.9'
 # Use Simple Form for forms instead of building complex forms by hand
-gem 'simple_form', '~> 4.0.1'
+gem 'simple_form', '~> 5.0.0'
 # Use Acts-As-Taggable-On for tagging models
 # gem 'acts-as-taggable-on', '~> 5.0.0'
 gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on.git'
