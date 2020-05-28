@@ -36,7 +36,7 @@ gem 'select2-rails', '~> 4.0.3'
 gem 'searchkick', '~> 3.0.2'
 gem 'elasticsearch', '~> 6.0.3'
 # Use Kaminari to paginate large result sets
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 # Use ActiveModelSerializers to succinctly customize JSON output
 gem 'active_model_serializers', '~> 0.10.8'
 # Use CarrierWave to do image attachments and processing, and Cloudinary to host them
