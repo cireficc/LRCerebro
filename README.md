@@ -56,3 +56,14 @@ The other exports are the calendars used in development mode, separate from the 
 ### Start the Elasticsearch service
 
 `sudo /usr/sbin/service elasticsearch start` (`restart` and `stop` also)
+
+If Elasticsearch has the following index write error:
+
+> `Elasticsearch::Transport::Transport::Errors::Forbidden: [403] {"error":{"root_cause":[{"type":"cluster_block_exception","reason":"blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];"}],"type":"cluster_block_exception","reason":"blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];"},"status":403}`
+
+([source](https://stackoverflow.com/a/57675654/1986871)) clear up disk space to < 95% threshold, and run the following commands:
+
+```bash
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+```
