@@ -98,7 +98,7 @@ group :staging, :production do
   gem 'lograge', '~> 0.11.2'
 
   # V8 JavaScript Runtime for the server
-  gem "therubyracer"
+  gem 'therubyracer', '~> 0.12.3'
 end
 
 ruby '2.5.1'
