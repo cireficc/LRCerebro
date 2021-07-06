@@ -67,3 +67,9 @@ If Elasticsearch has the following index write error:
 curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
 curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
 ```
+
+### Restoring database from LRC
+
+1. create dump file: `ssh lrcerebro@lrcerebro.mll.gvsu.edu` --> `pg_dump lrcerebro > lrc.dump`
+2. SCP dump file to localhost: `scp lrcerebro@lrcerebro.mll.gvsu.edu:lrc.dump ~/lrc.dump`, then `rm lrc.dump` from the server
+3. run on localhost `rake db:drop db:create && psql lrcerebro_development < lrc.dump && rake searchkick:reindex:all`

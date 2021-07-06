@@ -46,7 +46,7 @@ gem 'select2-rails', '~> 4.0.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.2.0'
+gem 'uglifier', '~> 4.1.20'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.2.2'
 # Use Moment.js and Date-time picker for date/time selectors
