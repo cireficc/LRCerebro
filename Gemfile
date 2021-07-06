@@ -49,7 +49,7 @@ gem 'sass-rails', '~> 5.0.7'
 gem 'uglifier', '~> 4.2.0'
 gem 'execjs', '~> 2.8.1'
 # V8 JavaScript Runtime for the server
-gem 'therubyracer', '~> 0.12.3'
+gem 'libv8', '~> 8.4.255.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.2.2'
 # Use Moment.js and Date-time picker for date/time selectors
