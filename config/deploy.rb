@@ -2,7 +2,7 @@
 lock "3.16.0"
 
 set :application, "lrcerebro"
-set :repo_url, "git@github.com:cireficc/LRCerebro.git"
+set :repo_url, "https://github.com/cireficc/LRCerebro.git"
 
 # Set the default stage to production as staging is not generally accessible.
 set :stage, "production"
